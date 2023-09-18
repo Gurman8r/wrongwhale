@@ -1,2 +1,2 @@
 # wrongwhale
-Wrong Whale
+The repo for Town of Aster.
