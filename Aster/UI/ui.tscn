@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://crltm8vtiwlek"]
+
+[ext_resource type="Script" path="res://UI/ui.gd" id="1_h1l0u"]
+[ext_resource type="Script" path="res://UI/hud.gd" id="2_83w7h"]
+[ext_resource type="Script" path="res://UI/title.gd" id="2_frujo"]
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_h1l0u")
+
+[node name="Title" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_frujo")
+
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_83w7h")

@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://dtctywdrq7p6d"]
+
+[ext_resource type="Script" path="res://Player/player.gd" id="1_xqj4q"]
+[ext_resource type="Script" path="res://Player/playerdata.gd" id="2_og1ua"]
+
+[sub_resource type="Resource" id="Resource_0tem1"]
+script = ExtResource("2_og1ua")
+guid = "player_new"
+name = "New Player"
+items = Array[Resource("res://Items/itemdata.gd")]([])
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_4n8fu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ycyo2"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_aa81b"]
+material = SubResource("StandardMaterial3D_ycyo2")
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_xqj4q")
+data = SubResource("Resource_0tem1")
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 10, 10)
+
+[node name="Collider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_4n8fu")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_aa81b")
+skeleton = NodePath("")

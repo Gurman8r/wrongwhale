@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PlayerData" load_steps=2 format=3 uid="uid://diwisac5a2uh1"]
+
+[ext_resource type="Script" path="res://Player/playerdata.gd" id="1_vrmco"]
+
+[resource]
+script = ExtResource("1_vrmco")
+guid = "player_default"
+name = "Default Player"
+items = Array[Resource("res://Items/itemdata.gd")]([])
