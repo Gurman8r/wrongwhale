@@ -1,5 +1,3 @@
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
-
 # inventory.gd
 class_name Inventory
 extends Resource
@@ -24,5 +22,3 @@ func swap_items(source: int, target: int):
 	items[target] = source_item
 	items[source] = target_item
 	items_changed.emit([source, target])
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #

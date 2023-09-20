@@ -21,17 +21,17 @@ var players: Array[Player]
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
-func _ready():
-	assert(self.actor_root)
-	assert(self.item_root)
-	assert(self.light_root)
-	assert(self.map_root)
-	assert(self.misc_root)
-	assert(self.player_root)
-	assert(Game.world.register_cell(self))
-	
-func _notification(_n):
-	if _n == NOTIFICATION_PREDELETE:
-		assert(Game.world.unregister_cell(self))
+func _notification(what):
+	match what:
+		NOTIFICATION_READY:
+			assert(self.actor_root, "cell actor root not set")
+			assert(self.item_root, "cell item root not set")
+			assert(self.light_root, "cell light root not set")
+			assert(self.map_root, "cell map root not set")
+			assert(self.misc_root, "cell misc root not set")
+			assert(self.player_root, "cell player root not set")
+			assert(Game.world.register_cell(self))
+		NOTIFICATION_PREDELETE:
+			assert(Game.world.unregister_cell(self))
 	
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #

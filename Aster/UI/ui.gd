@@ -1,17 +1,8 @@
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
-
 # ui.gd
 class_name UI
 extends CanvasLayer
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+func _init(): Game.ui = self
 
 @onready var hud: HUD = $HUD
-@onready var debug: Debug = $DEBUG
+@onready var dialog_box = $DialogBox
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
-
-func _init():
-	Game.ui = self
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #

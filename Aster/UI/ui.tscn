@@ -1,22 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://crltm8vtiwlek"]
+[gd_scene load_steps=3 format=3 uid="uid://crltm8vtiwlek"]
 
 [ext_resource type="Script" path="res://UI/ui.gd" id="1_h1l0u"]
-[ext_resource type="Script" path="res://UI/hud.gd" id="2_83w7h"]
-[ext_resource type="Script" path="res://UI/debug.gd" id="3_jv1cw"]
+[ext_resource type="PackedScene" uid="uid://bkablsspd22di" path="res://UI/hud.tscn" id="2_77dle"]
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_h1l0u")
 
-[node name="HUD" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("2_83w7h")
+[node name="HUD" parent="." instance=ExtResource("2_77dle")]
 
-[node name="Debug" type="Control" parent="."]
+[node name="DialogBox" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("3_jv1cw")

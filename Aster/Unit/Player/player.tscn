@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://7agjxh3jwadj"]
 
-[ext_resource type="Script" path="res://Player/player.gd" id="1_tek4k"]
-[ext_resource type="Script" path="res://Player/playerdata.gd" id="2_og1ua"]
+[ext_resource type="Script" path="res://Unit/Player/player.gd" id="1_bger6"]
+[ext_resource type="Script" path="res://Unit/unitdata.gd" id="2_q0wl8"]
 
 [sub_resource type="Resource" id="Resource_epeui"]
-script = ExtResource("2_og1ua")
+script = ExtResource("2_q0wl8")
 guid = "Player_New"
 name = "New Player"
 
@@ -20,7 +20,7 @@ material = SubResource("StandardMaterial3D_8j3gd")
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
-script = ExtResource("1_tek4k")
+script = ExtResource("1_bger6")
 data = SubResource("Resource_epeui")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -41,9 +41,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("BoxMesh_82cve")
 skeleton = NodePath("../CollisionShape")
 
-[node name="InteractRayCast" type="RayCast3D" parent="."]
+[node name="InteractRay" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-target_position = Vector3(0, 0, -1)
+target_position = Vector3(0, 0, -1.5)
 collision_mask = 4
 collide_with_areas = true
 debug_shape_custom_color = Color(0.960784, 0, 0, 1)
+debug_shape_thickness = 5

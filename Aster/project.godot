@@ -146,7 +146,7 @@ sprint={
 
 3d_physics/layer_1="Solid"
 3d_physics/layer_2="Player"
-3d_physics/layer_3="Interact"
+3d_physics/layer_3="Interactable"
 
 [rendering]
 

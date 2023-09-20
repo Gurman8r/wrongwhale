@@ -1,13 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://c2l33s7gej4e7"]
+[gd_scene load_steps=5 format=3 uid="uid://ceayg6qxqwqxn"]
 
-[ext_resource type="Script" path="res://Actor/actor.gd" id="1_h6k84"]
-[ext_resource type="Script" path="res://Actor/actordata.gd" id="2_hf6q2"]
-
-[sub_resource type="Resource" id="Resource_l642m"]
-script = ExtResource("2_hf6q2")
-guid = "actor_default"
-name = "Default Actor"
-desc = ""
+[ext_resource type="Script" path="res://Unit/Actor/actor.gd" id="1_0l4o6"]
 
 [sub_resource type="AnimationRootNode" id="AnimationRootNode_7ydhc"]
 
@@ -16,8 +9,7 @@ desc = ""
 [sub_resource type="BoxMesh" id="BoxMesh_7msli"]
 
 [node name="Actor" type="CharacterBody3D"]
-script = ExtResource("1_h6k84")
-data = SubResource("Resource_l642m")
+script = ExtResource("1_0l4o6")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../MeshInstance3D")
@@ -27,14 +19,17 @@ tree_root = SubResource("AnimationRootNode_7ydhc")
 anim_player = NodePath("../AnimationPlayer")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("SphereShape3D_b71gr")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("BoxMesh_7msli")
 
-[node name="InteractRayCast" type="RayCast3D" parent="."]
+[node name="InteractRay" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-target_position = Vector3(0, 0, -1)
-collision_mask = 5
+target_position = Vector3(0, 0, -1.5)
+collision_mask = 4
 collide_with_areas = true
 debug_shape_custom_color = Color(0.960784, 0, 0, 1)
+debug_shape_thickness = 5
