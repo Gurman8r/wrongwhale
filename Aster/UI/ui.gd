@@ -1,23 +1,17 @@
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
 # ui.gd
-extends CanvasLayer
 class_name UI
+extends CanvasLayer
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
-@export var hud: HUD
-@export var title: Title
+@onready var hud: HUD = $HUD
+@onready var title: Title = $Title
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
 func _init():
-	print("UI init")
 	Game.ui = self
-	self.hud = $HUD
-	self.title = $Title
-
-func _ready():
-	print("UI ready")
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #

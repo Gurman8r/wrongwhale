@@ -1,33 +1,54 @@
-[gd_scene load_steps=7 format=3 uid="uid://dtctywdrq7p6d"]
+[gd_scene load_steps=10 format=3 uid="uid://7agjxh3jwadj"]
 
-[ext_resource type="Script" path="res://Player/player.gd" id="1_xqj4q"]
+[ext_resource type="Script" path="res://Player/player.gd" id="1_tek4k"]
 [ext_resource type="Script" path="res://Player/playerdata.gd" id="2_og1ua"]
+[ext_resource type="Script" path="res://Game/entity.gd" id="3_btini"]
 
-[sub_resource type="Resource" id="Resource_0tem1"]
+[sub_resource type="Resource" id="Resource_epeui"]
 script = ExtResource("2_og1ua")
 guid = "player_new"
 name = "New Player"
-items = Array[Resource("res://Items/itemdata.gd")]([])
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_4n8fu"]
+[sub_resource type="Resource" id="Resource_m7c1f"]
+script = ExtResource("3_btini")
+health = 100.0
+healthmax = 100.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ycyo2"]
+[sub_resource type="AnimationRootNode" id="AnimationRootNode_wb8xl"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_aa81b"]
-material = SubResource("StandardMaterial3D_ycyo2")
+[sub_resource type="SphereShape3D" id="SphereShape3D_ogtbw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8j3gd"]
+albedo_color = Color(0.215686, 0.321569, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_82cve"]
+material = SubResource("StandardMaterial3D_8j3gd")
 
 [node name="Player" type="CharacterBody3D"]
-script = ExtResource("1_xqj4q")
-data = SubResource("Resource_0tem1")
+collision_layer = 2
+script = ExtResource("1_tek4k")
+data = SubResource("Resource_epeui")
+entity = SubResource("Resource_m7c1f")
 
-[node name="Camera" type="Camera3D" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationRootNode_wb8xl")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 10, 10)
 
-[node name="Collider" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-shape = SubResource("SphereShape3D_4n8fu")
+shape = SubResource("SphereShape3D_ogtbw")
 
-[node name="Mesh" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("BoxMesh_aa81b")
-skeleton = NodePath("")
+mesh = SubResource("BoxMesh_82cve")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+target_position = Vector3(0, 0, -1)
+debug_shape_custom_color = Color(0.960784, 0, 0, 1)

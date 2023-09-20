@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="QuestData" load_steps=2 format=3 uid="uid://dp0krkpvqprq4"]
-
-[ext_resource type="Script" path="res://Quests/questdata.gd" id="1_ltutn"]
-
-[resource]
-script = ExtResource("1_ltutn")
-guid = "quest_default"
-name = "Default Quest"
-desc = "The default quest."

@@ -5,17 +5,37 @@ extends Node
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
-var world: World
-var ui: UI
+enum {
+	STATE_SPLASH,
+	STATE_TITLE,
+	STATE_MAINMENU,
+	STATE_GAME,
+}
+
+enum {
+	WEST, LEFT = WEST,
+	EAST, RIGHT = EAST,
+	NORTH, UP = NORTH,
+	SOUTH, DOWN = SOUTH,
+}
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
-func _init():
-	print("Game init")
+var world: World
+var ui: UI
+
+var player: Player
+var players: Array[Player]
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
 func _ready():
-	print("Game ready")
-	assert(world, "World not found")
-	assert(ui, "UI not found")
+	assert(self.world, "Game.world not set")
+	assert(self.ui, "Game.ui not set")
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+
+func register_player(player: Player) -> void:
+	pass
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #

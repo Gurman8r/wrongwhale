@@ -1,13 +1,13 @@
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
-# questdata.gd
+# actordata.gd
+class_name ActorData
 extends Resource
-class_name QuestData
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
-@export var guid: String = "quest_new"
-@export var name: String = "New Quest"
-@export var desc: String = "Quest Description"
+@export var guid: String = "actor_new"
+@export var name: String = "New Actor"
+@export var desc: String = ""
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #

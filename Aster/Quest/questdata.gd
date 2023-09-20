@@ -1,15 +1,13 @@
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
-# itemdata.gd
+# questdata.gd
+class_name QuestData
 extends Resource
-class_name ItemData
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
-@export var guid: String = "Item_New"
-@export var name: String = "New Item"
-@export var desc: String = "Item Description"
-@export var mesh: Mesh = null
-@export var max_stack: int = 999
+@export var guid: String = "quest_new"
+@export var name: String = "New Quest"
+@export var desc: String = ""
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
