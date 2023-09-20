@@ -5,18 +5,11 @@ extends Node
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
-enum {
-	STATE_SPLASH,
-	STATE_TITLE,
-	STATE_MAINMENU,
-	STATE_GAME,
-}
+enum { LEFT, RIGHT, UP, DOWN, }
 
 enum {
-	WEST, LEFT = WEST,
-	EAST, RIGHT = EAST,
-	NORTH, UP = NORTH,
-	SOUTH, DOWN = SOUTH,
+	STATE_MENU,
+	STATE_GAME,
 }
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #

@@ -3,7 +3,6 @@
 # world.gd
 class_name World
 extends Node3D
-
 func _init(): Game.world = self
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
@@ -12,9 +11,22 @@ func _init(): Game.world = self
 var cell: Cell
 var cells: Array[Cell]
 
-signal cell_changed(from: Cell, to: Cell)
 signal cell_registered(value: Cell)
 signal cell_unregistered(value: Cell)
+signal cell_changed(from: Cell, to: Cell)
+
+func reload_cells():
+	var to_remove = []
+	self.cells.clear()
+	for child in self.get_children():
+		if child is Cell: self.cells.append(child)
+		else: to_remove.append(child)
+	assert(0 < self.cells.size(), "No cells were found")
+	for child in to_remove:
+		self.remove_child(child)
+	if !self.default_cell:
+		self.default_cell = self.cells[0]
+	self.cell = self.default_cell
 
 func register_cell(value: Cell) -> bool:
 	if self.cells.has(value): return false
@@ -36,23 +48,5 @@ func set_cell(value: Cell) -> Cell:
 	self.cell = value
 	self.cell_changed.emit(previous, value)
 	return previous
-
-func warp_player(player: Player, destination: Cell, location: Vector3 = Vector3()) -> void:
-	if self.cell != destination:
-		set_cell(destination)
-	player.position = location;
-
-func refresh_cells():
-	var to_remove = []
-	self.cells.clear()
-	for child in self.get_children():
-		if child is Cell: self.cells.append(child)
-		else: to_remove.append(child)
-	assert(0 < self.cells.size(), "No cells were found")
-	for child in to_remove:
-		self.remove_child(child)
-	if !self.default_cell:
-		self.default_cell = self.cells[0]
-	self.cell = self.default_cell
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #

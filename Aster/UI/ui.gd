@@ -7,7 +7,7 @@ extends CanvasLayer
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
 @onready var hud: HUD = $HUD
-@onready var title: Title = $Title
+@onready var debug: Debug = $DEBUG
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 

@@ -1,19 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://c2l33s7gej4e7"]
+[gd_scene load_steps=7 format=3 uid="uid://c2l33s7gej4e7"]
 
 [ext_resource type="Script" path="res://Actor/actor.gd" id="1_h6k84"]
 [ext_resource type="Script" path="res://Actor/actordata.gd" id="2_hf6q2"]
-[ext_resource type="Script" path="res://Game/entity.gd" id="3_q73bb"]
 
 [sub_resource type="Resource" id="Resource_l642m"]
 script = ExtResource("2_hf6q2")
 guid = "actor_default"
 name = "Default Actor"
 desc = ""
-
-[sub_resource type="Resource" id="Resource_h63u2"]
-script = ExtResource("3_q73bb")
-health = 100.0
-healthmax = 100.0
 
 [sub_resource type="AnimationRootNode" id="AnimationRootNode_7ydhc"]
 
@@ -24,7 +18,6 @@ healthmax = 100.0
 [node name="Actor" type="CharacterBody3D"]
 script = ExtResource("1_h6k84")
 data = SubResource("Resource_l642m")
-entity = SubResource("Resource_h63u2")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../MeshInstance3D")
@@ -38,3 +31,10 @@ shape = SubResource("SphereShape3D_b71gr")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_7msli")
+
+[node name="InteractRayCast" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+target_position = Vector3(0, 0, -1)
+collision_mask = 5
+collide_with_areas = true
+debug_shape_custom_color = Color(0.960784, 0, 0, 1)
