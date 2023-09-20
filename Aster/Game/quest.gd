@@ -1,12 +1,12 @@
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
-# playerdata.gd
-class_name PlayerData
+# quest.gd
+class_name Quest
 extends Resource
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
-@export var guid: String = "Player_New"
-@export var name: String = "New Player"
+@export var guid: String = "quest_new"
+@export var name: String = "New Quest"
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #

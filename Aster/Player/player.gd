@@ -8,10 +8,10 @@ extends CharacterBody3D
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var animation_tree: AnimationTree = $AnimationTree
-@onready var camera: Camera3D = $Camera3D
-@onready var collision_shape: CollisionShape3D = $CollisionShape3D
-@onready var mesh_instance: MeshInstance3D = $MeshInstance3D
-@onready var raycast: RayCast3D = $RayCast3D
+@onready var camera: Camera3D = $Camera
+@onready var collision_shape: CollisionShape3D = $CollisionShape
+@onready var mesh_instance: MeshInstance3D = $MeshInstance
+@onready var raycast: RayCast3D = $RayCast
 
 @export var data: PlayerData
 @export var entity: Entity
@@ -45,8 +45,16 @@ func _process(_delta):
 	var move_speed: float = self.walk_speed
 	if sprint: move_speed = self.run_speed
 	self.velocity = Vector3(move_dir.x, 0, move_dir.y) * move_speed
-	if !self.immobilized: move_and_slide()
+	if !self.immobilized: self.move_and_slide()
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
+func _physics_process(delta : float) -> void:
+	if self.raycast.is_colliding():
+		var collider = self.raycast.get_collider()
+		var point = self.raycast.get_collision_point()
+		var normal = self.raycast.get_collision_normal()
+		if Input.is_action_just_released("interact"):
+			print("HIT: "+collider.to_string())
+		
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #

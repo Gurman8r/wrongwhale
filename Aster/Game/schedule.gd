@@ -1,9 +1,7 @@
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
-# quest.gd
-class_name Quest
-extends Node
-
-@export var data: QuestData
+# schedule.gd
+class_name Schedule
+extends Resource
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #

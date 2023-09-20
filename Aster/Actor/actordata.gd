@@ -6,7 +6,7 @@ extends Resource
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
-@export var guid: String = "actor_new"
+@export var guid: String = "Actor_New"
 @export var name: String = "New Actor"
 @export var desc: String = ""
 

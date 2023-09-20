@@ -1,14 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://nbj160hiivk5"]
+[gd_scene load_steps=5 format=3 uid="uid://nbj160hiivk5"]
 
 [ext_resource type="Script" path="res://Item/item.gd" id="1_op5h4"]
-[ext_resource type="Script" path="res://Item/itemdata.gd" id="2_je42c"]
-
-[sub_resource type="Resource" id="Resource_yrwix"]
-script = ExtResource("2_je42c")
-guid = "item_new"
-name = "New Item"
-desc = "Item Description"
-max_stack = 999
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_njm34"]
 
@@ -19,7 +11,6 @@ material = SubResource("StandardMaterial3D_71nnq")
 
 [node name="Item" type="Area3D"]
 script = ExtResource("1_op5h4")
-data = SubResource("Resource_yrwix")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_njm34")

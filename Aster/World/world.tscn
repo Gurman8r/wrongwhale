@@ -8,8 +8,8 @@
 
 [sub_resource type="Resource" id="Resource_xtgla"]
 script = ExtResource("3_2mqql")
-guid = "cell_farm"
-name = "New Cell"
+guid = "Cell_Overworld"
+name = "Overworld"
 desc = ""
 interior = false
 
@@ -19,26 +19,28 @@ interior = false
 
 [node name="World" type="Node3D" node_paths=PackedStringArray("default_cell")]
 script = ExtResource("1_6pw55")
-default_cell = NodePath("Cell/Cell_Farm")
+default_cell = NodePath("Cell_Overworld")
 
-[node name="Cell" type="Node3D" parent="."]
-
-[node name="Cell_Farm" type="Node3D" parent="Cell"]
+[node name="Cell_Overworld" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0011425, 1.43051e-06, 0.0467873)
 script = ExtResource("2_50tjs")
 data = SubResource("Resource_xtgla")
 
-[node name="Actor" type="Node3D" parent="Cell/Cell_Farm"]
+[node name="Actor" type="Node3D" parent="Cell_Overworld"]
 
-[node name="Environment" type="Node3D" parent="Cell/Cell_Farm"]
+[node name="Item" type="Node3D" parent="Cell_Overworld"]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Cell/Cell_Farm/Environment"]
+[node name="Light" type="Node3D" parent="Cell_Overworld"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Cell_Overworld/Light"]
 environment = SubResource("Environment_ra6q1")
 
-[node name="DirectionalLight" type="DirectionalLight3D" parent="Cell/Cell_Farm/Environment"]
-transform = Transform3D(0.351842, 0.587811, -0.728482, 0, 0.778243, 0.627963, 0.936059, -0.220944, 0.273818, 0, 50, 50)
+[node name="WorldLight" type="DirectionalLight3D" parent="Cell_Overworld/Light"]
+transform = Transform3D(0.351842, 0.587811, -0.728482, 0, 0.778243, 0.627963, 0.936059, -0.220944, 0.273819, 0, 50, 50)
 
-[node name="GridMap" type="GridMap" parent="Cell/Cell_Farm/Environment"]
+[node name="Map" type="Node3D" parent="Cell_Overworld"]
+
+[node name="Blocks" type="GridMap" parent="Cell_Overworld/Map"]
 mesh_library = ExtResource("4_a6i8u")
 physics_material = SubResource("PhysicsMaterial_7qnnf")
 cell_size = Vector3(1, 1, 1)
@@ -47,11 +49,9 @@ data = {
 }
 metadata/_editor_floor_ = Vector3(0, -1, 0)
 
-[node name="Item" type="Node3D" parent="Cell/Cell_Farm"]
+[node name="Misc" type="Node3D" parent="Cell_Overworld"]
 
-[node name="Miscellaneous" type="Node3D" parent="Cell/Cell_Farm"]
-
-[node name="Player" type="Node3D" parent="Cell/Cell_Farm"]
+[node name="Player" type="Node3D" parent="Cell_Overworld"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0631332, -0.0399179, -0.00898647)
 
-[node name="Player0" parent="Cell/Cell_Farm/Player" instance=ExtResource("4_o5h0w")]
+[node name="Player0" parent="Cell_Overworld/Player" instance=ExtResource("4_o5h0w")]
