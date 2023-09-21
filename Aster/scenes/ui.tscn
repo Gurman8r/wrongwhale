@@ -31,6 +31,13 @@ offset_top = 10.0
 offset_right = 50.0
 offset_bottom = 50.0
 
+[node name="EquipInventory" parent="InventoryInterface" instance=ExtResource("4_7gvxg")]
+layout_mode = 0
+offset_left = 720.0
+offset_top = 10.0
+offset_right = 760.0
+offset_bottom = 50.0
+
 [node name="ExternalInventory" parent="InventoryInterface" instance=ExtResource("4_7gvxg")]
 visible = false
 layout_mode = 0
