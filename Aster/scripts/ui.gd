@@ -4,8 +4,8 @@ extends CanvasLayer
 
 const item_drop_prefab = preload("res://scenes/item_drop.tscn")
 
-@onready var inventory_interface: InventoryInterface = $InventoryInterface
 @onready var hotbar_inventory: HotbarInventory = $HotbarInventory
+@onready var inventory_interface: InventoryInterface = $InventoryInterface
 
 func _init():
 	Game.ui = self

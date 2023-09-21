@@ -1,3 +1,4 @@
+# inventory_data.gd
 class_name InventoryData
 extends Resource
 
@@ -13,6 +14,19 @@ func grab_slot_data(index: int) -> ItemSlotData:
 	var slot_data = slot_datas[index]
 	if !slot_data: return null
 	slot_datas[index] = null
+	inventory_updated.emit(self)
+	return slot_data
+
+func grab_split_slot_data(index: int):
+	var slot_data = slot_datas[index]
+	if !slot_data: return null
+	if slot_data.quantity == 1:
+		slot_datas[index] = null
+	else:
+		var half_quantity = slot_data.quantity / 2
+		slot_datas[index] = slot_data.duplicate()
+		slot_datas[index].quantity -= half_quantity
+		slot_data.quantity = half_quantity
 	inventory_updated.emit(self)
 	return slot_data
 

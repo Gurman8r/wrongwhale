@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://3ioo106b4s3t"]
+[gd_scene load_steps=16 format=3 uid="uid://3ioo106b4s3t"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_dkwn1"]
 [ext_resource type="Script" path="res://scripts/interact_ray.gd" id="2_itqmj"]
@@ -6,15 +6,21 @@
 [ext_resource type="Resource" uid="uid://rsch10dqt8dv" path="res://resources/items/apple.tres" id="3_1f5nd"]
 [ext_resource type="Script" path="res://scripts/player_data.gd" id="3_cks3x"]
 [ext_resource type="Script" path="res://scripts/item_slot_data.gd" id="4_ksmck"]
+[ext_resource type="Resource" uid="uid://yjvloyxn845p" path="res://resources/items/potion.tres" id="5_qa33c"]
 
 [sub_resource type="Resource" id="Resource_risja"]
 script = ExtResource("4_ksmck")
 item_data = ExtResource("3_1f5nd")
 quantity = 5
 
+[sub_resource type="Resource" id="Resource_ju1vc"]
+script = ExtResource("4_ksmck")
+item_data = ExtResource("5_qa33c")
+quantity = 3
+
 [sub_resource type="Resource" id="Resource_0wws2"]
 script = ExtResource("2_iu3ks")
-slot_datas = Array[ExtResource("4_ksmck")]([SubResource("Resource_risja"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+slot_datas = Array[ExtResource("4_ksmck")]([SubResource("Resource_risja"), SubResource("Resource_ju1vc"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 
 [sub_resource type="Resource" id="Resource_p8vtn"]
 script = ExtResource("3_cks3x")

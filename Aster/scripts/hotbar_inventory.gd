@@ -1,6 +1,8 @@
 # hotbar_inventory.gd
 class_name HotbarInventory
-extends Inventory
+extends PanelContainer
+
+const slot_prefab = preload("res://scenes/item_slot.tscn")
 
 @onready var h_box_container = $MarginContainer/HBoxContainer
 

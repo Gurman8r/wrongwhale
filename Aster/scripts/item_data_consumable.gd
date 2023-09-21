@@ -3,4 +3,4 @@ class_name ItemDataConsumable
 extends ItemData
 
 func use(target) -> void:
-	print("%s consumed by %s" % [to_string(), target.to_string()])
+	print("consumed: %s" % [to_string()])

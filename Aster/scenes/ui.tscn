@@ -9,6 +9,11 @@
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_kovlf")
 
+[node name="HotbarInventory" parent="." instance=ExtResource("5_nsgr4")]
+offset_right = 684.0
+offset_bottom = 72.0
+metadata/_edit_use_anchors_ = true
+
 [node name="InventoryInterface" type="Control" parent="."]
 visible = false
 layout_mode = 3
@@ -29,10 +34,10 @@ offset_bottom = 50.0
 [node name="ExternalInventory" parent="InventoryInterface" instance=ExtResource("4_7gvxg")]
 visible = false
 layout_mode = 0
-offset_left = 683.0
-offset_top = 413.0
-offset_right = 723.0
-offset_bottom = 453.0
+offset_left = 10.0
+offset_top = 360.0
+offset_right = 50.0
+offset_bottom = 400.0
 
 [node name="GrabbedSlot" parent="InventoryInterface" instance=ExtResource("5_k6dn4")]
 visible = false
@@ -41,9 +46,6 @@ self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_right = 64.0
 offset_bottom = 64.0
-
-[node name="HotbarInventory" parent="." instance=ExtResource("5_nsgr4")]
-metadata/_edit_use_anchors_ = true
 
 [connection signal="drop_slot_data" from="InventoryInterface" to="." method="_on_inventory_interface_drop_slot_data"]
 [connection signal="gui_input" from="InventoryInterface" to="InventoryInterface" method="_on_gui_input"]
