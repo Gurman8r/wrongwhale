@@ -17,6 +17,5 @@ func _init():
 	Game.main = self
 
 func _ready():
-	assert(Game.ui.inventory_interface)
 	Game.player.toggle_inventory.connect(Game.ui.toggle_inventory_interface)
 	Game.ui.inventory_interface.set_player_inventory_data(Game.player.data.inventory)

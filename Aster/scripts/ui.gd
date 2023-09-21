@@ -8,8 +8,12 @@ extends CanvasLayer
 func _init():
 	Game.ui = self
 
-func _ready():
-	pass
+func toggle_hud() -> void:
+	hud.visible = not hud.visible
 
 func toggle_inventory_interface() -> void:
-	inventory_interface.visible = !inventory_interface.visible
+	inventory_interface.visible = not inventory_interface.visible
+	if inventory_interface.visible:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	else:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

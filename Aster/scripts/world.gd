@@ -8,7 +8,8 @@ var cells: Array[WorldCell]
 
 signal cell_registered(value: WorldCell)
 signal cell_unregistered(value: WorldCell)
-signal active_cell_changed(from: WorldCell, to: WorldCell)
+signal cell_entered(value: WorldCell)
+signal cell_exited(value: WorldCell)
 
 func _init():
 	Game.world = self
@@ -32,5 +33,6 @@ func goto_cell(value: WorldCell) -> WorldCell:
 	if cell == value: return null
 	var previous: WorldCell = cell
 	cell = value
-	active_cell_changed.emit(previous, cell)
+	cell_exited.emit(previous)
+	cell_entered.emit(cell)
 	return previous
