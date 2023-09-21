@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="PlayerData" load_steps=2 format=3 uid="uid://5kbgxhepgtmn"]
+
+[ext_resource type="Script" path="res://player/player_data.gd" id="1_5835y"]
+
+[resource]
+script = ExtResource("1_5835y")
+guid = "Player_New"
+name = "New Player"

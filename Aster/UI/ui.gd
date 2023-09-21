@@ -1,8 +1,9 @@
 # ui.gd
 class_name UI
 extends CanvasLayer
-func _init(): Game.ui = self
 
 @onready var hud: HUD = $HUD
-@onready var dialog_box = $DialogBox
 
+func _init():
+	assert(Global.ui == null)
+	Global.ui = self

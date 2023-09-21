@@ -6,4 +6,4 @@ extends MeshInstance3D
 @export var destination: Door
 
 func _on_interacted(other):
-	other.position = destination.spawn_point.position
+	pass

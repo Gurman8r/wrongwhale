@@ -1,7 +1,7 @@
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
-# schedule.gd
-class_name Schedule
-extends Resource
+# state_machine.gd
+class_name StateMachine
+extends Node
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #

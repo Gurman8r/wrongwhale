@@ -1,0 +1,51 @@
+[gd_scene load_steps=9 format=3 uid="uid://3ioo106b4s3t"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_dkwn1"]
+[ext_resource type="Script" path="res://player/player_data.gd" id="2_evr2w"]
+[ext_resource type="Script" path="res://game/interact_ray.gd" id="2_itqmj"]
+
+[sub_resource type="Resource" id="Resource_okr7m"]
+script = ExtResource("2_evr2w")
+guid = "Player_New"
+name = "New Player"
+
+[sub_resource type="AnimationRootNode" id="AnimationRootNode_8pgnw"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gq8e0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_08i6m"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_h3jll"]
+material = SubResource("StandardMaterial3D_08i6m")
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 0
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+script = ExtResource("1_dkwn1")
+data = SubResource("Resource_okr7m")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationRootNode_8pgnw")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 10, 10)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_gq8e0")
+
+[node name="InteractRay" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+target_position = Vector3(0, 0, -1.5)
+collision_mask = 4
+script = ExtResource("2_itqmj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_h3jll")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bkablsspd22di"]
 
-[ext_resource type="Script" path="res://UI/hud.gd" id="1_70wfc"]
+[ext_resource type="Script" path="res://ui/hud.gd" id="1_70wfc"]
 
 [node name="HUD" type="Control"]
 layout_mode = 3
