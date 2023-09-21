@@ -14,8 +14,8 @@ signal toggle_inventory()
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var camera: Camera3D = $Camera3D
 @onready var collision_shape: CollisionShape3D = $CollisionShape3D
-@onready var interact_ray: InteractRay = $InteractRay
 @onready var mesh_instance: MeshInstance3D = $MeshInstance3D
+@onready var interact_ray: InteractRay = $InteractRay
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
@@ -40,6 +40,8 @@ func _physics_process(delta : float) -> void:
 	var move_vec = Vector3(move_dir.x, 0, move_dir.y) * move_speed * delta
 	if move_vec != Vector3.ZERO:
 		move_and_collide(move_vec)
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
 func get_drop_position() -> Vector3:
 	var direction = -global_transform.basis.z
