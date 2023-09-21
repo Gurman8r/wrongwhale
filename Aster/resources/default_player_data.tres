@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PlayerData" load_steps=3 format=3 uid="uid://bhak0bslse5m4"]
+
+[ext_resource type="Script" path="res://scripts/player_data.gd" id="1_0dica"]
+[ext_resource type="Resource" uid="uid://321urias0wfc" path="res://resources/default_inventory_data.tres" id="1_g288v"]
+
+[resource]
+script = ExtResource("1_0dica")
+guid = "Player_New"
+name = "New Player"
+inventory = ExtResource("1_g288v")

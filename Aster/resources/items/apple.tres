@@ -1,11 +1,15 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://rsch10dqt8dv"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=4 format=3 uid="uid://rsch10dqt8dv"]
 
 [ext_resource type="Script" path="res://scripts/item_data.gd" id="1_rpf5k"]
-[ext_resource type="Texture2D" uid="uid://jqpchnuuc3nj" path="res://resources/item_atlas.tres" id="2_gemyq"]
+[ext_resource type="Texture2D" uid="uid://24qqsq4pa74t" path="res://resources/item_icons.png" id="2_6qs8l"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j8x66"]
+atlas = ExtResource("2_6qs8l")
+region = Rect2(0, 448, 32, 32)
 
 [resource]
 script = ExtResource("1_rpf5k")
 name = "Apple"
-description = "A regular apple."
+description = "It's just an apple."
 max_stack = 99
-texture = ExtResource("2_gemyq")
+texture = SubResource("AtlasTexture_j8x66")

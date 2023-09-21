@@ -2,9 +2,5 @@
 class_name WorldCell
 extends Node3D
 
-func _notification(what):
-	match what:
-		NOTIFICATION_READY:
-			assert(Global.world.register_cell(self))
-		NOTIFICATION_PREDELETE:
-			assert(Global.world.unregister_cell(self))
+func _init():
+	assert(Game.world.register_cell(self))

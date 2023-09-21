@@ -7,6 +7,7 @@ extends Resource
 
 func set_quantity(value: int) -> void:
 	assert(item_data != null)
-	quantity = value
-	if quantity > item_data.max_stack:
+	if value > item_data.max_stack:
 		quantity = item_data.max_stack
+	else:
+		quantity = value
