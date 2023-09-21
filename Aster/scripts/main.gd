@@ -19,3 +19,4 @@ func _init():
 func _ready():
 	Game.player.toggle_inventory.connect(Game.ui.toggle_inventory_interface)
 	Game.ui.inventory_interface.set_player_inventory_data(Game.player.data.inventory)
+	Game.ui.hotbar_inventory.set_inventory_data(Game.player.data.inventory)

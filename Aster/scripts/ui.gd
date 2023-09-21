@@ -4,8 +4,8 @@ extends CanvasLayer
 
 const item_drop_prefab = preload("res://scenes/item_drop.tscn")
 
-@onready var hud: HUD = $HUD
 @onready var inventory_interface: InventoryInterface = $InventoryInterface
+@onready var hotbar_inventory: HotbarInventory = $HotbarInventory
 
 func _init():
 	Game.ui = self
@@ -19,8 +19,10 @@ func toggle_inventory_interface(external_inventory_owner = null) -> void:
 	
 	if inventory_interface.visible:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		hotbar_inventory.hide()
 	else:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		hotbar_inventory.show()
 	
 	if external_inventory_owner and inventory_interface.visible:
 		inventory_interface.set_external_inventory(external_inventory_owner)

@@ -1,38 +1,13 @@
 [gd_scene load_steps=6 format=3 uid="uid://crltm8vtiwlek"]
 
 [ext_resource type="Script" path="res://scripts/ui.gd" id="1_kovlf"]
-[ext_resource type="Script" path="res://scripts/hud.gd" id="2_in2o2"]
 [ext_resource type="Script" path="res://scripts/inventory_interface.gd" id="3_ox6xb"]
 [ext_resource type="PackedScene" uid="uid://dv6li4wxrohgf" path="res://scenes/inventory.tscn" id="4_7gvxg"]
 [ext_resource type="PackedScene" uid="uid://ddxw2b6u1pxow" path="res://scenes/item_slot.tscn" id="5_k6dn4"]
+[ext_resource type="PackedScene" uid="uid://ci4vy40gl6vs8" path="res://scenes/hotbar_inventory.tscn" id="5_nsgr4"]
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_kovlf")
-
-[node name="HUD" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("2_in2o2")
-
-[node name="PromptLabel" type="Label" parent="HUD"]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "Interact Prompt"
 
 [node name="InventoryInterface" type="Control" parent="."]
 visible = false
@@ -66,6 +41,9 @@ self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_right = 64.0
 offset_bottom = 64.0
+
+[node name="HotbarInventory" parent="." instance=ExtResource("5_nsgr4")]
+metadata/_edit_use_anchors_ = true
 
 [connection signal="drop_slot_data" from="InventoryInterface" to="." method="_on_inventory_interface_drop_slot_data"]
 [connection signal="gui_input" from="InventoryInterface" to="InventoryInterface" method="_on_gui_input"]
