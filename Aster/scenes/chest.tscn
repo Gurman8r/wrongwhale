@@ -1,0 +1,39 @@
+[gd_scene load_steps=10 format=3 uid="uid://dhii3qy5e8ljo"]
+
+[ext_resource type="Script" path="res://scripts/chest.gd" id="1_d6qf4"]
+[ext_resource type="Script" path="res://scripts/inventory_data.gd" id="2_sskks"]
+[ext_resource type="Resource" uid="uid://r7x4yw48wdr2" path="res://resources/items/book_blue.tres" id="3_ulqne"]
+[ext_resource type="Script" path="res://scripts/item_slot_data.gd" id="4_j8bxs"]
+
+[sub_resource type="Resource" id="Resource_twv03"]
+script = ExtResource("4_j8bxs")
+item_data = ExtResource("3_ulqne")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_ucuon"]
+script = ExtResource("2_sskks")
+slot_datas = Array[ExtResource("4_j8bxs")]([null, SubResource("Resource_twv03"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h062n"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o40e3"]
+albedo_color = Color(0.384314, 0.215686, 0.101961, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_30nq0"]
+material = SubResource("StandardMaterial3D_o40e3")
+
+[node name="Chest" type="StaticBody3D" groups=["external_inventory"]]
+collision_layer = 5
+collision_mask = 3
+script = ExtResource("1_d6qf4")
+inventory_data = SubResource("Resource_ucuon")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_h062n")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_30nq0")
+
+[connection signal="interacted" from="." to="." method="_on_interacted"]

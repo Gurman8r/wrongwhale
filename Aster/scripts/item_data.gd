@@ -8,3 +8,6 @@ const MAX_STACK: int = 99
 @export_multiline var description: String = ""
 @export_range(1, MAX_STACK) var max_stack: int = MAX_STACK
 @export var texture: Texture
+
+func use(target) -> void:
+	pass

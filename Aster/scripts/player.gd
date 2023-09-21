@@ -2,7 +2,9 @@
 class_name Player
 extends CharacterBody3D
 
-@export var data: PlayerData = preload("res://resources/default_player_data.tres")
+signal toggle_inventory()
+
+@export var data: PlayerData
 
 @export var walk_speed: float = 5
 @export var run_speed: float = 10
@@ -17,16 +19,12 @@ extends CharacterBody3D
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
-signal toggle_inventory()
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
-
 func _init():
 	Game.players.append(self)
 	if !Game.player && Game.players.size() == 1:
 		Game.player = self
 
-func _unhandled_input(event) -> void:
+func _unhandled_input(_event) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().quit()
 	if Input.is_action_just_pressed("inventory"):
@@ -42,5 +40,9 @@ func _physics_process(delta : float) -> void:
 	var move_vec = Vector3(move_dir.x, 0, move_dir.y) * move_speed * delta
 	if move_vec != Vector3.ZERO:
 		move_and_collide(move_vec)
+
+func get_drop_position() -> Vector3:
+	var direction = -global_transform.basis.z
+	return global_position + (direction * 2)
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #

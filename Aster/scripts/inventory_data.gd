@@ -18,6 +18,46 @@ func grab_slot_data(index: int) -> ItemSlotData:
 
 func drop_slot_data(grabbed_slot_data: ItemSlotData, index: int) -> ItemSlotData:
 	var slot_data = slot_datas[index]
-	slot_datas[index] = grabbed_slot_data
+	var return_slot_data: ItemSlotData
+	if slot_data and slot_data.can_fully_merge_with(grabbed_slot_data):
+		slot_data.fully_merge_with(grabbed_slot_data)
+	else:
+		slot_datas[index] = grabbed_slot_data
+		return_slot_data = slot_data
 	inventory_updated.emit(self)
-	return slot_data
+	return return_slot_data
+
+func drop_single_slot_data(grabbed_slot_data: ItemSlotData, index: int) -> ItemSlotData:
+	var slot_data = slot_datas[index]
+	if not slot_data:
+		slot_datas[index] = grabbed_slot_data.create_single_slot_data()
+	elif slot_data.can_merge_with(grabbed_slot_data):
+		slot_data.fully_merge_with(grabbed_slot_data.create_single_slot_data())
+	inventory_updated.emit(self)
+	if 0 < grabbed_slot_data.quantity:
+		return grabbed_slot_data
+	else:
+		return null
+
+func pick_up_slot_data(slot_data: ItemSlotData) -> bool:
+	for index in slot_datas.size():
+		if slot_datas[index] and slot_datas[index].can_fully_merge_with(slot_data):
+			slot_datas[index].fully_merge_with(slot_data)
+			inventory_updated.emit(self)
+			return true
+	for index in slot_datas.size():
+		if not slot_datas[index]:
+			slot_datas[index] = slot_data
+			inventory_updated.emit(self)
+			return true
+	return false
+
+func use_slot_data(index: int) -> void:
+	var slot_data = slot_datas[index]
+	if not slot_data: return
+	if slot_data.item_data is ItemDataConsumable:
+		slot_data.quantity -= 1
+		if slot_data.quantity < 1:
+			slot_datas[index] = null
+	slot_data.item_data.use(Game.player)
+	inventory_updated.emit(self)
