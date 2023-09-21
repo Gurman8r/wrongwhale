@@ -19,7 +19,7 @@ albedo_color = Color(0.32549, 0.458824, 0.141176, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_es0hw"]
 material = SubResource("StandardMaterial3D_qv1a0")
 
-[node name="Blocks" type="Node3D"]
+[node name="BlockLibrary" type="Node3D"]
 
 [node name="Block_Default" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_oyik6")

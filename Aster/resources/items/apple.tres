@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://rsch10dqt8dv"]
+
+[ext_resource type="Script" path="res://scripts/item_data.gd" id="1_rpf5k"]
+[ext_resource type="Texture2D" uid="uid://jqpchnuuc3nj" path="res://resources/item_atlas.tres" id="2_gemyq"]
+
+[resource]
+script = ExtResource("1_rpf5k")
+name = "Apple"
+description = "A regular apple."
+max_stack = 99
+texture = ExtResource("2_gemyq")

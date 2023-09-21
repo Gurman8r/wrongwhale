@@ -11,14 +11,14 @@ config_version=5
 [application]
 
 config/name="Town of Aster"
-run/main_scene="res://game/game.tscn"
+run/main_scene="res://scenes/game.tscn"
 config/features=PackedStringArray("4.1", "Mobile")
 boot_splash/show_image=false
 config/icon="res://icon.svg"
 
 [autoload]
 
-Global="*res://game/global.gd"
+Global="*res://scripts/global.gd"
 
 [display]
 

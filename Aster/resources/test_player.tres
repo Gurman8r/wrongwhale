@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="PlayerData" load_steps=3 format=3 uid="uid://5kbgxhepgtmn"]
 
-[ext_resource type="Script" path="res://player/player_data.gd" id="1_0dica"]
+[ext_resource type="Script" path="res://scripts/player_data.gd" id="1_0dica"]
 [ext_resource type="Resource" uid="uid://cgbkqbcwr481w" path="res://item/test_inventory.tres" id="1_0o5f0"]
 
 [resource]
