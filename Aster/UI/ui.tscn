@@ -1,21 +1,46 @@
-[gd_scene load_steps=4 format=3 uid="uid://crltm8vtiwlek"]
+[gd_scene load_steps=5 format=3 uid="uid://crltm8vtiwlek"]
 
 [ext_resource type="Script" path="res://ui/ui.gd" id="1_h1l0u"]
-[ext_resource type="PackedScene" uid="uid://bkablsspd22di" path="res://ui/hud.tscn" id="2_77dle"]
+[ext_resource type="Script" path="res://ui/hud.gd" id="2_4u1v0"]
 [ext_resource type="PackedScene" uid="uid://dv6li4wxrohgf" path="res://item/inventory.tscn" id="3_0rrp5"]
+[ext_resource type="Script" path="res://item/inventory_interface.gd" id="3_76k01"]
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_h1l0u")
 
-[node name="HUD" parent="." instance=ExtResource("2_77dle")]
-
-[node name="InventoryInterface" type="Control" parent="."]
+[node name="HUD" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("2_4u1v0")
+
+[node name="PromptLabel" type="Label" parent="HUD"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Interact Prompt"
+
+[node name="InventoryInterface" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_76k01")
 
 [node name="PlayerInventory" parent="InventoryInterface" instance=ExtResource("3_0rrp5")]
 layout_mode = 0

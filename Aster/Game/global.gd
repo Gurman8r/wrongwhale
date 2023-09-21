@@ -12,3 +12,4 @@ func _ready():
 	assert(self.game, "Global.game not set")
 	assert(self.world, "Global.world not set")
 	assert(self.ui, "Global.ui not set")
+

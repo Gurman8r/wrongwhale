@@ -4,8 +4,9 @@ extends CharacterBody3D
 
 @export var data: PlayerData
 
-@export var walk_speed: float = 5.0
-@export var run_speed: float = 10.0
+@export var walk_speed: float = 5
+@export var run_speed: float = 10
+@export var pan_speed: Vector2 = Vector2(0.005, 0.005)
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var animation_tree: AnimationTree = $AnimationTree
@@ -16,10 +17,23 @@ extends CharacterBody3D
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
+signal toggle_inventory()
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+
 func _init():
+	assert(!Global.players.has(self))
 	Global.players.append(self)
-	if not Global.player and Global.players.size() == 1:
+	if !Global.player && Global.players.size() == 1:
 		Global.player = self
+	
+func _notification(what):
+	match what:
+		NOTIFICATION_PREDELETE:
+			assert(Global.players.has(self))
+			Global.players.erase(self)
+			if Global.player == self:
+				Global.player = null
 
 func _ready():
 	assert(animation_player, "animation_player is invalid: "+self.to_string())
@@ -28,15 +42,17 @@ func _ready():
 	assert(collision_shape, "collision_shape is invalid: "+self.to_string())
 	assert(interact_ray, "interact_ray is invalid: "+self.to_string())
 	assert(mesh_instance, "mesh_instance is invalid: "+self.to_string())
-	
-func _notification(what):
-	match what:
-		NOTIFICATION_PREDELETE:
-			Global.players.erase(self)
-			if Global.player == self:
-				Global.player = null
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+
+func _unhandled_input(event):
+#	if event is InputEventMouseMotion:
+#		rotate_y(-event.relative.x * pan_speed.x)
+#		camera.rotate_x(-event.relative.y * pan_speed.y)
+#		camera.rotation.x = clamp(camera.rotation.x, -PI/4, PI/4)
+	
+	if Input.is_action_just_pressed("inventory"):
+		toggle_inventory.emit()
 
 func _physics_process(delta : float) -> void:
 	var move_dir: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
