@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://crltm8vtiwlek"]
+[gd_scene load_steps=7 format=3 uid="uid://crltm8vtiwlek"]
 
 [ext_resource type="Script" path="res://scripts/ui.gd" id="1_kovlf"]
+[ext_resource type="Script" path="res://scripts/hud.gd" id="2_b5bun"]
 [ext_resource type="Script" path="res://scripts/inventory_interface.gd" id="3_ox6xb"]
 [ext_resource type="PackedScene" uid="uid://dv6li4wxrohgf" path="res://scenes/inventory.tscn" id="4_7gvxg"]
 [ext_resource type="PackedScene" uid="uid://ddxw2b6u1pxow" path="res://scenes/item_slot.tscn" id="5_k6dn4"]
@@ -9,10 +10,21 @@
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_kovlf")
 
-[node name="HotbarInventory" parent="." instance=ExtResource("5_nsgr4")]
-offset_right = 684.0
-offset_bottom = 72.0
-metadata/_edit_use_anchors_ = true
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_b5bun")
+
+[node name="HotbarInventory" parent="HUD" instance=ExtResource("5_nsgr4")]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 694.0
+offset_bottom = 82.0
 
 [node name="InventoryInterface" type="Control" parent="."]
 visible = false

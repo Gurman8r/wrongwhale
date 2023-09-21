@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/inventory_data.gd" id="1_puudv"]
 [ext_resource type="Resource" uid="uid://rsch10dqt8dv" path="res://resources/items/apple.tres" id="2_te8sd"]
-[ext_resource type="Script" path="res://scripts/item_slot_data.gd" id="3_8481v"]
+[ext_resource type="Script" path="res://scripts/item_stack.gd" id="3_8481v"]
 
 [sub_resource type="Resource" id="Resource_g4qf8"]
 script = ExtResource("3_8481v")

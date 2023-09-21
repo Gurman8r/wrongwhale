@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://scripts/inventory_data.gd" id="2_iu3ks"]
 [ext_resource type="Resource" uid="uid://rsch10dqt8dv" path="res://resources/items/apple.tres" id="3_1f5nd"]
 [ext_resource type="Script" path="res://scripts/player_data.gd" id="3_cks3x"]
-[ext_resource type="Script" path="res://scripts/item_slot_data.gd" id="4_ksmck"]
+[ext_resource type="Script" path="res://scripts/item_stack.gd" id="4_ksmck"]
 [ext_resource type="Resource" uid="uid://yjvloyxn845p" path="res://resources/items/potion.tres" id="5_qa33c"]
 [ext_resource type="Resource" uid="uid://de5io2pvpnd5e" path="res://resources/items/sword.tres" id="6_rafwy"]
 

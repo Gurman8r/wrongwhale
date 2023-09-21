@@ -2,7 +2,7 @@
 class_name ItemDrop
 extends RigidBody3D
 
-@export var slot_data: ItemSlotData
+@export var slot_data: ItemStack
 
 @onready var sprite_3d = $Sprite3D
 

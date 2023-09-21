@@ -2,10 +2,10 @@
 class_name InventoryInterface
 extends Control
 
-signal drop_slot_data(slot_data: ItemSlotData)
+signal drop_slot_data(slot_data: ItemStack)
 signal force_close()
 
-var grabbed_slot_data: ItemSlotData
+var grabbed_slot_data: ItemStack
 var external_inventory_owner
 
 @onready var player_inventory: Inventory = $PlayerInventory
