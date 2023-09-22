@@ -10,9 +10,9 @@ const drop_prefab = preload("res://scenes/item_drop.tscn")
 var grabbed_stack: ItemStack
 var external_inventory_owner
 
-@onready var player_inventory: Inventory = $PlayerInventory
-@onready var equipment_inventory: Inventory = $EquipmentInventory
-@onready var external_inventory: Inventory = $ExternalInventory
+@onready var player_inventory: ItemInventory = $PlayerInventory
+@onready var equipment_inventory: ItemInventory = $EquipmentInventory
+@onready var external_inventory: ItemInventory = $ExternalInventory
 @onready var grabbed_slot: ItemSlot = $GrabbedSlot
 
 func _physics_process(_delta) -> void:

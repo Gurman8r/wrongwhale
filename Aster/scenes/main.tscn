@@ -5,8 +5,8 @@
 [ext_resource type="Script" path="res://scripts/settings.gd" id="2_lw0i7"]
 [ext_resource type="Script" path="res://scripts/ui.gd" id="3_qbtt3"]
 [ext_resource type="Script" path="res://scripts/item_interface.gd" id="5_ctmbw"]
-[ext_resource type="PackedScene" uid="uid://ci4vy40gl6vs8" path="res://scenes/hotbar_inventory.tscn" id="5_rqfga"]
-[ext_resource type="PackedScene" uid="uid://dv6li4wxrohgf" path="res://scenes/inventory.tscn" id="7_tb51c"]
+[ext_resource type="PackedScene" uid="uid://ci4vy40gl6vs8" path="res://scenes/item_hotbar.tscn" id="5_rqfga"]
+[ext_resource type="PackedScene" uid="uid://dv6li4wxrohgf" path="res://scenes/item_inventory.tscn" id="7_tb51c"]
 [ext_resource type="PackedScene" uid="uid://ddxw2b6u1pxow" path="res://scenes/item_slot.tscn" id="8_ipgvm"]
 
 [node name="Main" type="Node"]
@@ -28,7 +28,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HotbarInventory" parent="UI/HUD" instance=ExtResource("5_rqfga")]
+[node name="ItemHotbar" parent="UI/HUD" instance=ExtResource("5_rqfga")]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 10.0

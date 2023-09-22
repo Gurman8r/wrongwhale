@@ -1,5 +1,5 @@
 # hotbar_inventory.gd
-class_name HotbarInventory
+class_name ItemHotbar
 extends PanelContainer
 
 const slot_prefab = preload("res://scenes/item_slot.tscn")

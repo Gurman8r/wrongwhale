@@ -4,7 +4,7 @@ extends CanvasLayer
 
 const item_drop_prefab = preload("res://scenes/item_drop.tscn")
 
-@onready var hotbar_inventory = $HUD/HotbarInventory
+@onready var hotbar_inventory = $HUD/ItemHotbar
 @onready var interact_label = $HUD/InteractLabel
 @onready var item_interface: InventoryInterface = $ItemInterface
 

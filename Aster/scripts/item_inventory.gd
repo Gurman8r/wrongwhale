@@ -1,5 +1,5 @@
 # inventory.gd
-class_name Inventory
+class_name ItemInventory
 extends PanelContainer
 
 const slot_prefab = preload("res://scenes/item_slot.tscn")
