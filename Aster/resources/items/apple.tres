@@ -9,7 +9,6 @@ region = Rect2(0, 448, 32, 32)
 
 [resource]
 script = ExtResource("1_rpf5k")
-guid = "Apple"
 name = "Apple"
 description = "It's just an apple."
 max_stack = 99

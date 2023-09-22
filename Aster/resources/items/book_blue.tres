@@ -9,7 +9,6 @@ region = Rect2(0, 416, 32, 32)
 
 [resource]
 script = ExtResource("1_eahe8")
-guid = "Book_Blue"
 name = "Blue Book"
 description = "A book with a blueish hue"
 max_stack = 1

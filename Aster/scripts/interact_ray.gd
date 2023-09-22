@@ -2,16 +2,14 @@
 class_name InteractRay
 extends RayCast3D
 
-#@onready var prompt = $Prompt
-
 func _ready() -> void:
 	add_exception(owner)
 
 func _physics_process(_delta) -> void:
-	#prompt.text = ""
+	Game.ui.prompt_label.text = ""
 	if is_colliding():
 		var detected = get_collider()
 		if detected is Interactable:
-			#prompt.text = detected.get_prompt()
+			Game.ui.prompt_label.text = detected.get_prompt()
 			if Input.is_action_just_pressed(detected.prompt_action):
 				detected.interact(owner)
