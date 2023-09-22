@@ -10,6 +10,6 @@ region = Rect2(384, 288, 32, 32)
 [resource]
 script = ExtResource("1_i1g37")
 name = "Potion"
-description = ""
+description = "Heal yourself... maybe."
 max_stack = 99
 texture = SubResource("AtlasTexture_o2d1v")

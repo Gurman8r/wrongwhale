@@ -11,7 +11,7 @@ var grabbed_stack: ItemStack
 var external_inventory_owner
 
 @onready var player_inventory: Inventory = $PlayerInventory
-@onready var equip_inventory: Inventory = $EquipInventory
+@onready var equipment_inventory: Inventory = $EquipmentInventory
 @onready var external_inventory: Inventory = $ExternalInventory
 @onready var grabbed_slot: InventorySlot = $GrabbedSlot
 
@@ -26,9 +26,9 @@ func set_player_inventory_data(inventory_data: InventoryData) -> void:
 	inventory_data.inventory_interact.connect(on_inventory_interact)
 	player_inventory.set_inventory_data(inventory_data)
 
-func set_equip_inventory_data(inventory_data: InventoryData) -> void:
+func set_equipment_inventory_data(inventory_data: InventoryData) -> void:
 	inventory_data.inventory_interact.connect(on_inventory_interact)
-	equip_inventory.set_inventory_data(inventory_data)
+	equipment_inventory.set_inventory_data(inventory_data)
 
 func set_external_inventory(value) -> void:
 	external_inventory_owner = value
