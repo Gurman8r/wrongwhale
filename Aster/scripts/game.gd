@@ -6,7 +6,7 @@ extends Node
 var main: Main
 var settings: Settings
 var world : World
-var ui : UI
+var ui : Interface
 
 var player: Player
 var players: Array[Player]

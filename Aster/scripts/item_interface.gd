@@ -1,5 +1,5 @@
 # item_interface.gd
-class_name InventoryInterface
+class_name ItemInterface
 extends Control
 
 signal drop_stack(stack: ItemStack)
@@ -7,13 +7,13 @@ signal force_close()
 
 const drop_prefab = preload("res://scenes/item_drop.tscn")
 
-var grabbed_stack: ItemStack
-var external_inventory_owner
-
 @onready var player_inventory: ItemInventory = $PlayerInventory
-@onready var equipment_inventory: ItemInventory = $EquipmentInventory
+@onready var equip_inventory: ItemInventory = $EquipmentInventory
 @onready var external_inventory: ItemInventory = $ExternalInventory
 @onready var grabbed_slot: ItemSlot = $GrabbedSlot
+
+var grabbed_stack: ItemStack
+var external_inventory_owner
 
 func _physics_process(_delta) -> void:
 	if grabbed_slot.visible:
@@ -26,9 +26,9 @@ func set_player_inventory_data(inventory_data: ItemInventoryData) -> void:
 	inventory_data.inventory_interact.connect(on_inventory_interact)
 	player_inventory.set_inventory_data(inventory_data)
 
-func set_equipment_inventory_data(inventory_data: ItemInventoryData) -> void:
+func set_equip_inventory_data(inventory_data: ItemInventoryData) -> void:
 	inventory_data.inventory_interact.connect(on_inventory_interact)
-	equipment_inventory.set_inventory_data(inventory_data)
+	equip_inventory.set_inventory_data(inventory_data)
 
 func set_external_inventory(value) -> void:
 	external_inventory_owner = value

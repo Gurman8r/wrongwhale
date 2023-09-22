@@ -1,12 +1,10 @@
-# ui.gd
-class_name UI
+# interface.gd
+class_name Interface
 extends CanvasLayer
-
-const item_drop_prefab = preload("res://scenes/item_drop.tscn")
 
 @onready var hotbar_inventory = $HUD/ItemHotbar
 @onready var interact_label = $HUD/InteractLabel
-@onready var item_interface: InventoryInterface = $ItemInterface
+@onready var item_interface: ItemInterface = $ItemInterface
 
 var block_input: bool = false
 
@@ -36,9 +34,8 @@ func toggle_item_interface(external_inventory_owner = null) -> void:
 	else:
 		item_interface.clear_external_inventory()
 
-func _on_item_interface_drop_stack(stack):
-	print("HERE")
-	var item_drop: ItemDrop = item_drop_prefab.instantiate()
-	item_drop.stack = stack
-	item_drop.position = Game.player.get_drop_position()
-	add_child(item_drop)
+func toggle_menu_interface() -> void:
+	pass
+
+func toggle_debug_interface() -> void:
+	pass

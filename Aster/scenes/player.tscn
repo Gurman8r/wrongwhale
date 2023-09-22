@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://3ioo106b4s3t"]
+[gd_scene load_steps=25 format=3 uid="uid://3ioo106b4s3t"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_dkwn1"]
 [ext_resource type="Script" path="res://scripts/item_inventory_data_equip.gd" id="2_e72jt"]
@@ -11,7 +11,7 @@
 [ext_resource type="Resource" uid="uid://yjvloyxn845p" path="res://resources/items/potion.tres" id="7_myam6"]
 [ext_resource type="Resource" uid="uid://de5io2pvpnd5e" path="res://resources/items/sword.tres" id="8_je2f3"]
 
-[sub_resource type="Resource" id="Resource_ygy3b"]
+[sub_resource type="Resource" id="Resource_resdb"]
 script = ExtResource("2_e72jt")
 item_stacks = Array[ExtResource("5_5u3ve")]([null])
 
@@ -49,7 +49,7 @@ script = ExtResource("3_cks3x")
 guid = "Player_New"
 name = "New Player"
 inventory = SubResource("Resource_0wws2")
-equipment = SubResource("Resource_ygy3b")
+equip = SubResource("Resource_resdb")
 
 [sub_resource type="AnimationRootNode" id="AnimationRootNode_8pgnw"]
 
@@ -60,6 +60,14 @@ albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_726kc"]
 material = SubResource("StandardMaterial3D_mvv3f")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u4t2w"]
+albedo_color = Color(0.8, 0.8, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_sycx6"]
+material = SubResource("StandardMaterial3D_u4t2w")
+radius = 0.1
+height = 0.2
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
@@ -74,17 +82,24 @@ data = SubResource("Resource_p8vtn")
 tree_root = SubResource("AnimationRootNode_8pgnw")
 anim_player = NodePath("../AnimationPlayer")
 
-[node name="CameraPivot" type="SpringArm3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_oi3bu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_726kc")
+
+[node name="CameraPivotY" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="CameraPivotX" type="SpringArm3D" parent="CameraPivotY"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 spring_length = 10.0
 margin = 0.5
 
-[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+[node name="Camera3D" type="Camera3D" parent="CameraPivotY/CameraPivotX"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-shape = SubResource("SphereShape3D_oi3bu")
 
 [node name="InteractRay" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -92,6 +107,6 @@ target_position = Vector3(0, 0, -1.5)
 collision_mask = 4
 script = ExtResource("2_itqmj")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="TargetMarker" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("BoxMesh_726kc")
+mesh = SubResource("SphereMesh_sycx6")
