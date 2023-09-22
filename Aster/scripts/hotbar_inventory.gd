@@ -2,7 +2,7 @@
 class_name HotbarInventory
 extends PanelContainer
 
-const slot_prefab = preload("res://scenes/inventory_slot.tscn")
+const slot_prefab = preload("res://scenes/item_slot.tscn")
 
 @onready var h_box_container = $MarginContainer/HBoxContainer
 

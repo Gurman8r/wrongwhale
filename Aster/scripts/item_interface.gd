@@ -1,4 +1,4 @@
-# inventory_interface.gd
+# item_interface.gd
 class_name InventoryInterface
 extends Control
 
@@ -13,7 +13,7 @@ var external_inventory_owner
 @onready var player_inventory: Inventory = $PlayerInventory
 @onready var equipment_inventory: Inventory = $EquipmentInventory
 @onready var external_inventory: Inventory = $ExternalInventory
-@onready var grabbed_slot: InventorySlot = $GrabbedSlot
+@onready var grabbed_slot: ItemSlot = $GrabbedSlot
 
 func _physics_process(_delta) -> void:
 	if grabbed_slot.visible:

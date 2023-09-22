@@ -1,17 +1,19 @@
-[gd_scene load_steps=8 format=3 uid="uid://dwgfxln4fp4lj"]
+[gd_scene load_steps=9 format=3 uid="uid://dwgfxln4fp4lj"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_0uonw"]
 [ext_resource type="PackedScene" uid="uid://cagnofcp3jxwf" path="res://scenes/world.tscn" id="2_bggds"]
+[ext_resource type="Script" path="res://scripts/settings.gd" id="2_lw0i7"]
 [ext_resource type="Script" path="res://scripts/ui.gd" id="3_qbtt3"]
+[ext_resource type="Script" path="res://scripts/item_interface.gd" id="5_ctmbw"]
 [ext_resource type="PackedScene" uid="uid://ci4vy40gl6vs8" path="res://scenes/hotbar_inventory.tscn" id="5_rqfga"]
-[ext_resource type="Script" path="res://scripts/inventory_interface.gd" id="6_n3jpk"]
 [ext_resource type="PackedScene" uid="uid://dv6li4wxrohgf" path="res://scenes/inventory.tscn" id="7_tb51c"]
-[ext_resource type="PackedScene" uid="uid://ddxw2b6u1pxow" path="res://scenes/inventory_slot.tscn" id="8_ipgvm"]
+[ext_resource type="PackedScene" uid="uid://ddxw2b6u1pxow" path="res://scenes/item_slot.tscn" id="8_ipgvm"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_0uonw")
 
 [node name="Settings" type="Node" parent="."]
+script = ExtResource("2_lw0i7")
 
 [node name="World" parent="." instance=ExtResource("2_bggds")]
 
@@ -33,7 +35,7 @@ offset_top = 10.0
 offset_right = 694.0
 offset_bottom = 82.0
 
-[node name="PromptLabel" type="Label" parent="UI/HUD"]
+[node name="InteractLabel" type="Label" parent="UI/HUD"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -50,7 +52,7 @@ text = "Interact"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="InventoryInterface" type="Control" parent="UI"]
+[node name="ItemInterface" type="Control" parent="UI"]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -58,23 +60,23 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("6_n3jpk")
+script = ExtResource("5_ctmbw")
 
-[node name="PlayerInventory" parent="UI/InventoryInterface" instance=ExtResource("7_tb51c")]
+[node name="PlayerInventory" parent="UI/ItemInterface" instance=ExtResource("7_tb51c")]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 50.0
 offset_bottom = 50.0
 
-[node name="EquipmentInventory" parent="UI/InventoryInterface" instance=ExtResource("7_tb51c")]
+[node name="EquipmentInventory" parent="UI/ItemInterface" instance=ExtResource("7_tb51c")]
 layout_mode = 0
 offset_left = 720.0
 offset_top = 10.0
 offset_right = 760.0
 offset_bottom = 50.0
 
-[node name="ExternalInventory" parent="UI/InventoryInterface" instance=ExtResource("7_tb51c")]
+[node name="ExternalInventory" parent="UI/ItemInterface" instance=ExtResource("7_tb51c")]
 visible = false
 layout_mode = 0
 offset_left = 10.0
@@ -82,7 +84,7 @@ offset_top = 360.0
 offset_right = 50.0
 offset_bottom = 400.0
 
-[node name="GrabbedSlot" parent="UI/InventoryInterface" instance=ExtResource("8_ipgvm")]
+[node name="GrabbedSlot" parent="UI/ItemInterface" instance=ExtResource("8_ipgvm")]
 visible = false
 modulate = Color(1, 1, 1, 0.501961)
 self_modulate = Color(1, 1, 1, 0)
@@ -90,6 +92,6 @@ layout_mode = 0
 offset_right = 64.0
 offset_bottom = 64.0
 
-[connection signal="drop_stack" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_drop_stack"]
-[connection signal="gui_input" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_gui_input"]
-[connection signal="visibility_changed" from="UI/InventoryInterface" to="UI/InventoryInterface" method="_on_visibility_changed"]
+[connection signal="drop_stack" from="UI/ItemInterface" to="UI/ItemInterface" method="_on_drop_stack"]
+[connection signal="gui_input" from="UI/ItemInterface" to="UI/ItemInterface" method="_on_gui_input"]
+[connection signal="visibility_changed" from="UI/ItemInterface" to="UI/ItemInterface" method="_on_visibility_changed"]
