@@ -1,44 +1,55 @@
-[gd_scene load_steps=20 format=3 uid="uid://3ioo106b4s3t"]
+[gd_scene load_steps=23 format=3 uid="uid://3ioo106b4s3t"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_dkwn1"]
 [ext_resource type="Script" path="res://scripts/inventory_data_equip.gd" id="2_e72jt"]
 [ext_resource type="Script" path="res://scripts/interact_ray.gd" id="2_itqmj"]
 [ext_resource type="Script" path="res://scripts/inventory_data.gd" id="2_iu3ks"]
-[ext_resource type="Resource" uid="uid://rsch10dqt8dv" path="res://resources/items/apple.tres" id="3_1f5nd"]
 [ext_resource type="Script" path="res://scripts/player_data.gd" id="3_cks3x"]
-[ext_resource type="Script" path="res://scripts/item_stack.gd" id="4_ksmck"]
-[ext_resource type="Resource" uid="uid://yjvloyxn845p" path="res://resources/items/potion.tres" id="5_qa33c"]
-[ext_resource type="Resource" uid="uid://de5io2pvpnd5e" path="res://resources/items/sword.tres" id="6_rafwy"]
+[ext_resource type="Resource" uid="uid://rsch10dqt8dv" path="res://resources/items/apple.tres" id="4_bmuee"]
+[ext_resource type="Script" path="res://scripts/item_stack.gd" id="5_5u3ve"]
+[ext_resource type="Resource" uid="uid://r7x4yw48wdr2" path="res://resources/items/book_blue.tres" id="6_u7464"]
+[ext_resource type="Resource" uid="uid://yjvloyxn845p" path="res://resources/items/potion.tres" id="7_myam6"]
+[ext_resource type="Resource" uid="uid://de5io2pvpnd5e" path="res://resources/items/sword.tres" id="8_je2f3"]
 
-[sub_resource type="Resource" id="Resource_68s27"]
+[sub_resource type="Resource" id="Resource_ygy3b"]
 script = ExtResource("2_e72jt")
-slot_datas = Array[ExtResource("4_ksmck")]([null])
+stacks = Array[ExtResource("5_5u3ve")]([null])
 
-[sub_resource type="Resource" id="Resource_risja"]
-script = ExtResource("4_ksmck")
-item_data = ExtResource("3_1f5nd")
+[sub_resource type="Resource" id="Resource_chk85"]
+script = ExtResource("5_5u3ve")
+item_data = ExtResource("4_bmuee")
 quantity = 5
 
-[sub_resource type="Resource" id="Resource_ju1vc"]
-script = ExtResource("4_ksmck")
-item_data = ExtResource("5_qa33c")
+[sub_resource type="Resource" id="Resource_lbdg5"]
+script = ExtResource("5_5u3ve")
+item_data = ExtResource("6_u7464")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_567f0"]
+script = ExtResource("5_5u3ve")
+item_data = ExtResource("6_u7464")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_mup1t"]
+script = ExtResource("5_5u3ve")
+item_data = ExtResource("7_myam6")
 quantity = 3
 
-[sub_resource type="Resource" id="Resource_iwiy5"]
-script = ExtResource("4_ksmck")
-item_data = ExtResource("6_rafwy")
+[sub_resource type="Resource" id="Resource_hyisd"]
+script = ExtResource("5_5u3ve")
+item_data = ExtResource("8_je2f3")
 quantity = 1
 
 [sub_resource type="Resource" id="Resource_0wws2"]
 script = ExtResource("2_iu3ks")
-slot_datas = Array[ExtResource("4_ksmck")]([SubResource("Resource_risja"), SubResource("Resource_ju1vc"), SubResource("Resource_iwiy5"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+stacks = Array[ExtResource("5_5u3ve")]([SubResource("Resource_chk85"), SubResource("Resource_lbdg5"), SubResource("Resource_567f0"), SubResource("Resource_mup1t"), SubResource("Resource_hyisd"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 
 [sub_resource type="Resource" id="Resource_p8vtn"]
 script = ExtResource("3_cks3x")
 guid = "Player_New"
 name = "New Player"
 inventory = SubResource("Resource_0wws2")
-equip_inventory = SubResource("Resource_68s27")
+equipment = SubResource("Resource_ygy3b")
 
 [sub_resource type="AnimationRootNode" id="AnimationRootNode_8pgnw"]
 
@@ -64,7 +75,7 @@ tree_root = SubResource("AnimationRootNode_8pgnw")
 anim_player = NodePath("../AnimationPlayer")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 10, 10)
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 5, 5)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)

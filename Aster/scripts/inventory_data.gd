@@ -2,7 +2,7 @@
 class_name InventoryData
 extends Resource
 
-@export var slot_datas: Array[ItemStack]
+@export var stacks: Array[ItemStack]
 
 signal inventory_interact(inventory_data: InventoryData, index: int, button: int)
 signal inventory_updated(inventory_data: InventoryData)
@@ -10,68 +10,68 @@ signal inventory_updated(inventory_data: InventoryData)
 func on_slot_clicked(index: int, button: int) -> void:
 	inventory_interact.emit(self, index, button)
 
-func grab_slot_data(index: int) -> ItemStack:
-	var slot_data = slot_datas[index]
-	if !slot_data: return null
-	slot_datas[index] = null
+func grab_stack(index: int) -> ItemStack:
+	var stack = stacks[index]
+	if !stack: return null
+	stacks[index] = null
 	inventory_updated.emit(self)
-	return slot_data
+	return stack
 
-func grab_split_slot_data(index: int):
-	var slot_data = slot_datas[index]
-	if !slot_data: return null
-	if slot_data.quantity == 1:
-		slot_datas[index] = null
+func grab_split_stack(index: int):
+	var stack = stacks[index]
+	if !stack: return null
+	if stack.quantity == 1:
+		stacks[index] = null
 	else:
-		var half_quantity = slot_data.quantity / 2
-		slot_datas[index] = slot_data.duplicate()
-		slot_datas[index].quantity -= half_quantity
-		slot_data.quantity = half_quantity
+		var half_quantity = stack.quantity / 2
+		stacks[index] = stack.duplicate()
+		stacks[index].quantity -= half_quantity
+		stack.quantity = half_quantity
 	inventory_updated.emit(self)
-	return slot_data
+	return stack
 
-func drop_slot_data(grabbed_slot_data: ItemStack, index: int) -> ItemStack:
-	var slot_data = slot_datas[index]
-	var return_slot_data: ItemStack
-	if slot_data and slot_data.can_fully_merge_with(grabbed_slot_data):
-		slot_data.fully_merge_with(grabbed_slot_data)
+func drop_stack(grabbed_stack: ItemStack, index: int) -> ItemStack:
+	var stack = stacks[index]
+	var return_stack: ItemStack
+	if stack and stack.can_fully_merge_with(grabbed_stack):
+		stack.fully_merge_with(grabbed_stack)
 	else:
-		slot_datas[index] = grabbed_slot_data
-		return_slot_data = slot_data
+		stacks[index] = grabbed_stack
+		return_stack = stack
 	inventory_updated.emit(self)
-	return return_slot_data
+	return return_stack
 
-func drop_single_slot_data(grabbed_slot_data: ItemStack, index: int) -> ItemStack:
-	var slot_data = slot_datas[index]
-	if not slot_data:
-		slot_datas[index] = grabbed_slot_data.create_single_slot_data()
-	elif slot_data.can_merge_with(grabbed_slot_data):
-		slot_data.fully_merge_with(grabbed_slot_data.create_single_slot_data())
+func drop_single_stack(grabbed_stack: ItemStack, index: int) -> ItemStack:
+	var stack = stacks[index]
+	if not stack:
+		stacks[index] = grabbed_stack.create_single_stack()
+	elif stack.can_merge_with(grabbed_stack):
+		stack.fully_merge_with(grabbed_stack.create_single_stack())
 	inventory_updated.emit(self)
-	if 0 < grabbed_slot_data.quantity:
-		return grabbed_slot_data
+	if 0 < grabbed_stack.quantity:
+		return grabbed_stack
 	else:
 		return null
 
-func pick_up_slot_data(slot_data: ItemStack) -> bool:
-	for index in slot_datas.size():
-		if slot_datas[index] and slot_datas[index].can_fully_merge_with(slot_data):
-			slot_datas[index].fully_merge_with(slot_data)
+func pick_up_stack(stack: ItemStack) -> bool:
+	for index in stacks.size():
+		if stacks[index] and stacks[index].can_fully_merge_with(stack):
+			stacks[index].fully_merge_with(stack)
 			inventory_updated.emit(self)
 			return true
-	for index in slot_datas.size():
-		if not slot_datas[index]:
-			slot_datas[index] = slot_data
+	for index in stacks.size():
+		if not stacks[index]:
+			stacks[index] = stack
 			inventory_updated.emit(self)
 			return true
 	return false
 
-func use_slot_data(index: int) -> void:
-	var slot_data = slot_datas[index]
-	if not slot_data: return
-	if slot_data.item_data is ItemDataConsumable:
-		slot_data.quantity -= 1
-		if slot_data.quantity < 1:
-			slot_datas[index] = null
-	slot_data.item_data.use(Game.player)
+func use_stack(index: int) -> void:
+	var stack = stacks[index]
+	if not stack: return
+	if stack.item_data is ItemDataConsumable:
+		stack.quantity -= 1
+		if stack.quantity < 1:
+			stacks[index] = null
+	stack.item_data.use(Game.player)
 	inventory_updated.emit(self)

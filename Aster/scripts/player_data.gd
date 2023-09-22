@@ -6,4 +6,4 @@ extends Resource
 @export var name: String = "New Player"
 
 @export var inventory: InventoryData
-@export var equip_inventory: InventoryDataEquip
+@export var equipment: InventoryDataEquip

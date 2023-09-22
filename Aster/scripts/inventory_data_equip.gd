@@ -2,13 +2,13 @@
 class_name InventoryDataEquip
 extends InventoryData
 
-func drop_slot_data(grabbed_slot_data: ItemStack, index: int) -> ItemStack:
-	if not grabbed_slot_data.item_data is ItemDataEquip:
-		return grabbed_slot_data
-	return super.drop_slot_data(grabbed_slot_data, index)
+func drop_stack(grabbed_stack: ItemStack, index: int) -> ItemStack:
+	if not grabbed_stack.item_data is ItemDataEquip:
+		return grabbed_stack
+	return super.drop_stack(grabbed_stack, index)
 
-func drop_single_slot_data(grabbed_slot_data: ItemStack, index: int) -> ItemStack:
-	if not grabbed_slot_data.item_data is ItemDataEquip:
-		return grabbed_slot_data
-	return super.drop_single_slot_data(grabbed_slot_data, index)
+func drop_single_stack(grabbed_stack: ItemStack, index: int) -> ItemStack:
+	if not grabbed_stack.item_data is ItemDataEquip:
+		return grabbed_stack
+	return super.drop_single_stack(grabbed_stack, index)
 

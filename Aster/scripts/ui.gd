@@ -14,7 +14,7 @@ func _ready():
 	var player: Player = Game.player
 	player.toggle_inventory.connect(toggle_inventory_interface)
 	inventory_interface.set_player_inventory_data(player.data.inventory)
-	inventory_interface.set_equip_inventory_data(player.data.equip_inventory)
+	inventory_interface.set_equip_inventory_data(player.data.equipment)
 	inventory_interface.force_close.connect(toggle_inventory_interface)
 	hotbar_inventory.set_inventory_data(player.data.inventory)
 	
@@ -35,8 +35,9 @@ func toggle_inventory_interface(external_inventory_owner = null) -> void:
 	else:
 		inventory_interface.clear_external_inventory()
 
-func _on_inventory_interface_drop_slot_data(slot_data):
+func _on_inventory_interface_drop_stack(stack):
+	print("HERE")
 	var item_drop: ItemDrop = item_drop_prefab.instantiate()
-	item_drop.slot_data = slot_data
+	item_drop.stack = stack
 	item_drop.position = Game.player.get_drop_position()
 	add_child(item_drop)
