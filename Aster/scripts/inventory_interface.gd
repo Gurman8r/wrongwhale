@@ -18,7 +18,6 @@ var external_inventory_owner
 func _physics_process(_delta):
 	if grabbed_slot.visible:
 		grabbed_slot.global_position = get_global_mouse_position() + Vector2(5, 5)
-	
 	if external_inventory_owner \
 	and external_inventory_owner.global_position.distance_to(Game.player.global_position) > 4:
 		force_close.emit()
@@ -55,7 +54,7 @@ func on_inventory_interact(inventory_data: InventoryData, index: int, button: in
 		[null, MOUSE_BUTTON_RIGHT]:
 			grabbed_stack = inventory_data.grab_split_stack(index)
 		[_, MOUSE_BUTTON_RIGHT]:
-			grabbed_stack = inventory_data.drop_single_stack(grabbed_stack, index)
+			grabbed_stack = inventory_data.drop_single(grabbed_stack, index)
 	update_grabbed_slot()
 
 func update_grabbed_slot() -> void:

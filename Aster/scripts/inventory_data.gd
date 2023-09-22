@@ -41,7 +41,7 @@ func drop_stack(grabbed_stack: ItemStack, index: int) -> ItemStack:
 	inventory_updated.emit(self)
 	return return_stack
 
-func drop_single_stack(grabbed_stack: ItemStack, index: int) -> ItemStack:
+func drop_single(grabbed_stack: ItemStack, index: int) -> ItemStack:
 	var stack = stacks[index]
 	if not stack:
 		stacks[index] = grabbed_stack.create_single_stack()

@@ -2,20 +2,20 @@
 class_name ItemStack
 extends Resource
 
-const MAX_STACK = ItemData.MAX_STACK
+const MAX: int = 9999
 
 @export var item_data: ItemData
-@export_range(1, MAX_STACK) var quantity: int = 1 : set = set_quantity
+@export_range(1, MAX) var quantity: int = 1 : set = set_quantity
 
 func can_merge_with(other_stack: ItemStack) -> bool:
 	return item_data == other_stack.item_data \
 		and 1 < item_data.max_stack \
-		and quantity < MAX_STACK
+		and quantity < MAX
 
 func can_fully_merge_with(other_stack: ItemStack) -> bool:
 	return item_data == other_stack.item_data \
 		and 1 < item_data.max_stack \
-		and quantity + other_stack.quantity <= MAX_STACK
+		and quantity + other_stack.quantity <= MAX
 
 func fully_merge_with(other_stack: ItemStack) -> void:
 	quantity += other_stack.quantity

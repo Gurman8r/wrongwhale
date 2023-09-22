@@ -1,7 +1,7 @@
 [gd_scene load_steps=23 format=3 uid="uid://3ioo106b4s3t"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_dkwn1"]
-[ext_resource type="Script" path="res://scripts/inventory_data_equip.gd" id="2_e72jt"]
+[ext_resource type="Script" path="res://scripts/inventory_data_equipment.gd" id="2_e72jt"]
 [ext_resource type="Script" path="res://scripts/interact_ray.gd" id="2_itqmj"]
 [ext_resource type="Script" path="res://scripts/inventory_data.gd" id="2_iu3ks"]
 [ext_resource type="Script" path="res://scripts/player_data.gd" id="3_cks3x"]
