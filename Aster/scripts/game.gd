@@ -12,24 +12,24 @@ var players: Array[Player]
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
-func _ready():
+func _ready() -> void:
 	assert(main, "Game.main is invalid")
 	assert(world, "Game.world is invalid")
 	assert(ui, "Game.ui is invalid")
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
-func set_main(value: Main):
+func set_main(value: Main) -> void:
 	assert(!main, "Game.main is already assigned")
 	assert(value, "Game.main cannot be assigned to null")
 	main = value
 
-func set_world(value: World):
+func set_world(value: World) -> void:
 	assert(!world, "Game.world is already assigned")
 	assert(value, "Game.world cannot be assigned to null")
 	world = value
 	
-func set_ui(value: UI):
+func set_ui(value: UI) -> void:
 	assert(!ui, "Game.ui is already assigned")
 	assert(value, "Game.ui cannot be assigned to null")
 	ui = value

@@ -2,16 +2,9 @@
 class_name Main
 extends Node
 
-enum State {
-	NONE,
-	TITLE_SPLASH,
-	TITLE_MAIN,
-	TITLE_LOAD,
-	GAME_PLAYING,
-	GAME_PAUSED,
-}
+@onready var settings: Node = $Settings
+@onready var world: World = $World
+@onready var ui: UI = $UI
 
-@export var state: State = State.NONE
-
-func _init():
+func _init() -> void:
 	Game.main = self

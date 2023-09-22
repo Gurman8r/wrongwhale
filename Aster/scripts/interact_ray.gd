@@ -4,10 +4,10 @@ extends RayCast3D
 
 #@onready var prompt = $Prompt
 
-func _ready():
+func _ready() -> void:
 	add_exception(owner)
 
-func _physics_process(_delta):
+func _physics_process(_delta) -> void:
 	#prompt.text = ""
 	if is_colliding():
 		var detected = get_collider()

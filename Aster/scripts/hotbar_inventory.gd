@@ -13,7 +13,7 @@ func set_inventory_data(inventory_data: InventoryData) -> void:
 func populate_item_grid(inventory_data: InventoryData) -> void:
 	for child in h_box_container.get_children():
 		child.queue_free()
-	for stack in inventory_data.stacks.slice(0, 10):
+	for stack in inventory_data.item_stacks.slice(0, 10):
 		var slot = slot_prefab.instantiate()
 		h_box_container.add_child(slot)
 		if stack:

@@ -10,16 +10,16 @@ signal toggle_inventory()
 @export var run_speed: float = 10
 @export var pan_speed: Vector2 = Vector2(0.005, 0.005)
 
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var animation_tree: AnimationTree = $AnimationTree
-@onready var camera: Camera3D = $Camera3D
-@onready var collision_shape: CollisionShape3D = $CollisionShape3D
-@onready var mesh_instance: MeshInstance3D = $MeshInstance3D
-@onready var interact_ray: InteractRay = $InteractRay
+@onready var animation_player = $AnimationPlayer
+@onready var animation_tree = $AnimationTree
+@onready var camera_3d = $Camera3D
+@onready var collision_shape_3d = $CollisionShape3D
+@onready var mesh_instance_3d = $MeshInstance3D
+@onready var interact_ray = $InteractRay
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
-func _init():
+func _init() -> void:
 	Game.players.append(self)
 	if !Game.player && Game.players.size() == 1:
 		Game.player = self
@@ -39,7 +39,7 @@ func _physics_process(delta : float) -> void:
 	if sprint_pressed: move_speed = run_speed
 	var move_vec = Vector3(move_dir.x, 0, move_dir.y) * move_speed * delta
 	if move_vec != Vector3.ZERO:
-		move_and_collide(move_vec)
+		var _collision = move_and_collide(move_vec)
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 

@@ -16,7 +16,7 @@ func clear_inventory_data(inventory_data: InventoryData) -> void:
 func populate_item_grid(inventory_data: InventoryData) -> void:
 	for child in item_grid.get_children():
 		child.queue_free()
-	for stack in inventory_data.stacks:
+	for stack in inventory_data.item_stacks:
 		var slot = slot_prefab.instantiate()
 		item_grid.add_child(slot)
 		slot.slot_clicked.connect(inventory_data.on_slot_clicked)

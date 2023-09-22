@@ -15,7 +15,7 @@ var external_inventory_owner
 @onready var external_inventory: Inventory = $ExternalInventory
 @onready var grabbed_slot: InventorySlot = $GrabbedSlot
 
-func _physics_process(_delta):
+func _physics_process(_delta) -> void:
 	if grabbed_slot.visible:
 		grabbed_slot.global_position = get_global_mouse_position() + Vector2(5, 5)
 	if external_inventory_owner \
@@ -78,13 +78,13 @@ func _on_gui_input(event: InputEvent) -> void:
 					grabbed_stack = null
 		update_grabbed_slot()
 
-func _on_visibility_changed():
+func _on_visibility_changed() -> void:
 	if not visible and grabbed_stack:
 		drop_stack.emit(grabbed_stack)
 		grabbed_stack = null
 		update_grabbed_slot()
 
-func _on_drop_stack(stack: ItemStack):
+func _on_drop_stack(stack: ItemStack) -> void:
 	var drop = drop_prefab.instantiate()
 	drop.stack = stack
 	drop.position = Game.player.get_drop_position()

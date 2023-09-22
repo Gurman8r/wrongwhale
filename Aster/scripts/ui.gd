@@ -4,13 +4,14 @@ extends CanvasLayer
 
 const item_drop_prefab = preload("res://scenes/item_drop.tscn")
 
+@onready var hud: UI_HUD = $HUD
 @onready var hotbar_inventory = $HUD/HotbarInventory
 @onready var inventory_interface: InventoryInterface = $InventoryInterface
 
-func _init():
+func _init() -> void:
 	Game.ui = self
 
-func _ready():
+func _ready() -> void:
 	var player: Player = Game.player
 	player.toggle_inventory.connect(toggle_inventory_interface)
 	inventory_interface.set_player_inventory_data(player.data.inventory)
