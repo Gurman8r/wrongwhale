@@ -22,11 +22,11 @@ func _physics_process(_delta) -> void:
 	and external_inventory_owner.global_position.distance_to(Game.player.global_position) > 4:
 		force_close.emit()
 
-func set_player_inventory_data(inventory_data: InventoryData) -> void:
+func set_player_inventory_data(inventory_data: ItemInventoryData) -> void:
 	inventory_data.inventory_interact.connect(on_inventory_interact)
 	player_inventory.set_inventory_data(inventory_data)
 
-func set_equipment_inventory_data(inventory_data: InventoryData) -> void:
+func set_equipment_inventory_data(inventory_data: ItemInventoryData) -> void:
 	inventory_data.inventory_interact.connect(on_inventory_interact)
 	equipment_inventory.set_inventory_data(inventory_data)
 
@@ -45,7 +45,7 @@ func clear_external_inventory() -> void:
 	external_inventory.hide()
 	external_inventory_owner = null
 
-func on_inventory_interact(inventory_data: InventoryData, index: int, button: int) -> void:
+func on_inventory_interact(inventory_data: ItemInventoryData, index: int, button: int) -> void:
 	match [grabbed_stack, button]:
 		[null, MOUSE_BUTTON_LEFT]:
 			grabbed_stack = inventory_data.grab_stack(index)

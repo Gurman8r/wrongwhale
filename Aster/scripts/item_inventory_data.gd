@@ -1,11 +1,11 @@
-# inventory_data.gd
-class_name InventoryData
+# item_inventory_data.gd
+class_name ItemInventoryData
 extends Resource
 
 @export var item_stacks: Array[ItemStack]
 
-signal inventory_interact(inventory_data: InventoryData, index: int, button: int)
-signal inventory_updated(inventory_data: InventoryData)
+signal inventory_interact(inventory_data: ItemInventoryData, index: int, button: int)
+signal inventory_updated(inventory_data: ItemInventoryData)
 
 func on_slot_clicked(index: int, button: int) -> void:
 	inventory_interact.emit(self, index, button)

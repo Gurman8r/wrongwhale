@@ -2,7 +2,7 @@
 class_name Chest
 extends Interactable
 
-@export var inventory_data: InventoryData
+@export var inventory_data: ItemInventoryData
 
 signal toggle_inventory(external_inventory_owner)
 

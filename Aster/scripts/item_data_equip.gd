@@ -1,4 +1,4 @@
-# item_data_equipment.gd
+# item_data_equip.gd
 class_name ItemDataEquipment
 extends ItemData
 

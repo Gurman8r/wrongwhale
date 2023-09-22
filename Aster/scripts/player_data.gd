@@ -5,5 +5,5 @@ extends Resource
 @export var guid: String = "Player_New"
 @export var name: String = "New Player"
 
-@export var inventory: InventoryData
-@export var equipment: InventoryDataEquipment
+@export var inventory: ItemInventoryData
+@export var equipment: ItemInventoryDataEquip
