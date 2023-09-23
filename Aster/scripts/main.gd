@@ -5,6 +5,7 @@ extends Node
 @onready var settings: Settings = $Settings
 @onready var world: World = $World
 @onready var ui : UI = $UI
+
 @onready var player: Player = Game.player
 
 var playing: bool = false
@@ -28,12 +29,7 @@ func _ready() -> void:
 		node.toggle_inventory.connect(ui.item.toggle)
 
 func _unhandled_input(event) -> void:
-	#if Input.is_action_just_pressed("ui_cancel"): get_tree().quit()
-	pass
-
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
-
-func play():
-	pass
+	if Input.is_action_just_pressed("ui_cancel"):
+		get_tree().quit()
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #

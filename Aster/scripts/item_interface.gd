@@ -19,10 +19,11 @@ var external_inventory_owner
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
 func _unhandled_input(_event) -> void:
-	if Input.is_action_just_pressed("inventory") \
-	or Input.is_action_just_pressed("ui_cancel"):
-			toggle_inventory.emit()
-			get_viewport().set_input_as_handled()
+	if visible \
+	and Input.is_action_just_pressed("ui_cancel") \
+	or Input.is_action_just_pressed("inventory"):
+		toggle_inventory.emit()
+		get_viewport().set_input_as_handled()
 
 func _physics_process(_delta) -> void:
 	if grabbed_slot.visible:

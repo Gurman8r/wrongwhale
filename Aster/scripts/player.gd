@@ -58,12 +58,12 @@ func _process(delta):
 	elif inputs[BACKWARD]: move_dir += camera_pivot_y.transform.basis.z
 	move_dir.y = 0
 	move_dir = move_dir.normalized()
-	if move_dir.x != 0 and move_dir.z != 0:
-		look_dir = (look_dir + move_dir).normalized()
+		
 	var move_speed: float = walk_speed
 	if inputs[SPRINT]: move_speed = run_speed
 	var _collision = move_and_collide(move_dir * move_speed * delta)
 	
+	look_dir = (look_dir + move_dir).normalized()
 	var look_rot: Basis = mesh_instance_3d.basis.slerp(Basis.looking_at(look_dir), turn_speed * delta)
 	mesh_instance_3d.basis = look_rot
 	interact_ray.basis = look_rot
