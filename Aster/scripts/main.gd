@@ -3,8 +3,10 @@ class_name Main
 extends Node
 
 @onready var settings: Settings = $Settings
-@onready var ui : Interface = $Interface
 @onready var world: World = $World
+@onready var ui : Interface = $Interface
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
 func _init() -> void:
 	Game.main = self
@@ -20,3 +22,5 @@ func _ready() -> void:
 func _unhandled_input(event) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().quit()
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #

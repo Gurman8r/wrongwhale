@@ -1,4 +1,4 @@
-# world_cell.gd
+# worldcell.gd
 class_name WorldCell
 extends GridMap
 

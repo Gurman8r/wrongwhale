@@ -2,16 +2,20 @@
 class_name World
 extends Node3D
 
+signal world_loaded(world: World)
+signal world_unloaded(world: World)
+signal cell_registered(world_cell: WorldCell)
+signal cell_unregistered(world_cell: WorldCell)
+signal cell_entered(world_cell: WorldCell)
+signal cell_exited(world_cell: WorldCell)
+
 const player_prefab = preload("res://scenes/player.tscn")
 
 @export var default_cell: WorldCell
 var cell: WorldCell: set = goto_cell
 var cells: Array[WorldCell]
 
-signal cell_registered(value: WorldCell)
-signal cell_unregistered(value: WorldCell)
-signal cell_entered(value: WorldCell)
-signal cell_exited(value: WorldCell)
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
 func _init() -> void:
 	Game.world = self
@@ -22,6 +26,8 @@ func _ready() -> void:
 			child.show()
 		else:
 			child.hide()
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
 func register_cell(value: WorldCell) -> bool:
 	if cells.has(value): return false
@@ -42,3 +48,13 @@ func goto_cell(value: WorldCell) -> WorldCell:
 	cell = value
 	cell_entered.emit(cell)
 	return previous
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+
+func _on_visibility_changed():
+	if visible:
+		# load world here
+		world_loaded.emit(self)
+	else:
+		# unload world here
+		world_unloaded.emit(self)

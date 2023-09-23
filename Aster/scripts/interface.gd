@@ -3,8 +3,11 @@ class_name Interface
 extends CanvasLayer
 
 @onready var hotbar_inventory = $HUD/ItemHotbar
-@onready var interact_label = $HUD/InteractLabel
+@onready var interact_label: Label = $HUD/InteractLabel
+
 @onready var item_interface: ItemInterface = $ItemInterface
+@onready var menu_interface: MenuInterface = $MenuInterface
+@onready var debug_interface: DebugInterface = $DebugInterface
 
 var block_input: bool = false
 
@@ -13,7 +16,6 @@ func _init() -> void:
 
 func _ready() -> void:
 	block_input = false
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	for node in get_tree().get_nodes_in_group("external_inventory"):
 		node.toggle_inventory.connect(toggle_item_interface)
 

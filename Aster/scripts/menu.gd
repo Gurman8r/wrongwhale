@@ -1,3 +1,3 @@
 # menu.gd
 class_name Menu
-extends PanelContainer
+extends Control

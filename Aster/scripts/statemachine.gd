@@ -1,4 +1,4 @@
-# state_machine.gd
+# statemachine.gd
 class_name StateMachine
 extends Node
 
