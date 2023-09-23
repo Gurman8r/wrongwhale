@@ -2,6 +2,7 @@
 class_name ItemInterface
 extends Control
 
+signal toggle_inventory()
 signal drop_stack(stack: ItemStack)
 signal force_close()
 
@@ -16,6 +17,12 @@ var grabbed_stack: ItemStack
 var external_inventory_owner
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+
+func _input(_event) -> void:
+	if Input.is_action_just_pressed("inventory") \
+	or Input.is_action_just_pressed("ui_cancel"):
+			toggle_inventory.emit()
+			get_viewport().set_input_as_handled()
 
 func _physics_process(_delta) -> void:
 	if grabbed_slot.visible:
@@ -73,6 +80,12 @@ func update_grabbed_slot() -> void:
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
+func _on_drop_stack(stack: ItemStack) -> void:
+	var drop = drop_prefab.instantiate()
+	drop.stack = stack
+	drop.position = Game.player.global_position + (-Game.player.global_transform.basis.z * 2)
+	add_child(drop)
+
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_pressed() and grabbed_stack:
 		match event.button_index:
@@ -85,24 +98,18 @@ func _on_gui_input(event: InputEvent) -> void:
 					grabbed_stack = null
 		update_grabbed_slot()
 
-func _on_drop_stack(stack: ItemStack) -> void:
-	var drop = drop_prefab.instantiate()
-	drop.stack = stack
-	drop.position = Game.player.global_position + (-Game.player.global_transform.basis.z * 2)
-	add_child(drop)
-
 func _on_visibility_changed() -> void:
 	if visible:
 		get_tree().paused = true
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		Game.ui.hud.item_hotbar.hide()
 	else:
-		get_tree().paused = false
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		Game.ui.hud.item_hotbar.show()
 		if grabbed_stack:
 			drop_stack.emit(grabbed_stack)
 			grabbed_stack = null
 			update_grabbed_slot()
+		get_tree().paused = false
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #

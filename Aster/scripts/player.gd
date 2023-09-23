@@ -2,6 +2,8 @@
 class_name Player
 extends CharacterBody3D
 
+signal toggle_inventory()
+
 @export var data: PlayerData
 @export var walk_speed: float = 5
 @export var run_speed: float = 10
@@ -41,6 +43,7 @@ func _input(event) -> void:
 			deg_to_rad(camera_angle_max_degrees))
 
 func _unhandled_input(_event) -> void:
+	if Input.is_action_just_pressed("inventory"): toggle_inventory.emit()
 	inputs[LEFT] = Input.is_action_pressed("move_left")
 	inputs[RIGHT] = Input.is_action_pressed("move_right")
 	inputs[FORWARD] = Input.is_action_pressed("move_forward")

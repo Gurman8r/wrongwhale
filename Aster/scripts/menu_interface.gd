@@ -22,3 +22,7 @@ func set_current(value: Menu) -> void:
 		current = value
 		current.show()
 	menu_changed.emit(value)
+
+func _on_visibility_changed():
+	if not visible and current:
+		current = null
