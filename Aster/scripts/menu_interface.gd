@@ -4,7 +4,7 @@ extends Control
 
 signal menu_changed(menu: Control)
 
-@onready var menu: Control = $MenuMain : set = show_menu
+@onready var menu: Control = $MenuMain
 @onready var menu_main: MenuMain = $MenuMain
 @onready var menu_loadgame: MenuLoadgame = $MenuLoadgame
 @onready var menu_newgame: MenuNewgame = $MenuNewgame
@@ -18,8 +18,13 @@ func _ready():
 	assert(menu_options)
 
 func show_menu(value: Control) -> void:
-	if menu == value: return
-	menu.hide()
-	menu = value
-	menu.show()
+	if menu == value:
+		return
+	elif menu and not value:
+		menu.hide()
+		menu = null
+	elif menu and value:
+		menu.hide()
+		menu = value
+		menu.show()
 	menu_changed.emit(menu)

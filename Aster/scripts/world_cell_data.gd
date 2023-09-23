@@ -1,4 +1,4 @@
-# worldcell_data.gd
+# world_cell_data.gd
 class_name WorldCellData
 extends Resource
 
