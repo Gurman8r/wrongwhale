@@ -18,8 +18,8 @@ func _ready() -> void:
 	get_tree().paused = true
 	
 	# setup interface
-	player.toggle_inventory.connect(ui.item.show)
-	ui.item.toggle_inventory.connect(ui.item.hide)
+	player.toggle_inventory.connect(ui.item.toggle)
+	ui.item.toggle_inventory.connect(ui.item.toggle)
 	ui.item.set_player_inventory_data(player.data.inventory)
 	ui.item.set_equip_inventory_data(player.data.equip)
 	ui.item.force_close.connect(ui.item.toggle)

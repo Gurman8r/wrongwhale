@@ -18,7 +18,7 @@ var external_inventory_owner
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
-func _input(_event) -> void:
+func _unhandled_input(_event) -> void:
 	if Input.is_action_just_pressed("inventory") \
 	or Input.is_action_just_pressed("ui_cancel"):
 			toggle_inventory.emit()

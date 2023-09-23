@@ -252,7 +252,6 @@ layout_mode = 2
 [connection signal="drop_stack" from="UI/ItemInterface" to="UI/ItemInterface" method="_on_drop_stack"]
 [connection signal="gui_input" from="UI/ItemInterface" to="UI/ItemInterface" method="_on_gui_input"]
 [connection signal="visibility_changed" from="UI/ItemInterface" to="UI/ItemInterface" method="_on_visibility_changed"]
-[connection signal="visibility_changed" from="UI/MenuInterface" to="UI/MenuInterface" method="_on_visibility_changed"]
 [connection signal="pressed" from="UI/MenuInterface/MenuMain/MarginContainer/VBoxContainer/ButtonLoadgame" to="UI/MenuInterface/MenuMain" method="_on_button_loadgame_pressed"]
 [connection signal="pressed" from="UI/MenuInterface/MenuMain/MarginContainer/VBoxContainer/ButtonNewgame" to="UI/MenuInterface/MenuMain" method="_on_button_newgame_pressed"]
 [connection signal="pressed" from="UI/MenuInterface/MenuMain/MarginContainer/VBoxContainer/ButtonOptions" to="UI/MenuInterface/MenuMain" method="_on_button_options_pressed"]
