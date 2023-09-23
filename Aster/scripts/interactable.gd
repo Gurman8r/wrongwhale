@@ -8,7 +8,7 @@ signal interacted(other)
 @export var prompt_action = "interact"
 
 func get_prompt() -> String:
-	if Game.ui.block_input: return ""
+	if get_tree().paused: return ""
 	var key_name = ""
 	for action in InputMap.action_get_events(prompt_action):
 		if action is InputEventKey:

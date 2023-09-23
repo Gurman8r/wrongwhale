@@ -4,7 +4,8 @@ extends Node
 
 @onready var settings: Settings = $Settings
 @onready var world: World = $World
-@onready var ui : Interface = $Interface
+@onready var ui : UI = $UI
+@onready var player: Player = Game.player
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
@@ -12,15 +13,18 @@ func _init() -> void:
 	Game.main = self
 
 func _ready() -> void:
-	var player: Player = Game.player
-	player.toggle_inventory.connect(ui.toggle_item_interface)
-	ui.item_interface.set_player_inventory_data(player.data.inventory)
-	ui.item_interface.set_equip_inventory_data(player.data.equip)
-	ui.item_interface.force_close.connect(ui.toggle_item_interface)
-	ui.hotbar_inventory.set_inventory_data(player.data.inventory)
+	get_tree().paused = true
+	
+	ui.toggle_inventory.connect(ui.item.toggle)
+	ui.item.set_player_inventory_data(player.data.inventory)
+	ui.item.set_equip_inventory_data(player.data.equip)
+	ui.item.force_close.connect(ui.item.toggle)
+	ui.hud.item_hotbar.set_inventory_data(player.data.inventory)
+	for node in get_tree().get_nodes_in_group("external_inventory"):
+		node.toggle_inventory.connect(ui.item.toggle)
 
 func _unhandled_input(event) -> void:
-	if Input.is_action_just_pressed("ui_cancel"):
-		get_tree().quit()
+	#if Input.is_action_just_pressed("ui_cancel"): get_tree().quit()
+	pass
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #

@@ -2,29 +2,23 @@
 class_name MenuInterface
 extends Control
 
-signal menu_changed(menu: Control)
+signal menu_changed(value: Menu)
 
-@onready var menu: Control = $MenuMain
+@onready var current: Menu = $MenuMain : set = set_current
 @onready var menu_main: MenuMain = $MenuMain
 @onready var menu_loadgame: MenuLoadgame = $MenuLoadgame
 @onready var menu_newgame: MenuNewgame = $MenuNewgame
 @onready var menu_options: MenuOptions = $MenuOptions
+@onready var menu_pause: MenuPause = $MenuPause
 
-func _ready():
-	assert(menu)
-	assert(menu_main)
-	assert(menu_loadgame)
-	assert(menu_newgame)
-	assert(menu_options)
-
-func show_menu(value: Control) -> void:
-	if menu == value:
+func set_current(value: Menu) -> void:
+	if current == value:
 		return
-	elif menu and not value:
-		menu.hide()
-		menu = null
-	elif menu and value:
-		menu.hide()
-		menu = value
-		menu.show()
-	menu_changed.emit(menu)
+	elif current and not value:
+		current.hide()
+		current = null
+	elif current and value:
+		current.hide()
+		current = value
+		current.show()
+	menu_changed.emit(value)

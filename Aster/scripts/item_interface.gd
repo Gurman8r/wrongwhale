@@ -15,12 +15,23 @@ const drop_prefab = preload("res://scenes/item_drop.tscn")
 var grabbed_stack: ItemStack
 var external_inventory_owner
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+
 func _physics_process(_delta) -> void:
 	if grabbed_slot.visible:
 		grabbed_slot.global_position = get_global_mouse_position() + Vector2(5, 5)
 	if external_inventory_owner \
 	and external_inventory_owner.global_position.distance_to(Game.player.global_position) > 4:
 		force_close.emit()
+	
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+
+func toggle(external_inventory_owner = null) -> void:
+	visible = not visible
+	if external_inventory_owner and visible:
+		set_external_inventory(external_inventory_owner)
+	else:
+		clear_external_inventory()
 
 func set_player_inventory_data(inventory_data: ItemInventoryData) -> void:
 	inventory_data.inventory_interact.connect(on_inventory_interact)
@@ -47,14 +58,10 @@ func clear_external_inventory() -> void:
 
 func on_inventory_interact(inventory_data: ItemInventoryData, index: int, button: int) -> void:
 	match [grabbed_stack, button]:
-		[null, MOUSE_BUTTON_LEFT]:
-			grabbed_stack = inventory_data.grab_stack(index)
-		[_, MOUSE_BUTTON_LEFT]:
-			grabbed_stack = inventory_data.drop_stack(grabbed_stack, index)
-		[null, MOUSE_BUTTON_RIGHT]:
-			grabbed_stack = inventory_data.grab_split_stack(index)
-		[_, MOUSE_BUTTON_RIGHT]:
-			grabbed_stack = inventory_data.drop_single(grabbed_stack, index)
+		[null, MOUSE_BUTTON_LEFT]: grabbed_stack = inventory_data.grab_stack(index)
+		[null, MOUSE_BUTTON_RIGHT]: grabbed_stack = inventory_data.grab_split_stack(index)
+		[_, MOUSE_BUTTON_LEFT]: grabbed_stack = inventory_data.drop_stack(grabbed_stack, index)
+		[_, MOUSE_BUTTON_RIGHT]: grabbed_stack = inventory_data.drop_single(grabbed_stack, index)
 	update_grabbed_slot()
 
 func update_grabbed_slot() -> void:
@@ -64,10 +71,10 @@ func update_grabbed_slot() -> void:
 	else:
 		grabbed_slot.hide()
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+
 func _on_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton \
-	and event.is_pressed() \
-	and grabbed_stack:
+	if event is InputEventMouseButton and event.is_pressed() and grabbed_stack:
 		match event.button_index:
 			MOUSE_BUTTON_LEFT:
 				drop_stack.emit(grabbed_stack)
@@ -78,14 +85,24 @@ func _on_gui_input(event: InputEvent) -> void:
 					grabbed_stack = null
 		update_grabbed_slot()
 
-func _on_visibility_changed() -> void:
-	if not visible and grabbed_stack:
-		drop_stack.emit(grabbed_stack)
-		grabbed_stack = null
-		update_grabbed_slot()
-
 func _on_drop_stack(stack: ItemStack) -> void:
 	var drop = drop_prefab.instantiate()
 	drop.stack = stack
-	drop.position = Game.player.get_drop_position()
+	drop.position = Game.player.global_position + (-Game.player.global_transform.basis.z * 2)
 	add_child(drop)
+
+func _on_visibility_changed() -> void:
+	if visible:
+		get_tree().paused = true
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		Game.ui.hud.item_hotbar.hide()
+	else:
+		get_tree().paused = false
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		Game.ui.hud.item_hotbar.show()
+		if grabbed_stack:
+			drop_stack.emit(grabbed_stack)
+			grabbed_stack = null
+			update_grabbed_slot()
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #

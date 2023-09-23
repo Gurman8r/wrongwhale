@@ -6,4 +6,4 @@ extends GridMap
 @onready var world_light = $WorldLight
 
 func _init() -> void:
-	pass
+	Game.world.cells.append(self)

@@ -2,13 +2,14 @@
 class_name MenuNewgame
 extends Menu
 
-@export var save_data: SaveData
-
 func _on_button_play_pressed():
-	Game.ui.menu_interface.show_menu(null)
-	Game.ui.toggle_menu_interface()
+	Game.ui.menu.current = null
+	Game.ui.menu.hide()
+	# load world data here
 	Game.world.show()
-	Game.ui.toggle_hud()
+	Game.ui.hud.show()
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	get_tree().paused = false
 
 func _on_button_back_pressed():
-	Game.ui.menu_interface.show_menu(Game.ui.menu_interface.menu_main)
+	Game.ui.menu.current = Game.ui.menu.menu_main

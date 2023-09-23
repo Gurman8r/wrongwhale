@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://dwgfxln4fp4lj"]
+[gd_scene load_steps=17 format=3 uid="uid://dwgfxln4fp4lj"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_0uonw"]
 [ext_resource type="PackedScene" uid="uid://cagnofcp3jxwf" path="res://scenes/world.tscn" id="2_bggds"]
 [ext_resource type="Script" path="res://scripts/settings.gd" id="2_lw0i7"]
-[ext_resource type="Script" path="res://scripts/interface.gd" id="3_aeksw"]
+[ext_resource type="Script" path="res://scripts/ui.gd" id="4_tusok"]
 [ext_resource type="Script" path="res://scripts/item_interface.gd" id="5_ctmbw"]
+[ext_resource type="Script" path="res://scripts/hud_interface.gd" id="5_hsg2g"]
 [ext_resource type="PackedScene" uid="uid://ci4vy40gl6vs8" path="res://scenes/item_hotbar.tscn" id="5_rqfga"]
 [ext_resource type="PackedScene" uid="uid://dv6li4wxrohgf" path="res://scenes/item_inventory.tscn" id="7_tb51c"]
 [ext_resource type="Script" path="res://scripts/menu_interface.gd" id="8_2s1la"]
@@ -14,20 +15,26 @@
 [ext_resource type="Script" path="res://scripts/menu_main.gd" id="10_uh371"]
 [ext_resource type="Script" path="res://scripts/menu_newgame.gd" id="11_pvy0o"]
 [ext_resource type="Script" path="res://scripts/menu_options.gd" id="12_d8max"]
+[ext_resource type="Script" path="res://scenes/menu_pause.gd" id="15_l2its"]
 
 [node name="Main" type="Node"]
+process_mode = 3
 script = ExtResource("1_0uonw")
 
 [node name="Settings" type="Node" parent="."]
+process_mode = 3
 script = ExtResource("2_lw0i7")
 
 [node name="World" parent="." instance=ExtResource("2_bggds")]
+process_mode = 1
 visible = false
 
-[node name="Interface" type="CanvasLayer" parent="."]
-script = ExtResource("3_aeksw")
+[node name="UI" type="CanvasLayer" parent="."]
+process_mode = 3
+script = ExtResource("4_tusok")
 
-[node name="HUD" type="Control" parent="Interface"]
+[node name="HudInterface" type="Control" parent="UI"]
+process_mode = 3
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -35,15 +42,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("5_hsg2g")
 
-[node name="ItemHotbar" parent="Interface/HUD" instance=ExtResource("5_rqfga")]
+[node name="ItemHotbar" parent="UI/HudInterface" instance=ExtResource("5_rqfga")]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 694.0
 offset_bottom = 82.0
 
-[node name="InteractLabel" type="Label" parent="Interface/HUD"]
+[node name="InteractLabel" type="Label" parent="UI/HudInterface"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -60,7 +68,8 @@ text = "Interact"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ItemInterface" type="Control" parent="Interface"]
+[node name="ItemInterface" type="Control" parent="UI"]
+process_mode = 3
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -70,21 +79,21 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("5_ctmbw")
 
-[node name="PlayerInventory" parent="Interface/ItemInterface" instance=ExtResource("7_tb51c")]
+[node name="PlayerInventory" parent="UI/ItemInterface" instance=ExtResource("7_tb51c")]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 50.0
 offset_bottom = 50.0
 
-[node name="EquipmentInventory" parent="Interface/ItemInterface" instance=ExtResource("7_tb51c")]
+[node name="EquipmentInventory" parent="UI/ItemInterface" instance=ExtResource("7_tb51c")]
 layout_mode = 0
 offset_left = 720.0
 offset_top = 10.0
 offset_right = 760.0
 offset_bottom = 50.0
 
-[node name="ExternalInventory" parent="Interface/ItemInterface" instance=ExtResource("7_tb51c")]
+[node name="ExternalInventory" parent="UI/ItemInterface" instance=ExtResource("7_tb51c")]
 visible = false
 layout_mode = 0
 offset_left = 10.0
@@ -92,7 +101,7 @@ offset_top = 360.0
 offset_right = 50.0
 offset_bottom = 400.0
 
-[node name="GrabbedSlot" parent="Interface/ItemInterface" instance=ExtResource("8_ipgvm")]
+[node name="GrabbedSlot" parent="UI/ItemInterface" instance=ExtResource("8_ipgvm")]
 visible = false
 modulate = Color(1, 1, 1, 0.501961)
 self_modulate = Color(1, 1, 1, 0)
@@ -100,106 +109,132 @@ layout_mode = 0
 offset_right = 64.0
 offset_bottom = 64.0
 
-[node name="MenuInterface" type="PanelContainer" parent="Interface"]
+[node name="MenuInterface" type="PanelContainer" parent="UI"]
+process_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("8_2s1la")
+metadata/_edit_use_anchors_ = true
 
-[node name="MenuMain" type="PanelContainer" parent="Interface/MenuInterface"]
+[node name="MenuMain" type="PanelContainer" parent="UI/MenuInterface"]
 layout_mode = 2
 script = ExtResource("10_uh371")
 
-[node name="MarginContainer" type="MarginContainer" parent="Interface/MenuInterface/MenuMain"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/MenuInterface/MenuMain"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Interface/MenuInterface/MenuMain/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuInterface/MenuMain/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="ButtonLoadgame" type="Button" parent="Interface/MenuInterface/MenuMain/MarginContainer/VBoxContainer"]
+[node name="ButtonLoadgame" type="Button" parent="UI/MenuInterface/MenuMain/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 text = "Load Game"
 
-[node name="ButtonNewgame" type="Button" parent="Interface/MenuInterface/MenuMain/MarginContainer/VBoxContainer"]
+[node name="ButtonNewgame" type="Button" parent="UI/MenuInterface/MenuMain/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 text = "New Game"
 
-[node name="ButtonOptions" type="Button" parent="Interface/MenuInterface/MenuMain/MarginContainer/VBoxContainer"]
+[node name="ButtonOptions" type="Button" parent="UI/MenuInterface/MenuMain/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 text = "Options"
 
-[node name="ButtonQuit" type="Button" parent="Interface/MenuInterface/MenuMain/MarginContainer/VBoxContainer"]
+[node name="ButtonQuit" type="Button" parent="UI/MenuInterface/MenuMain/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 text = "Quit"
 
-[node name="MenuLoadgame" type="PanelContainer" parent="Interface/MenuInterface"]
+[node name="MenuLoadgame" type="PanelContainer" parent="UI/MenuInterface"]
 visible = false
 layout_mode = 2
 script = ExtResource("10_b8jdc")
 
-[node name="MarginContainer" type="MarginContainer" parent="Interface/MenuInterface/MenuLoadgame"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/MenuInterface/MenuLoadgame"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Interface/MenuInterface/MenuLoadgame/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuInterface/MenuLoadgame/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="ButtonBack" type="Button" parent="Interface/MenuInterface/MenuLoadgame/MarginContainer/VBoxContainer"]
+[node name="ButtonBack" type="Button" parent="UI/MenuInterface/MenuLoadgame/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 text = "Back"
 
-[node name="MenuNewgame" type="PanelContainer" parent="Interface/MenuInterface"]
+[node name="MenuNewgame" type="PanelContainer" parent="UI/MenuInterface"]
 visible = false
 layout_mode = 2
 script = ExtResource("11_pvy0o")
 
-[node name="MarginContainer" type="MarginContainer" parent="Interface/MenuInterface/MenuNewgame"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/MenuInterface/MenuNewgame"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Interface/MenuInterface/MenuNewgame/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuInterface/MenuNewgame/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="ButtonPlay" type="Button" parent="Interface/MenuInterface/MenuNewgame/MarginContainer/VBoxContainer"]
+[node name="ButtonPlay" type="Button" parent="UI/MenuInterface/MenuNewgame/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 text = "Play"
 
-[node name="ButtonBack" type="Button" parent="Interface/MenuInterface/MenuNewgame/MarginContainer/VBoxContainer"]
+[node name="ButtonBack" type="Button" parent="UI/MenuInterface/MenuNewgame/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 text = "Back"
 
-[node name="MenuOptions" type="PanelContainer" parent="Interface/MenuInterface"]
+[node name="MenuOptions" type="PanelContainer" parent="UI/MenuInterface"]
 visible = false
 layout_mode = 2
 script = ExtResource("12_d8max")
 
-[node name="MarginContainer" type="MarginContainer" parent="Interface/MenuInterface/MenuOptions"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/MenuInterface/MenuOptions"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Interface/MenuInterface/MenuOptions/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuInterface/MenuOptions/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="ButtonBack" type="Button" parent="Interface/MenuInterface/MenuOptions/MarginContainer/VBoxContainer"]
+[node name="ButtonBack" type="Button" parent="UI/MenuInterface/MenuOptions/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 text = "Back"
 
-[node name="DebugInterface" type="PanelContainer" parent="Interface"]
+[node name="MenuPause" type="PanelContainer" parent="UI/MenuInterface"]
+visible = false
+layout_mode = 2
+script = ExtResource("15_l2its")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/MenuInterface/MenuPause"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MenuInterface/MenuPause/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ButtonResume" type="Button" parent="UI/MenuInterface/MenuPause/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(160, 32)
+layout_mode = 2
+text = "Resume"
+
+[node name="ButtonQuit" type="Button" parent="UI/MenuInterface/MenuPause/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(160, 32)
+layout_mode = 2
+text = "Quit"
+
+[node name="DebugInterface" type="PanelContainer" parent="UI"]
+process_mode = 3
 visible = false
 anchors_preset = 15
 anchor_right = 1.0
@@ -208,20 +243,22 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("9_t26ar")
 
-[node name="MarginContainer" type="MarginContainer" parent="Interface/DebugInterface"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/DebugInterface"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Interface/DebugInterface/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/DebugInterface/MarginContainer"]
 layout_mode = 2
 
-[connection signal="drop_stack" from="Interface/ItemInterface" to="Interface/ItemInterface" method="_on_drop_stack"]
-[connection signal="gui_input" from="Interface/ItemInterface" to="Interface/ItemInterface" method="_on_gui_input"]
-[connection signal="visibility_changed" from="Interface/ItemInterface" to="Interface/ItemInterface" method="_on_visibility_changed"]
-[connection signal="pressed" from="Interface/MenuInterface/MenuMain/MarginContainer/VBoxContainer/ButtonLoadgame" to="Interface/MenuInterface/MenuMain" method="_on_button_loadgame_pressed"]
-[connection signal="pressed" from="Interface/MenuInterface/MenuMain/MarginContainer/VBoxContainer/ButtonNewgame" to="Interface/MenuInterface/MenuMain" method="_on_button_newgame_pressed"]
-[connection signal="pressed" from="Interface/MenuInterface/MenuMain/MarginContainer/VBoxContainer/ButtonOptions" to="Interface/MenuInterface/MenuMain" method="_on_button_options_pressed"]
-[connection signal="pressed" from="Interface/MenuInterface/MenuMain/MarginContainer/VBoxContainer/ButtonQuit" to="Interface/MenuInterface/MenuMain" method="_on_button_quit_pressed"]
-[connection signal="pressed" from="Interface/MenuInterface/MenuLoadgame/MarginContainer/VBoxContainer/ButtonBack" to="Interface/MenuInterface/MenuLoadgame" method="_on_button_back_pressed"]
-[connection signal="pressed" from="Interface/MenuInterface/MenuNewgame/MarginContainer/VBoxContainer/ButtonPlay" to="Interface/MenuInterface/MenuNewgame" method="_on_button_play_pressed"]
-[connection signal="pressed" from="Interface/MenuInterface/MenuNewgame/MarginContainer/VBoxContainer/ButtonBack" to="Interface/MenuInterface/MenuNewgame" method="_on_button_back_pressed"]
-[connection signal="pressed" from="Interface/MenuInterface/MenuOptions/MarginContainer/VBoxContainer/ButtonBack" to="Interface/MenuInterface/MenuOptions" method="_on_button_back_pressed"]
+[connection signal="drop_stack" from="UI/ItemInterface" to="UI/ItemInterface" method="_on_drop_stack"]
+[connection signal="gui_input" from="UI/ItemInterface" to="UI/ItemInterface" method="_on_gui_input"]
+[connection signal="visibility_changed" from="UI/ItemInterface" to="UI/ItemInterface" method="_on_visibility_changed"]
+[connection signal="pressed" from="UI/MenuInterface/MenuMain/MarginContainer/VBoxContainer/ButtonLoadgame" to="UI/MenuInterface/MenuMain" method="_on_button_loadgame_pressed"]
+[connection signal="pressed" from="UI/MenuInterface/MenuMain/MarginContainer/VBoxContainer/ButtonNewgame" to="UI/MenuInterface/MenuMain" method="_on_button_newgame_pressed"]
+[connection signal="pressed" from="UI/MenuInterface/MenuMain/MarginContainer/VBoxContainer/ButtonOptions" to="UI/MenuInterface/MenuMain" method="_on_button_options_pressed"]
+[connection signal="pressed" from="UI/MenuInterface/MenuMain/MarginContainer/VBoxContainer/ButtonQuit" to="UI/MenuInterface/MenuMain" method="_on_button_quit_pressed"]
+[connection signal="pressed" from="UI/MenuInterface/MenuLoadgame/MarginContainer/VBoxContainer/ButtonBack" to="UI/MenuInterface/MenuLoadgame" method="_on_button_back_pressed"]
+[connection signal="pressed" from="UI/MenuInterface/MenuNewgame/MarginContainer/VBoxContainer/ButtonPlay" to="UI/MenuInterface/MenuNewgame" method="_on_button_play_pressed"]
+[connection signal="pressed" from="UI/MenuInterface/MenuNewgame/MarginContainer/VBoxContainer/ButtonBack" to="UI/MenuInterface/MenuNewgame" method="_on_button_back_pressed"]
+[connection signal="pressed" from="UI/MenuInterface/MenuOptions/MarginContainer/VBoxContainer/ButtonBack" to="UI/MenuInterface/MenuOptions" method="_on_button_back_pressed"]
+[connection signal="pressed" from="UI/MenuInterface/MenuPause/MarginContainer/VBoxContainer/ButtonResume" to="UI/MenuInterface/MenuPause" method="_on_button_resume_pressed"]
+[connection signal="pressed" from="UI/MenuInterface/MenuPause/MarginContainer/VBoxContainer/ButtonQuit" to="UI/MenuInterface/MenuPause" method="_on_button_quit_pressed"]
