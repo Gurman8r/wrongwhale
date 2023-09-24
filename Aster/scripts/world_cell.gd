@@ -23,19 +23,10 @@ func get_object_root(value: Node3D) -> Node3D:
 	else: return misc_root
 
 func add(value: Node3D, location: Vector3 = Vector3.ZERO) -> void:
-	var root: Node3D = get_object_root(value)
-	if not root: return
-	root.add_child(value)
+	if not value: return
+	get_object_root(value).add_child(value)
 	value.global_transform.origin = location
 
 func remove(value: Node3D) -> void:
-	var root: Node3D = get_object_root(value)
-	if not root: return
-	root.remove_child(value)
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func _on_visibility_changed():
-	set_physics_process(visible)
-	set_process_input(visible)
-	set_process_unhandled_input(visible)
+	if not value: return
+	get_object_root(value).remove_child(value)

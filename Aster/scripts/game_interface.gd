@@ -19,8 +19,9 @@ var external_inventory_owner
 
 func _unhandled_input(_event) -> void:
 	if visible \
-	and Input.is_action_just_pressed("ui_cancel") \
-	or Input.is_action_just_pressed("inventory"):
+	and (Input.is_action_just_pressed("ui_cancel") \
+	or Input.is_action_just_pressed("inventory")):
+		print("here")
 		hide()
 		get_viewport().set_input_as_handled()
 
@@ -102,10 +103,10 @@ func _on_visibility_changed() -> void:
 	if visible:
 		get_tree().paused = true
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		Ref.ui.game_overlay.hide()
+		Ref.ui.hud.hide()
 	else:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		Ref.ui.game_overlay.show()
+		Ref.ui.hud.show()
 		if grabbed_stack:
 			drop_stack.emit(grabbed_stack)
 			grabbed_stack = null

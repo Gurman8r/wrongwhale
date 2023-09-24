@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dwgfxln4fp4lj"]
+[gd_scene load_steps=20 format=3 uid="uid://dwgfxln4fp4lj"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_0uonw"]
 [ext_resource type="PackedScene" uid="uid://cagnofcp3jxwf" path="res://scenes/world.tscn" id="2_bggds"]
@@ -16,6 +16,43 @@
 [ext_resource type="Script" path="res://scripts/title_options.gd" id="14_xqgll"]
 [ext_resource type="Script" path="res://scripts/transition_overlay.gd" id="15_2gxw0"]
 [ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="15_n8rrs"]
+
+[sub_resource type="Animation" id="Animation_ubt67"]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DissolveRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_5xvxl"]
+resource_name = "dissolve"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DissolveRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_02u0i"]
+_data = {
+"RESET": SubResource("Animation_ubt67"),
+"dissolve": SubResource("Animation_5xvxl")
+}
 
 [node name="Main" type="Node"]
 process_mode = 3
@@ -211,22 +248,30 @@ layout_mode = 2
 text = "Back"
 
 [node name="TransitionOverlay" type="Control" parent="UI"]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("15_2gxw0")
+metadata/_edit_use_anchors_ = true
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/TransitionOverlay"]
+[node name="DissolveRect" type="ColorRect" parent="UI/TransitionOverlay"]
+modulate = Color(0, 0, 0, 0)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="UI/TransitionOverlay"]
+libraries = {
+"": SubResource("AnimationLibrary_02u0i")
+}
 
 [node name="DebugOverlay" type="PanelContainer" parent="UI"]
 process_mode = 3
@@ -248,15 +293,11 @@ layout_mode = 2
 [connection signal="gui_input" from="UI/GameInterface" to="UI/GameInterface" method="_on_gui_input"]
 [connection signal="visibility_changed" from="UI/GameInterface" to="UI/GameInterface" method="_on_visibility_changed"]
 [connection signal="visibility_changed" from="UI/TitleInterface" to="UI/TitleInterface" method="_on_visibility_changed"]
-[connection signal="visibility_changed" from="UI/TitleInterface/TitleMain" to="UI/TitleInterface/TitleMain" method="_on_visibility_changed"]
 [connection signal="pressed" from="UI/TitleInterface/TitleMain/MarginContainer/VBoxContainer/ButtonLoadgame" to="UI/TitleInterface/TitleMain" method="_on_button_loadgame_pressed"]
 [connection signal="pressed" from="UI/TitleInterface/TitleMain/MarginContainer/VBoxContainer/ButtonNewgame" to="UI/TitleInterface/TitleMain" method="_on_button_newgame_pressed"]
 [connection signal="pressed" from="UI/TitleInterface/TitleMain/MarginContainer/VBoxContainer/ButtonOptions" to="UI/TitleInterface/TitleMain" method="_on_button_options_pressed"]
 [connection signal="pressed" from="UI/TitleInterface/TitleMain/MarginContainer/VBoxContainer/ButtonQuit" to="UI/TitleInterface/TitleMain" method="_on_button_quit_pressed"]
-[connection signal="visibility_changed" from="UI/TitleInterface/TitleLoadgame" to="UI/TitleInterface/TitleLoadgame" method="_on_visibility_changed"]
 [connection signal="pressed" from="UI/TitleInterface/TitleLoadgame/MarginContainer/VBoxContainer/ButtonBack" to="UI/TitleInterface/TitleLoadgame" method="_on_button_back_pressed"]
-[connection signal="visibility_changed" from="UI/TitleInterface/TitleNewgame" to="UI/TitleInterface/TitleNewgame" method="_on_visibility_changed"]
 [connection signal="pressed" from="UI/TitleInterface/TitleNewgame/MarginContainer/VBoxContainer/ButtonPlay" to="UI/TitleInterface/TitleNewgame" method="_on_button_play_pressed"]
 [connection signal="pressed" from="UI/TitleInterface/TitleNewgame/MarginContainer/VBoxContainer/ButtonBack" to="UI/TitleInterface/TitleNewgame" method="_on_button_back_pressed"]
-[connection signal="visibility_changed" from="UI/TitleInterface/TitleOptions" to="UI/TitleInterface/TitleOptions" method="_on_visibility_changed"]
 [connection signal="pressed" from="UI/TitleInterface/TitleOptions/MarginContainer/VBoxContainer/ButtonBack" to="UI/TitleInterface/TitleOptions" method="_on_button_back_pressed"]

@@ -20,11 +20,12 @@ extends CharacterBody3D
 @onready var mesh_instance_3d = $MeshInstance3D
 @onready var target_marker = $TargetMarker
 
-var enabled: bool : set = set_enabled
 enum { LEFT, RIGHT, FORWARD, BACKWARD, SPRINT, }
 var inputs: Array[bool] = [0, 0, 0, 0, 0]
 var move_input: Vector3 = Vector3.ZERO
 var direction: Vector3 = Vector3.FORWARD
+
+var cell: WorldCell : get = get_cell
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -41,7 +42,7 @@ func _input(event) -> void:
 			deg_to_rad(camera_angle_max_degrees))
 
 func _unhandled_input(_event) -> void:
-	if Input.is_action_just_pressed("inventory"): Ref.ui.game_interface.show()
+	if Input.is_action_just_pressed("inventory"): Ref.ui.game.show()
 	inputs[LEFT] = Input.is_action_pressed("move_left")
 	inputs[RIGHT] = Input.is_action_pressed("move_right")
 	inputs[FORWARD] = Input.is_action_pressed("move_forward")
@@ -73,10 +74,8 @@ func _process(delta):
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func set_enabled(value: bool):
-	enabled = value
-	set_process_input(enabled)
-	set_process_unhandled_input(enabled)
+func get_cell() -> WorldCell:
+	return get_parent().get_parent() as WorldCell
 
 func get_target_position() -> Vector3:
 	return target_marker.global_transform.origin

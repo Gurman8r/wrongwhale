@@ -77,5 +77,3 @@ destination = NodePath("../../../WorldCell0/Misc/Door0")
 [node name="Player" type="Node3D" parent="WorldCell1"]
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
-[connection signal="visibility_changed" from="WorldCell0" to="WorldCell0" method="_on_visibility_changed"]
-[connection signal="visibility_changed" from="WorldCell1" to="WorldCell1" method="_on_visibility_changed"]

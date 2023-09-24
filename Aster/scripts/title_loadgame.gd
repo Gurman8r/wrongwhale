@@ -1,6 +1,6 @@
 # title_loadgame.gd
 class_name TitleLoadgame
-extends TitleBaseMenu
+extends TitleBase
 
 func _on_button_back_pressed() -> void:
-	Ref.ui.title_interface.main.show()
+	Ref.ui.title.main.make_current()
