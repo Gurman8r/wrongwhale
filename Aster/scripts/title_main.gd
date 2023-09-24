@@ -1,15 +1,15 @@
 # title_main.gd
 class_name TitleMain
-extends TitleBase
+extends Control
 
 func _on_button_loadgame_pressed() -> void:
-	Ref.ui.title.loadgame.make_current()
+	Ref.ui.title.current = Ref.ui.title.loadgame
 
 func _on_button_newgame_pressed() -> void:
-	Ref.ui.title.newgame.make_current()
+	Ref.ui.title.current = Ref.ui.title.newgame
 
 func _on_button_options_pressed() -> void:
-	Ref.ui.title.options.make_current()
+	Ref.ui.title.current = Ref.ui.title.options
 
 func _on_button_quit_pressed() -> void:
 	Ref.ui.transition.play_fadeout()

@@ -25,8 +25,6 @@ var inputs: Array[bool] = [0, 0, 0, 0, 0]
 var move_input: Vector3 = Vector3.ZERO
 var direction: Vector3 = Vector3.FORWARD
 
-var cell: WorldCell : get = get_cell
-
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
@@ -74,11 +72,19 @@ func _process(delta):
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func get_cell() -> WorldCell:
-	return get_parent().get_parent() as WorldCell
-
 func get_target_position() -> Vector3:
 	return target_marker.global_transform.origin
 
 func get_drop_position() -> Vector3:
 	return global_position + direction * 2
+
+func warp(world_cell: WorldCell, location: Vector3 = Vector3.ZERO):
+	Ref.ui.transition.play_fadeout()
+	await Ref.ui.transition.finished
+	
+	Ref.world.cell.remove(self)
+	Ref.world.cell = world_cell
+	Ref.world.cell.add(self, location)
+	
+	Ref.ui.transition.play_fadein()
+	await Ref.ui.transition.finished

@@ -1,6 +1,6 @@
 # title_newgame.gd
 class_name TitleNewgame
-extends TitleBase
+extends Control
 
 func _on_button_play_pressed():
 	Ref.ui.transition.play_fadeout()
@@ -18,4 +18,4 @@ func _on_button_play_pressed():
 	await Ref.ui.transition.finished
 
 func _on_button_back_pressed():
-	Ref.ui.title.main.make_current()
+	Ref.ui.title.current = Ref.ui.title.main

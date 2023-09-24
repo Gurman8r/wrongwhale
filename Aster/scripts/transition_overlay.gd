@@ -2,11 +2,13 @@
 class_name TransitionOverlay
 extends Control
 
-signal halfway()
 signal finished()
 
 @onready var dissolve_rect = $DissolveRect
 @onready var animation_player = $AnimationPlayer
+
+func _ready():
+	animation_player.play("RESET")
 
 func play_fadeout():
 	animation_player.play("dissolve")
