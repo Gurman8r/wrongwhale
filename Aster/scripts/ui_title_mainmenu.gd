@@ -1,5 +1,5 @@
-# title_main.gd
-class_name TitleMain
+# ui_title_main.gd
+class_name UI_TitleMainmenu
 extends Control
 
 func _on_button_loadgame_pressed() -> void:

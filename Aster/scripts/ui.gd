@@ -2,11 +2,11 @@
 class_name UI
 extends CanvasLayer
 
-@onready var hud: GameOverlay = $GameOverlay
-@onready var game: GameInterface = $GameInterface
-@onready var title: TitleInterface = $TitleInterface
-@onready var transition: TransitionOverlay = $TransitionOverlay
-@onready var debug: DebugOverlay = $DebugOverlay
+@onready var hud: UI_Hud = $HUD
+@onready var game: UI_Game = $Game
+@onready var title: UI_Title = $Title
+@onready var transition: UI_Transition = $Transition
+@onready var debug: UI_Debug = $Debug
 
 func _init() -> void:
 	Ref.ui = self

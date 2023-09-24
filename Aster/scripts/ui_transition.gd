@@ -1,5 +1,5 @@
-# transition_overlay.gd
-class_name TransitionOverlay
+# ui_transition.gd
+class_name UI_Transition
 extends Control
 
 signal finished()
@@ -7,7 +7,19 @@ signal finished()
 @onready var dissolve_rect = $DissolveRect
 @onready var animation_player = $AnimationPlayer
 
+@onready var animations = {
+	"RESET": reset,
+	"fadeout": play_fadeout,
+	"fadein": play_fadein,
+}
+
 func _ready():
+	reset()
+
+func play(animation: String):
+	animations[animation].play()
+
+func reset():
 	animation_player.play("RESET")
 
 func play_fadeout():

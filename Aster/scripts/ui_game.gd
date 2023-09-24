@@ -1,5 +1,5 @@
-# game_interface.gd
-class_name GameInterface
+# ui_game.gd
+class_name UI_Game
 extends Control
 
 signal drop_stack(stack: ItemStack)

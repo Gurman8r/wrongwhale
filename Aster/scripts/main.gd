@@ -19,9 +19,9 @@ func _ready() -> void:
 	get_tree().paused = true
 	
 	# setup interface
+	ui.game.force_close.connect(ui.game.toggle)
 	ui.game.set_player_inventory_data(player.data.inventory)
 	ui.game.set_equip_inventory_data(player.data.equip)
-	ui.game.force_close.connect(ui.game.toggle)
 	ui.hud.item_hotbar.set_inventory_data(player.data.inventory)
 	for node in get_tree().get_nodes_in_group("external_inventory"):
 		node.toggle_inventory.connect(ui.game.toggle)

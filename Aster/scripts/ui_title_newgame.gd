@@ -1,5 +1,5 @@
-# title_newgame.gd
-class_name TitleNewgame
+# ui_title_newgame.gd
+class_name UI_TitleNewgame
 extends Control
 
 func _on_button_play_pressed():
@@ -18,4 +18,4 @@ func _on_button_play_pressed():
 	await Ref.ui.transition.finished
 
 func _on_button_back_pressed():
-	Ref.ui.title.current = Ref.ui.title.main
+	Ref.ui.title.current = Ref.ui.title.mainmenu
