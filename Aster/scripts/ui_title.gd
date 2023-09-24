@@ -13,8 +13,10 @@ signal menu_changed(value: Control)
 func set_current(value: Control):
 	Ref.ui.transition.play_fadeout()
 	await Ref.ui.transition.finished
+	
 	if current: current.hide()
 	current = value
 	if current: current.show()
+	
 	Ref.ui.transition.play_fadein()
 	await Ref.ui.transition.finished

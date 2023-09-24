@@ -9,12 +9,8 @@ extends GridMap
 @onready var misc_root: Node3D = $Misc
 @onready var player_root: Node3D = $Player
 
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
 func _init() -> void:
 	Ref.world.cells.append(self)
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func get_object_root(value: Node3D) -> Node3D:
 	if not value: return null

@@ -3,8 +3,7 @@ class_name Player
 extends CharacterBody3D
 
 @export var data: PlayerData
-@export var walk_speed: float = 5
-@export var run_speed: float = 10
+@export var move_speed: float = 5
 @export var turn_speed: float = 15
 @export var camera_speed: Vector2 = Vector2(0.005, 0.005)
 @export var camera_angle_min_degrees: float = -70
@@ -20,9 +19,9 @@ extends CharacterBody3D
 @onready var mesh_instance_3d = $MeshInstance3D
 @onready var target_marker = $TargetMarker
 
-enum { LEFT, RIGHT, FORWARD, BACKWARD, SPRINT, }
+enum { LEFT, RIGHT, FORWARD, BACKWARD, SPRINT }
 var inputs: Array[bool] = [0, 0, 0, 0, 0]
-var move_input: Vector3 = Vector3.ZERO
+var move_axes: Vector3 = Vector3.ZERO
 var direction: Vector3 = Vector3.FORWARD
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -48,25 +47,21 @@ func _unhandled_input(_event) -> void:
 	inputs[SPRINT] = Input.is_action_pressed("sprint")
 
 func _process(delta):
-	move_input = Vector3()
-	if inputs[LEFT]: move_input -= camera_pivot_y.transform.basis.x
-	elif inputs[RIGHT]: move_input += camera_pivot_y.transform.basis.x
-	if inputs[FORWARD]: move_input -= camera_pivot_y.transform.basis.z
-	elif inputs[BACKWARD]: move_input += camera_pivot_y.transform.basis.z
-	move_input.y = 0
-	move_input = move_input.normalized()
-		
-	var move_speed: float = walk_speed
-	if inputs[SPRINT]: move_speed = run_speed
-	var _collision = move_and_collide(move_input * move_speed * delta)
+	move_axes = Vector3()
+	if inputs[LEFT]: move_axes -= camera_pivot_y.transform.basis.x
+	elif inputs[RIGHT]: move_axes += camera_pivot_y.transform.basis.x
+	if inputs[FORWARD]: move_axes -= camera_pivot_y.transform.basis.z
+	elif inputs[BACKWARD]: move_axes += camera_pivot_y.transform.basis.z
+	move_axes.y = 0
+	move_axes = move_axes.normalized()
+	direction = (direction + move_axes).normalized()
+	var _collision = move_and_collide(move_axes * move_speed * delta)
 	
-	direction = (direction + move_input).normalized()
 	var rot: Basis = mesh_instance_3d.basis.slerp(Basis.looking_at(direction), turn_speed * delta)
 	mesh_instance_3d.basis = rot
 	interact_ray.basis = rot
 	
-	var target_pos: Vector3 = target_marker.global_transform.origin
-	target_pos = global_transform.origin + direction
+	var target_pos: Vector3 = global_transform.origin + direction
 	target_pos.y = 0.5
 	target_marker.global_transform.origin = target_pos
 
@@ -76,7 +71,7 @@ func get_target_position() -> Vector3:
 	return target_marker.global_transform.origin
 
 func get_drop_position() -> Vector3:
-	return global_position + direction * 2
+	return global_transform.origin + (direction * 2)
 
 func warp(world_cell: WorldCell, location: Vector3 = Vector3.ZERO):
 	Ref.ui.transition.play_fadeout()

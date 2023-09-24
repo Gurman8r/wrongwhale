@@ -83,8 +83,7 @@ func update_grabbed_slot() -> void:
 func _on_drop_stack(stack: ItemStack) -> void:
 	var drop = item_prefab.instantiate()
 	drop.stack = stack
-	drop.position = Ref.player.get_drop_position()
-	Ref.world.cell.add(drop)
+	Ref.world.cell.add(drop, Ref.player.get_drop_position())
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_pressed() and grabbed_stack:

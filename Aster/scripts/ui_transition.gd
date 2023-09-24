@@ -13,21 +13,21 @@ signal finished()
 	"fadein": play_fadein,
 }
 
-func _ready():
+func _ready() -> void:
 	reset()
 
-func play(animation: String):
+func play(animation: String) -> void:
 	animations[animation].play()
 
-func reset():
+func reset() -> void:
 	animation_player.play("RESET")
 
-func play_fadeout():
+func play_fadeout() -> void:
 	animation_player.play("dissolve")
 	await animation_player.animation_finished
 	finished.emit()
 
-func play_fadein():
+func play_fadein() -> void:
 	animation_player.play_backwards("dissolve")
 	await animation_player.animation_finished
 	finished.emit()
