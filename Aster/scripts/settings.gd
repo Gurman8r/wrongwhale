@@ -3,7 +3,7 @@ class_name Settings
 extends Node
 
 func _init():
-	Game.settings = self
+	Ref.settings = self
 
 func read_settings():
 	pass

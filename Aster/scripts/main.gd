@@ -6,27 +6,27 @@ extends Node
 @onready var world: World = $World
 @onready var ui : UI = $UI
 
-@onready var player: Player = Game.player
+@onready var player: Player = Ref.player
 
 var playing: bool = false
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
 func _init() -> void:
-	Game.main = self
+	Ref.main = self
 
 func _ready() -> void:
 	get_tree().paused = true
 	
-	# setup interface
-	player.toggle_inventory.connect(ui.item.toggle)
-	ui.item.toggle_inventory.connect(ui.item.toggle)
-	ui.item.set_player_inventory_data(player.data.inventory)
-	ui.item.set_equip_inventory_data(player.data.equip)
-	ui.item.force_close.connect(ui.item.toggle)
-	ui.hud.item_hotbar.set_inventory_data(player.data.inventory)
+	# setup game interface
+	player.toggle_inventory.connect(ui.game_interface.toggle)
+	ui.game_interface.toggle_inventory.connect(ui.game_interface.toggle)
+	ui.game_interface.set_player_inventory_data(player.data.inventory)
+	ui.game_interface.set_equip_inventory_data(player.data.equip)
+	ui.game_interface.force_close.connect(ui.game_interface.toggle)
+	ui.game_overlay.item_hotbar.set_inventory_data(player.data.inventory)
 	for node in get_tree().get_nodes_in_group("external_inventory"):
-		node.toggle_inventory.connect(ui.item.toggle)
+		node.toggle_inventory.connect(ui.game_interface.toggle)
 
 func _unhandled_input(event) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):

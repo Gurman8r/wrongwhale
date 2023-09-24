@@ -1,11 +1,11 @@
 [gd_scene load_steps=2 format=3 uid="uid://dv6li4wxrohgf"]
 
-[ext_resource type="Script" path="res://scripts/item_inventory.gd" id="1_vnhg4"]
+[ext_resource type="Script" path="res://scripts/inventory.gd" id="1_eqpea"]
 
 [node name="ItemInventory" type="PanelContainer"]
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("1_vnhg4")
+script = ExtResource("1_eqpea")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

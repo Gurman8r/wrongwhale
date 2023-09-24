@@ -1,5 +1,5 @@
-# item_drop.gd
-class_name ItemDrop
+# item_entity.gd
+class_name ItemEntity
 extends RigidBody3D
 
 @export var stack: ItemStack

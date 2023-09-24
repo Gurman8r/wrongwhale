@@ -1,6 +1,6 @@
-# item_inventory_data_equip.gd
-class_name ItemInventoryDataEquip
-extends ItemInventoryData
+# inventory_data_equip.gd
+class_name InventoryDataEquip
+extends InventoryData
 
 func drop_stack(grabbed_stack: ItemStack, index: int) -> ItemStack:
 	if not grabbed_stack.item_data is ItemDataEquipment:

@@ -11,7 +11,7 @@ var cell: WorldCell
 var cells: Array[WorldCell]
 
 func _init() -> void:
-	Game.world = self
+	Ref.world = self
 
 func _ready() -> void:
 	for child in get_children():

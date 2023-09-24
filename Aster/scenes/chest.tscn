@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dhii3qy5e8ljo"]
 
 [ext_resource type="Script" path="res://scripts/chest.gd" id="1_d6qf4"]
-[ext_resource type="Script" path="res://scripts/item_inventory_data.gd" id="2_sskks"]
+[ext_resource type="Script" path="res://scripts/inventory_data.gd" id="2_sskks"]
 
 [sub_resource type="Resource" id="Resource_ucuon"]
 script = ExtResource("2_sskks")

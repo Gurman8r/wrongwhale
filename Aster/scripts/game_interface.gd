@@ -1,5 +1,5 @@
-# item_interface.gd
-class_name ItemInterface
+# game_interface.gd
+class_name GameInterface
 extends Control
 
 signal toggle_inventory()
@@ -8,10 +8,10 @@ signal force_close()
 
 const drop_prefab = preload("res://scenes/item_drop.tscn")
 
-@onready var player_inventory: ItemInventory = $PlayerInventory
-@onready var equip_inventory: ItemInventory = $EquipmentInventory
-@onready var external_inventory: ItemInventory = $ExternalInventory
-@onready var grabbed_slot: ItemSlot = $GrabbedSlot
+@onready var player_inventory: Inventory = $PlayerInventory
+@onready var equip_inventory: Inventory = $EquipInventory
+@onready var external_inventory: Inventory = $ExternalInventory
+@onready var grabbed_slot: InventorySlot = $GrabbedSlot
 
 var grabbed_stack: ItemStack
 var external_inventory_owner
@@ -29,7 +29,7 @@ func _physics_process(_delta) -> void:
 	if grabbed_slot.visible:
 		grabbed_slot.global_position = get_global_mouse_position() + Vector2(5, 5)
 	if external_inventory_owner \
-	and external_inventory_owner.global_position.distance_to(Game.player.global_position) > 4:
+	and external_inventory_owner.global_position.distance_to(Ref.player.global_position) > 4:
 		force_close.emit()
 	
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
@@ -37,19 +37,19 @@ func _physics_process(_delta) -> void:
 func toggle(external_inventory_owner = null) -> void:
 	visible = not visible
 	if external_inventory_owner and visible:
-		set_external_inventory(external_inventory_owner)
+		set_external_inventory_owner(external_inventory_owner)
 	else:
 		clear_external_inventory()
 
-func set_player_inventory_data(inventory_data: ItemInventoryData) -> void:
-	inventory_data.inventory_interact.connect(on_inventory_interact)
-	player_inventory.set_inventory_data(inventory_data)
+func set_player_inventory_data(value: InventoryData) -> void:
+	value.inventory_interact.connect(on_inventory_interact)
+	player_inventory.set_inventory_data(value)
 
-func set_equip_inventory_data(inventory_data: ItemInventoryData) -> void:
-	inventory_data.inventory_interact.connect(on_inventory_interact)
-	equip_inventory.set_inventory_data(inventory_data)
+func set_equip_inventory_data(value: InventoryData) -> void:
+	value.inventory_interact.connect(on_inventory_interact)
+	equip_inventory.set_inventory_data(value)
 
-func set_external_inventory(value) -> void:
+func set_external_inventory_owner(value) -> void:
 	external_inventory_owner = value
 	var inventory_data = external_inventory_owner.inventory_data
 	inventory_data.inventory_interact.connect(on_inventory_interact)
@@ -64,7 +64,7 @@ func clear_external_inventory() -> void:
 	external_inventory.hide()
 	external_inventory_owner = null
 
-func on_inventory_interact(inventory_data: ItemInventoryData, index: int, button: int) -> void:
+func on_inventory_interact(inventory_data: InventoryData, index: int, button: int) -> void:
 	match [grabbed_stack, button]:
 		[null, MOUSE_BUTTON_LEFT]: grabbed_stack = inventory_data.grab_stack(index)
 		[null, MOUSE_BUTTON_RIGHT]: grabbed_stack = inventory_data.grab_split_stack(index)
@@ -84,7 +84,7 @@ func update_grabbed_slot() -> void:
 func _on_drop_stack(stack: ItemStack) -> void:
 	var drop = drop_prefab.instantiate()
 	drop.stack = stack
-	drop.position = Game.player.global_position + (-Game.player.global_transform.basis.z * 2)
+	drop.position = Ref.player.global_position + (-Ref.player.global_transform.basis.z * 2)
 	add_child(drop)
 
 func _on_gui_input(event: InputEvent) -> void:
@@ -103,10 +103,10 @@ func _on_visibility_changed() -> void:
 	if visible:
 		get_tree().paused = true
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		Game.ui.hud.item_hotbar.hide()
+		Ref.ui.game_overlay.hide()
 	else:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		Game.ui.hud.item_hotbar.show()
+		Ref.ui.game_overlay.show()
 		if grabbed_stack:
 			drop_stack.emit(grabbed_stack)
 			grabbed_stack = null

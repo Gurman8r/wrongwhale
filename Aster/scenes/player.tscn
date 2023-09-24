@@ -1,9 +1,9 @@
 [gd_scene load_steps=25 format=3 uid="uid://3ioo106b4s3t"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_dkwn1"]
-[ext_resource type="Script" path="res://scripts/item_inventory_data_equip.gd" id="2_e72jt"]
+[ext_resource type="Script" path="res://scripts/inventory_data_equip.gd" id="2_e72jt"]
 [ext_resource type="Script" path="res://scripts/interact_ray.gd" id="2_itqmj"]
-[ext_resource type="Script" path="res://scripts/item_inventory_data.gd" id="2_iu3ks"]
+[ext_resource type="Script" path="res://scripts/inventory_data.gd" id="2_iu3ks"]
 [ext_resource type="Script" path="res://scripts/player_data.gd" id="3_cks3x"]
 [ext_resource type="Resource" uid="uid://rsch10dqt8dv" path="res://resources/items/apple.tres" id="4_bmuee"]
 [ext_resource type="Script" path="res://scripts/item_stack.gd" id="5_5u3ve"]
@@ -11,45 +11,45 @@
 [ext_resource type="Resource" uid="uid://yjvloyxn845p" path="res://resources/items/potion.tres" id="7_myam6"]
 [ext_resource type="Resource" uid="uid://de5io2pvpnd5e" path="res://resources/items/sword.tres" id="8_je2f3"]
 
-[sub_resource type="Resource" id="Resource_resdb"]
+[sub_resource type="Resource" id="Resource_yw3lb"]
 script = ExtResource("2_e72jt")
 item_stacks = Array[ExtResource("5_5u3ve")]([null])
 
-[sub_resource type="Resource" id="Resource_pbv67"]
+[sub_resource type="Resource" id="Resource_muh1l"]
 script = ExtResource("5_5u3ve")
 item_data = ExtResource("4_bmuee")
-quantity = 8
+quantity = 5
 
-[sub_resource type="Resource" id="Resource_6ex71"]
+[sub_resource type="Resource" id="Resource_a24ye"]
 script = ExtResource("5_5u3ve")
 item_data = ExtResource("6_u7464")
 quantity = 1
 
-[sub_resource type="Resource" id="Resource_b0qt3"]
+[sub_resource type="Resource" id="Resource_23fml"]
 script = ExtResource("5_5u3ve")
 item_data = ExtResource("6_u7464")
 quantity = 1
 
-[sub_resource type="Resource" id="Resource_dxsnh"]
+[sub_resource type="Resource" id="Resource_0tbxs"]
+script = ExtResource("5_5u3ve")
+item_data = ExtResource("7_myam6")
+quantity = 3
+
+[sub_resource type="Resource" id="Resource_16onk"]
 script = ExtResource("5_5u3ve")
 item_data = ExtResource("8_je2f3")
 quantity = 1
 
-[sub_resource type="Resource" id="Resource_w20ff"]
-script = ExtResource("5_5u3ve")
-item_data = ExtResource("7_myam6")
-quantity = 4
-
-[sub_resource type="Resource" id="Resource_0wws2"]
+[sub_resource type="Resource" id="Resource_7sifn"]
 script = ExtResource("2_iu3ks")
-item_stacks = Array[ExtResource("5_5u3ve")]([SubResource("Resource_pbv67"), null, SubResource("Resource_6ex71"), SubResource("Resource_b0qt3"), null, null, null, null, null, SubResource("Resource_dxsnh"), null, null, null, SubResource("Resource_w20ff"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+item_stacks = Array[ExtResource("5_5u3ve")]([SubResource("Resource_muh1l"), SubResource("Resource_a24ye"), SubResource("Resource_23fml"), SubResource("Resource_0tbxs"), SubResource("Resource_16onk"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 
-[sub_resource type="Resource" id="Resource_p8vtn"]
+[sub_resource type="Resource" id="Resource_suh20"]
 script = ExtResource("3_cks3x")
 guid = "Player_New"
 name = "New Player"
-inventory = SubResource("Resource_0wws2")
-equip = SubResource("Resource_resdb")
+inventory = SubResource("Resource_7sifn")
+equip = SubResource("Resource_yw3lb")
 
 [sub_resource type="AnimationRootNode" id="AnimationRootNode_8pgnw"]
 
@@ -74,7 +74,7 @@ collision_layer = 2
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 script = ExtResource("1_dkwn1")
-data = SubResource("Resource_p8vtn")
+data = SubResource("Resource_suh20")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 

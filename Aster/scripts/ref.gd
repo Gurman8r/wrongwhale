@@ -1,4 +1,4 @@
-# game.gd
+# ref.gd
 extends Node
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
@@ -13,9 +13,9 @@ var player: Player
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
 func _ready() -> void:
-	assert(main, "Game.main is invalid")
-	assert(settings, "Game.settings is invalid")
-	assert(world, "Game.world is invalid")
-	assert(ui, "Game.ui is invalid")
+	assert(main, "Ref.main is invalid")
+	assert(settings, "Ref.settings is invalid")
+	assert(world, "Ref.world is invalid")
+	assert(ui, "Ref.ui is invalid")
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #

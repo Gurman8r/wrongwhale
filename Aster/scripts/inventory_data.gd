@@ -1,11 +1,11 @@
-# item_inventory_data.gd
-class_name ItemInventoryData
+# inventory_data.gd
+class_name InventoryData
 extends Resource
 
 @export var item_stacks: Array[ItemStack]
 
-signal inventory_interact(inventory_data: ItemInventoryData, index: int, button: int)
-signal inventory_updated(inventory_data: ItemInventoryData)
+signal inventory_interact(inventory_data: InventoryData, index: int, button: int)
+signal inventory_updated(inventory_data: InventoryData)
 
 func on_slot_clicked(index: int, button: int) -> void:
 	inventory_interact.emit(self, index, button)
@@ -73,5 +73,5 @@ func use_stack(index: int) -> void:
 		stack.quantity -= 1
 		if stack.quantity < 1:
 			item_stacks[index] = null
-	stack.item_data.use(Game.player)
+	stack.item_data.use(Ref.player)
 	inventory_updated.emit(self)

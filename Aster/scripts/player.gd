@@ -31,7 +31,7 @@ var look_dir: Vector3 = Vector3.FORWARD
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
 func _init() -> void:
-	Game.player = self
+	Ref.player = self
 
 func _input(event) -> void:
 	if event is InputEventMouseMotion:
@@ -77,11 +77,7 @@ func _process(delta):
 
 func set_enabled(value: bool):
 	enabled = value
-	if enabled:
-		Game.player.set_process_input(true)
-		Game.player.set_process_unhandled_input(true)
-	else:
-		Game.player.set_process_input(false)
-		Game.player.set_process_unhandled_input(false)
+	set_process_input(enabled)
+	set_process_unhandled_input(enabled)
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #

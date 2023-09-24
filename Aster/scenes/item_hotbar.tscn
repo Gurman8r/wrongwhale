@@ -1,12 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://ci4vy40gl6vs8"]
 
-[ext_resource type="Script" path="res://scripts/item_hotbar.gd" id="1_licj2"]
+[ext_resource type="Script" path="res://scripts/hotbar_inventory.gd" id="1_kl2o3"]
 [ext_resource type="PackedScene" uid="uid://ddxw2b6u1pxow" path="res://scenes/item_slot.tscn" id="1_ushtr"]
 
 [node name="ItemHotbar" type="PanelContainer"]
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("1_licj2")
+script = ExtResource("1_kl2o3")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

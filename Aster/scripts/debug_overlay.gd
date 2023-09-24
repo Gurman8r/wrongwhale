@@ -1,5 +1,5 @@
-# debug_interface.gd
-class_name DebugInterface
+# debug_overlay.gd
+class_name DebugOverlay
 extends Control
 
 func _init():

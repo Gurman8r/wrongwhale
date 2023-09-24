@@ -1,5 +1,5 @@
-# item_slot.gd
-class_name ItemSlot
+# inventory_slot.gd
+class_name InventorySlot
 extends PanelContainer
 
 @onready var texture_rect = $MarginContainer/TextureRect
