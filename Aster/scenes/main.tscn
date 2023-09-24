@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dwgfxln4fp4lj"]
+[gd_scene load_steps=17 format=3 uid="uid://dwgfxln4fp4lj"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_0uonw"]
 [ext_resource type="PackedScene" uid="uid://cagnofcp3jxwf" path="res://scenes/world.tscn" id="2_bggds"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://scripts/title_loadgame.gd" id="12_nmlsm"]
 [ext_resource type="Script" path="res://scripts/title_newgame.gd" id="13_0alqe"]
 [ext_resource type="Script" path="res://scripts/title_options.gd" id="14_xqgll"]
+[ext_resource type="Script" path="res://scripts/transition_overlay.gd" id="15_2gxw0"]
 [ext_resource type="Script" path="res://scripts/debug_overlay.gd" id="15_n8rrs"]
 
 [node name="Main" type="Node"]
@@ -208,6 +209,24 @@ size_flags_vertical = 4
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 text = "Back"
+
+[node name="TransitionOverlay" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("15_2gxw0")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/TransitionOverlay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="DebugOverlay" type="PanelContainer" parent="UI"]
 process_mode = 3

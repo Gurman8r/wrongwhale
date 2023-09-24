@@ -1,6 +1,6 @@
 # title_newgame.gd
 class_name TitleNewgame
-extends TitleMenu
+extends TitleBaseMenu
 
 func _on_button_play_pressed():
 	Ref.ui.title_interface.hide()

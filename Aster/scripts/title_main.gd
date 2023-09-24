@@ -1,6 +1,6 @@
 # title_main.gd
 class_name TitleMain
-extends TitleMenu
+extends TitleBaseMenu
 
 func _on_button_loadgame_pressed() -> void:
 	Ref.ui.title_interface.loadgame.show()

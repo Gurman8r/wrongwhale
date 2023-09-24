@@ -4,7 +4,7 @@ extends Control
 
 signal menu_changed(value: Control)
 
-@onready var current: TitleMenu = $TitleMain
+@onready var current: TitleBaseMenu = $TitleMain
 @onready var main: TitleMain = $TitleMain
 @onready var loadgame: TitleLoadgame = $TitleLoadgame
 @onready var newgame: TitleNewgame = $TitleNewgame

@@ -6,5 +6,5 @@ extends Interactable
 
 signal toggle_inventory(external_inventory_owner)
 
-func _on_interacted(other) -> void:
+func _on_interacted(_other) -> void:
 	toggle_inventory.emit(self)

@@ -1,7 +1,7 @@
 # ref.gd
 extends Node
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 var main: Main
 var settings: Settings
@@ -10,7 +10,7 @@ var ui : UI
 
 var player: Player
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _ready() -> void:
 	assert(main, "Ref.main is invalid")
@@ -18,4 +18,4 @@ func _ready() -> void:
 	assert(world, "Ref.world is invalid")
 	assert(ui, "Ref.ui is invalid")
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

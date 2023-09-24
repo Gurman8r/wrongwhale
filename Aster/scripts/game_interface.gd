@@ -2,7 +2,6 @@
 class_name GameInterface
 extends Control
 
-signal toggle_inventory()
 signal drop_stack(stack: ItemStack)
 signal force_close()
 
@@ -16,13 +15,13 @@ const item_prefab = preload("res://scenes/item_entity.tscn")
 var grabbed_stack: ItemStack
 var external_inventory_owner
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _unhandled_input(_event) -> void:
 	if visible \
 	and Input.is_action_just_pressed("ui_cancel") \
 	or Input.is_action_just_pressed("inventory"):
-		toggle_inventory.emit()
+		hide()
 		get_viewport().set_input_as_handled()
 
 func _physics_process(_delta) -> void:
@@ -32,7 +31,7 @@ func _physics_process(_delta) -> void:
 	and external_inventory_owner.global_position.distance_to(Ref.player.global_position) > 4:
 		force_close.emit()
 	
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func toggle(_external_inventory_owner = null) -> void:
 	visible = not visible
@@ -79,13 +78,13 @@ func update_grabbed_slot() -> void:
 	else:
 		grabbed_slot.hide()
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _on_drop_stack(stack: ItemStack) -> void:
 	var drop = item_prefab.instantiate()
 	drop.stack = stack
-	drop.position = Ref.player.global_position + (-Ref.player.global_transform.basis.z * 2)
-	add_child(drop)
+	drop.position = Ref.player.get_drop_position()
+	Ref.world.cell.add(drop)
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_pressed() and grabbed_stack:
@@ -113,4 +112,4 @@ func _on_visibility_changed() -> void:
 			update_grabbed_slot()
 		get_tree().paused = false
 
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

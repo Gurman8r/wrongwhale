@@ -5,6 +5,7 @@ extends CanvasLayer
 @onready var game_overlay: GameOverlay = $GameOverlay
 @onready var game_interface: GameInterface = $GameInterface
 @onready var title_interface: TitleInterface = $TitleInterface
+@onready var trans_overlay: TransitionOverlay = $TransitionOverlay
 @onready var debug_overlay: DebugOverlay = $DebugOverlay
 
 func _init() -> void:
