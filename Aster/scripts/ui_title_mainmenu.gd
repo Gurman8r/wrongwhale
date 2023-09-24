@@ -12,6 +12,6 @@ func _on_button_options_pressed() -> void:
 	Ref.ui.title.current = Ref.ui.title.options
 
 func _on_button_quit_pressed() -> void:
-	Ref.ui.transition.play_fadeout()
+	Ref.ui.transition.fadeout()
 	await Ref.ui.transition.finished
 	get_tree().quit()

@@ -31,7 +31,7 @@ func _ready() -> void:
 
 func _unhandled_input(_event) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
-		ui.transition.play_fadeout()
+		ui.transition.fadeout()
 		await ui.transition.finished
 		get_tree().quit()
 

@@ -74,10 +74,10 @@ func get_drop_position() -> Vector3:
 	return global_transform.origin + (direction * 2)
 
 func warp(world_cell: WorldCell, location: Vector3 = Vector3.ZERO):
-	Ref.ui.transition.play_fadeout()
+	Ref.ui.transition.fadeout()
 	await Ref.ui.transition.finished
 	Ref.world.cell.remove(self)
 	Ref.world.cell = world_cell
 	Ref.world.cell.add(self, location)
-	Ref.ui.transition.play_fadein()
+	Ref.ui.transition.fadein()
 	await Ref.ui.transition.finished

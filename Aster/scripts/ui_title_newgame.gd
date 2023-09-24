@@ -3,18 +3,19 @@ class_name UI_TitleNewgame
 extends Control
 
 func _on_button_play_pressed():
-	Ref.ui.transition.play_fadeout()
+	Ref.ui.transition.fadeout()
 	await Ref.ui.transition.finished
-	
 	Ref.ui.title.hide()
-	# load world data here
-	Ref.world.show()
 	Ref.ui.hud.show()
+	
+	# load game here
+	
+	Ref.world.show()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	Ref.main.playing = true
 	get_tree().paused = false
 	
-	Ref.ui.transition.play_fadein()
+	Ref.ui.transition.fadein()
 	await Ref.ui.transition.finished
 
 func _on_button_back_pressed():

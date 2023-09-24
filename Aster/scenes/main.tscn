@@ -1,14 +1,15 @@
-[gd_scene load_steps=20 format=3 uid="uid://dwgfxln4fp4lj"]
+[gd_scene load_steps=21 format=3 uid="uid://dwgfxln4fp4lj"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_0uonw"]
 [ext_resource type="PackedScene" uid="uid://cagnofcp3jxwf" path="res://scenes/world.tscn" id="2_bggds"]
 [ext_resource type="Script" path="res://scripts/settings.gd" id="2_lw0i7"]
 [ext_resource type="Script" path="res://scripts/ui.gd" id="4_tusok"]
 [ext_resource type="Script" path="res://scripts/ui_hud.gd" id="5_l0qv2"]
-[ext_resource type="PackedScene" uid="uid://ci4vy40gl6vs8" path="res://scenes/inventory_hotbar.tscn" id="5_rqfga"]
+[ext_resource type="PackedScene" uid="uid://dnhnrabrf57os" path="res://scenes/hotbar_display.tscn" id="5_rqfga"]
 [ext_resource type="Script" path="res://scripts/ui_game.gd" id="7_1xyi8"]
-[ext_resource type="PackedScene" uid="uid://dv6li4wxrohgf" path="res://scenes/inventory.tscn" id="7_tb51c"]
-[ext_resource type="PackedScene" uid="uid://ddxw2b6u1pxow" path="res://scenes/inventory_slot.tscn" id="8_ipgvm"]
+[ext_resource type="PackedScene" uid="uid://dv6li4wxrohgf" path="res://scenes/inventory_display.tscn" id="7_tb51c"]
+[ext_resource type="PackedScene" uid="uid://ddxw2b6u1pxow" path="res://scenes/item_slot_display.tscn" id="8_ipgvm"]
+[ext_resource type="Script" path="res://scripts/ui_game_pausemenu.gd" id="10_hjr0e"]
 [ext_resource type="Script" path="res://scripts/ui_title.gd" id="10_l472c"]
 [ext_resource type="Script" path="res://scripts/ui_title_mainmenu.gd" id="11_5dbvq"]
 [ext_resource type="Script" path="res://scripts/ui_title_loadgame.gd" id="12_etndp"]
@@ -146,6 +147,15 @@ self_modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_right = 64.0
 offset_bottom = 64.0
+
+[node name="Pausemenu" type="PanelContainer" parent="UI/Game"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("10_hjr0e")
 
 [node name="Title" type="PanelContainer" parent="UI"]
 process_mode = 3

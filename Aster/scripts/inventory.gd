@@ -1,8 +1,8 @@
 # inventory.gd
-class_name Inventory
+class_name InventoryDisplay
 extends PanelContainer
 
-const slot_prefab = preload("res://scenes/inventory_slot.tscn")
+const slot_prefab = preload("res://scenes/item_slot_display.tscn")
 
 @onready var item_grid = $MarginContainer/ItemGrid
 

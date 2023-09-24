@@ -7,10 +7,11 @@ signal force_close()
 
 const item_prefab = preload("res://scenes/item_entity.tscn")
 
-@onready var player_inventory: Inventory = $PlayerInventory
-@onready var equip_inventory: Inventory = $EquipInventory
-@onready var external_inventory: Inventory = $ExternalInventory
-@onready var grabbed_slot: InventorySlot = $GrabbedSlot
+@onready var player_inventory: InventoryDisplay = $PlayerInventory
+@onready var equip_inventory: InventoryDisplay = $EquipInventory
+@onready var external_inventory: InventoryDisplay = $ExternalInventory
+@onready var grabbed_slot: ItemSlotDisplay = $GrabbedSlot
+@onready var pausemenu: UI_GamePausemenu = $Pausemenu
 
 var grabbed_stack: ItemStack
 var external_inventory_owner
