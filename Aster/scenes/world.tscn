@@ -14,9 +14,7 @@
 [node name="World" type="Node3D"]
 script = ExtResource("1_mnq22")
 
-[node name="Cell" type="Node3D" parent="."]
-
-[node name="WorldCell0" type="GridMap" parent="Cell" node_paths=PackedStringArray("world_environment", "world_light")]
+[node name="WorldCell0" type="GridMap" parent="." node_paths=PackedStringArray("world_environment", "world_light")]
 mesh_library = ExtResource("2_qxvqh")
 physics_material = SubResource("PhysicsMaterial_x5deb")
 cell_size = Vector3(1, 1, 1)
@@ -28,28 +26,28 @@ world_environment = NodePath("WorldEnvironment")
 world_light = NodePath("WorldLight")
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Cell/WorldCell0"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="WorldCell0"]
 environment = SubResource("Environment_de777")
 
-[node name="WorldLight" type="DirectionalLight3D" parent="Cell/WorldCell0"]
+[node name="WorldLight" type="DirectionalLight3D" parent="WorldCell0"]
 transform = Transform3D(0.707107, -0.298836, 0.640857, 0, 0.906308, 0.422618, -0.707107, -0.298836, 0.640857, 50, 50, 50)
 
-[node name="Item" type="Node3D" parent="Cell/WorldCell0"]
+[node name="Item" type="Node3D" parent="WorldCell0"]
 
-[node name="Misc" type="Node3D" parent="Cell/WorldCell0"]
+[node name="Misc" type="Node3D" parent="WorldCell0"]
 
-[node name="Chest0" parent="Cell/WorldCell0/Misc" instance=ExtResource("3_ctgef")]
+[node name="Chest0" parent="WorldCell0/Misc" instance=ExtResource("3_ctgef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
 
-[node name="Door0" parent="Cell/WorldCell0/Misc" node_paths=PackedStringArray("destination") instance=ExtResource("5_cg8h4")]
+[node name="Door0" parent="WorldCell0/Misc" node_paths=PackedStringArray("destination") instance=ExtResource("5_cg8h4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.77927, 0, -2.99888)
 destination = NodePath("../../../WorldCell1/Misc/Door0")
 
-[node name="Player" type="Node3D" parent="Cell/WorldCell0"]
+[node name="Player" type="Node3D" parent="WorldCell0"]
 
-[node name="Player0" parent="Cell/WorldCell0/Player" instance=ExtResource("3_0h5t1")]
+[node name="Player0" parent="WorldCell0/Player" instance=ExtResource("3_0h5t1")]
 
-[node name="WorldCell1" type="GridMap" parent="Cell" node_paths=PackedStringArray("world_environment", "world_light")]
+[node name="WorldCell1" type="GridMap" parent="." node_paths=PackedStringArray("world_environment", "world_light")]
 visible = false
 mesh_library = ExtResource("2_qxvqh")
 physics_material = SubResource("PhysicsMaterial_x5deb")
@@ -62,22 +60,22 @@ world_environment = NodePath("WorldEnvironment")
 world_light = NodePath("WorldLight")
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Cell/WorldCell1"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="WorldCell1"]
 environment = SubResource("Environment_de777")
 
-[node name="WorldLight" type="DirectionalLight3D" parent="Cell/WorldCell1"]
+[node name="WorldLight" type="DirectionalLight3D" parent="WorldCell1"]
 transform = Transform3D(0.707107, -0.298836, 0.640857, 0, 0.906308, 0.422618, -0.707107, -0.298836, 0.640857, 50, 50, 50)
 
-[node name="Item" type="Node3D" parent="Cell/WorldCell1"]
+[node name="Item" type="Node3D" parent="WorldCell1"]
 
-[node name="Misc" type="Node3D" parent="Cell/WorldCell1"]
+[node name="Misc" type="Node3D" parent="WorldCell1"]
 
-[node name="Door0" parent="Cell/WorldCell1/Misc" node_paths=PackedStringArray("destination") instance=ExtResource("5_cg8h4")]
+[node name="Door0" parent="WorldCell1/Misc" node_paths=PackedStringArray("destination") instance=ExtResource("5_cg8h4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.50834, -2.38419e-07, -2.04362)
 destination = NodePath("../../../WorldCell0/Misc/Door0")
 
-[node name="Player" type="Node3D" parent="Cell/WorldCell1"]
+[node name="Player" type="Node3D" parent="WorldCell1"]
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
-[connection signal="visibility_changed" from="Cell/WorldCell0" to="Cell/WorldCell0" method="_on_visibility_changed"]
-[connection signal="visibility_changed" from="Cell/WorldCell1" to="Cell/WorldCell1" method="_on_visibility_changed"]
+[connection signal="visibility_changed" from="WorldCell0" to="WorldCell0" method="_on_visibility_changed"]
+[connection signal="visibility_changed" from="WorldCell1" to="WorldCell1" method="_on_visibility_changed"]

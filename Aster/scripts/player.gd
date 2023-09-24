@@ -83,11 +83,3 @@ func get_target_position() -> Vector3:
 
 func get_drop_position() -> Vector3:
 	return global_position + direction * 2
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func _on_visibility_changed():
-	if visible:
-		print("player visible")
-	else:
-		print("player hidden")

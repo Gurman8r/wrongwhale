@@ -110,5 +110,3 @@ script = ExtResource("2_itqmj")
 [node name="TargetMarker" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("SphereMesh_sycx6")
-
-[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
