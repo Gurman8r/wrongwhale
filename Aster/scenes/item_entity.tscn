@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cxmp2xrp5l0ft"]
 
 [ext_resource type="Texture2D" uid="uid://jqpchnuuc3nj" path="res://resources/item_atlas.tres" id="1_4ilqw"]
-[ext_resource type="Script" path="res://scripts/item_drop.gd" id="1_scnqt"]
+[ext_resource type="Script" path="res://scripts/item_entity.gd" id="1_g6uiy"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_g0dpn"]
 
@@ -9,7 +9,7 @@
 collision_layer = 0
 axis_lock_angular_x = true
 axis_lock_angular_z = true
-script = ExtResource("1_scnqt")
+script = ExtResource("1_g6uiy")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)

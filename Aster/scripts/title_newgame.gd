@@ -12,4 +12,4 @@ func _on_button_play_pressed():
 	get_tree().paused = false
 
 func _on_button_back_pressed():
-	Ref.ui.title_interface.current = Ref.ui.title_interface.main
+	Ref.ui.title_interface.current = Ref.ui.title_interface.mainmenu

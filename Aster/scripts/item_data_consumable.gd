@@ -2,5 +2,5 @@
 class_name ItemDataConsumable
 extends ItemData
 
-func use(target) -> void:
+func use(_target) -> void:
 	print("consumed: %s" % [to_string()])

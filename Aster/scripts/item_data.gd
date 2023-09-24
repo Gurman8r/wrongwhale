@@ -7,5 +7,5 @@ extends Resource
 @export_range(1, ItemStack.MAX) var max_stack: int = ItemStack.MAX
 @export var texture: Texture
 
-func use(target) -> void:
+func use(_target) -> void:
 	pass

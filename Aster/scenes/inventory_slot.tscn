@@ -1,15 +1,15 @@
 [gd_scene load_steps=3 format=3 uid="uid://ddxw2b6u1pxow"]
 
-[ext_resource type="Script" path="res://scripts/inventory_slot.gd" id="1_jlp8p"]
+[ext_resource type="Script" path="res://scripts/inventory_slot.gd" id="1_xck5c"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_hgmgp"]
 font_size = 12
 
-[node name="ItemSlot" type="PanelContainer"]
+[node name="InventorySlot" type="PanelContainer"]
 custom_minimum_size = Vector2(64, 64)
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("1_jlp8p")
+script = ExtResource("1_xck5c")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

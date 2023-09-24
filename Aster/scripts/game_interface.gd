@@ -6,7 +6,7 @@ signal toggle_inventory()
 signal drop_stack(stack: ItemStack)
 signal force_close()
 
-const drop_prefab = preload("res://scenes/item_drop.tscn")
+const item_prefab = preload("res://scenes/item_entity.tscn")
 
 @onready var player_inventory: Inventory = $PlayerInventory
 @onready var equip_inventory: Inventory = $EquipInventory
@@ -34,10 +34,10 @@ func _physics_process(_delta) -> void:
 	
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
-func toggle(external_inventory_owner = null) -> void:
+func toggle(_external_inventory_owner = null) -> void:
 	visible = not visible
-	if external_inventory_owner and visible:
-		set_external_inventory_owner(external_inventory_owner)
+	if _external_inventory_owner and visible:
+		set_external_inventory_owner(_external_inventory_owner)
 	else:
 		clear_external_inventory()
 
@@ -82,7 +82,7 @@ func update_grabbed_slot() -> void:
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
 
 func _on_drop_stack(stack: ItemStack) -> void:
-	var drop = drop_prefab.instantiate()
+	var drop = item_prefab.instantiate()
 	drop.stack = stack
 	drop.position = Ref.player.global_position + (-Ref.player.global_transform.basis.z * 2)
 	add_child(drop)
