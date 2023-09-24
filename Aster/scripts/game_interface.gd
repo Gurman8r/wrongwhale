@@ -21,7 +21,6 @@ func _unhandled_input(_event) -> void:
 	if visible \
 	and (Input.is_action_just_pressed("ui_cancel") \
 	or Input.is_action_just_pressed("inventory")):
-		print("here")
 		hide()
 		get_viewport().set_input_as_handled()
 

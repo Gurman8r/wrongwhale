@@ -2,7 +2,7 @@
 class_name World
 extends Node3D
 
-var cell: WorldCell
+var cell: WorldCell : set = set_cell
 var cells: Array[WorldCell]
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -13,6 +13,14 @@ func _init() -> void:
 func _ready():
 	assert(not cells.is_empty())
 	cell = cells[0]
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func set_cell(value: WorldCell):
+	if cell == value: return
+	if cell: cell.hide()
+	cell = value
+	if cell: cell.show()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

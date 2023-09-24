@@ -18,8 +18,12 @@ func get_spawn_position() -> Vector3:
 	return spawn_point.global_transform.origin
 
 func _on_interacted(_other) -> void:
+	Ref.ui.transition.play_fadeout()
+	await Ref.ui.transition.finished
+	
 	Ref.world.cell.remove(Ref.player)
-	Ref.world.cell.hide()
 	Ref.world.cell = destination.cell
-	Ref.world.cell.show()
 	Ref.world.cell.add(Ref.player, destination.spawn_position)
+	
+	Ref.ui.transition.play_fadein()
+	await Ref.ui.transition.finished
