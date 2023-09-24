@@ -8,6 +8,7 @@ extends Node
 
 @onready var player: Player = Ref.player
 
+var good2go: bool = false
 var playing: bool = false
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - #
@@ -16,9 +17,10 @@ func _init() -> void:
 	Ref.main = self
 
 func _ready() -> void:
+	good2go = true
 	get_tree().paused = true
 	
-	# setup game interface
+	# setup interface
 	player.toggle_inventory.connect(ui.game_interface.toggle)
 	ui.game_interface.toggle_inventory.connect(ui.game_interface.toggle)
 	ui.game_interface.set_player_inventory_data(player.data.inventory)

@@ -1,6 +1,6 @@
 # title_options.gd
 class_name TitleOptions
-extends Control
+extends TitleMenu
 
 func _on_button_back_pressed():
-	Ref.ui.title_interface.current = Ref.ui.title_interface.mainmenu
+	Ref.ui.title_interface.main.show()

@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dv6li4wxrohgf" path="res://scenes/inventory.tscn" id="7_tb51c"]
 [ext_resource type="PackedScene" uid="uid://ddxw2b6u1pxow" path="res://scenes/inventory_slot.tscn" id="8_ipgvm"]
 [ext_resource type="Script" path="res://scripts/title_interface.gd" id="10_r1pwg"]
-[ext_resource type="Script" path="res://scripts/title_mainmenu.gd" id="11_e67c6"]
+[ext_resource type="Script" path="res://scripts/title_main.gd" id="11_kx0bs"]
 [ext_resource type="Script" path="res://scripts/title_loadgame.gd" id="12_nmlsm"]
 [ext_resource type="Script" path="res://scripts/title_newgame.gd" id="13_0alqe"]
 [ext_resource type="Script" path="res://scripts/title_options.gd" id="14_xqgll"]
@@ -118,34 +118,34 @@ grow_vertical = 2
 script = ExtResource("10_r1pwg")
 metadata/_edit_use_anchors_ = true
 
-[node name="TitleMainmenu" type="PanelContainer" parent="UI/TitleInterface"]
+[node name="TitleMain" type="PanelContainer" parent="UI/TitleInterface"]
 layout_mode = 2
-script = ExtResource("11_e67c6")
+script = ExtResource("11_kx0bs")
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/TitleInterface/TitleMainmenu"]
+[node name="MarginContainer" type="MarginContainer" parent="UI/TitleInterface/TitleMain"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/TitleInterface/TitleMainmenu/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/TitleInterface/TitleMain/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="ButtonLoadgame" type="Button" parent="UI/TitleInterface/TitleMainmenu/MarginContainer/VBoxContainer"]
+[node name="ButtonLoadgame" type="Button" parent="UI/TitleInterface/TitleMain/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 text = "Load Game"
 
-[node name="ButtonNewgame" type="Button" parent="UI/TitleInterface/TitleMainmenu/MarginContainer/VBoxContainer"]
+[node name="ButtonNewgame" type="Button" parent="UI/TitleInterface/TitleMain/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 text = "New Game"
 
-[node name="ButtonOptions" type="Button" parent="UI/TitleInterface/TitleMainmenu/MarginContainer/VBoxContainer"]
+[node name="ButtonOptions" type="Button" parent="UI/TitleInterface/TitleMain/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 text = "Options"
 
-[node name="ButtonQuit" type="Button" parent="UI/TitleInterface/TitleMainmenu/MarginContainer/VBoxContainer"]
+[node name="ButtonQuit" type="Button" parent="UI/TitleInterface/TitleMain/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 text = "Quit"
@@ -228,11 +228,16 @@ layout_mode = 2
 [connection signal="drop_stack" from="UI/GameInterface" to="UI/GameInterface" method="_on_drop_stack"]
 [connection signal="gui_input" from="UI/GameInterface" to="UI/GameInterface" method="_on_gui_input"]
 [connection signal="visibility_changed" from="UI/GameInterface" to="UI/GameInterface" method="_on_visibility_changed"]
-[connection signal="pressed" from="UI/TitleInterface/TitleMainmenu/MarginContainer/VBoxContainer/ButtonLoadgame" to="UI/TitleInterface/TitleMainmenu" method="_on_button_loadgame_pressed"]
-[connection signal="pressed" from="UI/TitleInterface/TitleMainmenu/MarginContainer/VBoxContainer/ButtonNewgame" to="UI/TitleInterface/TitleMainmenu" method="_on_button_newgame_pressed"]
-[connection signal="pressed" from="UI/TitleInterface/TitleMainmenu/MarginContainer/VBoxContainer/ButtonOptions" to="UI/TitleInterface/TitleMainmenu" method="_on_button_options_pressed"]
-[connection signal="pressed" from="UI/TitleInterface/TitleMainmenu/MarginContainer/VBoxContainer/ButtonQuit" to="UI/TitleInterface/TitleMainmenu" method="_on_button_quit_pressed"]
+[connection signal="visibility_changed" from="UI/TitleInterface" to="UI/TitleInterface" method="_on_visibility_changed"]
+[connection signal="visibility_changed" from="UI/TitleInterface/TitleMain" to="UI/TitleInterface/TitleMain" method="_on_visibility_changed"]
+[connection signal="pressed" from="UI/TitleInterface/TitleMain/MarginContainer/VBoxContainer/ButtonLoadgame" to="UI/TitleInterface/TitleMain" method="_on_button_loadgame_pressed"]
+[connection signal="pressed" from="UI/TitleInterface/TitleMain/MarginContainer/VBoxContainer/ButtonNewgame" to="UI/TitleInterface/TitleMain" method="_on_button_newgame_pressed"]
+[connection signal="pressed" from="UI/TitleInterface/TitleMain/MarginContainer/VBoxContainer/ButtonOptions" to="UI/TitleInterface/TitleMain" method="_on_button_options_pressed"]
+[connection signal="pressed" from="UI/TitleInterface/TitleMain/MarginContainer/VBoxContainer/ButtonQuit" to="UI/TitleInterface/TitleMain" method="_on_button_quit_pressed"]
+[connection signal="visibility_changed" from="UI/TitleInterface/TitleLoadgame" to="UI/TitleInterface/TitleLoadgame" method="_on_visibility_changed"]
 [connection signal="pressed" from="UI/TitleInterface/TitleLoadgame/MarginContainer/VBoxContainer/ButtonBack" to="UI/TitleInterface/TitleLoadgame" method="_on_button_back_pressed"]
+[connection signal="visibility_changed" from="UI/TitleInterface/TitleNewgame" to="UI/TitleInterface/TitleNewgame" method="_on_visibility_changed"]
 [connection signal="pressed" from="UI/TitleInterface/TitleNewgame/MarginContainer/VBoxContainer/ButtonPlay" to="UI/TitleInterface/TitleNewgame" method="_on_button_play_pressed"]
 [connection signal="pressed" from="UI/TitleInterface/TitleNewgame/MarginContainer/VBoxContainer/ButtonBack" to="UI/TitleInterface/TitleNewgame" method="_on_button_back_pressed"]
+[connection signal="visibility_changed" from="UI/TitleInterface/TitleOptions" to="UI/TitleInterface/TitleOptions" method="_on_visibility_changed"]
 [connection signal="pressed" from="UI/TitleInterface/TitleOptions/MarginContainer/VBoxContainer/ButtonBack" to="UI/TitleInterface/TitleOptions" method="_on_button_back_pressed"]

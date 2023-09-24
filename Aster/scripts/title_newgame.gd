@@ -1,6 +1,6 @@
 # title_newgame.gd
 class_name TitleNewgame
-extends Control
+extends TitleMenu
 
 func _on_button_play_pressed():
 	Ref.ui.title_interface.hide()
@@ -12,4 +12,4 @@ func _on_button_play_pressed():
 	get_tree().paused = false
 
 func _on_button_back_pressed():
-	Ref.ui.title_interface.current = Ref.ui.title_interface.mainmenu
+	Ref.ui.title_interface.main.show()
