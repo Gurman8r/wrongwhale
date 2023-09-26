@@ -57,14 +57,10 @@ func _unhandled_input(_event) -> void:
 	if Input.is_action_just_pressed("inventory"): toggle_inventory.emit()
 	if Input.is_action_just_pressed("primary"): primary_action.emit()
 	if Input.is_action_just_pressed("secondary"): secondary_action.emit()
-	var l: bool = Input.is_action_pressed("move_left")
-	var r: bool = Input.is_action_pressed("move_right")
-	var f: bool = Input.is_action_pressed("move_forward")
-	var b: bool = Input.is_action_pressed("move_backward")
-	move_input[LEFT] = l and not r
-	move_input[RIGHT] = r and not l
-	move_input[FORWARD] = f and not b
-	move_input[BACKWARD] = b and not f
+	move_input[LEFT] = Input.is_action_pressed("move_left")
+	move_input[RIGHT] = Input.is_action_pressed("move_right")
+	move_input[FORWARD] = Input.is_action_pressed("move_forward")
+	move_input[BACKWARD] = Input.is_action_pressed("move_backward")
 
 func _process(delta: float) -> void:
 	# update movement
@@ -75,12 +71,13 @@ func _process(delta: float) -> void:
 	elif move_input[BACKWARD]: move_axes += camera_pivot_y.transform.basis.z
 	move_axes.y = 0
 	move_axes = move_axes.normalized()
-	if move_axes.x != 0 and move_axes.z != 0:
-		prev_position = global_transform.origin
-		direction = (direction + move_axes).normalized()
-		move.emit(move_axes)
+	
+	prev_position = global_transform.origin
+	direction = (direction + move_axes).normalized()
 	var detected_collision = move_and_collide(move_axes * move_speed * delta)
-	if detected_collision: move_collision.emit(detected_collision)
+	move.emit(move_axes)
+	if detected_collision:
+		move_collision.emit(detected_collision)
 	
 	# update rotation
 	var rot: Basis = mesh_instance_3d.basis.slerp(Basis.looking_at(direction), turn_speed * delta)
@@ -90,8 +87,8 @@ func _process(delta: float) -> void:
 	# update targeting
 	var target_y: float = target_marker.global_transform.origin.y
 	target_marker.global_transform.origin = global_transform.origin + direction * target_range
-	target_marker.global_transform.origin.x = int(target_marker.global_transform.origin.x)
-	target_marker.global_transform.origin.z = int(target_marker.global_transform.origin.z)
+	target_marker.global_transform.origin.x = roundf(target_marker.global_transform.origin.x)
+	target_marker.global_transform.origin.z = roundf(target_marker.global_transform.origin.z)
 	target_marker.global_transform.origin.y = target_y
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

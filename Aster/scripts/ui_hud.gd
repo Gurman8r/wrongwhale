@@ -4,3 +4,6 @@ extends Control
 
 @onready var hotbar: Hotbar = $ItemHotbar
 @onready var interact_label: Label = $InteractLabel
+
+func _ready():
+	interact_label.text = ""
