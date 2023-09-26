@@ -5,8 +5,8 @@ extends CharacterBody3D
 signal toggle_inventory()
 signal primary_action()
 signal secondary_action()
-signal move(dir: Vector3)
-signal move_collide(body: KinematicCollision3D)
+signal move(direction: Vector3)
+signal collide(body: KinematicCollision3D)
 
 @export var data: PlayerData
 @export var move_speed: float = 5
@@ -17,20 +17,20 @@ signal move_collide(body: KinematicCollision3D)
 @export var camera_angle_min_degrees: float = -70
 @export var camera_angle_max_degrees: float = 15
 
-@onready var animation_player = $AnimationPlayer
-@onready var animation_tree = $AnimationTree
-@onready var camera_pivot_y = $CameraPivotY
-@onready var camera_pivot_x = $CameraPivotY/CameraPivotX
-@onready var camera_3d = $CameraPivotY/CameraPivotX/Camera3D
-@onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
-@onready var interact_ray = $InteractRay
-@onready var mesh_instance_3d = $MeshInstance3D
-@onready var target_marker = $TargetMarker
+@onready var animation_player	: AnimationPlayer = $AnimationPlayer
+@onready var animation_tree		: AnimationTree = $AnimationTree
+@onready var camera_pivot_y		: Node3D = $CameraPivotY
+@onready var camera_pivot_x		: SpringArm3D = $CameraPivotY/CameraPivotX
+@onready var camera_3d			: Camera3D = $CameraPivotY/CameraPivotX/Camera3D
+@onready var collision_shape_3d	: CollisionShape3D = $CollisionShape3D
+@onready var interact_ray		: InteractRay = $InteractRay
+@onready var mesh_instance_3d	: MeshInstance3D = $MeshInstance3D
+@onready var target_marker		: Node3D = $TargetMarker
 
 enum { LEFT, RIGHT, FORWARD, BACKWARD }
 var move_input: Array[bool] = [0, 0, 0, 0]
 var direction: Vector3 = Vector3.FORWARD
-var last_position: Vector3 = Vector3.ZERO
+var prev_position: Vector3 = Vector3.ZERO
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -38,11 +38,11 @@ func _init() -> void:
 	Ref.player = self
 
 func _ready() -> void:
-	last_position = global_transform.origin
+	prev_position = global_transform.origin
 	primary_action.connect(_on_primary_action)
 	secondary_action.connect(_on_secondary_action)
 	move.connect(_on_move)
-	move_collide.connect(_on_move_collide)
+	collide.connect(_on_collide)
 	
 func _input(event) -> void:
 	if event is InputEventMouseMotion:
@@ -76,11 +76,11 @@ func _process(delta: float) -> void:
 	move_axes.y = 0
 	move_axes = move_axes.normalized()
 	if move_axes.x != 0 and move_axes.z != 0:
-		last_position = global_transform.origin
+		prev_position = global_transform.origin
 		direction = (direction + move_axes).normalized()
 		move.emit(move_axes)
 	var body = move_and_collide(move_axes * move_speed * delta)
-	if body: move_collide.emit(body)
+	if body: collide.emit(body)
 	
 	# update rotation
 	var rot: Basis = mesh_instance_3d.basis.slerp(Basis.looking_at(direction), turn_speed * delta)
@@ -104,15 +104,6 @@ func get_drop_position() -> Vector3:
 	pos.y = 0.5
 	return pos
 
-func warp(world_cell: WorldCell, location: Vector3 = Vector3.ZERO) -> void:
-	Ref.ui.transition.fadeout()
-	await Ref.ui.transition.finished
-	Ref.world.cell.remove(self)
-	Ref.world.cell = world_cell
-	Ref.world.cell.add(self, location)
-	Ref.ui.transition.fadein()
-	await Ref.ui.transition.finished
-
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _on_primary_action() -> void:
@@ -124,7 +115,7 @@ func _on_secondary_action() -> void:
 func _on_move(_direction: Vector3) -> void:
 	pass
 	
-func _on_move_collide(_body: KinematicCollision3D) -> void:
+func _on_collide(_body: KinematicCollision3D) -> void:
 	pass
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

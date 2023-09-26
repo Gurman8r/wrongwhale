@@ -2,9 +2,8 @@
 class_name SaveData
 extends Resource
 
-
-func write(path: String):
+func write(_path: String):
 	pass
 
-func read(path: String):
+func read(_path: String):
 	pass

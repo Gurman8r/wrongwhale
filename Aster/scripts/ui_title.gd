@@ -11,12 +11,12 @@ signal menu_changed(value: Control)
 @onready var optionmenu: UI_TitleOptionMenu = $OptionMenu
 
 func set_current(value: Control):
-	Ref.ui.transition.fadeout()
+	Ref.ui.transition.play("fadeout")
 	await Ref.ui.transition.finished
 	
 	if current: current.hide()
 	current = value
 	if current: current.show()
 	
-	Ref.ui.transition.fadein()
+	Ref.ui.transition.play("fadein")
 	await Ref.ui.transition.finished

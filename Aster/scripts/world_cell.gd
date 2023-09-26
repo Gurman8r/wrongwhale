@@ -7,7 +7,7 @@ signal toggled()
 @export var world_environment: WorldEnvironment
 @export var world_light: DirectionalLight3D
 
-#@onready var actor_root: Node3D = $Actor
+@onready var actor_root: Node3D = $Actor
 @onready var item_root: Node3D = $Item
 @onready var light_root: Node3D = $Light
 @onready var misc_root: Node3D = $Misc
@@ -29,7 +29,7 @@ func _ready():
 
 func get_root(node: Node3D) -> Node3D:
 	if not node: return null
-	#elif node is Actor: return actor_root
+	elif node is Actor: return actor_root
 	elif node is Light3D: return light_root
 	elif node is ItemDrop: return item_root
 	elif node is Player: return player_root
