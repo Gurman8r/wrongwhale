@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://3ioo106b4s3t" path="res://scenes/player.tscn" id="3_0h5t1"]
 [ext_resource type="Script" path="res://scripts/world_cell.gd" id="3_0vmq5"]
 [ext_resource type="PackedScene" uid="uid://dhii3qy5e8ljo" path="res://scenes/chest.tscn" id="3_ctgef"]
-[ext_resource type="PackedScene" uid="uid://bt3ygtr7jmwhx" path="res://door.tscn" id="5_cg8h4"]
+[ext_resource type="PackedScene" uid="uid://bt3ygtr7jmwhx" path="res://scenes/door.tscn" id="5_cg8h4"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_x5deb"]
 
@@ -77,3 +77,5 @@ destination = NodePath("../../../WorldCell0/Misc/Door0")
 [node name="Player" type="Node3D" parent="WorldCell1"]
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="visibility_changed" from="WorldCell0" to="WorldCell0" method="_on_visibility_changed"]
+[connection signal="visibility_changed" from="WorldCell1" to="WorldCell1" method="_on_visibility_changed"]

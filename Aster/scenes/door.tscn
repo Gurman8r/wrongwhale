@@ -10,7 +10,7 @@ albedo_color = Color(0, 0, 0, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_ge0vy"]
 material = SubResource("StandardMaterial3D_er4c7")
 
-[node name="Door" type="StaticBody3D"]
+[node name="Door" type="StaticBody3D" groups=["world_object"]]
 collision_layer = 5
 collision_mask = 3
 script = ExtResource("1_hyfeh")
@@ -27,4 +27,5 @@ mesh = SubResource("BoxMesh_ge0vy")
 [node name="SpawnPoint" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
 
+[connection signal="cell_visibility_changed" from="." to="." method="_on_cell_visibility_changed"]
 [connection signal="interacted" from="." to="." method="_on_interacted"]

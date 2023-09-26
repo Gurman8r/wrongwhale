@@ -5,10 +5,10 @@
 [ext_resource type="Script" path="res://scripts/settings.gd" id="2_lw0i7"]
 [ext_resource type="Script" path="res://scripts/ui.gd" id="4_tusok"]
 [ext_resource type="Script" path="res://scripts/ui_hud.gd" id="5_l0qv2"]
-[ext_resource type="PackedScene" uid="uid://dnhnrabrf57os" path="res://scenes/hotbar_display.tscn" id="5_rqfga"]
+[ext_resource type="PackedScene" uid="uid://dnhnrabrf57os" path="res://scenes/hotbar.tscn" id="5_rqfga"]
 [ext_resource type="Script" path="res://scripts/ui_game.gd" id="7_1xyi8"]
-[ext_resource type="PackedScene" uid="uid://dv6li4wxrohgf" path="res://scenes/inventory_display.tscn" id="7_tb51c"]
-[ext_resource type="PackedScene" uid="uid://ddxw2b6u1pxow" path="res://scenes/item_slot_display.tscn" id="8_ipgvm"]
+[ext_resource type="PackedScene" uid="uid://dv6li4wxrohgf" path="res://scenes/inventory.tscn" id="7_tb51c"]
+[ext_resource type="PackedScene" uid="uid://ddxw2b6u1pxow" path="res://scenes/item_slot.tscn" id="8_ipgvm"]
 [ext_resource type="Script" path="res://scripts/ui_game_pausemenu.gd" id="10_hjr0e"]
 [ext_resource type="Script" path="res://scripts/ui_title.gd" id="10_l472c"]
 [ext_resource type="Script" path="res://scripts/ui_title_mainmenu.gd" id="11_5dbvq"]
@@ -149,6 +149,7 @@ offset_right = 64.0
 offset_bottom = 64.0
 
 [node name="Pausemenu" type="PanelContainer" parent="UI/Game"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

@@ -61,17 +61,22 @@ func _process(delta):
 	mesh_instance_3d.basis = rot
 	interact_ray.basis = rot
 	
-	var target_pos: Vector3 = global_transform.origin + direction
-	target_pos.y = 0.5
-	target_marker.global_transform.origin = target_pos
+	target_marker.global_transform.origin = get_target_position()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+func get_cell() -> WorldCell:
+	return get_parent().get_parent() as WorldCell
+
 func get_target_position() -> Vector3:
-	return target_marker.global_transform.origin
+	var pos: Vector3 = global_transform.origin + direction
+	pos.y = 0.5
+	return pos
 
 func get_drop_position() -> Vector3:
-	return global_transform.origin + (direction * 2)
+	var pos: Vector3 = global_transform.origin + (direction * 2)
+	pos.y = 0.5
+	return pos
 
 func warp(world_cell: WorldCell, location: Vector3 = Vector3.ZERO):
 	Ref.ui.transition.fadeout()
