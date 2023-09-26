@@ -2,7 +2,7 @@
 class_name UI
 extends CanvasLayer
 
-@onready var hud: UI_Hud = $HUD
+@onready var hud: UI_HUD = $HUD
 @onready var game: UI_Game = $Game
 @onready var title: UI_Title = $Title
 @onready var transition: UI_Transition = $Transition

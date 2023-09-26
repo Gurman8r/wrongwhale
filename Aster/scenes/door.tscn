@@ -27,5 +27,4 @@ mesh = SubResource("BoxMesh_ge0vy")
 [node name="SpawnPoint" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
 
-[connection signal="cell_visibility_changed" from="." to="." method="_on_cell_visibility_changed"]
 [connection signal="interacted" from="." to="." method="_on_interacted"]

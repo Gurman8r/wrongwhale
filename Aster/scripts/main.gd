@@ -5,6 +5,7 @@ extends Node
 @onready var settings: Settings = $Settings
 @onready var world: World = $World
 @onready var ui : UI = $UI
+
 @onready var player: Player = Ref.player
 
 var good2go: bool = false
@@ -18,21 +19,26 @@ func _init() -> void:
 func _ready() -> void:
 	get_tree().paused = true
 	
-	# setup interface
-	ui.game.force_close.connect(ui.game.toggle)
+	player.toggle_inventory.connect(ui.game.toggle_inventory)
+	ui.game.force_close.connect(ui.game.toggle_inventory)
 	ui.game.set_player_inventory_data(player.data.inventory)
 	ui.game.set_equip_inventory_data(player.data.equip)
-	ui.hud.item_hotbar.set_inventory_data(player.data.inventory)
+	ui.hud.hotbar.set_inventory_data(player.data.inventory)
 	for node in get_tree().get_nodes_in_group("external_inventory"):
-		node.toggle_inventory.connect(ui.game.toggle)
+		node.toggle_inventory.connect(ui.game.toggle_inventory)
 	
-	# done with setup
-	good2go = true
+	good2go = true # done with setup
 
 func _unhandled_input(_event) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
-		ui.transition.fadeout()
-		await ui.transition.finished
-		get_tree().quit()
+		quit()
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func quit():
+	get_tree().paused = true
+	ui.transition.fadeout()
+	await ui.transition.finished
+	get_tree().quit()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

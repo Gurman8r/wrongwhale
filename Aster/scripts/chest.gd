@@ -11,6 +11,3 @@ signal toggle_inventory(external_inventory_owner)
 
 func _on_interacted(_other) -> void:
 	toggle_inventory.emit(self)
-
-func _on_cell_visibility_changed() -> void:
-	collision_shape_3d.disabled = not cell.visible

@@ -4,11 +4,11 @@ extends Control
 
 signal menu_changed(value: Control)
 
-@onready var current: Control = $Mainmenu : set = set_current
-@onready var mainmenu: UI_TitleMainmenu = $Mainmenu
-@onready var loadgame: UI_TitleLoadgame = $Loadgame
-@onready var newgame: UI_TitleNewgame = $Newgame
-@onready var options: UI_TitleOptions = $Options
+@onready var current: Control = $MainMenu : set = set_current
+@onready var mainmenu: UI_TitleMainMenu = $MainMenu
+@onready var loadmenu: UI_TitleLoadMenu = $LoadMenu
+@onready var newmenu: UI_TitleNewMenu = $NewMenu
+@onready var optionmenu: UI_TitleOptionMenu = $OptionMenu
 
 func set_current(value: Control):
 	Ref.ui.transition.fadeout()

@@ -15,6 +15,3 @@ func get_spawn_position() -> Vector3:
 
 func _on_interacted(_other) -> void:
 	Ref.player.warp(destination.cell, destination.spawn_position)
-
-func _on_cell_visibility_changed():
-	collision_shape_3d.disabled = not cell.visible

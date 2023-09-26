@@ -1,6 +1,6 @@
 # ui_hud.gd
-class_name UI_Hud
+class_name UI_HUD
 extends Control
 
-@onready var item_hotbar: HotbarDisplay = $ItemHotbar
+@onready var hotbar: Hotbar = $ItemHotbar
 @onready var interact_label: Label = $InteractLabel

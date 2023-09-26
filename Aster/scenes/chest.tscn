@@ -30,5 +30,4 @@ shape = SubResource("BoxShape3D_h062n")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("BoxMesh_30nq0")
 
-[connection signal="cell_visibility_changed" from="." to="." method="_on_cell_visibility_changed"]
 [connection signal="interacted" from="." to="." method="_on_interacted"]

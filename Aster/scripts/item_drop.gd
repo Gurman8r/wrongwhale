@@ -1,5 +1,5 @@
-# item_entity.gd
-class_name ItemEntity
+# item_drop.gd
+class_name ItemDrop
 extends WorldObject
 
 @export var stack: ItemStack
@@ -16,6 +16,3 @@ func _physics_process(delta) -> void:
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.data.inventory.pick_up_stack(stack):
 		queue_free()
-
-func _on_cell_visibility_changed():
-	collision_shape_3d.disabled = not cell.visible

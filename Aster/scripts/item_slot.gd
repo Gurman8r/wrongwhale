@@ -1,11 +1,11 @@
 # item_slot.gd
-class_name ItemSlotDisplay
+class_name ItemSlot
 extends PanelContainer
+
+signal clicked(index: int, button_index: int)
 
 @onready var texture_rect = $MarginContainer/TextureRect
 @onready var quantity_label = $QuantityLabel
-
-signal slot_clicked(index: int, button_index: int)
 
 func set_stack(stack: ItemStack) -> void:
 	var item_data = stack.item_data
@@ -22,4 +22,4 @@ func _on_gui_input(event: InputEvent) -> void:
 	and (event.button_index == MOUSE_BUTTON_LEFT \
 	or event.button_index == MOUSE_BUTTON_RIGHT) \
 	and event.is_pressed():
-		slot_clicked.emit(get_index(), event.button_index)
+		clicked.emit(get_index(), event.button_index)

@@ -5,13 +5,12 @@ extends Control
 signal drop_stack(stack: ItemStack)
 signal force_close()
 
-const item_prefab = preload("res://scenes/item_entity.tscn")
+const item_drop = preload("res://scenes/item_drop.tscn")
 
-@onready var player_inventory: InventoryDisplay = $PlayerInventory
-@onready var equip_inventory: InventoryDisplay = $EquipInventory
-@onready var external_inventory: InventoryDisplay = $ExternalInventory
-@onready var grabbed_slot: ItemSlotDisplay = $GrabbedSlot
-@onready var pausemenu: UI_GamePausemenu = $Pausemenu
+@onready var player_inventory: Inventory = $PlayerInventory
+@onready var equip_inventory: Inventory = $EquipInventory
+@onready var external_inventory: Inventory = $ExternalInventory
+@onready var grabbed_slot: ItemSlot = $GrabbedSlot
 
 var grabbed_stack: ItemStack
 var external_inventory_owner
@@ -22,7 +21,7 @@ func _unhandled_input(_event) -> void:
 	if visible \
 	and (Input.is_action_just_pressed("ui_cancel") \
 	or Input.is_action_just_pressed("inventory")):
-		hide()
+		toggle_inventory()
 		get_viewport().set_input_as_handled()
 
 func _physics_process(_delta) -> void:
@@ -34,7 +33,7 @@ func _physics_process(_delta) -> void:
 	
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func toggle(_external_inventory_owner = null) -> void:
+func toggle_inventory(_external_inventory_owner = null) -> void:
 	visible = not visible
 	if _external_inventory_owner and visible:
 		set_external_inventory_owner(_external_inventory_owner)
@@ -52,7 +51,8 @@ func set_equip_inventory_data(value: InventoryData) -> void:
 func set_external_inventory_owner(value) -> void:
 	external_inventory_owner = value
 	var inventory_data = external_inventory_owner.inventory_data
-	inventory_data.inventory_interact.connect(on_inventory_interact)
+	if not inventory_data.inventory_interact.is_connected(on_inventory_interact):
+		inventory_data.inventory_interact.connect(on_inventory_interact)
 	external_inventory.set_inventory_data(inventory_data)
 	external_inventory.show()
 
@@ -82,7 +82,7 @@ func update_grabbed_slot() -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _on_drop_stack(stack: ItemStack) -> void:
-	var drop = item_prefab.instantiate()
+	var drop = item_drop.instantiate()
 	drop.stack = stack
 	Ref.world.cell.add(drop, Ref.player.get_drop_position())
 

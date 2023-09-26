@@ -61,13 +61,13 @@ albedo_color = Color(1, 0, 0, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_726kc"]
 material = SubResource("StandardMaterial3D_mvv3f")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u4t2w"]
-albedo_color = Color(0.8, 0.8, 0, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hqt4h"]
+transparency = 1
+albedo_color = Color(0.8, 0.8, 0, 0.0941176)
 
-[sub_resource type="SphereMesh" id="SphereMesh_sycx6"]
-material = SubResource("StandardMaterial3D_u4t2w")
-radius = 0.1
-height = 0.2
+[sub_resource type="BoxMesh" id="BoxMesh_24owg"]
+material = SubResource("StandardMaterial3D_hqt4h")
+size = Vector3(1, 0.01, 1)
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
@@ -108,5 +108,5 @@ collision_mask = 4
 script = ExtResource("2_itqmj")
 
 [node name="TargetMarker" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("SphereMesh_sycx6")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 1)
+mesh = SubResource("BoxMesh_24owg")

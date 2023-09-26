@@ -1,20 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://cxmp2xrp5l0ft"]
+[gd_scene load_steps=4 format=3 uid="uid://bbkxue8ln07pn"]
 
-[ext_resource type="Texture2D" uid="uid://jqpchnuuc3nj" path="res://resources/item_atlas.tres" id="1_4ilqw"]
-[ext_resource type="Script" path="res://scripts/item_entity.gd" id="1_g6uiy"]
+[ext_resource type="Script" path="res://scripts/item_drop.gd" id="1_ibva1"]
+[ext_resource type="Texture2D" uid="uid://jqpchnuuc3nj" path="res://resources/item_atlas.tres" id="2_6gt5q"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_g0dpn"]
 
-[node name="ItemEntity" type="StaticBody3D"]
+[node name="ItemDrop" type="StaticBody3D"]
 collision_layer = 0
 axis_lock_angular_x = true
 axis_lock_angular_z = true
-script = ExtResource("1_g6uiy")
+script = ExtResource("1_ibva1")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)
 texture_filter = 0
-texture = ExtResource("1_4ilqw")
+texture = ExtResource("2_6gt5q")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_g0dpn")
