@@ -45,6 +45,8 @@ func remove(node: Node3D) -> void:
 	if not node: return
 	get_root(node).remove_child(node)
 
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 func set_enabled(value: bool) -> void:
 	enabled = value
 	_set_enabled(self, value)

@@ -46,8 +46,8 @@ items = Array[ExtResource("5_5u3ve")]([SubResource("Resource_1ujrt"), SubResourc
 
 [sub_resource type="Resource" id="Resource_suh20"]
 script = ExtResource("3_cks3x")
-guid = "Player_New"
-name = "New Player"
+guid = "Player0"
+name = "Someone"
 inventory = SubResource("Resource_6vgvy")
 equip = SubResource("Resource_rrtt8")
 
@@ -67,7 +67,7 @@ albedo_color = Color(0.8, 0.8, 0, 0.0941176)
 
 [sub_resource type="BoxMesh" id="BoxMesh_24owg"]
 material = SubResource("StandardMaterial3D_hqt4h")
-size = Vector3(1, 0.01, 1)
+size = Vector3(1, 0.02, 1)
 
 [node name="Player" type="CharacterBody3D"]
 collision_layer = 2
@@ -82,14 +82,6 @@ data = SubResource("Resource_suh20")
 tree_root = SubResource("AnimationRootNode_8pgnw")
 anim_player = NodePath("../AnimationPlayer")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-shape = SubResource("SphereShape3D_oi3bu")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("BoxMesh_726kc")
-
 [node name="CameraPivotY" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
@@ -101,12 +93,19 @@ margin = 0.5
 [node name="Camera3D" type="Camera3D" parent="CameraPivotY/CameraPivotX"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
 
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_oi3bu")
+
 [node name="InteractRay" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 target_position = Vector3(0, 0, -1.5)
 collision_mask = 4
 script = ExtResource("2_itqmj")
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_726kc")
+
 [node name="TargetMarker" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.001, 1)
 mesh = SubResource("BoxMesh_24owg")

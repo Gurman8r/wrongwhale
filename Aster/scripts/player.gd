@@ -6,7 +6,7 @@ signal toggle_inventory()
 signal primary_action()
 signal secondary_action()
 signal move(direction: Vector3)
-signal collide(body: KinematicCollision3D)
+signal move_collision(body: KinematicCollision3D)
 
 @export var data: PlayerData
 @export var move_speed: float = 5
@@ -42,7 +42,7 @@ func _ready() -> void:
 	primary_action.connect(_on_primary_action)
 	secondary_action.connect(_on_secondary_action)
 	move.connect(_on_move)
-	collide.connect(_on_collide)
+	move_collision.connect(_on_move_collision)
 	
 func _input(event) -> void:
 	if event is InputEventMouseMotion:
@@ -79,8 +79,8 @@ func _process(delta: float) -> void:
 		prev_position = global_transform.origin
 		direction = (direction + move_axes).normalized()
 		move.emit(move_axes)
-	var body = move_and_collide(move_axes * move_speed * delta)
-	if body: collide.emit(body)
+	var detected_collision = move_and_collide(move_axes * move_speed * delta)
+	if detected_collision: move_collision.emit(detected_collision)
 	
 	# update rotation
 	var rot: Basis = mesh_instance_3d.basis.slerp(Basis.looking_at(direction), turn_speed * delta)
@@ -115,7 +115,7 @@ func _on_secondary_action() -> void:
 func _on_move(_direction: Vector3) -> void:
 	pass
 	
-func _on_collide(_body: KinematicCollision3D) -> void:
+func _on_move_collision(_body: KinematicCollision3D) -> void:
 	pass
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
