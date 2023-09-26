@@ -37,7 +37,7 @@ func _unhandled_input(_event) -> void:
 
 func quit():
 	get_tree().paused = true
-	ui.transition.fadeout()
+	ui.transition.play("fadeout")
 	await ui.transition.finished
 	get_tree().quit()
 

@@ -2,11 +2,6 @@
 class_name WorldCell
 extends GridMap
 
-signal toggled()
-
-@export var world_environment: WorldEnvironment
-@export var world_light: DirectionalLight3D
-
 @onready var actor_root: Node3D = $Actor
 @onready var item_root: Node3D = $Item
 @onready var light_root: Node3D = $Light

@@ -1,15 +1,15 @@
 [gd_scene load_steps=25 format=3 uid="uid://3ioo106b4s3t"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_dkwn1"]
-[ext_resource type="Script" path="res://scripts/inventory_data_equip.gd" id="2_e72jt"]
 [ext_resource type="Resource" uid="uid://de5io2pvpnd5e" path="res://resources/items/sword.tres" id="2_h8b2c"]
 [ext_resource type="Script" path="res://scripts/interact_ray.gd" id="2_itqmj"]
-[ext_resource type="Script" path="res://scripts/inventory_data.gd" id="2_iu3ks"]
-[ext_resource type="Script" path="res://scripts/player_data.gd" id="3_cks3x"]
+[ext_resource type="Script" path="res://resources/inventory_data_equip.gd" id="4_5r4od"]
 [ext_resource type="Resource" uid="uid://rsch10dqt8dv" path="res://resources/items/apple.tres" id="4_bmuee"]
 [ext_resource type="Script" path="res://scripts/item_stack.gd" id="5_5u3ve"]
 [ext_resource type="Resource" uid="uid://r7x4yw48wdr2" path="res://resources/items/book_blue.tres" id="6_u7464"]
 [ext_resource type="Resource" uid="uid://yjvloyxn845p" path="res://resources/items/potion.tres" id="7_myam6"]
+[ext_resource type="Script" path="res://resources/inventory_data.gd" id="8_82jpk"]
+[ext_resource type="Script" path="res://resources/player_data.gd" id="9_o3lof"]
 
 [sub_resource type="Resource" id="Resource_lbibc"]
 script = ExtResource("5_5u3ve")
@@ -17,7 +17,7 @@ item_data = ExtResource("2_h8b2c")
 quantity = 1
 
 [sub_resource type="Resource" id="Resource_rrtt8"]
-script = ExtResource("2_e72jt")
+script = ExtResource("4_5r4od")
 items = Array[ExtResource("5_5u3ve")]([SubResource("Resource_lbibc")])
 
 [sub_resource type="Resource" id="Resource_1ujrt"]
@@ -41,11 +41,11 @@ item_data = ExtResource("7_myam6")
 quantity = 4
 
 [sub_resource type="Resource" id="Resource_6vgvy"]
-script = ExtResource("2_iu3ks")
+script = ExtResource("8_82jpk")
 items = Array[ExtResource("5_5u3ve")]([SubResource("Resource_1ujrt"), SubResource("Resource_n25he"), SubResource("Resource_qribv"), SubResource("Resource_gydo4"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 
 [sub_resource type="Resource" id="Resource_suh20"]
-script = ExtResource("3_cks3x")
+script = ExtResource("9_o3lof")
 guid = "Player0"
 name = "Someone"
 inventory = SubResource("Resource_6vgvy")

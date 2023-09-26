@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bbkxue8ln07pn"]
 
 [ext_resource type="Script" path="res://scripts/item_drop.gd" id="1_ibva1"]
-[ext_resource type="Texture2D" uid="uid://jqpchnuuc3nj" path="res://resources/item_atlas.tres" id="2_6gt5q"]
+[ext_resource type="Texture2D" uid="uid://jqpchnuuc3nj" path="res://resources/textures/item_atlas.tres" id="2_vs7o8"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_g0dpn"]
 
@@ -14,7 +14,7 @@ script = ExtResource("1_ibva1")
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)
 texture_filter = 0
-texture = ExtResource("2_6gt5q")
+texture = ExtResource("2_vs7o8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_g0dpn")
