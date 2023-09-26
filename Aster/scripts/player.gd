@@ -5,7 +5,7 @@ extends CharacterBody3D
 signal toggle_inventory()
 signal primary_action()
 signal secondary_action()
-signal move(direction: Vector3)
+signal move(delta: float, direction: Vector3)
 signal move_collision(body: KinematicCollision3D)
 
 @export var data: PlayerData
@@ -71,25 +71,12 @@ func _process(delta: float) -> void:
 	elif move_input[BACKWARD]: move_axes += camera_pivot_y.transform.basis.z
 	move_axes.y = 0
 	move_axes = move_axes.normalized()
-	
-	prev_position = global_transform.origin
-	direction = (direction + move_axes).normalized()
-	var detected_collision = move_and_collide(move_axes * move_speed * delta)
-	move.emit(move_axes)
-	if detected_collision:
-		move_collision.emit(detected_collision)
-	
-	# update rotation
-	var rot: Basis = mesh_instance_3d.basis.slerp(Basis.looking_at(direction), turn_speed * delta)
-	mesh_instance_3d.basis = rot
-	interact_ray.basis = rot
-	
-	# update targeting
-	var target_y: float = target_marker.global_transform.origin.y
-	target_marker.global_transform.origin = global_transform.origin + direction * target_range
-	target_marker.global_transform.origin.x = roundf(target_marker.global_transform.origin.x)
-	target_marker.global_transform.origin.z = roundf(target_marker.global_transform.origin.z)
-	target_marker.global_transform.origin.y = target_y
+	if move_axes.x != 0 or move_axes.z != 0:
+		prev_position = global_transform.origin
+		direction = (direction + move_axes).normalized()
+		var body = move_and_collide(move_axes * move_speed * delta)
+		move.emit(delta, move_axes)
+		if body: move_collision.emit(body)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -109,8 +96,17 @@ func _on_primary_action() -> void:
 func _on_secondary_action() -> void:
 	pass
 
-func _on_move(_direction: Vector3) -> void:
-	pass
+func _on_move(delta: float, _direction: Vector3) -> void:
+	# update rotation
+	var rot: Basis = mesh_instance_3d.basis.slerp(Basis.looking_at(direction), turn_speed * delta)
+	mesh_instance_3d.basis = rot
+	interact_ray.basis = rot
+	# update targeting
+	var target_y: float = target_marker.global_transform.origin.y
+	target_marker.global_transform.origin = global_transform.origin + direction * target_range
+	target_marker.global_transform.origin.x = roundf(target_marker.global_transform.origin.x)
+	target_marker.global_transform.origin.z = roundf(target_marker.global_transform.origin.z)
+	target_marker.global_transform.origin.y = target_y
 	
 func _on_move_collision(_body: KinematicCollision3D) -> void:
 	pass
