@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bx570xqwl6a7i"]
+[gd_scene load_steps=18 format=3 uid="uid://bx570xqwl6a7i"]
 
 [ext_resource type="Script" path="res://scripts/ui.gd" id="1_0yitp"]
 [ext_resource type="Script" path="res://scripts/ui_hud.gd" id="2_64iqv"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scripts/ui_title_mainmenu.gd" id="8_1ll8d"]
 [ext_resource type="Script" path="res://scripts/ui_title_loadmenu.gd" id="9_kikfg"]
 [ext_resource type="Script" path="res://scripts/ui_title_newmenu.gd" id="10_7f3vn"]
+[ext_resource type="Resource" uid="uid://c8ayg2n5b0d8n" path="res://resources/data/default_world.tres" id="11_dni4b"]
 [ext_resource type="Script" path="res://scripts/ui_title_optionmenu.gd" id="11_mwfge"]
 [ext_resource type="Script" path="res://scripts/ui_transition.gd" id="12_shhpf"]
 [ext_resource type="Script" path="res://scripts/ui_debug.gd" id="13_0q6dt"]
@@ -196,6 +197,7 @@ text = "Back"
 visible = false
 layout_mode = 2
 script = ExtResource("10_7f3vn")
+world_data = ExtResource("11_dni4b")
 
 [node name="MarginContainer" type="MarginContainer" parent="Title/NewMenu"]
 layout_mode = 2
@@ -275,7 +277,6 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="Debug/MarginContainer"]
 layout_mode = 2
 
-[connection signal="drop_stack" from="Game" to="Game" method="_on_drop_stack"]
 [connection signal="gui_input" from="Game" to="Game" method="_on_gui_input"]
 [connection signal="visibility_changed" from="Game" to="Game" method="_on_visibility_changed"]
 [connection signal="pressed" from="Title/MainMenu/MarginContainer/VBoxContainer/ButtonLoadgame" to="Title/MainMenu" method="_on_button_loadgame_pressed"]

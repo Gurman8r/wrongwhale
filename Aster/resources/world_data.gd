@@ -1,5 +1,5 @@
 # save_data.gd
-class_name SaveData
+class_name WorldData
 extends Resource
 
 const SAVE_GAME_PATH = "user://save0.tres"

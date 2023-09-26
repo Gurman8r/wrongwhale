@@ -17,6 +17,9 @@ var external_inventory_owner
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+func _ready():
+	drop_stack.connect(_on_drop_stack)
+
 func _unhandled_input(_event) -> void:
 	if visible \
 	and (Input.is_action_just_pressed("ui_cancel") \

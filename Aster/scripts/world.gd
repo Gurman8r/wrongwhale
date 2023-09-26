@@ -2,7 +2,12 @@
 class_name World
 extends Node3D
 
-@export var save_data: SaveData
+signal loading(world_data: WorldData)
+signal saving(world_data: WorldData)
+signal loaded()
+signal saved()
+
+@export var data: WorldData
 
 var cell: WorldCell : set = set_cell
 var cells: Array[WorldCell]
@@ -15,14 +20,25 @@ func _init() -> void:
 func _ready():
 	assert(0 < cells.size())
 	cell = cells[0]
-	visibility_changed.connect(_on_visibility_changed)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func set_cell(value: WorldCell):
-	if cell == value: return
+func load_data(world_data: WorldData) -> void:
+	if not world_data: return
+	data = world_data.duplicate()
+	loading.emit(data)
+	loaded.emit()
+
+func save_data() -> void:
+	saving.emit(data)
+	saved.emit()
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func set_cell(world_cell: WorldCell):
+	if cell == world_cell: return
 	if cell: cell.hide()
-	cell = value
+	cell = world_cell
 	if cell: cell.show()
 
 func warp(node: Node3D, world_cell: WorldCell, location: Vector3 = Vector3.ZERO) -> void:
@@ -35,11 +51,3 @@ func warp(node: Node3D, world_cell: WorldCell, location: Vector3 = Vector3.ZERO)
 	await Ref.ui.transition.finished
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func _on_visibility_changed():
-	if visible:
-		# load world here
-		pass
-	else:
-		# unload world here
-		pass

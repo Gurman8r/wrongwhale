@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://cagnofcp3jxwf"]
+[gd_scene load_steps=9 format=3 uid="uid://cagnofcp3jxwf"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_mnq22"]
 [ext_resource type="MeshLibrary" uid="uid://cwqb6ao2pijf4" path="res://resources/meshes/blocks.meshlib" id="2_1lkvk"]
-[ext_resource type="Resource" uid="uid://c8ayg2n5b0d8n" path="res://resources/data/default_save.tres" id="2_m0mru"]
 [ext_resource type="PackedScene" uid="uid://3ioo106b4s3t" path="res://scenes/player.tscn" id="3_0h5t1"]
 [ext_resource type="Script" path="res://scripts/world_cell.gd" id="3_0vmq5"]
 [ext_resource type="PackedScene" uid="uid://dhii3qy5e8ljo" path="res://scenes/chest.tscn" id="3_ctgef"]
@@ -14,7 +13,6 @@
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_mnq22")
-save_data = ExtResource("2_m0mru")
 
 [node name="WorldCell0" type="GridMap" parent="."]
 mesh_library = ExtResource("2_1lkvk")
@@ -44,10 +42,12 @@ transform = Transform3D(0.707107, -0.298836, 0.640857, 0, 0.906308, 0.422618, -0
 
 [node name="Chest0" parent="WorldCell0/Misc" instance=ExtResource("3_ctgef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+prompt_message = "Open"
 
 [node name="Door0" parent="WorldCell0/Misc" node_paths=PackedStringArray("destination") instance=ExtResource("5_cg8h4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.77927, 0, -2.99888)
 destination = NodePath("../../../WorldCell1/Misc/Door0")
+prompt_message = "Enter"
 
 [node name="Player" type="Node3D" parent="WorldCell0"]
 

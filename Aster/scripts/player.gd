@@ -17,15 +17,15 @@ signal move_collision(body: KinematicCollision3D)
 @export var camera_angle_min_degrees: float = -70
 @export var camera_angle_max_degrees: float = 15
 
-@onready var animation_player	: AnimationPlayer = $AnimationPlayer
-@onready var animation_tree		: AnimationTree = $AnimationTree
-@onready var camera_pivot_y		: Node3D = $CameraPivotY
-@onready var camera_pivot_x		: SpringArm3D = $CameraPivotY/CameraPivotX
-@onready var camera_3d			: Camera3D = $CameraPivotY/CameraPivotX/Camera3D
-@onready var collision_shape_3d	: CollisionShape3D = $CollisionShape3D
-@onready var interact_ray		: InteractRay = $InteractRay
-@onready var mesh_instance_3d	: MeshInstance3D = $MeshInstance3D
-@onready var target_marker		: Node3D = $TargetMarker
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var animation_tree: AnimationTree = $AnimationTree
+@onready var camera_pivot_y: Node3D = $CameraPivotY
+@onready var camera_pivot_x: SpringArm3D = $CameraPivotY/CameraPivotX
+@onready var camera_3d: Camera3D = $CameraPivotY/CameraPivotX/Camera3D
+@onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D
+@onready var interact_ray: InteractRay = $InteractRay
+@onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
+@onready var target_marker: Node3D = $TargetMarker
 
 enum { LEFT, RIGHT, FORWARD, BACKWARD }
 var move_input: Array[bool] = [0, 0, 0, 0]
@@ -43,6 +43,8 @@ func _ready() -> void:
 	secondary_action.connect(_on_secondary_action)
 	move.connect(_on_move)
 	move_collision.connect(_on_move_collision)
+	Ref.world.loading.connect(_on_world_loading)
+	Ref.world.saving.connect(_on_world_saving)
 	
 func _input(event) -> void:
 	if event is InputEventMouseMotion:
@@ -109,6 +111,12 @@ func _on_move(delta: float, _direction: Vector3) -> void:
 	target_marker.global_transform.origin.y = target_y
 	
 func _on_move_collision(_body: KinematicCollision3D) -> void:
+	pass
+
+func _on_world_loading(world_data: WorldData):
+	pass
+	
+func _on_world_saving(world_data: WorldData):
 	pass
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
