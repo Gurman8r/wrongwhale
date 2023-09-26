@@ -2,13 +2,9 @@
 class_name World
 extends Node3D
 
-signal loading(world_data: WorldData)
-signal saving(world_data: WorldData)
-signal loaded()
-signal saved()
-
 @export var data: WorldData
 
+var backup_data: WorldData
 var cell: WorldCell : set = set_cell
 var cells: Array[WorldCell]
 
@@ -20,18 +16,6 @@ func _init() -> void:
 func _ready():
 	assert(0 < cells.size())
 	cell = cells[0]
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func load_data(world_data: WorldData) -> void:
-	if not world_data: return
-	data = world_data.duplicate()
-	loading.emit(data)
-	loaded.emit()
-
-func save_data() -> void:
-	saving.emit(data)
-	saved.emit()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

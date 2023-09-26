@@ -43,8 +43,9 @@ func _ready() -> void:
 	secondary_action.connect(_on_secondary_action)
 	move.connect(_on_move)
 	move_collision.connect(_on_move_collision)
-	Ref.world.loading.connect(_on_world_loading)
-	Ref.world.saving.connect(_on_world_saving)
+	Ref.main.world_loading.connect(_on_world_loading)
+	Ref.main.world_saving.connect(_on_world_saving)
+	Ref.main.world_unloading.connect(_on_world_unloading)
 	
 func _input(event) -> void:
 	if event is InputEventMouseMotion:
@@ -113,10 +114,13 @@ func _on_move(delta: float, _direction: Vector3) -> void:
 func _on_move_collision(_body: KinematicCollision3D) -> void:
 	pass
 
-func _on_world_loading(world_data: WorldData):
+func _on_world_loading(_world_data: WorldData):
 	pass
 	
-func _on_world_saving(world_data: WorldData):
+func _on_world_saving(_world_data: WorldData):
+	pass
+
+func _on_world_unloading():
 	pass
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
