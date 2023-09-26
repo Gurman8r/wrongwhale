@@ -2,6 +2,7 @@
 class_name InventoryData
 extends Resource
 
+@export var version: int = 1
 @export var items: Array[ItemStack]
 
 signal inventory_interact(inventory_data: InventoryData, index: int, button: int)

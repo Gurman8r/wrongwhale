@@ -18,6 +18,7 @@ var external_inventory_owner
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _ready():
+	force_close.connect(toggle_inventory)
 	drop_stack.connect(_on_drop_stack)
 	gui_input.connect(_on_gui_input)
 	visibility_changed.connect(_on_visibility_changed)

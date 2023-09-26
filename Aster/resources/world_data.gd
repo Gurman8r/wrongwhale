@@ -2,25 +2,25 @@
 class_name WorldData
 extends Resource
 
-const SAVE_GAME_PATH = "user://save0.tres"
-
 @export var version: int = 1
 @export var guid: String = "Save_New"
 @export var name: String = "New Save"
-@export var path: String = "user://save0.tres"
 
 @export var actor_data = {}
 @export var player_data = {}
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-static func exists() -> bool:
-	return ResourceLoader.exists(SAVE_GAME_PATH)
+static func read(path_stem: String) -> Resource:
+	var save_path: String = get_save_path(path_stem)
+	if not ResourceLoader.exists(save_path): return null
+	return ResourceLoader.load(save_path)
 
-static func write(world_data: WorldData) -> Error:
-	return ResourceSaver.save(world_data, SAVE_GAME_PATH)
+static func write(world_data: WorldData, path_stem: String) -> Error:
+	return ResourceSaver.save(world_data, get_save_path(path_stem))
 
-static func read() -> Resource:
-	return ResourceLoader.load(SAVE_GAME_PATH)
+static func get_save_path(path_stem: String = "save0") -> String:
+	assert(not path_stem.is_empty())
+	return "user://%s.tres" % [path_stem]
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

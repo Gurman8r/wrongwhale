@@ -18,7 +18,7 @@ func _init() -> void:
 
 func _ready():
 	visibility_changed.connect(_on_visibility_changed)
-	set_enabled(visible)
+	set_enabled(false)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

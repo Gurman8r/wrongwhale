@@ -13,6 +13,7 @@ var player: Player
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _ready() -> void:
+	# validate top-level references
 	assert(main, "Ref.main is invalid")
 	assert(settings, "Ref.settings is invalid")
 	assert(world, "Ref.world is invalid")

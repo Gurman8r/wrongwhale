@@ -2,6 +2,9 @@
 class_name Settings
 extends Node
 
+signal loaded()
+signal saved()
+
 func _init():
 	Ref.settings = self
 

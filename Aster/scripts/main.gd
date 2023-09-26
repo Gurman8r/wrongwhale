@@ -2,23 +2,13 @@
 class_name Main
 extends Node
 
-signal world_loading(world_data: WorldData)
-signal world_loaded()
-signal world_saving(world_data: WorldData)
-signal world_saved()
-signal world_unloading()
-signal world_unloaded()
 signal quitting()
-
-const default_world: WorldData = preload("res://resources/data/default_world.tres")
-const default_player: PlayerData = preload("res://resources/data/default_player.tres")
 
 @onready var settings: Settings = $Settings
 @onready var world: World = $World
 @onready var ui : UI = $UI
 @onready var player: Player = Ref.player
 
-var test: WorldData
 var good2go: bool = false
 var playing: bool = false
 
@@ -30,14 +20,21 @@ func _init() -> void:
 func _ready() -> void:
 	get_tree().paused = true
 	
+	for node in get_tree().get_nodes_in_group("loadable"):
+		assert("load_data" in node)
+		world.loading.connect(node.load_data)
+	for node in get_tree().get_nodes_in_group("saveable"):
+		assert("save_data" in node)
+		world.saving.connect(node.save_data)
+	
 	player.toggle_inventory.connect(ui.game.toggle_inventory)
-	ui.game.force_close.connect(ui.game.toggle_inventory)
 	ui.game.set_player_inventory_data(player.data.inventory)
 	ui.game.set_equip_inventory_data(player.data.equip)
 	ui.hud.hotbar.set_inventory_data(player.data.inventory)
 	for node in get_tree().get_nodes_in_group("external_inventory"):
+		assert("toggle_inventory" in node)
 		node.toggle_inventory.connect(ui.game.toggle_inventory)
-	
+		
 	good2go = true # done with setup
 
 func _unhandled_input(_event) -> void:
@@ -52,31 +49,27 @@ func quit() -> void:
 	await ui.transition.finished
 	quitting.emit()
 	get_tree().quit()
-	
-func load_world(world_data: WorldData = null) -> void:
+
+func read_world(path_stem: String) -> void:
+	load_world(WorldData.read(path_stem))
+
+func load_world(world_data: WorldData) -> void:
 	# pre-load
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	ui.transition.play("fadeout")
 	await ui.transition.finished
 	ui.title.current = null
 	# load
-	if WorldData.exists(): world.data = WorldData.read()
-	if world_data: world.data = world_data.duplicate()
-	elif not world.data: world.data = default_world.duplicate()
-	world_loading.emit(world.data)
-	world.show()
+	world.load_data(world_data)
 	# post-load
 	ui.hud.show()
 	ui.transition.play("fadein")
 	await ui.transition.finished
 	playing = true
 	get_tree().paused = false
-	world_loaded.emit()
 
-func save_world() -> void:
-	world_saving.emit(world.data)
-	WorldData.write(world.data)
-	world_saved.emit()
+func save_world(path_stem: String) -> void:
+	world.save_data(path_stem)
 
 func unload_world() -> void:
 	# pre-unload
@@ -86,15 +79,13 @@ func unload_world() -> void:
 	await ui.transition.finished
 	ui.hud.hide()
 	# save
-	save_world()
+	world.save_data("save0")
 	# unload
-	world.hide()
-	world_unloading.emit()
+	world.unload()
 	# post-unload
 	ui.title.current = ui.title.mainmenu
 	ui.transition.play("fadein")
 	await ui.transition.finished
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	world_unloaded.emit()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

@@ -4,7 +4,8 @@ extends StaticBody3D
 
 var cell: WorldCell : get = get_cell
 
-func get_cell() -> WorldCell: return get_parent().get_parent() as WorldCell
+func get_cell() -> WorldCell:
+	return get_parent().get_parent() as WorldCell
 
 func _ready() -> void:
 	Ref.main.world_loading.connect(_on_world_loading)

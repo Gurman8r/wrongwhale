@@ -6,7 +6,7 @@ signal toggle_inventory()
 signal primary_action()
 signal secondary_action()
 signal move(delta: float, direction: Vector3)
-signal move_collision(body: KinematicCollision3D)
+signal move_collide(body: KinematicCollision3D)
 
 @export var data: PlayerData
 @export var move_speed: float = 5
@@ -39,10 +39,7 @@ func _ready() -> void:
 	primary_action.connect(_on_primary_action)
 	secondary_action.connect(_on_secondary_action)
 	move.connect(_on_move)
-	move_collision.connect(_on_move_collision)
-	Ref.main.world_loading.connect(_on_world_loading)
-	Ref.main.world_saving.connect(_on_world_saving)
-	Ref.main.world_unloading.connect(_on_world_unloading)
+	move_collide.connect(_on_move_collide)
 	
 func _input(event) -> void:
 	if event is InputEventMouseMotion:
@@ -75,7 +72,7 @@ func _process(delta: float) -> void:
 		data.direction = (data.direction + move_axes).normalized()
 		var body = move_and_collide(move_axes * move_speed * delta)
 		move.emit(delta, move_axes)
-		if body: move_collision.emit(body)
+		if body: move_collide.emit(body)
 		
 	# update rotation
 	if data.direction != Vector3.ZERO:
@@ -91,6 +88,29 @@ func _process(delta: float) -> void:
 	target_marker.global_transform.origin.y = target_y
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func load_data(world_data: WorldData):
+	assert(world_data.player_data.has(data.guid))
+	data = world_data.player_data[data.guid]
+	if get_cell().name != data.cell_name:
+		get_cell().remove(self)
+		Ref.world.set_cell(Ref.world.find_cell(data.cell_name))
+		Ref.world.cell.add(self, data.position)
+	else:
+		global_transform.origin = data.position
+
+func save_data(world_data: WorldData):
+	data.position = global_transform.origin
+	data.cell_name = get_cell().name
+	world_data.player_data[data.guid] = data
+	var pos: Vector3 = global_transform.origin + data.direction * drop_range
+	pos.y = 0.5
+	return pos
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func get_cell() -> WorldCell:
+	return get_parent().get_parent() as WorldCell
 
 func get_drop_position() -> Vector3:
 	var pos: Vector3 = global_transform.origin + data.direction * drop_range
@@ -108,18 +128,7 @@ func _on_secondary_action() -> void:
 func _on_move(_delta: float, _direction: Vector3) -> void:
 	pass
 	
-func _on_move_collision(_body: KinematicCollision3D) -> void:
-	pass
-
-func _on_world_loading(world_data: WorldData):
-	assert(world_data.player_data)
-	assert(0 < world_data.player_data.size())
-	global_transform.origin = world_data.player_data[data.guid].position
-	
-func _on_world_saving(world_data: WorldData):
-	world_data.player_data[data.guid].position = global_transform.origin
-
-func _on_world_unloading():
+func _on_move_collide(_body: KinematicCollision3D) -> void:
 	pass
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

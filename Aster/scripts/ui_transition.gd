@@ -12,7 +12,7 @@ signal finished()
 func _ready() -> void:
 	reset()
 
-func play(animation: String):
+func play(animation: String) -> void:
 	match animation:
 		"RESET": 	reset()
 		"fadeout": 	fadeout()

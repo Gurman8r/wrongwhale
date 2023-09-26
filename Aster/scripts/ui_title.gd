@@ -7,6 +7,7 @@ extends Control
 @onready var loadmenu: UI_TitleLoadMenu = $LoadMenu
 @onready var newmenu: UI_TitleNewMenu = $NewMenu
 @onready var optionmenu: UI_TitleOptionMenu = $OptionMenu
+@onready var modmenu: UI_TitleModMenu = $ModMenu
 
 func _ready():
 	visibility_changed.connect(_on_visibility_changed)
@@ -26,7 +27,7 @@ func set_current(value: Control):
 		current.hide()
 		current = null
 		hide()
-	elif not current and value:
+	else: # not current and value
 		current = value
 		current.show()
 		show()

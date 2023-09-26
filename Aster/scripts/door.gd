@@ -10,6 +10,6 @@ func _ready():
 	interacted.connect(_on_interacted)
 
 func _on_interacted(_other) -> void:
-	assert(destination.cell)
-	assert(destination.spawn_point.global_transform.origin)
-	Ref.world.warp(Ref.player, destination.cell, destination.spawn_point.global_transform.origin)
+	var target_cell: WorldCell = destination.cell
+	var target_pos: Vector3 = destination.spawn_point.global_transform.origin
+	Ref.world.transfer(Ref.player, target_cell, target_pos)

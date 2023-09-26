@@ -11,5 +11,8 @@ func _on_button_newgame_pressed() -> void:
 func _on_button_options_pressed() -> void:
 	Ref.ui.title.current = Ref.ui.title.optionmenu
 
+func _on_button_mods_pressed() -> void:
+	Ref.ui.title.current = Ref.ui.title.modmenu
+
 func _on_button_quit_pressed() -> void:
 	Ref.main.quit()
