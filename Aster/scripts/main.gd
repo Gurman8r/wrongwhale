@@ -2,10 +2,11 @@
 class_name Main
 extends Node
 
+@export var save_data: SaveData
+
 @onready var settings: Settings = $Settings
 @onready var world: World = $World
 @onready var ui : UI = $UI
-
 @onready var player: Player = Ref.player
 
 var good2go: bool = false

@@ -5,8 +5,11 @@ extends Resource
 const SAVE_GAME_PATH = "user://save0.tres"
 
 @export var version: int = 1
+@export var guid: String = "Save_New"
+@export var name: String = "New Save"
 
-@export var player_data: PlayerData
+@export var player_data: Array[PlayerData]
+@export var actor_data: Array[ActorData]
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

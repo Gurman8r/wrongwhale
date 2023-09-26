@@ -1,0 +1,50 @@
+[gd_resource type="Resource" script_class="PlayerData" load_steps=16 format=3 uid="uid://c4yy8j1rlqeux"]
+
+[ext_resource type="Script" path="res://resources/player_data.gd" id="1_b2akx"]
+[ext_resource type="Resource" uid="uid://de5io2pvpnd5e" path="res://resources/items/sword.tres" id="1_svawk"]
+[ext_resource type="Script" path="res://scripts/item_stack.gd" id="2_656xn"]
+[ext_resource type="Script" path="res://resources/inventory_data_equip.gd" id="3_18fx0"]
+[ext_resource type="Resource" uid="uid://rsch10dqt8dv" path="res://resources/items/apple.tres" id="4_psk06"]
+[ext_resource type="Resource" uid="uid://r7x4yw48wdr2" path="res://resources/items/book_blue.tres" id="5_sgyqj"]
+[ext_resource type="Resource" uid="uid://yjvloyxn845p" path="res://resources/items/potion.tres" id="6_oewma"]
+[ext_resource type="Script" path="res://resources/inventory_data.gd" id="7_1syhc"]
+
+[sub_resource type="Resource" id="Resource_8c3q4"]
+script = ExtResource("2_656xn")
+item_data = ExtResource("1_svawk")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_gmes7"]
+script = ExtResource("3_18fx0")
+items = Array[ExtResource("2_656xn")]([SubResource("Resource_8c3q4")])
+
+[sub_resource type="Resource" id="Resource_1ujrt"]
+script = ExtResource("2_656xn")
+item_data = ExtResource("4_psk06")
+quantity = 4
+
+[sub_resource type="Resource" id="Resource_n25he"]
+script = ExtResource("2_656xn")
+item_data = ExtResource("5_sgyqj")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_qribv"]
+script = ExtResource("2_656xn")
+item_data = ExtResource("5_sgyqj")
+quantity = 1
+
+[sub_resource type="Resource" id="Resource_gydo4"]
+script = ExtResource("2_656xn")
+item_data = ExtResource("6_oewma")
+quantity = 4
+
+[sub_resource type="Resource" id="Resource_pw0hf"]
+script = ExtResource("7_1syhc")
+items = Array[ExtResource("2_656xn")]([SubResource("Resource_1ujrt"), SubResource("Resource_n25he"), SubResource("Resource_qribv"), SubResource("Resource_gydo4"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+
+[resource]
+script = ExtResource("1_b2akx")
+guid = "Player_New"
+name = "New Player"
+inventory = SubResource("Resource_pw0hf")
+equip = SubResource("Resource_gmes7")
