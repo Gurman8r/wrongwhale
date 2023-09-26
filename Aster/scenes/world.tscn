@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://cagnofcp3jxwf"]
+[gd_scene load_steps=10 format=3 uid="uid://cagnofcp3jxwf"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_mnq22"]
 [ext_resource type="MeshLibrary" uid="uid://cwqb6ao2pijf4" path="res://resources/meshes/blocks.meshlib" id="2_1lkvk"]
+[ext_resource type="Resource" uid="uid://c8ayg2n5b0d8n" path="res://resources/data/default_world.tres" id="2_takba"]
 [ext_resource type="PackedScene" uid="uid://3ioo106b4s3t" path="res://scenes/player.tscn" id="3_0h5t1"]
 [ext_resource type="Script" path="res://scripts/world_cell.gd" id="3_0vmq5"]
 [ext_resource type="PackedScene" uid="uid://dhii3qy5e8ljo" path="res://scenes/chest.tscn" id="3_ctgef"]
@@ -13,6 +14,7 @@
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_mnq22")
+data = ExtResource("2_takba")
 
 [node name="WorldCell0" type="GridMap" parent="."]
 mesh_library = ExtResource("2_1lkvk")

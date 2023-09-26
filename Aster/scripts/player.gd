@@ -29,8 +29,6 @@ signal move_collision(body: KinematicCollision3D)
 
 enum { LEFT, RIGHT, FORWARD, BACKWARD }
 var move_input: Array[bool] = [0, 0, 0, 0]
-var direction: Vector3 = Vector3.FORWARD
-var prev_position: Vector3 = Vector3.ZERO
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -38,7 +36,6 @@ func _init() -> void:
 	Ref.player = self
 
 func _ready() -> void:
-	prev_position = global_transform.origin
 	primary_action.connect(_on_primary_action)
 	secondary_action.connect(_on_secondary_action)
 	move.connect(_on_move)
@@ -75,19 +72,28 @@ func _process(delta: float) -> void:
 	move_axes.y = 0
 	move_axes = move_axes.normalized()
 	if move_axes.x != 0 or move_axes.z != 0:
-		prev_position = global_transform.origin
-		direction = (direction + move_axes).normalized()
+		data.direction = (data.direction + move_axes).normalized()
 		var body = move_and_collide(move_axes * move_speed * delta)
 		move.emit(delta, move_axes)
 		if body: move_collision.emit(body)
+		
+	# update rotation
+	if data.direction != Vector3.ZERO:
+		var rot: Basis = mesh_instance_3d.basis.slerp(Basis.looking_at(data.direction), turn_speed * delta)
+		mesh_instance_3d.basis = rot
+		interact_ray.basis = rot
+	
+	# update targeting
+	var target_y: float = target_marker.global_transform.origin.y
+	target_marker.global_transform.origin = global_transform.origin + data.direction * target_range
+	target_marker.global_transform.origin.x = roundf(target_marker.global_transform.origin.x)
+	target_marker.global_transform.origin.z = roundf(target_marker.global_transform.origin.z)
+	target_marker.global_transform.origin.y = target_y
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func get_cell() -> WorldCell:
-	return get_parent().get_parent() as WorldCell
-
 func get_drop_position() -> Vector3:
-	var pos: Vector3 = global_transform.origin + direction * drop_range
+	var pos: Vector3 = global_transform.origin + data.direction * drop_range
 	pos.y = 0.5
 	return pos
 
@@ -99,26 +105,19 @@ func _on_primary_action() -> void:
 func _on_secondary_action() -> void:
 	pass
 
-func _on_move(delta: float, _direction: Vector3) -> void:
-	# update rotation
-	var rot: Basis = mesh_instance_3d.basis.slerp(Basis.looking_at(direction), turn_speed * delta)
-	mesh_instance_3d.basis = rot
-	interact_ray.basis = rot
-	# update targeting
-	var target_y: float = target_marker.global_transform.origin.y
-	target_marker.global_transform.origin = global_transform.origin + direction * target_range
-	target_marker.global_transform.origin.x = roundf(target_marker.global_transform.origin.x)
-	target_marker.global_transform.origin.z = roundf(target_marker.global_transform.origin.z)
-	target_marker.global_transform.origin.y = target_y
+func _on_move(_delta: float, _direction: Vector3) -> void:
+	pass
 	
 func _on_move_collision(_body: KinematicCollision3D) -> void:
 	pass
 
-func _on_world_loading(_world_data: WorldData):
-	pass
+func _on_world_loading(world_data: WorldData):
+	assert(world_data.player_data)
+	assert(0 < world_data.player_data.size())
+	global_transform.origin = world_data.player_data[data.guid].position
 	
-func _on_world_saving(_world_data: WorldData):
-	pass
+func _on_world_saving(world_data: WorldData):
+	world_data.player_data[data.guid].position = global_transform.origin
 
 func _on_world_unloading():
 	pass

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="SaveData" load_steps=2 format=3 uid="uid://c8ayg2n5b0d8n"]
+[gd_resource type="Resource" script_class="WorldData" load_steps=2 format=3 uid="uid://c8ayg2n5b0d8n"]
 
 [ext_resource type="Script" path="res://resources/world_data.gd" id="1_3cq0c"]
 
@@ -7,5 +7,5 @@ script = ExtResource("1_3cq0c")
 version = 1
 guid = "Save_New"
 name = "New Save"
-player_data = Array[Resource("res://resources/player_data.gd")]([])
-actor_data = Array[Resource("res://resources/actor_data.gd")]([])
+actor_data = {}
+player_data = {}

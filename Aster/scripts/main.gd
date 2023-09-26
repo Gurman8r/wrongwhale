@@ -41,7 +41,7 @@ func _ready() -> void:
 	good2go = true # done with setup
 
 func _unhandled_input(_event) -> void:
-	if Input.is_action_just_pressed("ui_cancel"):
+	if playing and Input.is_action_just_pressed("ui_cancel"):
 		unload_world()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -60,6 +60,7 @@ func load_world(world_data: WorldData = null) -> void:
 	await ui.transition.finished
 	ui.title.current = null
 	# load
+	if WorldData.exists(): world.data = WorldData.read()
 	if world_data: world.data = world_data.duplicate()
 	elif not world.data: world.data = default_world.duplicate()
 	world_loading.emit(world.data)
@@ -73,10 +74,8 @@ func load_world(world_data: WorldData = null) -> void:
 	world_loaded.emit()
 
 func save_world() -> void:
-	var paused: bool = get_tree().paused
-	get_tree().paused = true
 	world_saving.emit(world.data)
-	get_tree().paused = paused
+	WorldData.write(world.data)
 	world_saved.emit()
 
 func unload_world() -> void:
@@ -86,9 +85,11 @@ func unload_world() -> void:
 	ui.transition.play("fadeout")
 	await ui.transition.finished
 	ui.hud.hide()
+	# save
+	save_world()
 	# unload
-	world_unloading.emit()
 	world.hide()
+	world_unloading.emit()
 	# post-unload
 	ui.title.current = ui.title.mainmenu
 	ui.transition.play("fadein")
