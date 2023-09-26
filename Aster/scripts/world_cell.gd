@@ -28,8 +28,9 @@ func remove(value: Node3D) -> void:
 	get_object_root(value).remove_child(value)
 
 func set_enabled_recursive(node: Node, value: bool) -> void:
-	if not node or not node.get_child_count(): return
-	elif node is WorldObject:
+	if not node or not node.get_child_count():
+		return
+	if node is WorldObject:
 		node.cell_visibility_changed.emit()
 	set_process(value)
 	set_physics_process(value)
@@ -37,8 +38,6 @@ func set_enabled_recursive(node: Node, value: bool) -> void:
 		set_enabled_recursive(child, value)
 
 func set_enabled(value: bool) -> void:
-	set_process(value)
-	set_physics_process(value)
 	set_enabled_recursive(self, value)
 
 func _on_visibility_changed() -> void:
