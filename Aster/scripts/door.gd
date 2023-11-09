@@ -1,13 +1,10 @@
 # door.gd
 class_name Door
-extends Interactable
+extends WorldObject
 
 @export var destination: Door
 
 @onready var spawn_point: Node3D = $SpawnPoint
-
-func _ready():
-	interacted.connect(_on_interacted)
 
 func _on_interacted(_other) -> void:
 	var target_cell: WorldCell = destination.cell

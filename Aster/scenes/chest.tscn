@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dhii3qy5e8ljo"]
+[gd_scene load_steps=8 format=3 uid="uid://dhii3qy5e8ljo"]
 
 [ext_resource type="Script" path="res://scripts/chest.gd" id="1_d6qf4"]
 [ext_resource type="Script" path="res://resources/inventory_data.gd" id="2_aoaap"]
+[ext_resource type="Script" path="res://scripts/interactable.gd" id="3_m7cgo"]
 
 [sub_resource type="Resource" id="Resource_ucuon"]
 script = ExtResource("2_aoaap")
@@ -10,18 +11,16 @@ items = Array[Resource("res://scripts/item_stack.gd")]([null, null, null, null, 
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_h062n"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o40e3"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fbvmg"]
 albedo_color = Color(0.384314, 0.215686, 0.101961, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_30nq0"]
-material = SubResource("StandardMaterial3D_o40e3")
+material = SubResource("StandardMaterial3D_fbvmg")
 
 [node name="Chest" type="StaticBody3D" groups=["external_inventory"]]
-collision_layer = 5
 collision_mask = 3
 script = ExtResource("1_d6qf4")
 inventory_data = SubResource("Resource_ucuon")
-prompt_message = "Open Chest"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -30,3 +29,14 @@ shape = SubResource("BoxShape3D_h062n")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("BoxMesh_30nq0")
+
+[node name="Interactable" type="StaticBody3D" parent="."]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("3_m7cgo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_h062n")
+
+[connection signal="interacted" from="Interactable" to="." method="_on_interacted"]

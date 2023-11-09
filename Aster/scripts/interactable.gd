@@ -1,6 +1,6 @@
 # interactable.gd
 class_name Interactable
-extends WorldObject
+extends StaticBody3D
 
 signal interacted(other)
 

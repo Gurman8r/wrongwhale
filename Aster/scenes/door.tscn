@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bt3ygtr7jmwhx"]
+[gd_scene load_steps=6 format=3 uid="uid://bt3ygtr7jmwhx"]
 
 [ext_resource type="Script" path="res://scripts/door.gd" id="1_hyfeh"]
+[ext_resource type="Script" path="res://scripts/interactable.gd" id="2_246rd"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xohy8"]
 
@@ -11,10 +12,8 @@ albedo_color = Color(0, 0, 0, 1)
 material = SubResource("StandardMaterial3D_er4c7")
 
 [node name="Door" type="StaticBody3D" groups=["world_object"]]
-collision_layer = 5
 collision_mask = 3
 script = ExtResource("1_hyfeh")
-prompt_message = "Open Door"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -26,3 +25,14 @@ mesh = SubResource("BoxMesh_ge0vy")
 
 [node name="SpawnPoint" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
+
+[node name="Interactable" type="StaticBody3D" parent="."]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("2_246rd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_xohy8")
+
+[connection signal="interacted" from="Interactable" to="." method="_on_interacted"]
