@@ -20,10 +20,10 @@ func _init() -> void:
 func _ready() -> void:
 	get_tree().paused = true
 	
-	for node in get_tree().get_nodes_in_group("loadable"):
+	for node in get_tree().get_nodes_in_group("load"):
 		assert("load_data" in node)
 		world.loading.connect(node.load_data)
-	for node in get_tree().get_nodes_in_group("saveable"):
+	for node in get_tree().get_nodes_in_group("save"):
 		assert("save_data" in node)
 		world.saving.connect(node.save_data)
 	

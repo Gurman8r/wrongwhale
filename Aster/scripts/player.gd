@@ -91,7 +91,9 @@ func _process(delta: float) -> void:
 
 func load_data(world_data: WorldData):
 	assert(world_data.player_data.has(data.guid))
-	data = world_data.player_data[data.guid]
+	var player_data: PlayerData = world_data.player_data[data.guid]
+	data.position = player_data.position
+	data.cell_name = player_data.cell_name
 	if get_cell().name != data.cell_name:
 		get_cell().remove(self)
 		Ref.world.set_cell(Ref.world.find_cell(data.cell_name))
