@@ -35,8 +35,6 @@ func _ready() -> void:
 		if not "toggle_inventory" in node or node.toggle_inventory.is_connected(ui.game.toggle_inventory): continue
 		node.toggle_inventory.connect(ui.game.toggle_inventory)
 	
-	ui.hud.hotbar.slots[0].selected = true
-	
 	good2go = true # done with setup
 
 func _unhandled_input(_event) -> void:
@@ -62,7 +60,7 @@ func load_world(world_data: WorldData) -> void:
 	await ui.transition.finished
 	ui.title.current = null
 	# load
-	world.load_data(world_data)
+	world.load_from_memory(world_data)
 	# post-load
 	ui.hud.show()
 	ui.transition.play("fadein")
@@ -81,7 +79,7 @@ func unload_world() -> void:
 	await ui.transition.finished
 	ui.hud.hide()
 	# save
-	world.save_data("save0")
+	world.save_to_file("save0")
 	# unload
 	world.unload()
 	# post-unload

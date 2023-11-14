@@ -5,6 +5,9 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_hgmgp"]
 font_size = 12
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 8
+shadow_color = Color(0, 0, 0, 1)
 
 [node name="ItemSlot" type="PanelContainer"]
 custom_minimum_size = Vector2(64, 64)
@@ -29,6 +32,12 @@ layout_mode = 2
 size_flags_horizontal = 4
 texture = ExtResource("2_se8hi")
 expand_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+size_flags_vertical = 8
+show_percentage = false
 
 [node name="QuantityLabel" type="Label" parent="."]
 layout_mode = 2

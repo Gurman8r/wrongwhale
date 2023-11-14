@@ -88,12 +88,12 @@ func pick_up_stack(stack: ItemStack) -> bool:
 			return true
 	return false
 
-func use_stack(index: int) -> void:
+func use_stack(index: int, target: Node) -> void:
 	var stack = items[index]
 	if not stack: return
 	if stack.item_data is ItemDataConsumable:
 		stack.quantity -= 1
 		if stack.quantity < 1:
 			items[index] = null
-	stack.item_data.use(Ref.player)
+	stack.item_data.use(target)
 	inventory_updated.emit(self)

@@ -5,8 +5,8 @@ extends CharacterBody3D
 signal toggle_inventory()
 signal primary_action()
 signal secondary_action()
-signal scroll_up()
-signal scroll_down()
+signal hotbar_prev()
+signal hotbar_next()
 signal move(delta: float, direction: Vector3)
 signal move_collide(body: KinematicCollision3D)
 
@@ -34,6 +34,8 @@ var move_input: Array[bool] = [0, 0, 0, 0]
 
 var item_index: int = 0 : set = set_item_index
 
+var cell: WorldCell : get = get_cell
+
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
@@ -42,12 +44,13 @@ func _init() -> void:
 func _ready() -> void:
 	primary_action.connect(_on_primary_action)
 	secondary_action.connect(_on_secondary_action)
-	scroll_up.connect(_on_scroll_up)
-	scroll_down.connect(_on_scroll_down)
+	hotbar_prev.connect(_on_hotbar_prev)
+	hotbar_next.connect(_on_hotbar_next)
 	move.connect(_on_move)
 	move_collide.connect(_on_move_collide)
 	
 func _input(event) -> void:
+	# camera
 	if event is InputEventMouseMotion:
 		camera_pivot_y.rotate_y(-event.relative.x * camera_speed.x)
 		camera_pivot_x.rotate_x(-event.relative.y * camera_speed.y)
@@ -55,6 +58,14 @@ func _input(event) -> void:
 			camera_pivot_x.rotation.x, \
 			deg_to_rad(camera_angle_min_degrees), \
 			deg_to_rad(camera_angle_max_degrees))
+	
+	# actions
+	if event is InputEventMouseButton and event.is_pressed():
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			primary_action.emit()
+		elif event.button_index == MOUSE_BUTTON_RIGHT:
+			secondary_action.emit()
+		get_viewport().set_input_as_handled()
 
 func _unhandled_input(_event) -> void:
 	# movement
@@ -69,9 +80,12 @@ func _unhandled_input(_event) -> void:
 	
 	# inventory
 	if Input.is_action_just_pressed("inventory"): toggle_inventory.emit()
-	if Input.is_action_just_released("scroll_up"): scroll_up.emit()
-	elif Input.is_action_just_released("scroll_down"): scroll_down.emit()
-	
+	if Input.is_action_just_released("hotbar_prev"): hotbar_prev.emit()
+	elif Input.is_action_just_released("hotbar_next"): hotbar_next.emit()
+	for i in range(0, 10):
+		if Input.is_action_just_pressed("hotbar_%d" % [i]):
+			set_item_index(i)
+			break
 
 func _process(delta: float) -> void:
 	# update movement
@@ -131,28 +145,26 @@ func get_drop_position() -> Vector3:
 	pos.y = 0.5
 	return pos
 
-func set_item_index(value: int):
-	if value <= 0: value = 9
-	elif value > 9: value = 0
-	Ref.ui.hud.hotbar.slots[item_index].selected = false
-	item_index = value
-	Ref.ui.hud.hotbar.slots[item_index].selected = true
-
 func get_held_item() -> ItemData:
 	return data.inventory.get_item_data(item_index)
+
+func set_item_index(value: int) -> void:
+	Ref.ui.hud.hotbar.item_index = value
+	item_index = Ref.ui.hud.hotbar.item_index
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _on_primary_action() -> void:
-	var held_item: ItemData = get_held_item()
+	print("primary")
 	
 func _on_secondary_action() -> void:
-	pass
+	print("secondary")
+	data.inventory.use_stack(item_index, self)
 
-func _on_scroll_up() -> void:
+func _on_hotbar_prev() -> void:
 	set_item_index(item_index + 1)
 
-func _on_scroll_down() -> void:
+func _on_hotbar_next() -> void:
 	set_item_index(item_index - 1)
 
 func _on_move(_delta: float, _direction: Vector3) -> void:

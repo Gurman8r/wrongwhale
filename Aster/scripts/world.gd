@@ -26,17 +26,17 @@ func _ready():
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func read_data(path_stem: String = "save0") -> void:
-	load_data(WorldData.read(path_stem))
+func load_from_file(path_stem: String = "save0") -> void:
+	load_from_memory(WorldData.read(path_stem))
 
-func load_data(world_data: WorldData) -> void:
+func load_from_memory(world_data: WorldData) -> void:
 	assert(world_data)
 	data = world_data
 	loading.emit(data)
 	load_finished.emit()
 	show()
 
-func save_data(path_stem: String = "save0") -> void:
+func save_to_file(path_stem: String = "save0") -> void:
 	assert(not path_stem.is_empty())
 	saving.emit(data)
 	WorldData.write(data, path_stem)

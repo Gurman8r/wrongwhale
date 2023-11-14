@@ -14,3 +14,4 @@ name = "Apple"
 description = "It's just an apple."
 max_stack = 99
 texture = SubResource("AtlasTexture_j8x66")
+durability = 0.0

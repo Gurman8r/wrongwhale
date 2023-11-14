@@ -6,12 +6,14 @@ signal clicked(index: int, button_index: int)
 
 @export var selected: bool = false : set = set_selected
 
-@onready var texture_rect = $MarginContainer/TextureRect
-@onready var selected_rect = $MarginContainer/SelectedRect
-@onready var quantity_label = $QuantityLabel
+@onready var texture_rect: TextureRect = $MarginContainer/TextureRect
+@onready var selected_rect: TextureRect = $MarginContainer/SelectedRect
+@onready var progress_bar: ProgressBar = $ProgressBar
+@onready var quantity_label: Label = $QuantityLabel
 
 func _ready():
-	set_selected(false)
+	selected_rect.visible = false
+	progress_bar.visible = false
 
 func set_stack(stack: ItemStack) -> void:
 	var item_data = stack.item_data
@@ -22,6 +24,15 @@ func set_stack(stack: ItemStack) -> void:
 		quantity_label.show()
 	else:
 		quantity_label.hide()
+	set_durability(stack.item_data.durability)
+
+func set_selected(value: bool):
+	selected = value
+	selected_rect.visible = value
+
+func set_durability(value: float):
+	progress_bar.visible = value != 100.0
+	progress_bar.value = value
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton \
@@ -29,7 +40,3 @@ func _on_gui_input(event: InputEvent) -> void:
 	or event.button_index == MOUSE_BUTTON_RIGHT) \
 	and event.is_pressed():
 		clicked.emit(get_index(), event.button_index)
-
-func set_selected(value: bool):
-	selected = value
-	selected_rect.visible = value

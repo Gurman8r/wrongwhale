@@ -5,16 +5,23 @@ extends Control
 @export var world_data: WorldData = WorldData.new()
 
 func _on_button_play_pressed():
-	world_data.version = 1
-	world_data.guid = "Save_New"
-	world_data.name = "New Save"
+	var world_version = 1
+	var world_guid = "Save_New"
+	var world_name = "New Save"
+	world_data.version = world_version
+	world_data.guid = world_guid
+	world_data.name = world_name
 	world_data.player_data = {}
-	world_data.player_data["Player_New"] = PlayerData.new()
-	world_data.player_data["Player_New"].guid = "Player_New"
-	world_data.player_data["Player_New"].name = "New Player"
-	world_data.player_data["Player_New"].cell_name = "WorldCell0"
-	world_data.player_data["Player_New"].position = Vector3.ZERO
-	world_data.player_data["Player_New"].direction = Vector3.FORWARD
+	
+	var player_guid = "Player_New"
+	var player_name = "New Player"
+	world_data.player_data[player_guid] = PlayerData.new()
+	var player_data = world_data.player_data[player_guid]
+	player_data.guid = player_guid
+	player_data.name = player_name
+	player_data.cell_name = "WorldCell0"
+	player_data.position = Vector3.ZERO
+	player_data.direction = Vector3.FORWARD
 	Ref.main.load_world(world_data)
 
 func _on_button_back_pressed():
