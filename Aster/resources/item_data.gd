@@ -2,6 +2,8 @@
 class_name ItemData
 extends Resource
 
+signal used()
+
 @export var version: int = 1
 @export var name: String = "New Item"
 @export_multiline var description: String = ""

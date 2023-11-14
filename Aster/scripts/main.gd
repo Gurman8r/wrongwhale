@@ -21,10 +21,10 @@ func _ready() -> void:
 	get_tree().paused = true
 	
 	for node in get_tree().get_nodes_in_group("load"):
-		assert("load_data" in node)
+		if not "load_data" in node or world.loading.is_connected(node.load_data): continue
 		world.loading.connect(node.load_data)
 	for node in get_tree().get_nodes_in_group("save"):
-		assert("save_data" in node)
+		if not "save_data" in node or world.saving.is_connected(node.save_data): continue
 		world.saving.connect(node.save_data)
 	
 	player.toggle_inventory.connect(ui.game.toggle_inventory)
@@ -32,9 +32,11 @@ func _ready() -> void:
 	ui.game.set_equip_inventory_data(player.data.equip)
 	ui.hud.hotbar.set_inventory_data(player.data.inventory)
 	for node in get_tree().get_nodes_in_group("external_inventory"):
-		assert("toggle_inventory" in node)
+		if not "toggle_inventory" in node or node.toggle_inventory.is_connected(ui.game.toggle_inventory): continue
 		node.toggle_inventory.connect(ui.game.toggle_inventory)
-		
+	
+	ui.hud.hotbar.slots[0].selected = true
+	
 	good2go = true # done with setup
 
 func _unhandled_input(_event) -> void:

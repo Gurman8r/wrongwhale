@@ -13,3 +13,21 @@ extends Resource
 
 @export var inventory: InventoryData = InventoryData.new()
 @export var equip: InventoryDataEquip = InventoryDataEquip.new()
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func copy(value: PlayerData) -> PlayerData:
+	if self == value: return self
+	
+	self.version = value.version
+	self.guid = value.guid
+	self.name = value.name
+	
+	self.index = value.index
+	self.position = value.position
+	self.direction = value.direction
+	self.cell_name = value.cell_name
+	
+	return self
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

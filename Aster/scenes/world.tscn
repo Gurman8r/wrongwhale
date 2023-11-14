@@ -44,12 +44,10 @@ transform = Transform3D(0.707107, -0.298836, 0.640857, 0, 0.906308, 0.422618, -0
 
 [node name="Chest0" parent="WorldCell0/Misc" instance=ExtResource("3_ctgef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
-prompt_message = "Open"
 
 [node name="Door0" parent="WorldCell0/Misc" node_paths=PackedStringArray("destination") instance=ExtResource("5_cg8h4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.77927, 0, -2.99888)
 destination = NodePath("../../../WorldCell1/Misc/Door0")
-prompt_message = "Enter"
 
 [node name="Player" type="Node3D" parent="WorldCell0"]
 

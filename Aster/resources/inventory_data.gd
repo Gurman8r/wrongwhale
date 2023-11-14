@@ -8,6 +8,27 @@ extends Resource
 signal inventory_interact(inventory_data: InventoryData, index: int, button: int)
 signal inventory_updated(inventory_data: InventoryData)
 
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func copy(value: InventoryData):
+	if self == value: return self
+	return self
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func get_item_data(index: int) -> ItemData:
+	var stack = get_item_stack(index)
+	if stack:
+		return stack.item_data
+	else:
+		return null
+
+func get_item_stack(index: int):
+	if index >= 0 and index < items.size():
+		return items[index]
+	else:
+		return null
+
 func on_slot_clicked(index: int, button: int) -> void:
 	inventory_interact.emit(self, index, button)
 

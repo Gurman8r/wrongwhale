@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://ddxw2b6u1pxow"]
+[gd_scene load_steps=4 format=3 uid="uid://ddxw2b6u1pxow"]
 
 [ext_resource type="Script" path="res://scripts/item_slot.gd" id="1_pic7l"]
+[ext_resource type="Texture2D" uid="uid://d3csli70fja0p" path="res://resources/textures/item_slot_selected.png" id="2_se8hi"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_hgmgp"]
 font_size = 12
@@ -22,6 +23,12 @@ theme_override_constants/margin_bottom = 4
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
+
+[node name="SelectedRect" type="TextureRect" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_se8hi")
+expand_mode = 2
 
 [node name="QuantityLabel" type="Label" parent="."]
 layout_mode = 2

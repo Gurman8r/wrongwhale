@@ -24,3 +24,12 @@ static func get_save_path(path_stem: String = "save0") -> String:
 	return "user://%s.tres" % [path_stem]
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func copy(value: WorldData):
+	if self == value: return self
+	version = value.version
+	guid = value.guid
+	name = value.name
+	return self
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
