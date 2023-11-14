@@ -13,7 +13,7 @@ signal clicked(index: int, button_index: int)
 
 func _ready():
 	selected_rect.visible = false
-	progress_bar.visible = false
+	set_durability(100.0)
 
 func set_stack(stack: ItemStack) -> void:
 	var item_data = stack.item_data

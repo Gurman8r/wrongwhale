@@ -29,7 +29,7 @@ func populate_item_grid(inventory_data: InventoryData) -> void:
 		i += 1
 
 func set_item_index(value: int) -> void:
-	if value <= 0: value = 9
+	if value < 0: value = 9
 	elif value > 9: value = 0
 	slots[item_index].selected = false
 	item_index = value

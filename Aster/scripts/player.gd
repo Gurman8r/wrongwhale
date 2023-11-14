@@ -84,7 +84,7 @@ func _unhandled_input(_event) -> void:
 	elif Input.is_action_just_released("hotbar_next"): hotbar_next.emit()
 	for i in range(0, 10):
 		if Input.is_action_just_pressed("hotbar_%d" % [i]):
-			set_item_index(i)
+			set_item_index(i - 1)
 			break
 
 func _process(delta: float) -> void:
