@@ -41,7 +41,7 @@ var move_input: Array[bool] = [0, 0, 0, 0]
 
 var item_index: int = 0 : set = set_item_index
 
-var cell: WorldCell : get = get_cell
+var cell: WorldCell : get = get_cell, set = set_cell
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -122,27 +122,21 @@ func _process(delta: float) -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func load_from_memory(world_data: WorldData):
+func load_from_memory(world_data: WorldData) -> void:
 	assert(world_data.player_data.has(data.guid))
 	data = world_data.player_data[data.guid].duplicate()
-	if get_cell().name != data.cell_name:
-		get_cell().remove(self)
-		Ref.world.set_cell(Ref.world.find_cell(data.cell_name))
-		Ref.world.cell.add(self, data.position)
-	else:
-		global_transform.origin = data.position
+	set_cell(Ref.world.find_cell(data.cell_name))
 
-func save_to_memory(world_data: WorldData):
-	data.cell_name = get_cell().name
+func save_to_memory(world_data: WorldData) -> void:
 	world_data.player_data[data.guid] = data.duplicate()
-	var pos: Vector3 = global_transform.origin + data.direction * drop_range
-	pos.y = 0.5
-	return pos
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func get_cell() -> WorldCell:
 	return get_parent().get_parent() as WorldCell
+
+func set_cell(value: WorldCell) -> void:
+	Ref.world.transfer(self, value, data.position, false)
 
 func get_drop_position() -> Vector3:
 	var pos: Vector3 = global_transform.origin + data.direction * drop_range

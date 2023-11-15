@@ -69,17 +69,19 @@ func find_cell(cell_name: String) -> WorldCell:
 			return world_cell
 	return null
 
-func transfer(node: Node, target_cell: WorldCell, target_pos: Vector3 = Vector3.ZERO) -> void:
+func transfer(node: Node, target_cell: WorldCell, target_pos: Vector3 = Vector3.ZERO, transition: bool = true) -> void:
 	assert(node)
 	assert(target_cell)
-	Ref.ui.transition.play("fadeout")
-	await Ref.ui.transition.finished
+	if transition:
+		Ref.ui.transition.play("fadeout")
+		await Ref.ui.transition.finished
 	cell.remove(node)
 	set_cell(target_cell)
 	cell.add(node, target_pos)
 	if "data" in node and "cell_name" in node.data:
 		node.data.cell_name = cell.name
-	Ref.ui.transition.play("fadein")
-	await Ref.ui.transition.finished
+	if transition:
+		Ref.ui.transition.play("fadein")
+		await Ref.ui.transition.finished
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

@@ -4,10 +4,10 @@ extends Node
 
 signal quitting()
 
-@onready var settings	: Settings 	= $Settings
-@onready var world		: World 	= $World
-@onready var ui 		: UI 		= $UI
-@onready var player		: Player 	= Ref.player
+@onready var settings: Settings = $Settings
+@onready var world: World = $World
+@onready var ui: UI = $UI
+@onready var player: Player = Ref.player
 
 var good2go: bool = false
 var playing: bool = false
