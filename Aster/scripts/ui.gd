@@ -10,3 +10,10 @@ extends CanvasLayer
 
 func _init() -> void:
 	Ref.ui = self
+
+func set_player_data(player_data: PlayerData) -> void:
+	game.set_player_data(player_data)
+	hud.hotbar.set_inventory_data(player_data.inventory)
+
+func clear_player_data():
+	game.clear_player_data()

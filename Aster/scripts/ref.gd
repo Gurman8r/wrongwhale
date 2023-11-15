@@ -7,7 +7,6 @@ var main: Main
 var settings: Settings
 var world : World
 var ui : UI
-
 var player: Player
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -18,5 +17,6 @@ func _ready() -> void:
 	assert(settings, "Ref.settings is invalid")
 	assert(world, "Ref.world is invalid")
 	assert(ui, "Ref.ui is invalid")
+	assert(player, "Ref.player is invalid")
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

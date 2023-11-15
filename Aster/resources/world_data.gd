@@ -2,12 +2,11 @@
 class_name WorldData
 extends Resource
 
-@export var version: int = 1
 @export var guid: String = "Save_New"
 @export var name: String = "New Save"
 
-@export var actor_data = {}
-@export var player_data = {}
+@export var actor_data: Dictionary = {}
+@export var player_data: Dictionary = {}
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -22,14 +21,5 @@ static func write(world_data: WorldData, path_stem: String) -> Error:
 static func get_save_path(path_stem: String = "save0") -> String:
 	assert(not path_stem.is_empty())
 	return "user://%s.tres" % [path_stem]
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func copy(value: WorldData):
-	if self == value: return self
-	version = value.version
-	guid = value.guid
-	name = value.name
-	return self
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

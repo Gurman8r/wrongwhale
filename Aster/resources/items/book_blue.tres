@@ -14,4 +14,4 @@ name = "Blue Book"
 description = "A book with a blueish hue"
 max_stack = 1
 texture = SubResource("AtlasTexture_j8x66")
-durability = 59.615
+durability = -1.0

@@ -1,5 +1,5 @@
 # item_data_equip.gd
-class_name ItemDataEquipment
+class_name ItemDataEquip
 extends ItemData
 
 @export var health: int = 0

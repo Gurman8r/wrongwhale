@@ -1,20 +1,69 @@
-[gd_scene load_steps=10 format=3 uid="uid://cagnofcp3jxwf"]
+[gd_scene load_steps=21 format=3 uid="uid://cagnofcp3jxwf"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_mnq22"]
 [ext_resource type="MeshLibrary" uid="uid://cwqb6ao2pijf4" path="res://resources/meshes/blocks.meshlib" id="2_1lkvk"]
-[ext_resource type="Resource" uid="uid://c8ayg2n5b0d8n" path="res://resources/data/default_world.tres" id="2_takba"]
+[ext_resource type="Script" path="res://resources/world_data.gd" id="2_jahhb"]
 [ext_resource type="PackedScene" uid="uid://3ioo106b4s3t" path="res://scenes/player.tscn" id="3_0h5t1"]
 [ext_resource type="Script" path="res://scripts/world_cell.gd" id="3_0vmq5"]
 [ext_resource type="PackedScene" uid="uid://dhii3qy5e8ljo" path="res://scenes/chest.tscn" id="3_ctgef"]
 [ext_resource type="PackedScene" uid="uid://bt3ygtr7jmwhx" path="res://scenes/door.tscn" id="5_cg8h4"]
+[ext_resource type="Script" path="res://resources/inventory_data.gd" id="6_pebrp"]
+[ext_resource type="Resource" uid="uid://yjvloyxn845p" path="res://resources/items/potion.tres" id="7_xalxd"]
+[ext_resource type="Script" path="res://resources/item_stack.gd" id="8_m2qa5"]
+[ext_resource type="Script" path="res://resources/inventory_data_equip.gd" id="11_erp3o"]
+[ext_resource type="Script" path="res://resources/player_data.gd" id="12_3yn00"]
+
+[sub_resource type="Resource" id="Resource_4kex0"]
+script = ExtResource("2_jahhb")
+guid = "Save_New"
+name = "New Save"
+actor_data = {}
+player_data = {}
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_x5deb"]
 
 [sub_resource type="Environment" id="Environment_de777"]
 
+[sub_resource type="Resource" id="Resource_se2iu"]
+script = ExtResource("8_m2qa5")
+item_data = ExtResource("7_xalxd")
+quantity = 15
+
+[sub_resource type="Resource" id="Resource_3v5xi"]
+script = ExtResource("6_pebrp")
+stacks = Array[ExtResource("8_m2qa5")]([SubResource("Resource_se2iu"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+
+[sub_resource type="Resource" id="Resource_25s1f"]
+script = ExtResource("11_erp3o")
+stacks = Array[ExtResource("8_m2qa5")]([null])
+
+[sub_resource type="Resource" id="Resource_w5a5l"]
+script = ExtResource("6_pebrp")
+stacks = Array[ExtResource("8_m2qa5")]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+
+[sub_resource type="Resource" id="Resource_8l4tj"]
+script = ExtResource("12_3yn00")
+guid = "Player_New"
+name = "New Player"
+index = 0
+position = Vector3(0, 0, 0)
+direction = Vector3(0, 0, -1)
+cell_name = ""
+inventory = SubResource("Resource_w5a5l")
+equip = SubResource("Resource_25s1f")
+health = 100
+health_max = 100
+stamina = 100
+stamina_max = 100
+mana = 100
+mana_max = 100
+attack = 1
+defense = 1
+speed = 1
+
 [node name="World" type="Node3D"]
 script = ExtResource("1_mnq22")
-data = ExtResource("2_takba")
+data = SubResource("Resource_4kex0")
 
 [node name="WorldCell0" type="GridMap" parent="."]
 mesh_library = ExtResource("2_1lkvk")
@@ -44,6 +93,7 @@ transform = Transform3D(0.707107, -0.298836, 0.640857, 0, 0.906308, 0.422618, -0
 
 [node name="Chest0" parent="WorldCell0/Misc" instance=ExtResource("3_ctgef")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+inventory_data = SubResource("Resource_3v5xi")
 
 [node name="Door0" parent="WorldCell0/Misc" node_paths=PackedStringArray("destination") instance=ExtResource("5_cg8h4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.77927, 0, -2.99888)
@@ -52,6 +102,7 @@ destination = NodePath("../../../WorldCell1/Misc/Door0")
 [node name="Player" type="Node3D" parent="WorldCell0"]
 
 [node name="Player0" parent="WorldCell0/Player" instance=ExtResource("3_0h5t1")]
+data = SubResource("Resource_8l4tj")
 
 [node name="Tile" type="Node3D" parent="WorldCell0"]
 

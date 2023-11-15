@@ -5,15 +5,16 @@ extends Node3D
 signal loading(world_data: WorldData)
 signal saving(world_data: WorldData)
 signal unloading()
-signal load_finished()
-signal save_finished()
-signal unload_finished()
 
-@export var data: WorldData
+signal loading_finished()
+signal saving_finished()
+signal unloading_finished()
+
+@export var data: WorldData = WorldData.new()
 
 var backup_data: WorldData
 var cell: WorldCell : set = set_cell
-var cells: Array[WorldCell]
+var cells: Array[WorldCell] = []
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -31,21 +32,26 @@ func load_from_file(path_stem: String = "save0") -> void:
 
 func load_from_memory(world_data: WorldData) -> void:
 	assert(world_data)
-	data = world_data
+	data = world_data.duplicate()
 	loading.emit(data)
-	load_finished.emit()
 	show()
+	loading_finished.emit()
 
 func save_to_file(path_stem: String = "save0") -> void:
 	assert(not path_stem.is_empty())
 	saving.emit(data)
 	WorldData.write(data, path_stem)
-	save_finished.emit()
+	saving_finished.emit()
 
-func unload():
+func save_to_memory(world_data: WorldData) -> void:
+	assert(world_data)
+	saving.emit(world_data)
+	saving_finished.emit()
+
+func unload() -> void:
 	unloading.emit()
-	unload_finished.emit()
 	hide()
+	unloading_finished.emit()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -71,6 +77,8 @@ func transfer(node: Node, target_cell: WorldCell, target_pos: Vector3 = Vector3.
 	cell.remove(node)
 	set_cell(target_cell)
 	cell.add(node, target_pos)
+	if "data" in node and "cell_name" in node.data:
+		node.data.cell_name = cell.name
 	Ref.ui.transition.play("fadein")
 	await Ref.ui.transition.finished
 

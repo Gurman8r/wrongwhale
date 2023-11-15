@@ -2,15 +2,22 @@
 class_name Player
 extends CharacterBody3D
 
-signal toggle_inventory()
-signal primary_action()
-signal secondary_action()
-signal hotbar_prev()
-signal hotbar_next()
 signal move(delta: float, direction: Vector3)
 signal move_collide(body: KinematicCollision3D)
 
-@export var data: PlayerData
+signal toggle_inventory()
+signal hotbar_prev()
+signal hotbar_next()
+signal hotbar_select(index: int)
+
+signal primary_pressed()
+signal primary_action()
+signal primary_released()
+signal secondary_pressed()
+signal secondary_action()
+signal secondary_released()
+
+@export var data: PlayerData = PlayerData.new()
 @export var move_speed: float = 5
 @export var turn_speed: float = 15
 @export var drop_range: float = 2
@@ -42,15 +49,12 @@ func _init() -> void:
 	Ref.player = self
 
 func _ready() -> void:
+	data.cell_name = get_cell().name
 	primary_action.connect(_on_primary_action)
 	secondary_action.connect(_on_secondary_action)
-	hotbar_prev.connect(_on_hotbar_prev)
-	hotbar_next.connect(_on_hotbar_next)
-	move.connect(_on_move)
-	move_collide.connect(_on_move_collide)
 	
 func _input(event) -> void:
-	# camera
+	# mouse motion
 	if event is InputEventMouseMotion:
 		camera_pivot_y.rotate_y(-event.relative.x * camera_speed.x)
 		camera_pivot_x.rotate_x(-event.relative.y * camera_speed.y)
@@ -58,22 +62,16 @@ func _input(event) -> void:
 			camera_pivot_x.rotation.x, \
 			deg_to_rad(camera_angle_min_degrees), \
 			deg_to_rad(camera_angle_max_degrees))
-	
-	# actions
-	if event is InputEventMouseButton and event.is_pressed():
-		if event.button_index == MOUSE_BUTTON_LEFT:
-			primary_action.emit()
-		elif event.button_index == MOUSE_BUTTON_RIGHT:
-			secondary_action.emit()
+	# mouse buttons
+	elif event is InputEventMouseButton:
+		if event.is_pressed():
+			if event.button_index == MOUSE_BUTTON_LEFT:
+				primary_action.emit()
+			elif event.button_index == MOUSE_BUTTON_RIGHT:
+				secondary_action.emit()
 		get_viewport().set_input_as_handled()
 
 func _unhandled_input(_event) -> void:
-	# movement
-	move_input[LEFT] = Input.is_action_pressed("move_left")
-	move_input[RIGHT] = Input.is_action_pressed("move_right")
-	move_input[FORWARD] = Input.is_action_pressed("move_forward")
-	move_input[BACKWARD] = Input.is_action_pressed("move_backward")
-	
 	# actions
 	if Input.is_action_just_pressed("primary"): primary_action.emit()
 	if Input.is_action_just_pressed("secondary"): secondary_action.emit()
@@ -86,6 +84,12 @@ func _unhandled_input(_event) -> void:
 		if Input.is_action_just_pressed("hotbar_%d" % [i]):
 			set_item_index(i - 1)
 			break
+	
+	# movement
+	move_input[LEFT] = Input.is_action_pressed("move_left")
+	move_input[RIGHT] = Input.is_action_pressed("move_right")
+	move_input[FORWARD] = Input.is_action_pressed("move_forward")
+	move_input[BACKWARD] = Input.is_action_pressed("move_backward")
 
 func _process(delta: float) -> void:
 	# update movement
@@ -101,6 +105,7 @@ func _process(delta: float) -> void:
 		var body = move_and_collide(move_axes * move_speed * delta)
 		move.emit(delta, move_axes)
 		if body: move_collide.emit(body)
+	data.position = global_transform.origin
 		
 	# update rotation
 	if data.direction != Vector3.ZERO:
@@ -117,9 +122,9 @@ func _process(delta: float) -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func load_data(world_data: WorldData):
+func load_from_memory(world_data: WorldData):
 	assert(world_data.player_data.has(data.guid))
-	data.copy(world_data.player_data[data.guid])
+	data = world_data.player_data[data.guid].duplicate()
 	if get_cell().name != data.cell_name:
 		get_cell().remove(self)
 		Ref.world.set_cell(Ref.world.find_cell(data.cell_name))
@@ -127,10 +132,9 @@ func load_data(world_data: WorldData):
 	else:
 		global_transform.origin = data.position
 
-func save_data(world_data: WorldData):
-	data.position = global_transform.origin
+func save_to_memory(world_data: WorldData):
 	data.cell_name = get_cell().name
-	world_data.player_data[data.guid] = data
+	world_data.player_data[data.guid] = data.duplicate()
 	var pos: Vector3 = global_transform.origin + data.direction * drop_range
 	pos.y = 0.5
 	return pos
@@ -160,17 +164,5 @@ func _on_primary_action() -> void:
 func _on_secondary_action() -> void:
 	print("secondary")
 	data.inventory.use_stack(item_index, self)
-
-func _on_hotbar_prev() -> void:
-	set_item_index(item_index + 1)
-
-func _on_hotbar_next() -> void:
-	set_item_index(item_index - 1)
-
-func _on_move(_delta: float, _direction: Vector3) -> void:
-	pass
-	
-func _on_move_collide(_body: KinematicCollision3D) -> void:
-	pass
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

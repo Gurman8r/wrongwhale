@@ -4,8 +4,10 @@ extends Resource
 
 const MAX: int = 9999
 
-@export var item_data: ItemData
+@export var item_data: ItemData = ItemData.new()
 @export_range(1, MAX) var quantity: int = 1 : set = set_quantity
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func can_merge_with(other_stack: ItemStack) -> bool:
 	return item_data == other_stack.item_data \
@@ -31,3 +33,5 @@ func set_quantity(value: int) -> void:
 		quantity = item_data.max_stack
 	else:
 		quantity = value
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

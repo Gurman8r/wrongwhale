@@ -12,6 +12,7 @@ const item_drop = preload("res://scenes/item_drop.tscn")
 @onready var external_inventory: Inventory = $ExternalInventory
 @onready var grabbed_slot: ItemSlot = $GrabbedSlot
 
+var player_data: PlayerData
 var grabbed_stack: ItemStack
 var external_inventory_owner
 
@@ -39,6 +40,22 @@ func _physics_process(_delta) -> void:
 	
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+func set_player_data(_player_data: PlayerData) -> void:
+	player_data = _player_data
+	if not player_data.inventory.inventory_interact.is_connected(on_inventory_interact):
+		player_data.inventory.inventory_interact.connect(on_inventory_interact)
+	player_inventory.set_inventory_data(player_data.inventory)
+	equip_inventory.set_inventory_data(player_data.equip)
+
+func clear_player_data() -> void:
+	if not player_data: return
+	if player_data.inventory.inventory_interact.is_connected(on_inventory_interact):
+		player_data.inventory.inventory_interact.disconnect(on_inventory_interact)
+	player_inventory.clear_inventory_data(player_data.inventory)
+	equip_inventory.clear_inventory_data(player_data.equip)
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 func toggle_inventory(_external_inventory_owner = null) -> void:
 	visible = not visible
 	if _external_inventory_owner and visible:
@@ -46,16 +63,8 @@ func toggle_inventory(_external_inventory_owner = null) -> void:
 	else:
 		clear_external_inventory()
 
-func set_player_inventory_data(value: InventoryData) -> void:
-	value.inventory_interact.connect(on_inventory_interact)
-	player_inventory.set_inventory_data(value)
-
-func set_equip_inventory_data(value: InventoryData) -> void:
-	value.inventory_interact.connect(on_inventory_interact)
-	equip_inventory.set_inventory_data(value)
-
-func set_external_inventory_owner(value) -> void:
-	external_inventory_owner = value
+func set_external_inventory_owner(node) -> void:
+	external_inventory_owner = node
 	var inventory_data = external_inventory_owner.inventory_data
 	if not inventory_data.inventory_interact.is_connected(on_inventory_interact):
 		inventory_data.inventory_interact.connect(on_inventory_interact)
@@ -65,7 +74,8 @@ func set_external_inventory_owner(value) -> void:
 func clear_external_inventory() -> void:
 	if not external_inventory_owner: return
 	var inventory_data = external_inventory_owner.inventory_data
-	inventory_data.inventory_interact.disconnect(on_inventory_interact)
+	if inventory_data.inventory_interact.is_connected(on_inventory_interact):
+		inventory_data.inventory_interact.disconnect(on_inventory_interact)
 	external_inventory.clear_inventory_data(inventory_data)
 	external_inventory.hide()
 	external_inventory_owner = null
