@@ -9,18 +9,19 @@ signal inventory_updated(inventory_data: InventoryData)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func get_item_data(index: int) -> ItemData:
-	var stack = get_item_stack(index)
-	if stack:
-		return stack.item_data
-	else:
-		return null
+func in_range(index: int) -> bool:
+	return index >= 0 and index < stacks.size()
 
 func get_item_stack(index: int) -> ItemStack:
-	if index >= 0 and index < stacks.size():
-		return stacks[index]
-	else:
-		return null
+	if in_range(index): return stacks[index]
+	else: return null
+
+func get_item_data(index: int) -> ItemData:
+	var stack = get_item_stack(index)
+	if stack: return stack.item_data
+	else: return null
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func on_slot_clicked(index: int, button: int) -> void:
 	inventory_interact.emit(self, index, button)

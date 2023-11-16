@@ -3,10 +3,8 @@ class_name UI_TitleNewMenu
 extends Control
 
 const world_default = preload("res://resources/data/world_default.tres")
-const player_default = preload("res://resources/data/player_default.tres")
 
 @onready var world_data: WorldData = world_default.duplicate()
-@onready var player_data: PlayerData = player_default.duplicate()
 
 #@export var world_guid = "Save_New"
 #@export var world_name = "New Save"

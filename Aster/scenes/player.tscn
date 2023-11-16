@@ -2,34 +2,37 @@
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_dkwn1"]
 [ext_resource type="Script" path="res://scripts/interact_ray.gd" id="2_itqmj"]
-[ext_resource type="Script" path="res://resources/inventory_data_equip.gd" id="2_ssclb"]
-[ext_resource type="Script" path="res://resources/stat_block.gd" id="5_nu7fe"]
-[ext_resource type="Script" path="res://resources/inventory_data.gd" id="5_o82g5"]
+[ext_resource type="Script" path="res://scripts/inventory_data_equip.gd" id="2_rm7qt"]
+[ext_resource type="Script" path="res://scripts/inventory_data.gd" id="3_1h0l3"]
+[ext_resource type="Script" path="res://scripts/player_data.gd" id="4_r4ufe"]
+[ext_resource type="Script" path="res://scripts/stats.gd" id="5_i0h1l"]
 [ext_resource type="Script" path="res://scripts/state_machine.gd" id="5_qpjv6"]
-[ext_resource type="Script" path="res://resources/player_data.gd" id="9_iuqsp"]
 
 [sub_resource type="Resource" id="Resource_5x863"]
-script = ExtResource("2_ssclb")
-stacks = Array[Resource("res://resources/item_stack.gd")]([null])
+script = ExtResource("2_rm7qt")
+stacks = Array[Resource("res://scripts/item_stack.gd")]([null])
 
 [sub_resource type="Resource" id="Resource_l88b5"]
-script = ExtResource("5_o82g5")
-stacks = Array[Resource("res://resources/item_stack.gd")]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+script = ExtResource("3_1h0l3")
+stacks = Array[Resource("res://scripts/item_stack.gd")]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 
 [sub_resource type="Resource" id="Resource_0i6bh"]
-script = ExtResource("5_nu7fe")
+script = ExtResource("5_i0h1l")
 health = 100
 health_max = 100
+health_regen = 0
 stamina = 100
 stamina_max = 100
+stamina_regen = 0
 mana = 100
 mana_max = 100
+mana_regen = 0
 attack = 1
 defense = 1
 speed = 1
 
 [sub_resource type="Resource" id="Resource_dvpc8"]
-script = ExtResource("9_iuqsp")
+script = ExtResource("4_r4ufe")
 guid = "Player_New"
 name = "New Player"
 index = 0

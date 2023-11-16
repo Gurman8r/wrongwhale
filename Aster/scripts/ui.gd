@@ -9,6 +9,7 @@ extends CanvasLayer
 @onready var debug: UI_Debug = $Debug
 
 func _init() -> void:
+	assert(not Ref.ui)
 	Ref.ui = self
 
 func set_player_data(player_data: PlayerData) -> void:

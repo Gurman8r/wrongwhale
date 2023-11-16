@@ -9,6 +9,6 @@ extends Resource
 @export var direction: Vector3 = Vector3.FORWARD
 @export var cell_name: String = ""
 
-@export var stats: StatBlock = StatBlock.new()
-@export var inventory: InventoryData = InventoryData.new()
-@export var equip: InventoryDataEquip = InventoryDataEquip.new()
+@export var stats: Stats
+@export var inventory: InventoryData
+@export var equip: InventoryDataEquip

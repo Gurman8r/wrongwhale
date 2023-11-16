@@ -3,20 +3,11 @@ extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-var main: Main
-var settings: Settings
-var world : World
-var ui : UI
-var player: Player
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func _ready() -> void:
-	# validate top-level references
-	assert(main, "Ref.main is invalid")
-	assert(settings, "Ref.settings is invalid")
-	assert(world, "Ref.world is invalid")
-	assert(ui, "Ref.ui is invalid")
-	assert(player, "Ref.player is invalid")
+var main     : Main
+var database : Database
+var settings : Settings
+var world    : World
+var ui       : UI
+var player   : Player
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

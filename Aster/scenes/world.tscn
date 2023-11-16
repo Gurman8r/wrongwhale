@@ -1,20 +1,20 @@
 [gd_scene load_steps=21 format=3 uid="uid://cagnofcp3jxwf"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_mnq22"]
+[ext_resource type="Script" path="res://scripts/world_data.gd" id="2_0omeh"]
 [ext_resource type="MeshLibrary" uid="uid://cwqb6ao2pijf4" path="res://resources/meshes/blocks.meshlib" id="2_1lkvk"]
-[ext_resource type="Script" path="res://resources/world_data.gd" id="2_jahhb"]
 [ext_resource type="PackedScene" uid="uid://3ioo106b4s3t" path="res://scenes/player.tscn" id="3_0h5t1"]
 [ext_resource type="Script" path="res://scripts/world_cell.gd" id="3_0vmq5"]
 [ext_resource type="PackedScene" uid="uid://dhii3qy5e8ljo" path="res://scenes/chest.tscn" id="3_ctgef"]
 [ext_resource type="PackedScene" uid="uid://bt3ygtr7jmwhx" path="res://scenes/door.tscn" id="5_cg8h4"]
-[ext_resource type="Script" path="res://resources/inventory_data.gd" id="6_pebrp"]
+[ext_resource type="Script" path="res://scripts/inventory_data.gd" id="6_5gyi0"]
 [ext_resource type="Resource" uid="uid://yjvloyxn845p" path="res://resources/items/potion.tres" id="7_xalxd"]
-[ext_resource type="Script" path="res://resources/item_stack.gd" id="8_m2qa5"]
-[ext_resource type="Script" path="res://resources/inventory_data_equip.gd" id="11_erp3o"]
-[ext_resource type="Script" path="res://resources/player_data.gd" id="12_3yn00"]
+[ext_resource type="Script" path="res://scripts/item_stack.gd" id="8_8jvlc"]
+[ext_resource type="Script" path="res://scripts/inventory_data_equip.gd" id="11_k26a3"]
+[ext_resource type="Script" path="res://scripts/player_data.gd" id="12_hi7uq"]
 
 [sub_resource type="Resource" id="Resource_4kex0"]
-script = ExtResource("2_jahhb")
+script = ExtResource("2_0omeh")
 guid = "Save_New"
 name = "New Save"
 actor_data = {}
@@ -25,24 +25,24 @@ player_data = {}
 [sub_resource type="Environment" id="Environment_de777"]
 
 [sub_resource type="Resource" id="Resource_se2iu"]
-script = ExtResource("8_m2qa5")
+script = ExtResource("8_8jvlc")
 item_data = ExtResource("7_xalxd")
 quantity = 15
 
 [sub_resource type="Resource" id="Resource_3v5xi"]
-script = ExtResource("6_pebrp")
-stacks = Array[ExtResource("8_m2qa5")]([SubResource("Resource_se2iu"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+script = ExtResource("6_5gyi0")
+stacks = Array[ExtResource("8_8jvlc")]([SubResource("Resource_se2iu"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 
 [sub_resource type="Resource" id="Resource_25s1f"]
-script = ExtResource("11_erp3o")
-stacks = Array[ExtResource("8_m2qa5")]([null])
+script = ExtResource("11_k26a3")
+stacks = Array[ExtResource("8_8jvlc")]([null])
 
 [sub_resource type="Resource" id="Resource_w5a5l"]
-script = ExtResource("6_pebrp")
-stacks = Array[ExtResource("8_m2qa5")]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+script = ExtResource("6_5gyi0")
+stacks = Array[ExtResource("8_8jvlc")]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 
 [sub_resource type="Resource" id="Resource_8l4tj"]
-script = ExtResource("12_3yn00")
+script = ExtResource("12_hi7uq")
 guid = "Player_New"
 name = "New Player"
 index = 0

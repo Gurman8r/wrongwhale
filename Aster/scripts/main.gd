@@ -4,16 +4,18 @@ extends Node
 
 signal quitting()
 
-@onready var settings: Settings = $Settings
-@onready var world: World = $World
-@onready var ui: UI = $UI
-@onready var player: Player = Ref.player
+@onready var database : Database = $Database
+@onready var settings : Settings = $Settings
+@onready var world    : World    = $World
+@onready var ui       : UI       = $UI
+@onready var player   : Player   = Ref.player
 
 var playing: bool = false
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
+	assert(not Ref.main)
 	Ref.main = self
 
 func _ready() -> void:
@@ -27,7 +29,7 @@ func _ready() -> void:
 		assert("save_to_memory" in node)
 		world.saving.connect(node.save_to_memory)
 	
-	# player ui connections
+	# ui connections
 	player.toggle_debug.connect(ui.debug.toggle)
 	player.toggle_inventory.connect(ui.game.toggle_inventory)
 	player.hotbar_next.connect(ui.hud.hotbar.next)
@@ -35,8 +37,6 @@ func _ready() -> void:
 	player.hotbar_select.connect(ui.hud.hotbar.set_item_index)
 	world.loading_finished.connect(func(): ui.set_player_data(player.data))
 	world.unloading.connect(ui.game.clear_player_data)
-	
-	# external inventory connections
 	for node in get_tree().get_nodes_in_group("external_inventory"):
 		assert("toggle_inventory" in node)
 		node.toggle_inventory.connect(ui.game.toggle_inventory)
@@ -45,10 +45,8 @@ func _ready() -> void:
 
 func _unhandled_input(_event) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
-		if playing:
-			save_and_quit_to_title()
-		else:
-			quit()
+		if playing: save_and_quit_to_title()
+		else: quit()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

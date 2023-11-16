@@ -5,11 +5,8 @@ extends Node
 signal loaded()
 signal saved()
 
-func _init():
-	Ref.settings = self
+@export var data: SettingsData
 
-func read_settings():
-	pass
-	
-func write_settings():
-	pass
+func _init():
+	assert(not Ref.settings)
+	Ref.settings = self

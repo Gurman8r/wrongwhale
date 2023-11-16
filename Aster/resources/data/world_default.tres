@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="WorldData" load_steps=3 format=3 uid="uid://b67afk1hg5boc"]
 
 [ext_resource type="Resource" uid="uid://4wyq2nvgpou2" path="res://resources/data/player_default.tres" id="1_nn24p"]
-[ext_resource type="Script" path="res://resources/world_data.gd" id="1_o8sjp"]
+[ext_resource type="Script" path="res://scripts/world_data.gd" id="2_4cxgn"]
 
 [resource]
-script = ExtResource("1_o8sjp")
+script = ExtResource("2_4cxgn")
 guid = "Save_New"
 name = "New Save"
 actor_data = {}

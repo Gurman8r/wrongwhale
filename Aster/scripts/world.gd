@@ -11,15 +11,15 @@ signal unloading()
 
 const player_prefab = preload("res://scenes/player.tscn")
 
-@export var data: WorldData = WorldData.new()
+@export var data: WorldData
 
-var backup_data: WorldData
 var cell: WorldCell : set = set_cell
 var cells: Array[WorldCell] = []
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
+	assert(not Ref.world)
 	Ref.world = self
 
 func _ready():
