@@ -1,6 +1,6 @@
 # chest.gd
 class_name Chest
-extends StaticBody3D
+extends WorldObject
 
 signal toggle_inventory(external_inventory_owner)
 

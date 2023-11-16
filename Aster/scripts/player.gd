@@ -51,6 +51,8 @@ func _init() -> void:
 	assert(not Ref.player)
 	Ref.player = self
 
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 func _ready() -> void:
 	data.cell_name = get_cell().name
 	action.connect(func(mode: int): data.inventory.use_stack(item_index, mode, self))
@@ -129,21 +131,24 @@ func _process(delta: float) -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func load_from_memory(world_data: WorldData) -> void:
-	assert(world_data.player_data.has(data.guid))
+func load_from_memory(world_data: WorldData) -> Player:
+	if not world_data.player_data.has(data.guid): return self
 	data = world_data.player_data[data.guid].duplicate()
 	set_cell(Ref.world.find_cell(data.cell_name))
+	return self
 
-func save_to_memory(world_data: WorldData) -> void:
+func save_to_memory(world_data: WorldData) -> Player:
 	world_data.player_data[data.guid] = data.duplicate()
+	return self
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func get_cell() -> WorldCell:
 	return get_parent().get_parent() as WorldCell
 
-func set_cell(value: WorldCell) -> void:
+func set_cell(value: WorldCell) -> Player:
 	Ref.world.transfer(self, value, data.position, false)
+	return self
 
 func get_drop_position() -> Vector3:
 	var pos: Vector3 = global_transform.origin + data.direction * drop_range
