@@ -2,7 +2,7 @@
 class_name Hotbar
 extends PanelContainer
 
-const item_slot = preload("res://resources/scenes/item_slot.tscn")
+const item_slot = preload("res://assets/scenes/item_slot.tscn")
 
 @export var item_index: int = 0 : set = set_item_index
 

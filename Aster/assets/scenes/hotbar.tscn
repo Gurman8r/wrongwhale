@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dnhnrabrf57os"]
 
 [ext_resource type="Script" path="res://src/hotbar.gd" id="1_g6lsj"]
-[ext_resource type="PackedScene" uid="uid://ddxw2b6u1pxow" path="res://resources/scenes/item_slot.tscn" id="2_627c1"]
+[ext_resource type="PackedScene" uid="uid://ddxw2b6u1pxow" path="res://assets/scenes/item_slot.tscn" id="2_627c1"]
 
 [node name="Hotbar" type="PanelContainer"]
 offset_right = 40.0

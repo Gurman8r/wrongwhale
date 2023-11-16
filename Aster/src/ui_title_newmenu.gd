@@ -2,7 +2,7 @@
 class_name UI_TitleNewMenu
 extends Control
 
-const world_default = preload("res://resources/data/world_default.tres")
+const world_default = preload("res://assets/data/world_default.tres")
 
 @onready var world_data: WorldData = world_default.duplicate()
 

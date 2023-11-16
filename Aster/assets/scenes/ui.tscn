@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://src/ui.gd" id="1_assrp"]
 [ext_resource type="Script" path="res://src/ui_hud.gd" id="2_t7ihg"]
-[ext_resource type="PackedScene" uid="uid://dnhnrabrf57os" path="res://resources/scenes/hotbar.tscn" id="3_jmb8r"]
+[ext_resource type="PackedScene" uid="uid://dnhnrabrf57os" path="res://assets/scenes/hotbar.tscn" id="3_jmb8r"]
 [ext_resource type="Script" path="res://src/ui_game.gd" id="4_r37xa"]
-[ext_resource type="PackedScene" uid="uid://dv6li4wxrohgf" path="res://resources/scenes/inventory.tscn" id="5_q445p"]
-[ext_resource type="PackedScene" uid="uid://ddxw2b6u1pxow" path="res://resources/scenes/item_slot.tscn" id="6_5hooo"]
+[ext_resource type="PackedScene" uid="uid://dv6li4wxrohgf" path="res://assets/scenes/inventory.tscn" id="5_q445p"]
+[ext_resource type="PackedScene" uid="uid://ddxw2b6u1pxow" path="res://assets/scenes/item_slot.tscn" id="6_5hooo"]
 [ext_resource type="Script" path="res://src/ui_title.gd" id="7_1ios3"]
 [ext_resource type="Script" path="res://src/ui_title_mainmenu.gd" id="8_mb7th"]
 [ext_resource type="Script" path="res://src/ui_title_loadmenu.gd" id="9_wh7y8"]
