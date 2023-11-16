@@ -28,6 +28,7 @@ func _ready() -> void:
 		world.saving.connect(node.save_to_memory)
 	
 	# player ui connections
+	player.toggle_debug.connect(ui.debug.toggle)
 	player.toggle_inventory.connect(ui.game.toggle_inventory)
 	player.hotbar_next.connect(ui.hud.hotbar.next)
 	player.hotbar_prev.connect(ui.hud.hotbar.prev)
@@ -51,27 +52,30 @@ func _unhandled_input(_event) -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func load_game(world_data: WorldData) -> void:
+func load_game(world_data: WorldData, transition: bool = true) -> void:
 	# pre-load
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	ui.transition.play("fadeout")
-	await ui.transition.finished
+	if transition:
+		ui.transition.play("fadeout")
+		await ui.transition.finished
 	ui.title.current = null
 	# load
 	world.load_from_memory(world_data)
 	# post-load
 	ui.hud.show()
-	ui.transition.play("fadein")
-	await ui.transition.finished
+	if transition:
+		ui.transition.play("fadein")
+		await ui.transition.finished
 	playing = true
 	get_tree().paused = false
 
-func save_and_quit(path_stem: String = "save0") -> void:
+func save_and_quit(path_stem: String = "save0", transition: bool = true) -> void:
 	# pre-unload
 	get_tree().paused = true
 	playing = false
-	ui.transition.play("fadeout")
-	await ui.transition.finished
+	if transition:
+		ui.transition.play("fadeout")
+		await ui.transition.finished
 	ui.hud.hide()
 	# save
 	world.save_to_file(path_stem)
@@ -81,12 +85,13 @@ func save_and_quit(path_stem: String = "save0") -> void:
 	quitting.emit()
 	get_tree().quit()
 	
-func save_and_quit_to_title(path_stem: String = "save0") -> void:
+func save_and_quit_to_title(path_stem: String = "save0", transition: bool = true) -> void:
 	# pre-unload
 	get_tree().paused = true
 	playing = false
-	ui.transition.play("fadeout")
-	await ui.transition.finished
+	if transition:
+		ui.transition.play("fadeout")
+		await ui.transition.finished
 	ui.hud.hide()
 	# save
 	world.save_to_file(path_stem)
@@ -94,15 +99,34 @@ func save_and_quit_to_title(path_stem: String = "save0") -> void:
 	world.unload()
 	# post-unload
 	ui.title.current = ui.title.mainmenu
-	ui.transition.play("fadein")
-	await ui.transition.finished
+	if transition:
+		ui.transition.play("fadein")
+		await ui.transition.finished
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
-func quit() -> void:
+func quit(transition: bool = true) -> void:
 	get_tree().paused = true
-	ui.transition.play("fadeout")
-	await ui.transition.finished
+	if transition:
+		ui.transition.play("fadeout")
+		await ui.transition.finished
 	quitting.emit()
 	get_tree().quit()
+
+func quit_to_title(transition: bool = true) -> void:
+	# pre-unload
+	get_tree().paused = true
+	playing = false
+	if transition:
+		ui.transition.play("fadeout")
+		await ui.transition.finished
+	ui.hud.hide()
+	# unload
+	world.unload()
+	# post-unload
+	ui.title.current = ui.title.mainmenu
+	if transition:
+		ui.transition.play("fadein")
+		await ui.transition.finished
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

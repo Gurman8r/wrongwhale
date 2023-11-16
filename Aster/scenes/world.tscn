@@ -51,15 +51,6 @@ direction = Vector3(0, 0, -1)
 cell_name = ""
 inventory = SubResource("Resource_w5a5l")
 equip = SubResource("Resource_25s1f")
-health = 100
-health_max = 100
-stamina = 100
-stamina_max = 100
-mana = 100
-mana_max = 100
-attack = 1
-defense = 1
-speed = 1
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_mnq22")

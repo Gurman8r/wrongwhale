@@ -56,8 +56,11 @@ func clear_player_data() -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func toggle_inventory(_external_inventory_owner = null) -> void:
+func toggle() -> void:
 	visible = not visible
+
+func toggle_inventory(_external_inventory_owner = null) -> void:
+	toggle()
 	if _external_inventory_owner and visible:
 		set_external_inventory_owner(_external_inventory_owner)
 	else:

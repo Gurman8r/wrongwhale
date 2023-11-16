@@ -9,18 +9,18 @@ const MAX: int = 9999
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func can_merge_with(other_stack: ItemStack) -> bool:
-	return item_data == other_stack.item_data \
+func can_merge_with(other: ItemStack) -> bool:
+	return item_data == other.item_data \
 		and 1 < item_data.max_stack \
 		and quantity < MAX
 
-func can_fully_merge_with(other_stack: ItemStack) -> bool:
-	return item_data == other_stack.item_data \
+func can_fully_merge_with(other: ItemStack) -> bool:
+	return item_data == other.item_data \
 		and 1 < item_data.max_stack \
-		and quantity + other_stack.quantity <= MAX
+		and quantity + other.quantity <= MAX
 
-func fully_merge_with(other_stack: ItemStack) -> void:
-	quantity += other_stack.quantity
+func fully_merge_with(other: ItemStack) -> void:
+	quantity += other.quantity
 
 func create_single_stack() -> ItemStack:
 	var new_stack: ItemStack = duplicate()

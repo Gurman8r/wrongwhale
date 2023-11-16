@@ -17,11 +17,11 @@ enum {
 signal move(delta: float, direction: Vector3)
 signal move_collide(body: KinematicCollision3D)
 
+signal toggle_debug()
 signal toggle_inventory()
 signal hotbar_prev()
 signal hotbar_next()
 signal hotbar_select(index: int)
-
 signal action(mode: int)
 
 @export var data: PlayerData = PlayerData.new()
@@ -49,8 +49,6 @@ var item_index: int = 0 : set = set_item_index
 
 enum { LEFT, RIGHT, FORWARD, BACKWARD }
 var move_input: Array[bool] = [0, 0, 0, 0]
-var rmb_down: bool = false
-var lmb_down: bool = false
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -73,37 +71,21 @@ func _input(event) -> void:
 			deg_to_rad(camera_angle_min_degrees), \
 			deg_to_rad(camera_angle_max_degrees))
 	
-	# mouse buttons
-	elif event is InputEventMouseButton:
-		
-		# primary action
-		if event.is_action_pressed("primary") and not lmb_down:
-			lmb_down = true
-			action.emit(PRIMARY_PRESSED)
-		elif event.is_action_pressed("primary"):
-			action.emit(PRIMARY_HELD)
-		elif event.is_action_released("primary"):
-			lmb_down = false
-			action.emit(PRIMARY_RELEASED)
-		
-		# secondary action
-		if event.is_action_pressed("secondary") and not rmb_down:
-			rmb_down = true
-			action.emit(SECONDARY_PRESSED)
-		elif event.is_action_pressed("secondary"):
-			action.emit(SECONDARY_HELD)
-		elif event.is_action_released("secondary"):
-			rmb_down = false
-			action.emit(SECONDARY_RELEASED)
+	# primary action
+	if Input.is_action_just_pressed("primary"): action.emit(PRIMARY_PRESSED)
+	elif Input.is_action_pressed("primary"): action.emit(PRIMARY_HELD)
+	elif Input.is_action_just_released("primary"): action.emit(PRIMARY_RELEASED)
+	
+	# secondary action
+	if Input.is_action_just_pressed("secondary"): action.emit(SECONDARY_PRESSED)
+	elif Input.is_action_pressed("secondary"): action.emit(SECONDARY_HELD)
+	elif Input.is_action_just_released("secondary"): action.emit(SECONDARY_RELEASED)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _unhandled_input(_event) -> void:
-	# movement
-	move_input[LEFT] = Input.is_action_pressed("move_left")
-	move_input[RIGHT] = Input.is_action_pressed("move_right")
-	move_input[FORWARD] = Input.is_action_pressed("move_forward")
-	move_input[BACKWARD] = Input.is_action_pressed("move_backward")
+	# debug
+	if Input.is_action_just_pressed("debug"): toggle_debug.emit()
 	
 	# inventory
 	if Input.is_action_just_pressed("inventory"): toggle_inventory.emit()
@@ -114,15 +96,11 @@ func _unhandled_input(_event) -> void:
 			set_item_index(i - 1)
 			break
 	
-	# primary action
-	if Input.is_action_just_pressed("primary"): action.emit(PRIMARY_PRESSED)
-	elif Input.is_action_pressed("primary"): action.emit(PRIMARY_HELD)
-	elif Input.is_action_just_released("primary"): action.emit(PRIMARY_RELEASED)
-	
-	# secondary action
-	if Input.is_action_just_pressed("secondary"): action.emit(SECONDARY_PRESSED)
-	elif Input.is_action_pressed("secondary"): action.emit(SECONDARY_HELD)
-	elif Input.is_action_just_released("primary"): action.emit(SECONDARY_RELEASED)
+	# movement
+	move_input[LEFT] = Input.is_action_pressed("move_left")
+	move_input[RIGHT] = Input.is_action_pressed("move_right")
+	move_input[FORWARD] = Input.is_action_pressed("move_forward")
+	move_input[BACKWARD] = Input.is_action_pressed("move_backward")
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -149,11 +127,9 @@ func _process(delta: float) -> void:
 		interact_ray.basis = rot
 	
 	# update targeting
-	var target_y: float = target_marker.global_transform.origin.y
-	target_marker.global_transform.origin = global_transform.origin + data.direction * target_range
-	target_marker.global_transform.origin.x = roundf(target_marker.global_transform.origin.x)
-	target_marker.global_transform.origin.z = roundf(target_marker.global_transform.origin.z)
-	target_marker.global_transform.origin.y = target_y
+	var target_pos: Vector3 = data.position + data.direction * target_range
+	target_marker.global_transform.origin.x = roundf(target_pos.x)
+	target_marker.global_transform.origin.z = roundf(target_pos.z)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -170,11 +146,8 @@ func save_to_memory(world_data: WorldData) -> void:
 func get_cell() -> WorldCell:
 	return get_parent().get_parent() as WorldCell
 
-func set_cell(value: WorldCell) -> Player:
+func set_cell(value: WorldCell) -> void:
 	Ref.world.transfer(self, value, data.position, false)
-	return self
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func get_drop_position() -> Vector3:
 	var pos: Vector3 = global_transform.origin + data.direction * drop_range

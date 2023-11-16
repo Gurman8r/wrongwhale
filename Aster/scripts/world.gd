@@ -3,12 +3,13 @@ class_name World
 extends Node3D
 
 signal loading(world_data: WorldData)
-signal saving(world_data: WorldData)
-signal unloading()
-
 signal loading_finished()
+signal saving(world_data: WorldData)
 signal saving_finished()
 signal unloading_finished()
+signal unloading()
+
+const player_prefab = preload("res://scenes/player.tscn")
 
 @export var data: WorldData = WorldData.new()
 
@@ -28,7 +29,12 @@ func _ready():
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func load_from_file(path_stem: String = "save0") -> void:
-	load_from_memory(WorldData.read(path_stem))
+	var world_data: WorldData = WorldData.read(path_stem)
+	assert(world_data)
+	data = world_data.duplicate()
+	loading.emit(data)
+	show()
+	loading_finished.emit()
 
 func load_from_memory(world_data: WorldData) -> void:
 	assert(world_data)

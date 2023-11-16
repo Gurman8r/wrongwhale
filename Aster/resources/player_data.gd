@@ -9,16 +9,6 @@ extends Resource
 @export var direction: Vector3 = Vector3.FORWARD
 @export var cell_name: String = ""
 
+@export var stats: StatBlock = StatBlock.new()
 @export var inventory: InventoryData = InventoryData.new()
 @export var equip: InventoryDataEquip = InventoryDataEquip.new()
-
-@export var health: int = 100
-@export var health_max: int = 100
-@export var stamina: int = 100
-@export var stamina_max: int = 100
-@export var mana: int = 100
-@export var mana_max: int = 100
-
-@export var attack: int = 1
-@export var defense: int = 1
-@export var speed: int = 1

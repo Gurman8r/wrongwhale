@@ -1,9 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://3ioo106b4s3t"]
+[gd_scene load_steps=18 format=3 uid="uid://3ioo106b4s3t"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_dkwn1"]
 [ext_resource type="Script" path="res://scripts/interact_ray.gd" id="2_itqmj"]
 [ext_resource type="Script" path="res://resources/inventory_data_equip.gd" id="2_ssclb"]
+[ext_resource type="Script" path="res://resources/stat_block.gd" id="5_nu7fe"]
 [ext_resource type="Script" path="res://resources/inventory_data.gd" id="5_o82g5"]
+[ext_resource type="Script" path="res://scripts/state_machine.gd" id="5_qpjv6"]
 [ext_resource type="Script" path="res://resources/player_data.gd" id="9_iuqsp"]
 
 [sub_resource type="Resource" id="Resource_5x863"]
@@ -14,16 +16,8 @@ stacks = Array[Resource("res://resources/item_stack.gd")]([null])
 script = ExtResource("5_o82g5")
 stacks = Array[Resource("res://resources/item_stack.gd")]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 
-[sub_resource type="Resource" id="Resource_dvpc8"]
-script = ExtResource("9_iuqsp")
-guid = "Player_New"
-name = "New Player"
-index = 0
-position = Vector3(0, 0, 0)
-direction = Vector3(0, 0, -1)
-cell_name = ""
-inventory = SubResource("Resource_l88b5")
-equip = SubResource("Resource_5x863")
+[sub_resource type="Resource" id="Resource_0i6bh"]
+script = ExtResource("5_nu7fe")
 health = 100
 health_max = 100
 stamina = 100
@@ -33,6 +27,18 @@ mana_max = 100
 attack = 1
 defense = 1
 speed = 1
+
+[sub_resource type="Resource" id="Resource_dvpc8"]
+script = ExtResource("9_iuqsp")
+guid = "Player_New"
+name = "New Player"
+index = 0
+position = Vector3(0, 0, 0)
+direction = Vector3(0, 0, -1)
+cell_name = ""
+stats = SubResource("Resource_0i6bh")
+inventory = SubResource("Resource_l88b5")
+equip = SubResource("Resource_5x863")
 
 [sub_resource type="AnimationRootNode" id="AnimationRootNode_8pgnw"]
 
@@ -89,6 +95,9 @@ script = ExtResource("2_itqmj")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("BoxMesh_726kc")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("5_qpjv6")
 
 [node name="TargetMarker" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_24owg")

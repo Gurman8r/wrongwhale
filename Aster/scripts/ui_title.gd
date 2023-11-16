@@ -1,6 +1,6 @@
 # ui_title.gd
 class_name UI_Title
-extends Control
+extends PanelContainer
 
 @onready var current: Control = $MainMenu : set = set_current
 @onready var mainmenu: UI_TitleMainMenu = $MainMenu
