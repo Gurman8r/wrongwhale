@@ -12,12 +12,8 @@ signal inventory_updated(inventory_data: InventoryData)
 func in_range(index: int) -> bool:
 	return index >= 0 and index < stacks.size()
 
-func get_item_stack(index: int) -> ItemStack:
-	if in_range(index): return stacks[index]
-	else: return null
-
 func get_item_data(index: int) -> ItemData:
-	var stack = get_item_stack(index)
+	var stack = stacks[index]
 	if stack: return stack.item_data
 	else: return null
 
@@ -27,14 +23,14 @@ func on_slot_clicked(index: int, button: int) -> void:
 	inventory_interact.emit(self, index, button)
 
 func grab_stack(index: int) -> ItemStack:
-	var stack = get_item_stack(index)
+	var stack = stacks[index]
 	if !stack: return null
 	stacks[index] = null
 	inventory_updated.emit(self)
 	return stack
 
 func grab_split_stack(index: int) -> ItemStack:
-	var stack = get_item_stack(index)
+	var stack = stacks[index]
 	if !stack: return null
 	if stack.quantity == 1:
 		stacks[index] = null
@@ -47,7 +43,7 @@ func grab_split_stack(index: int) -> ItemStack:
 	return stack
 
 func drop_stack(grabbed_stack: ItemStack, index: int) -> ItemStack:
-	var stack = get_item_stack(index)
+	var stack = stacks[index]
 	var return_stack: ItemStack
 	if stack and stack.can_fully_merge_with(grabbed_stack):
 		stack.fully_merge_with(grabbed_stack)
@@ -58,7 +54,7 @@ func drop_stack(grabbed_stack: ItemStack, index: int) -> ItemStack:
 	return return_stack
 
 func drop_single(grabbed_stack: ItemStack, index: int) -> ItemStack:
-	var stack = get_item_stack(index)
+	var stack = stacks[index]
 	if not stack:
 		stacks[index] = grabbed_stack.create_single_stack()
 	elif stack.can_merge_with(grabbed_stack):
@@ -83,7 +79,7 @@ func pick_up_stack(stack: ItemStack) -> bool:
 	return false
 
 func use_stack(index: int, mode: int, target: Node) -> void:
-	var stack = get_item_stack(index)
+	var stack = stacks[index]
 	if not stack: return
 	stack.item_data.use(self, index, mode, target)
 	inventory_updated.emit(self)

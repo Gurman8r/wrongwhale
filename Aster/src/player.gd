@@ -5,8 +5,8 @@ extends CharacterBody3D
 enum { LEFT, RIGHT, FORWARD, BACKWARD }
 
 enum {
-	PRIMARY_PRESSED, PRIMARY_HELD, PRIMARY_RELEASED,
-	SECONDARY_PRESSED, SECONDARY_HELD, SECONDARY_RELEASED,
+	PRIMARY_BEGIN, PRIMARY, PRIMARY_END,
+	SECONDARY_BEGIN, SECONDARY, SECONDARY_END,
 }
 
 signal move(delta: float, direction: Vector3)
@@ -70,14 +70,14 @@ func _input(event) -> void:
 			deg_to_rad(camera_angle_max_degrees))
 	
 	# primary action
-	if Input.is_action_just_pressed("primary"): action.emit(PRIMARY_PRESSED)
-	elif Input.is_action_pressed("primary"): action.emit(PRIMARY_HELD)
-	elif Input.is_action_just_released("primary"): action.emit(PRIMARY_RELEASED)
+	if Input.is_action_just_pressed("primary"): action.emit(PRIMARY_BEGIN)
+	elif Input.is_action_pressed("primary"): action.emit(PRIMARY)
+	elif Input.is_action_just_released("primary"): action.emit(PRIMARY_END)
 	
 	# secondary action
-	if Input.is_action_just_pressed("secondary"): action.emit(SECONDARY_PRESSED)
-	elif Input.is_action_pressed("secondary"): action.emit(SECONDARY_HELD)
-	elif Input.is_action_just_released("secondary"): action.emit(SECONDARY_RELEASED)
+	if Input.is_action_just_pressed("secondary"): action.emit(SECONDARY_BEGIN)
+	elif Input.is_action_pressed("secondary"): action.emit(SECONDARY)
+	elif Input.is_action_just_released("secondary"): action.emit(SECONDARY_END)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

@@ -40,8 +40,8 @@ func _physics_process(_delta) -> void:
 	
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func set_player_data(_player_data: PlayerData) -> void:
-	player_data = _player_data
+func set_player_data(value: PlayerData) -> void:
+	player_data = value
 	if not player_data.inventory.inventory_interact.is_connected(on_inventory_interact):
 		player_data.inventory.inventory_interact.connect(on_inventory_interact)
 	player_inventory.set_inventory_data(player_data.inventory)
@@ -59,15 +59,15 @@ func clear_player_data() -> void:
 func toggle() -> void:
 	visible = not visible
 
-func toggle_inventory(_external_inventory_owner = null) -> void:
+func toggle_inventory(value = null) -> void:
 	toggle()
-	if _external_inventory_owner and visible:
-		set_external_inventory_owner(_external_inventory_owner)
+	if value and visible:
+		set_external_inventory_owner(value)
 	else:
 		clear_external_inventory()
 
-func set_external_inventory_owner(node) -> void:
-	external_inventory_owner = node
+func set_external_inventory_owner(value) -> void:
+	external_inventory_owner = value
 	var inventory_data = external_inventory_owner.inventory_data
 	if not inventory_data.inventory_interact.is_connected(on_inventory_interact):
 		inventory_data.inventory_interact.connect(on_inventory_interact)

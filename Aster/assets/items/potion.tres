@@ -13,4 +13,4 @@ name = "Potion"
 description = "Heal yourself... maybe."
 max_stack = 99
 texture = SubResource("AtlasTexture_o2d1v")
-durability = -1.0
+durability = null
