@@ -2,6 +2,8 @@
 class_name Main
 extends Node
 
+const player_default = preload("res://assets/data/player_default.tres")
+
 signal quitting()
 
 @onready var database : Database = $Database
@@ -21,7 +23,6 @@ func _init() -> void:
 func _ready() -> void:
 	get_tree().paused = true
 	
-	# save/load connections
 	for node in get_tree().get_nodes_in_group("load"):
 		assert("load_from_memory" in node)
 		world.loading.connect(node.load_from_memory)
@@ -29,14 +30,19 @@ func _ready() -> void:
 		assert("save_to_memory" in node)
 		world.saving.connect(node.save_to_memory)
 	
-	# ui connections
 	player.toggle_debug.connect(ui.debug.toggle)
 	player.toggle_inventory.connect(ui.game.toggle_inventory)
 	player.hotbar_next.connect(ui.hud.hotbar.next)
 	player.hotbar_prev.connect(ui.hud.hotbar.prev)
 	player.hotbar_select.connect(ui.hud.hotbar.set_item_index)
-	world.loading_finished.connect(func(): ui.set_player_data(player.data))
-	world.unloading.connect(ui.game.clear_player_data)
+	
+	world.loading_finished.connect(func():
+		ui.set_player_data(player.data))
+		
+	world.unloading_finished.connect(func():
+		ui.clear_player_data()
+		player.data = player_default.duplicate())
+	
 	for node in get_tree().get_nodes_in_group("external_inventory"):
 		assert("toggle_inventory" in node)
 		node.toggle_inventory.connect(ui.game.toggle_inventory)

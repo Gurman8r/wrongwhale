@@ -14,7 +14,8 @@ func _init() -> void:
 
 func set_player_data(player_data: PlayerData) -> void:
 	game.set_player_data(player_data)
-	hud.hotbar.set_inventory_data(player_data.inventory)
+	hud.set_player_data(player_data)
 
 func clear_player_data():
 	game.clear_player_data()
+	hud.clear_player_data()

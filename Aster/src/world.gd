@@ -8,8 +8,8 @@ signal loading_finished()
 signal saving(world_data: WorldData)
 signal saving_finished()
 
-signal unloading_finished()
 signal unloading()
+signal unloading_finished()
 
 const player_prefab = preload("res://assets/scenes/player.tscn")
 

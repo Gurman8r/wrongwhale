@@ -4,9 +4,9 @@ extends PanelContainer
 
 const item_slot = preload("res://assets/scenes/item_slot.tscn")
 
-@export var item_index: int = 0 : set = set_item_index
-
 @onready var h_box_container = $MarginContainer/HBoxContainer
+
+var item_index: int = 0 : set = set_item_index
 
 var slots: Array[ItemSlot] = []
 
@@ -15,19 +15,21 @@ func set_inventory_data(inventory_data: InventoryData) -> void:
 		inventory_data.inventory_updated.connect(populate_item_grid)
 	populate_item_grid(inventory_data)
 
+func clear_inventory_data(inventory_data: InventoryData) -> void:
+	if inventory_data.inventory_updated.is_connected(populate_item_grid):
+		inventory_data.inventory_updated.disconnect(populate_item_grid)
+
 func populate_item_grid(inventory_data: InventoryData) -> void:
 	slots.clear()
 	for child in h_box_container.get_children():
 		child.queue_free()
-	var i: int = 0
-	for stack in inventory_data.stacks.slice(0, 10):
+	for i in range(0, 10):
+		var stack = inventory_data.stacks[i]
 		var slot = item_slot.instantiate()
 		slots.append(slot)
 		h_box_container.add_child(slot)
-		if stack:
-			slot.set_stack(stack)
+		if stack: slot.set_stack(stack)
 		slot.selected = i == item_index
-		i += 1
 
 func set_item_index(value: int) -> Hotbar:
 	if value < 0: value = 9

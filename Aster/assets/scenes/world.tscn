@@ -17,8 +17,8 @@
 script = ExtResource("2_7rtdm")
 guid = "Save_New"
 name = "New Save"
-actor_data = {}
-player_data = {}
+actors = {}
+players = {}
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_x5deb"]
 
@@ -51,6 +51,18 @@ direction = Vector3(0, 0, -1)
 cell_name = ""
 inventory = SubResource("Resource_w5a5l")
 equip = SubResource("Resource_25s1f")
+health = 100
+health_max = 100
+health_regen = 0
+stamina = 100
+stamina_max = 100
+stamina_regen = 0
+mana = 100
+mana_max = 100
+mana_regen = 0
+attack = 1
+defense = 1
+speed = 1
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_higy5")
