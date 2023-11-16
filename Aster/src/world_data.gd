@@ -5,8 +5,8 @@ extends Resource
 @export var guid: String = "Save_New"
 @export var name: String = "New Save"
 
-@export var actor_data: Dictionary = {}
-@export var player_data: Dictionary = {}
+@export var actors: Dictionary = {}
+@export var players: Dictionary = {}
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

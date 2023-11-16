@@ -132,13 +132,13 @@ func _process(delta: float) -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func load_from_memory(world_data: WorldData) -> Player:
-	if not world_data.player_data.has(data.guid): return self
-	data = world_data.player_data[data.guid].duplicate()
+	if not world_data.players.has(data.guid): return self
+	data = world_data.players[data.guid].duplicate()
 	set_cell(Ref.world.find_cell(data.cell_name))
 	return self
 
 func save_to_memory(world_data: WorldData) -> Player:
-	world_data.player_data[data.guid] = data.duplicate()
+	world_data.players[data.guid] = data.duplicate()
 	return self
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -146,9 +146,11 @@ func save_to_memory(world_data: WorldData) -> Player:
 func get_cell() -> WorldCell:
 	return get_parent().get_parent() as WorldCell
 
-func set_cell(value: WorldCell) -> Player:
-	Ref.world.transfer(self, value, data.position, false)
+func set_cell(world_cell: WorldCell) -> Player:
+	Ref.world.transfer(self, world_cell, data.position, false)
 	return self
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func get_drop_position() -> Vector3:
 	var pos: Vector3 = global_transform.origin + data.direction * drop_range
@@ -156,10 +158,10 @@ func get_drop_position() -> Vector3:
 	return pos
 
 func get_held_item() -> ItemData:
-	return data.inventory.get_item_data(item_index)
+	return data.inventory.get_item(item_index)
 
-func set_item_index(value: int) -> Player:
-	item_index = Ref.ui.hud.hotbar.set_item_index(value).item_index
+func set_item_index(index: int) -> Player:
+	item_index = Ref.ui.hud.hotbar.set_item_index(index).item_index
 	return self
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

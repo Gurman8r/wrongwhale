@@ -1,47 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://3ioo106b4s3t"]
+[gd_scene load_steps=11 format=3 uid="uid://3ioo106b4s3t"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_2eir3"]
-[ext_resource type="Script" path="res://src/inventory_data_equip.gd" id="2_wyqe1"]
-[ext_resource type="Script" path="res://src/inventory_data.gd" id="3_kxijb"]
-[ext_resource type="Script" path="res://src/player_data.gd" id="4_j2dgi"]
-[ext_resource type="Script" path="res://src/stats.gd" id="5_y5ht5"]
+[ext_resource type="Resource" uid="uid://4wyq2nvgpou2" path="res://assets/data/player_default.tres" id="2_wr6lv"]
 [ext_resource type="Script" path="res://src/interact_ray.gd" id="6_ovvvf"]
 [ext_resource type="Script" path="res://src/state_machine.gd" id="7_exy1o"]
-
-[sub_resource type="Resource" id="Resource_5x863"]
-script = ExtResource("2_wyqe1")
-stacks = Array[Resource("res://src/item_stack.gd")]([null])
-
-[sub_resource type="Resource" id="Resource_l88b5"]
-script = ExtResource("3_kxijb")
-stacks = Array[Resource("res://src/item_stack.gd")]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
-
-[sub_resource type="Resource" id="Resource_0i6bh"]
-script = ExtResource("5_y5ht5")
-health = 100
-health_max = 100
-health_regen = 0
-stamina = 100
-stamina_max = 100
-stamina_regen = 0
-mana = 100
-mana_max = 100
-mana_regen = 0
-attack = 1
-defense = 1
-speed = 1
-
-[sub_resource type="Resource" id="Resource_dvpc8"]
-script = ExtResource("4_j2dgi")
-guid = "Player_New"
-name = "New Player"
-index = 0
-position = Vector3(0, 0, 0)
-direction = Vector3(0, 0, -1)
-cell_name = ""
-stats = SubResource("Resource_0i6bh")
-inventory = SubResource("Resource_l88b5")
-equip = SubResource("Resource_5x863")
 
 [sub_resource type="AnimationRootNode" id="AnimationRootNode_8pgnw"]
 
@@ -66,7 +28,7 @@ collision_layer = 2
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 script = ExtResource("1_2eir3")
-data = SubResource("Resource_dvpc8")
+data = ExtResource("2_wr6lv")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 

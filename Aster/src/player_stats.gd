@@ -1,5 +1,5 @@
-# stats.gd
-class_name Stats
+# player_stats.gd
+class_name PlayerStats
 extends Resource
 
 @export var health: int = 100

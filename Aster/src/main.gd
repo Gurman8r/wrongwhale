@@ -50,7 +50,7 @@ func _unhandled_input(_event) -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func load_game(world_data: WorldData, transition: bool = true) -> void:
+func play(world_data: WorldData, transition: bool = true) -> void:
 	# pre-load
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	if transition:
@@ -96,7 +96,7 @@ func save_and_quit_to_title(path_stem: String = "save0", transition: bool = true
 	# unload
 	world.unload()
 	# post-unload
-	ui.title.current = ui.title.mainmenu
+	ui.title.current = ui.title.main
 	if transition:
 		ui.transition.play("fadein")
 		await ui.transition.finished
@@ -121,7 +121,7 @@ func quit_to_title(transition: bool = true) -> void:
 	# unload
 	world.unload()
 	# post-unload
-	ui.title.current = ui.title.mainmenu
+	ui.title.current = ui.title.main
 	if transition:
 		ui.transition.play("fadein")
 		await ui.transition.finished

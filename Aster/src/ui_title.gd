@@ -2,12 +2,12 @@
 class_name UI_Title
 extends PanelContainer
 
-@onready var current: Control = $MainMenu : set = set_current
-@onready var mainmenu: UI_TitleMainMenu = $MainMenu
-@onready var loadmenu: UI_TitleLoadMenu = $LoadMenu
-@onready var newmenu: UI_TitleNewMenu = $NewMenu
-@onready var optionmenu: UI_TitleOptionMenu = $OptionMenu
-@onready var modmenu: UI_TitleModMenu = $ModMenu
+@onready var current: Control = $Main : set = set_current
+@onready var main: Control = $Main
+@onready var loadgame: Control = $LoadGame
+@onready var newgame: Control = $NewGame
+@onready var options: Control = $Options
+@onready var mods: Control = $Mods
 
 func _ready():
 	visibility_changed.connect(_on_visibility_changed)

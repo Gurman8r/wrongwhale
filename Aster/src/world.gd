@@ -4,8 +4,10 @@ extends Node3D
 
 signal loading(world_data: WorldData)
 signal loading_finished()
+
 signal saving(world_data: WorldData)
 signal saving_finished()
+
 signal unloading_finished()
 signal unloading()
 

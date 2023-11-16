@@ -1,18 +1,18 @@
 # ui_title_main.gd
-class_name UI_TitleMainMenu
+class_name UI_TitleMain
 extends Control
 
 func _on_button_loadgame_pressed() -> void:
-	Ref.ui.title.current = Ref.ui.title.loadmenu
+	Ref.ui.title.current = Ref.ui.title.loadgame
 
 func _on_button_newgame_pressed() -> void:
-	Ref.ui.title.current = Ref.ui.title.newmenu
+	Ref.ui.title.current = Ref.ui.title.newgame
 
 func _on_button_options_pressed() -> void:
-	Ref.ui.title.current = Ref.ui.title.optionmenu
+	Ref.ui.title.current = Ref.ui.title.options
 
 func _on_button_mods_pressed() -> void:
-	Ref.ui.title.current = Ref.ui.title.modmenu
+	Ref.ui.title.current = Ref.ui.title.mods
 
 func _on_button_quit_pressed() -> void:
 	Ref.main.quit()

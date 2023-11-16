@@ -2,9 +2,9 @@
 class_name ItemDataConsumable
 extends ItemData
 
-func use(owner: InventoryData, index: int, mode: int, target: Node) -> void:
+func use(owner: InventoryData, index: int, state: int, target: Node) -> void:
 	var stack = owner.stacks[index]
-	if mode == SECONDARY_END:
+	if state == SECONDARY_END:
 		stack.quantity -= 1
 		if stack.quantity < 1:
 			owner.stacks[index] = null

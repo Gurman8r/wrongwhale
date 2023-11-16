@@ -9,10 +9,8 @@ signal inventory_updated(inventory_data: InventoryData)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func in_range(index: int) -> bool:
-	return index >= 0 and index < stacks.size()
-
-func get_item_data(index: int) -> ItemData:
+func get_item(index: int) -> ItemData:
+	assert(index >= 0 and index < stacks.size())
 	var stack = stacks[index]
 	if stack: return stack.item_data
 	else: return null
