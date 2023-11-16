@@ -60,6 +60,8 @@ func _init() -> void:
 func _ready() -> void:
 	data.cell_name = get_cell().name
 	action.connect(func(mode: int): data.inventory.use_stack(item_index, mode, self))
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 	
 func _input(event) -> void:
 	# mouse motion
@@ -75,26 +77,26 @@ func _input(event) -> void:
 	elif event is InputEventMouseButton:
 		
 		# primary action
-		if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed() and not lmb_down:
+		if event.is_action_pressed("primary") and not lmb_down:
 			lmb_down = true
-			action.emit(ItemData.PRIMARY_PRESSED)
-		elif event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
-			action.emit(ItemData.PRIMARY_HELD)
-		elif event.button_index == MOUSE_BUTTON_LEFT:
+			action.emit(PRIMARY_PRESSED)
+		elif event.is_action_pressed("primary"):
+			action.emit(PRIMARY_HELD)
+		elif event.is_action_released("primary"):
 			lmb_down = false
-			action.emit(ItemData.PRIMARY_RELEASED)
+			action.emit(PRIMARY_RELEASED)
 		
 		# secondary action
 		if event.is_action_pressed("secondary") and not rmb_down:
 			rmb_down = true
-			action.emit(ItemData.SECONDARY_PRESSED)
+			action.emit(SECONDARY_PRESSED)
 		elif event.is_action_pressed("secondary"):
-			action.emit(ItemData.SECONDARY_HELD)
+			action.emit(SECONDARY_HELD)
 		elif event.is_action_released("secondary"):
 			rmb_down = false
-			action.emit(ItemData.SECONDARY_RELEASED)
-		
-		get_viewport().set_input_as_handled()
+			action.emit(SECONDARY_RELEASED)
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _unhandled_input(_event) -> void:
 	# movement
@@ -102,6 +104,15 @@ func _unhandled_input(_event) -> void:
 	move_input[RIGHT] = Input.is_action_pressed("move_right")
 	move_input[FORWARD] = Input.is_action_pressed("move_forward")
 	move_input[BACKWARD] = Input.is_action_pressed("move_backward")
+	
+	# inventory
+	if Input.is_action_just_pressed("inventory"): toggle_inventory.emit()
+	if Input.is_action_just_released("hotbar_prev"): hotbar_prev.emit()
+	elif Input.is_action_just_released("hotbar_next"): hotbar_next.emit()
+	for i in range(0, 10):
+		if Input.is_action_just_pressed("hotbar_%d" % [i]):
+			set_item_index(i - 1)
+			break
 	
 	# primary action
 	if Input.is_action_just_pressed("primary"): action.emit(PRIMARY_PRESSED)
@@ -112,15 +123,8 @@ func _unhandled_input(_event) -> void:
 	if Input.is_action_just_pressed("secondary"): action.emit(SECONDARY_PRESSED)
 	elif Input.is_action_pressed("secondary"): action.emit(SECONDARY_HELD)
 	elif Input.is_action_just_released("primary"): action.emit(SECONDARY_RELEASED)
-	
-	# inventory
-	if Input.is_action_just_pressed("inventory"): toggle_inventory.emit()
-	if Input.is_action_just_released("hotbar_prev"): hotbar_prev.emit()
-	elif Input.is_action_just_released("hotbar_next"): hotbar_next.emit()
-	for i in range(0, 10):
-		if Input.is_action_just_pressed("hotbar_%d" % [i]):
-			set_item_index(i - 1)
-			break
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _process(delta: float) -> void:
 	# update movement
@@ -166,8 +170,11 @@ func save_to_memory(world_data: WorldData) -> void:
 func get_cell() -> WorldCell:
 	return get_parent().get_parent() as WorldCell
 
-func set_cell(value: WorldCell) -> void:
+func set_cell(value: WorldCell) -> Player:
 	Ref.world.transfer(self, value, data.position, false)
+	return self
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func get_drop_position() -> Vector3:
 	var pos: Vector3 = global_transform.origin + data.direction * drop_range
@@ -177,8 +184,8 @@ func get_drop_position() -> Vector3:
 func get_held_item() -> ItemData:
 	return data.inventory.get_item_data(item_index)
 
-func set_item_index(value: int) -> void:
-	Ref.ui.hud.hotbar.item_index = value
-	item_index = Ref.ui.hud.hotbar.item_index
+func set_item_index(value: int) -> Player:
+	item_index = Ref.ui.hud.hotbar.set_item_index(value).item_index
+	return self
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

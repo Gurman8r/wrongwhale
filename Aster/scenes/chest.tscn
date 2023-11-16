@@ -6,7 +6,6 @@
 
 [sub_resource type="Resource" id="Resource_ucuon"]
 script = ExtResource("2_aoaap")
-version = 1
 stacks = Array[Resource("res://resources/item_stack.gd")]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_h062n"]

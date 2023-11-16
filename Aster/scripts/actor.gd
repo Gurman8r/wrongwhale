@@ -14,3 +14,9 @@ func get_cell() -> WorldCell:
 
 func set_cell(value: WorldCell) -> void:
 	Ref.world.transfer(self, value, data.position, false)
+
+func load_from_memory(world_data: WorldData) -> void:
+	pass
+
+func save_to_memory(world_data: WorldData) -> void:
+	pass

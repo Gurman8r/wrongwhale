@@ -28,12 +28,12 @@ func _ready() -> void:
 		world.saving.connect(node.save_to_memory)
 	
 	# player ui connections
-	world.loading_finished.connect(func(): ui.set_player_data(player.data))
-	world.unloading.connect(ui.game.clear_player_data)
 	player.toggle_inventory.connect(ui.game.toggle_inventory)
 	player.hotbar_next.connect(ui.hud.hotbar.next)
 	player.hotbar_prev.connect(ui.hud.hotbar.prev)
 	player.hotbar_select.connect(ui.hud.hotbar.set_item_index)
+	world.loading_finished.connect(func(): ui.set_player_data(player.data))
+	world.unloading.connect(ui.game.clear_player_data)
 	
 	# external inventory connections
 	for node in get_tree().get_nodes_in_group("external_inventory"):
@@ -43,8 +43,11 @@ func _ready() -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _unhandled_input(_event) -> void:
-	if playing and Input.is_action_just_pressed("ui_cancel"):
-		save_and_quit_to_title()
+	if Input.is_action_just_pressed("ui_cancel"):
+		if playing:
+			save_and_quit_to_title()
+		else:
+			quit()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
