@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="DatabaseData" load_steps=6 format=3 uid="uid://bricca5s4a58o"]
 
-[ext_resource type="Script" path="res://scripts/database_data.gd" id="1_qrwlb"]
+[ext_resource type="Script" path="res://src/database_data.gd" id="1_qrwlb"]
 [ext_resource type="Resource" uid="uid://rsch10dqt8dv" path="res://resources/items/apple.tres" id="1_x23ga"]
 [ext_resource type="Resource" uid="uid://r7x4yw48wdr2" path="res://resources/items/book_blue.tres" id="2_ko3po"]
 [ext_resource type="Resource" uid="uid://yjvloyxn845p" path="res://resources/items/potion.tres" id="3_6ql5c"]
@@ -9,4 +9,4 @@
 [resource]
 script = ExtResource("1_qrwlb")
 version = 1
-items = Array[Resource("res://scripts/item_data.gd")]([ExtResource("1_x23ga"), ExtResource("2_ko3po"), ExtResource("3_6ql5c"), ExtResource("4_4qtpk")])
+items = Array[Resource("res://src/item_data.gd")]([ExtResource("1_x23ga"), ExtResource("2_ko3po"), ExtResource("3_6ql5c"), ExtResource("4_4qtpk")])

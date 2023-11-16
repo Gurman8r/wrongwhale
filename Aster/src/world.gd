@@ -9,7 +9,7 @@ signal saving_finished()
 signal unloading_finished()
 signal unloading()
 
-const player_prefab = preload("res://scenes/player.tscn")
+const player_prefab = preload("res://resources/scenes/player.tscn")
 
 @export var data: WorldData
 

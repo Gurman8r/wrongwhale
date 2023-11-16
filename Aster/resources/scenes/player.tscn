@@ -1,23 +1,23 @@
 [gd_scene load_steps=18 format=3 uid="uid://3ioo106b4s3t"]
 
-[ext_resource type="Script" path="res://scripts/player.gd" id="1_dkwn1"]
-[ext_resource type="Script" path="res://scripts/interact_ray.gd" id="2_itqmj"]
-[ext_resource type="Script" path="res://scripts/inventory_data_equip.gd" id="2_rm7qt"]
-[ext_resource type="Script" path="res://scripts/inventory_data.gd" id="3_1h0l3"]
-[ext_resource type="Script" path="res://scripts/player_data.gd" id="4_r4ufe"]
-[ext_resource type="Script" path="res://scripts/stats.gd" id="5_i0h1l"]
-[ext_resource type="Script" path="res://scripts/state_machine.gd" id="5_qpjv6"]
+[ext_resource type="Script" path="res://src/player.gd" id="1_y6c8a"]
+[ext_resource type="Script" path="res://src/inventory_data_equip.gd" id="2_21kj1"]
+[ext_resource type="Script" path="res://src/inventory_data.gd" id="3_70ovs"]
+[ext_resource type="Script" path="res://src/player_data.gd" id="4_1he0a"]
+[ext_resource type="Script" path="res://src/stats.gd" id="5_krtft"]
+[ext_resource type="Script" path="res://src/interact_ray.gd" id="6_fngg7"]
+[ext_resource type="Script" path="res://src/state_machine.gd" id="7_c2tya"]
 
 [sub_resource type="Resource" id="Resource_5x863"]
-script = ExtResource("2_rm7qt")
-stacks = Array[Resource("res://scripts/item_stack.gd")]([null])
+script = ExtResource("2_21kj1")
+stacks = Array[Resource("res://src/item_stack.gd")]([null])
 
 [sub_resource type="Resource" id="Resource_l88b5"]
-script = ExtResource("3_1h0l3")
-stacks = Array[Resource("res://scripts/item_stack.gd")]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+script = ExtResource("3_70ovs")
+stacks = Array[Resource("res://src/item_stack.gd")]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 
 [sub_resource type="Resource" id="Resource_0i6bh"]
-script = ExtResource("5_i0h1l")
+script = ExtResource("5_krtft")
 health = 100
 health_max = 100
 health_regen = 0
@@ -32,7 +32,7 @@ defense = 1
 speed = 1
 
 [sub_resource type="Resource" id="Resource_dvpc8"]
-script = ExtResource("4_r4ufe")
+script = ExtResource("4_1he0a")
 guid = "Player_New"
 name = "New Player"
 index = 0
@@ -65,7 +65,7 @@ size = Vector3(1, 0.02, 1)
 collision_layer = 2
 axis_lock_angular_x = true
 axis_lock_angular_z = true
-script = ExtResource("1_dkwn1")
+script = ExtResource("1_y6c8a")
 data = SubResource("Resource_dvpc8")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -93,14 +93,14 @@ shape = SubResource("SphereShape3D_oi3bu")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 target_position = Vector3(0, 0, -1.5)
 collision_mask = 4
-script = ExtResource("2_itqmj")
+script = ExtResource("6_fngg7")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("BoxMesh_726kc")
 
 [node name="StateMachine" type="Node" parent="."]
-script = ExtResource("5_qpjv6")
+script = ExtResource("7_c2tya")
 
 [node name="TargetMarker" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_24owg")

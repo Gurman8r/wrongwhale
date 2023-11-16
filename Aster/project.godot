@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Town of Aster"
-run/main_scene="res://scenes/main.tscn"
+run/main_scene="res://resources/scenes/main.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="TownOfAster"
 config/features=PackedStringArray("4.1", "Mobile")
@@ -20,7 +20,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Ref="*res://scripts/ref.gd"
+Ref="*res://src/ref.gd"
 
 [display]
 

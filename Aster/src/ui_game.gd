@@ -5,7 +5,7 @@ extends Control
 signal drop_stack(stack: ItemStack)
 signal force_close()
 
-const item_drop = preload("res://scenes/item_drop.tscn")
+const item_drop = preload("res://resources/scenes/item_drop.tscn")
 
 @onready var player_inventory: Inventory = $PlayerInventory
 @onready var equip_inventory: Inventory = $EquipInventory

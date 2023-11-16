@@ -1,19 +1,19 @@
 [gd_scene load_steps=18 format=3 uid="uid://bx570xqwl6a7i"]
 
-[ext_resource type="Script" path="res://scripts/ui.gd" id="1_0yitp"]
-[ext_resource type="Script" path="res://scripts/ui_hud.gd" id="2_64iqv"]
-[ext_resource type="PackedScene" uid="uid://dnhnrabrf57os" path="res://scenes/hotbar.tscn" id="3_mr0d1"]
-[ext_resource type="Script" path="res://scripts/ui_game.gd" id="4_747jb"]
-[ext_resource type="PackedScene" uid="uid://dv6li4wxrohgf" path="res://scenes/inventory.tscn" id="5_nxr47"]
-[ext_resource type="PackedScene" uid="uid://ddxw2b6u1pxow" path="res://scenes/item_slot.tscn" id="6_1ujyy"]
-[ext_resource type="Script" path="res://scripts/ui_title.gd" id="7_6l37s"]
-[ext_resource type="Script" path="res://scripts/ui_title_mainmenu.gd" id="8_1ll8d"]
-[ext_resource type="Script" path="res://scripts/ui_title_loadmenu.gd" id="9_kikfg"]
-[ext_resource type="Script" path="res://scripts/ui_title_newmenu.gd" id="10_7f3vn"]
-[ext_resource type="Script" path="res://scripts/ui_title_optionmenu.gd" id="11_mwfge"]
-[ext_resource type="Script" path="res://scripts/ui_transition.gd" id="12_shhpf"]
-[ext_resource type="Script" path="res://scripts/ui_debug.gd" id="13_0q6dt"]
-[ext_resource type="Script" path="res://scripts/ui_title_modmenu.gd" id="13_h3tks"]
+[ext_resource type="Script" path="res://src/ui.gd" id="1_assrp"]
+[ext_resource type="Script" path="res://src/ui_hud.gd" id="2_t7ihg"]
+[ext_resource type="PackedScene" uid="uid://dnhnrabrf57os" path="res://resources/scenes/hotbar.tscn" id="3_jmb8r"]
+[ext_resource type="Script" path="res://src/ui_game.gd" id="4_r37xa"]
+[ext_resource type="PackedScene" uid="uid://dv6li4wxrohgf" path="res://resources/scenes/inventory.tscn" id="5_q445p"]
+[ext_resource type="PackedScene" uid="uid://ddxw2b6u1pxow" path="res://resources/scenes/item_slot.tscn" id="6_5hooo"]
+[ext_resource type="Script" path="res://src/ui_title.gd" id="7_1ios3"]
+[ext_resource type="Script" path="res://src/ui_title_mainmenu.gd" id="8_mb7th"]
+[ext_resource type="Script" path="res://src/ui_title_loadmenu.gd" id="9_wh7y8"]
+[ext_resource type="Script" path="res://src/ui_title_newmenu.gd" id="10_qed6o"]
+[ext_resource type="Script" path="res://src/ui_title_optionmenu.gd" id="11_syvxc"]
+[ext_resource type="Script" path="res://src/ui_title_modmenu.gd" id="12_0jb3l"]
+[ext_resource type="Script" path="res://src/ui_transition.gd" id="13_6da11"]
+[ext_resource type="Script" path="res://src/ui_debug.gd" id="14_laiv1"]
 
 [sub_resource type="Animation" id="Animation_ubt67"]
 resource_name = "RESET"
@@ -55,7 +55,7 @@ _data = {
 
 [node name="UI" type="CanvasLayer"]
 process_mode = 3
-script = ExtResource("1_0yitp")
+script = ExtResource("1_assrp")
 
 [node name="HUD" type="Control" parent="."]
 process_mode = 3
@@ -67,9 +67,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("2_64iqv")
+script = ExtResource("2_t7ihg")
 
-[node name="ItemHotbar" parent="HUD" instance=ExtResource("3_mr0d1")]
+[node name="ItemHotbar" parent="HUD" instance=ExtResource("3_jmb8r")]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 10.0
@@ -103,23 +103,23 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("4_747jb")
+script = ExtResource("4_r37xa")
 
-[node name="PlayerInventory" parent="Game" instance=ExtResource("5_nxr47")]
+[node name="PlayerInventory" parent="Game" instance=ExtResource("5_q445p")]
 layout_mode = 2
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 50.0
 offset_bottom = 50.0
 
-[node name="EquipInventory" parent="Game" instance=ExtResource("5_nxr47")]
+[node name="EquipInventory" parent="Game" instance=ExtResource("5_q445p")]
 layout_mode = 2
 offset_left = 720.0
 offset_top = 10.0
 offset_right = 760.0
 offset_bottom = 50.0
 
-[node name="ExternalInventory" parent="Game" instance=ExtResource("5_nxr47")]
+[node name="ExternalInventory" parent="Game" instance=ExtResource("5_q445p")]
 visible = false
 layout_mode = 2
 offset_left = 10.0
@@ -127,7 +127,7 @@ offset_top = 360.0
 offset_right = 50.0
 offset_bottom = 400.0
 
-[node name="GrabbedSlot" parent="Game" instance=ExtResource("6_1ujyy")]
+[node name="GrabbedSlot" parent="Game" instance=ExtResource("6_5hooo")]
 visible = false
 modulate = Color(1, 1, 1, 0.501961)
 self_modulate = Color(1, 1, 1, 0)
@@ -142,12 +142,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("7_6l37s")
+script = ExtResource("7_1ios3")
 metadata/_edit_use_anchors_ = true
 
 [node name="MainMenu" type="PanelContainer" parent="Title"]
 layout_mode = 2
-script = ExtResource("8_1ll8d")
+script = ExtResource("8_mb7th")
 
 [node name="MarginContainer" type="MarginContainer" parent="Title/MainMenu"]
 layout_mode = 2
@@ -185,7 +185,7 @@ text = "Quit"
 [node name="LoadMenu" type="PanelContainer" parent="Title"]
 visible = false
 layout_mode = 2
-script = ExtResource("9_kikfg")
+script = ExtResource("9_wh7y8")
 
 [node name="MarginContainer" type="MarginContainer" parent="Title/LoadMenu"]
 layout_mode = 2
@@ -208,7 +208,7 @@ text = "Back"
 [node name="NewMenu" type="PanelContainer" parent="Title"]
 visible = false
 layout_mode = 2
-script = ExtResource("10_7f3vn")
+script = ExtResource("10_qed6o")
 
 [node name="MarginContainer" type="MarginContainer" parent="Title/NewMenu"]
 layout_mode = 2
@@ -231,7 +231,7 @@ text = "Back"
 [node name="OptionMenu" type="PanelContainer" parent="Title"]
 visible = false
 layout_mode = 2
-script = ExtResource("11_mwfge")
+script = ExtResource("11_syvxc")
 
 [node name="MarginContainer" type="MarginContainer" parent="Title/OptionMenu"]
 layout_mode = 2
@@ -249,7 +249,7 @@ text = "Back"
 [node name="ModMenu" type="Control" parent="Title"]
 visible = false
 layout_mode = 2
-script = ExtResource("13_h3tks")
+script = ExtResource("12_0jb3l")
 
 [node name="MarginContainer" type="MarginContainer" parent="Title/ModMenu"]
 layout_mode = 2
@@ -272,7 +272,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("12_shhpf")
+script = ExtResource("13_6da11")
 metadata/_edit_use_anchors_ = true
 
 [node name="DissolveRect" type="ColorRect" parent="Transition"]
@@ -300,7 +300,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("13_0q6dt")
+script = ExtResource("14_laiv1")
 
 [node name="MarginContainer" type="MarginContainer" parent="Debug"]
 layout_mode = 2

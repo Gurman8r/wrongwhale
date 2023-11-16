@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnhnrabrf57os"]
+
+[ext_resource type="Script" path="res://src/hotbar.gd" id="1_g6lsj"]
+[ext_resource type="PackedScene" uid="uid://ddxw2b6u1pxow" path="res://resources/scenes/item_slot.tscn" id="2_627c1"]
+
+[node name="Hotbar" type="PanelContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_g6lsj")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="ItemSlot0" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_627c1")]
+layout_mode = 2
+
+[node name="ItemSlot1" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_627c1")]
+layout_mode = 2
+
+[node name="ItemSlot2" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_627c1")]
+layout_mode = 2
+
+[node name="ItemSlot3" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_627c1")]
+layout_mode = 2
+
+[node name="ItemSlot4" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_627c1")]
+layout_mode = 2
+
+[node name="ItemSlot5" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_627c1")]
+layout_mode = 2
+
+[node name="ItemSlot6" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_627c1")]
+layout_mode = 2
+
+[node name="ItemSlot7" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_627c1")]
+layout_mode = 2
+
+[node name="ItemSlot8" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_627c1")]
+layout_mode = 2
+
+[node name="ItemSlot9" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_627c1")]
+layout_mode = 2
