@@ -81,14 +81,10 @@ func pick_up_stack(stack: ItemStack) -> bool:
 			return true
 	return false
 
-func use_stack(index: int, target: Node) -> void:
+func use_stack(index: int, mode: int, target: Node) -> void:
 	var stack = get_item_stack(index)
 	if not stack: return
-	if stack.item_data is ItemDataConsumable:
-		stack.quantity -= 1
-		if stack.quantity < 1:
-			stacks[index] = null
-	stack.item_data.use(target)
+	stack.item_data.use(self, index, mode, target)
 	inventory_updated.emit(self)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

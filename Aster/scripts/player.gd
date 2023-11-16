@@ -2,6 +2,18 @@
 class_name Player
 extends CharacterBody3D
 
+enum {
+	NOOP = -1,
+	
+	PRIMARY_PRESSED,
+	PRIMARY_HELD,
+	PRIMARY_RELEASED,
+	
+	SECONDARY_PRESSED,
+	SECONDARY_HELD,
+	SECONDARY_RELEASED,
+}
+
 signal move(delta: float, direction: Vector3)
 signal move_collide(body: KinematicCollision3D)
 
@@ -10,12 +22,7 @@ signal hotbar_prev()
 signal hotbar_next()
 signal hotbar_select(index: int)
 
-signal primary_pressed()
-signal primary_action()
-signal primary_released()
-signal secondary_pressed()
-signal secondary_action()
-signal secondary_released()
+signal action(mode: int)
 
 @export var data: PlayerData = PlayerData.new()
 @export var move_speed: float = 5
@@ -36,12 +43,14 @@ signal secondary_released()
 @onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
 @onready var target_marker: Node3D = $TargetMarker
 
-enum { LEFT, RIGHT, FORWARD, BACKWARD }
-var move_input: Array[bool] = [0, 0, 0, 0]
+var cell: WorldCell : get = get_cell, set = set_cell
 
 var item_index: int = 0 : set = set_item_index
 
-var cell: WorldCell : get = get_cell, set = set_cell
+enum { LEFT, RIGHT, FORWARD, BACKWARD }
+var move_input: Array[bool] = [0, 0, 0, 0]
+var rmb_down: bool = false
+var lmb_down: bool = false
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -50,8 +59,7 @@ func _init() -> void:
 
 func _ready() -> void:
 	data.cell_name = get_cell().name
-	primary_action.connect(_on_primary_action)
-	secondary_action.connect(_on_secondary_action)
+	action.connect(func(mode: int): data.inventory.use_stack(item_index, mode, self))
 	
 func _input(event) -> void:
 	# mouse motion
@@ -62,19 +70,48 @@ func _input(event) -> void:
 			camera_pivot_x.rotation.x, \
 			deg_to_rad(camera_angle_min_degrees), \
 			deg_to_rad(camera_angle_max_degrees))
+	
 	# mouse buttons
 	elif event is InputEventMouseButton:
-		if event.is_pressed():
-			if event.button_index == MOUSE_BUTTON_LEFT:
-				primary_action.emit()
-			elif event.button_index == MOUSE_BUTTON_RIGHT:
-				secondary_action.emit()
+		
+		# primary action
+		if event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed() and not lmb_down:
+			lmb_down = true
+			action.emit(ItemData.PRIMARY_PRESSED)
+		elif event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
+			action.emit(ItemData.PRIMARY_HELD)
+		elif event.button_index == MOUSE_BUTTON_LEFT:
+			lmb_down = false
+			action.emit(ItemData.PRIMARY_RELEASED)
+		
+		# secondary action
+		if event.is_action_pressed("secondary") and not rmb_down:
+			rmb_down = true
+			action.emit(ItemData.SECONDARY_PRESSED)
+		elif event.is_action_pressed("secondary"):
+			action.emit(ItemData.SECONDARY_HELD)
+		elif event.is_action_released("secondary"):
+			rmb_down = false
+			action.emit(ItemData.SECONDARY_RELEASED)
+		
 		get_viewport().set_input_as_handled()
 
 func _unhandled_input(_event) -> void:
-	# actions
-	if Input.is_action_just_pressed("primary"): primary_action.emit()
-	if Input.is_action_just_pressed("secondary"): secondary_action.emit()
+	# movement
+	move_input[LEFT] = Input.is_action_pressed("move_left")
+	move_input[RIGHT] = Input.is_action_pressed("move_right")
+	move_input[FORWARD] = Input.is_action_pressed("move_forward")
+	move_input[BACKWARD] = Input.is_action_pressed("move_backward")
+	
+	# primary action
+	if Input.is_action_just_pressed("primary"): action.emit(PRIMARY_PRESSED)
+	elif Input.is_action_pressed("primary"): action.emit(PRIMARY_HELD)
+	elif Input.is_action_just_released("primary"): action.emit(PRIMARY_RELEASED)
+	
+	# secondary action
+	if Input.is_action_just_pressed("secondary"): action.emit(SECONDARY_PRESSED)
+	elif Input.is_action_pressed("secondary"): action.emit(SECONDARY_HELD)
+	elif Input.is_action_just_released("primary"): action.emit(SECONDARY_RELEASED)
 	
 	# inventory
 	if Input.is_action_just_pressed("inventory"): toggle_inventory.emit()
@@ -84,12 +121,6 @@ func _unhandled_input(_event) -> void:
 		if Input.is_action_just_pressed("hotbar_%d" % [i]):
 			set_item_index(i - 1)
 			break
-	
-	# movement
-	move_input[LEFT] = Input.is_action_pressed("move_left")
-	move_input[RIGHT] = Input.is_action_pressed("move_right")
-	move_input[FORWARD] = Input.is_action_pressed("move_forward")
-	move_input[BACKWARD] = Input.is_action_pressed("move_backward")
 
 func _process(delta: float) -> void:
 	# update movement
@@ -149,14 +180,5 @@ func get_held_item() -> ItemData:
 func set_item_index(value: int) -> void:
 	Ref.ui.hud.hotbar.item_index = value
 	item_index = Ref.ui.hud.hotbar.item_index
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func _on_primary_action() -> void:
-	print("primary")
-	
-func _on_secondary_action() -> void:
-	print("secondary")
-	data.inventory.use_stack(item_index, self)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

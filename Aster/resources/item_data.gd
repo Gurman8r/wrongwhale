@@ -2,6 +2,18 @@
 class_name ItemData
 extends Resource
 
+enum {
+	NOOP = -1,
+	
+	PRIMARY_PRESSED,
+	PRIMARY_HELD,
+	PRIMARY_RELEASED,
+	
+	SECONDARY_PRESSED,
+	SECONDARY_HELD,
+	SECONDARY_RELEASED,
+}
+
 signal used()
 
 @export var name: String = "New Item"
@@ -12,13 +24,7 @@ signal used()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func use(_target) -> void:
-	pass
-
-func use_primary(_target) -> void:
-	pass
-
-func use_secondary(_target) -> void:
+func use(_owner: InventoryData, _index: int, _mode: int, _target: Node) -> void:
 	pass
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

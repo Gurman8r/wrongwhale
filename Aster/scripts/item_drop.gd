@@ -1,6 +1,6 @@
 # item_drop.gd
 class_name ItemDrop
-extends WorldObject
+extends StaticBody3D
 
 @export var stack: ItemStack
 

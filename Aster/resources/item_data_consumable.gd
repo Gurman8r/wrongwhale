@@ -2,5 +2,9 @@
 class_name ItemDataConsumable
 extends ItemData
 
-func use(_target) -> void:
-	print("consumed: %s" % [to_string()])
+func use(owner: InventoryData, index: int, mode: int, target: Node) -> void:
+	if mode == SECONDARY_PRESSED:
+		owner.stacks[index].quantity -= 1
+		if owner.stacks[index].quantity < 1:
+			owner.stacks[index] = null
+		print("%s consumed %s" % [target.name, to_string()])

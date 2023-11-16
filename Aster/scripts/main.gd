@@ -9,7 +9,6 @@ signal quitting()
 @onready var ui: UI = $UI
 @onready var player: Player = Ref.player
 
-var good2go: bool = false
 var playing: bool = false
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -22,13 +21,14 @@ func _ready() -> void:
 	
 	# save/load connections
 	for node in get_tree().get_nodes_in_group("load"):
-		if not "load_from_memory" in node or world.loading.is_connected(node.load_from_memory): continue
+		assert("load_from_memory" in node)
 		world.loading.connect(node.load_from_memory)
 	for node in get_tree().get_nodes_in_group("save"):
-		if not "save_to_memory" in node or world.saving.is_connected(node.save_to_memory): continue
+		assert("save_to_memory" in node)
 		world.saving.connect(node.save_to_memory)
 	
 	# player ui connections
+	world.loading_finished.connect(func(): ui.set_player_data(player.data))
 	world.unloading.connect(ui.game.clear_player_data)
 	player.toggle_inventory.connect(ui.game.toggle_inventory)
 	player.hotbar_next.connect(ui.hud.hotbar.next)
@@ -37,10 +37,8 @@ func _ready() -> void:
 	
 	# external inventory connections
 	for node in get_tree().get_nodes_in_group("external_inventory"):
-		if not "toggle_inventory" in node or node.toggle_inventory.is_connected(ui.game.toggle_inventory): continue
+		assert("toggle_inventory" in node)
 		node.toggle_inventory.connect(ui.game.toggle_inventory)
-	
-	good2go = true # done with setup
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -59,7 +57,6 @@ func load_game(world_data: WorldData) -> void:
 	# load
 	world.load_from_memory(world_data)
 	# post-load
-	ui.set_player_data(player.data)
 	ui.hud.show()
 	ui.transition.play("fadein")
 	await ui.transition.finished

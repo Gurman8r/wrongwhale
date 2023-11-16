@@ -1,6 +1,6 @@
 # door.gd
 class_name Door
-extends WorldObject
+extends StaticBody3D
 
 @export var destination: Door
 

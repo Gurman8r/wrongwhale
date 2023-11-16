@@ -55,12 +55,6 @@ func unload() -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func set_cell(value: WorldCell) -> void:
-	if cell == value: return
-	if cell: cell.hide()
-	cell = value
-	if cell: cell.show()
-
 func find_cell(cell_name: String) -> WorldCell:
 	if cell_name.is_empty():
 		return null
@@ -68,6 +62,12 @@ func find_cell(cell_name: String) -> WorldCell:
 		if world_cell.name == cell_name:
 			return world_cell
 	return null
+
+func set_cell(value: WorldCell) -> void:
+	if cell == value: return
+	if cell: cell.hide()
+	cell = value
+	if cell: cell.show()
 
 func transfer(node: Node, target_cell: WorldCell, target_pos: Vector3 = Vector3.ZERO, transition: bool = true) -> void:
 	assert(node)
