@@ -8,8 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://ddxw2b6u1pxow" path="res://assets/scenes/item_slot.tscn" id="6_5hooo"]
 [ext_resource type="Script" path="res://src/ui_title.gd" id="7_1ios3"]
 [ext_resource type="Script" path="res://src/ui_title_main.gd" id="8_u8iyv"]
-[ext_resource type="Script" path="res://src/ui_title_load.gd" id="9_oj5uw"]
-[ext_resource type="Script" path="res://src/ui_title_new.gd" id="10_fdqbc"]
+[ext_resource type="Script" path="res://src/ui_title_loadgame.gd" id="9_rxilb"]
+[ext_resource type="Script" path="res://src/ui_title_newgame.gd" id="10_rbkte"]
 [ext_resource type="Script" path="res://src/ui_title_options.gd" id="11_4vdrh"]
 [ext_resource type="Script" path="res://src/ui_title_mods.gd" id="12_lxn40"]
 [ext_resource type="Script" path="res://src/ui_transition.gd" id="13_6da11"]
@@ -185,7 +185,7 @@ text = "Quit"
 [node name="LoadGame" type="PanelContainer" parent="Title"]
 visible = false
 layout_mode = 2
-script = ExtResource("9_oj5uw")
+script = ExtResource("9_rxilb")
 
 [node name="MarginContainer" type="MarginContainer" parent="Title/LoadGame"]
 layout_mode = 2
@@ -208,7 +208,7 @@ text = "Back"
 [node name="NewGame" type="PanelContainer" parent="Title"]
 visible = false
 layout_mode = 2
-script = ExtResource("10_fdqbc")
+script = ExtResource("10_rbkte")
 
 [node name="MarginContainer" type="MarginContainer" parent="Title/NewGame"]
 layout_mode = 2

@@ -1,7 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://3ioo106b4s3t"]
+[gd_scene load_steps=10 format=3 uid="uid://3ioo106b4s3t"]
 
 [ext_resource type="Script" path="res://src/player.gd" id="1_2eir3"]
-[ext_resource type="Resource" uid="uid://4wyq2nvgpou2" path="res://assets/data/player_default.tres" id="2_wr6lv"]
 [ext_resource type="Script" path="res://src/interact_ray.gd" id="6_ovvvf"]
 [ext_resource type="Script" path="res://src/state_machine.gd" id="7_exy1o"]
 
@@ -23,12 +22,11 @@ albedo_color = Color(0.8, 0.8, 0, 0.0941176)
 material = SubResource("StandardMaterial3D_hqt4h")
 size = Vector3(1, 0.02, 1)
 
-[node name="Player" type="CharacterBody3D" groups=["load", "save"]]
+[node name="Player" type="CharacterBody3D" groups=["player", "rw"]]
 collision_layer = 2
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 script = ExtResource("1_2eir3")
-data = ExtResource("2_wr6lv")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 

@@ -2,15 +2,12 @@
 class_name Main
 extends Node
 
-const player_default = preload("res://assets/data/player_default.tres")
-
 signal quitting()
 
 @onready var database : Database = $Database
 @onready var settings : Settings = $Settings
 @onready var world    : World    = $World
 @onready var ui       : UI       = $UI
-@onready var player   : Player   = Ref.player
 
 var playing: bool = false
 
@@ -23,114 +20,111 @@ func _init() -> void:
 func _ready() -> void:
 	get_tree().paused = true
 	
-	for node in get_tree().get_nodes_in_group("load"):
-		assert("load_from_memory" in node)
-		world.loading.connect(node.load_from_memory)
-	for node in get_tree().get_nodes_in_group("save"):
-		assert("save_to_memory" in node)
-		world.saving.connect(node.save_to_memory)
-	
-	player.toggle_debug.connect(ui.debug.toggle)
-	player.toggle_inventory.connect(ui.game.toggle_inventory)
-	player.hotbar_next.connect(ui.hud.hotbar.next)
-	player.hotbar_prev.connect(ui.hud.hotbar.prev)
-	player.hotbar_select.connect(ui.hud.hotbar.set_item_index)
-	
+	# WORLD LOADED
 	world.loading_finished.connect(func():
-		ui.set_player_data(player.data))
-		
-	world.unloading_finished.connect(func():
-		ui.clear_player_data()
-		player.data = player_default.duplicate())
+		ui.set_player_data(Ref.player.data)
+		Ref.player.toggle_debug.connect(ui.debug.toggle)
+		Ref.player.toggle_inventory.connect(ui.game.toggle_inventory)
+		Ref.player.hotbar_next.connect(ui.hud.hotbar.next)
+		Ref.player.hotbar_prev.connect(ui.hud.hotbar.prev)
+		Ref.player.hotbar_select.connect(ui.hud.hotbar.set_item_index)
+		for node in get_tree().get_nodes_in_group("external_inventory"):
+			node.toggle_inventory.connect(ui.game.toggle_inventory)
+		pass)
 	
-	for node in get_tree().get_nodes_in_group("external_inventory"):
-		assert("toggle_inventory" in node)
-		node.toggle_inventory.connect(ui.game.toggle_inventory)
+	# WORLD UNLOADED
+	world.unloading_started.connect(func():
+		ui.clear_player_data()
+		Ref.player.toggle_debug.disconnect(ui.debug.toggle)
+		Ref.player.toggle_inventory.disconnect(ui.game.toggle_inventory)
+		Ref.player.hotbar_next.disconnect(ui.hud.hotbar.next)
+		Ref.player.hotbar_prev.disconnect(ui.hud.hotbar.prev)
+		Ref.player.hotbar_select.disconnect(ui.hud.hotbar.set_item_index)
+		for node in get_tree().get_nodes_in_group("external_inventory"):
+			node.toggle_inventory.disconnect(ui.game.toggle_inventory)
+		pass)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _unhandled_input(_event) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
-		if playing: save_and_quit_to_title()
-		else: quit()
+		if playing:
+			save_to_file_and_quit_to_title("World_New")
+		else:
+			quit()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func play(world_data: WorldData, transition: bool = true) -> void:
+func play(world_data: WorldData) -> void:
 	# pre-load
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	if transition:
-		ui.transition.play("fadeout")
-		await ui.transition.finished
+	ui.transition.play("fadeout")
+	await ui.transition.finished
 	ui.title.current = null
 	# load
-	world.load_from_memory(world_data)
+	world.load_data(world_data)
 	# post-load
 	ui.hud.show()
-	if transition:
-		ui.transition.play("fadein")
-		await ui.transition.finished
+	ui.transition.play("fadein")
+	await ui.transition.finished
 	playing = true
 	get_tree().paused = false
 
-func save_and_quit(path_stem: String = "save0", transition: bool = true) -> void:
+func play_file(path_stem: String) -> void:
+	play(WorldData.read(path_stem))
+
+func save_to_file_and_quit(path_stem: String) -> void:
 	# pre-unload
 	get_tree().paused = true
 	playing = false
-	if transition:
-		ui.transition.play("fadeout")
-		await ui.transition.finished
+	ui.transition.play("fadeout")
+	await ui.transition.finished
 	ui.hud.hide()
 	# save
-	world.save_to_file(path_stem)
+	world.save_file(path_stem)
 	# unload
 	world.unload()
 	# post-unload
 	quitting.emit()
 	get_tree().quit()
 	
-func save_and_quit_to_title(path_stem: String = "save0", transition: bool = true) -> void:
+func save_to_file_and_quit_to_title(path_stem: String) -> void:
 	# pre-unload
 	get_tree().paused = true
 	playing = false
-	if transition:
-		ui.transition.play("fadeout")
-		await ui.transition.finished
+	ui.transition.play("fadeout")
+	await ui.transition.finished
 	ui.hud.hide()
 	# save
-	world.save_to_file(path_stem)
+	world.save_file(path_stem)
 	# unload
 	world.unload()
 	# post-unload
 	ui.title.current = ui.title.main
-	if transition:
-		ui.transition.play("fadein")
-		await ui.transition.finished
+	ui.transition.play("fadein")
+	await ui.transition.finished
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
-func quit(transition: bool = true) -> void:
+func quit() -> void:
 	get_tree().paused = true
-	if transition:
-		ui.transition.play("fadeout")
-		await ui.transition.finished
+	ui.transition.play("fadeout")
+	await ui.transition.finished
 	quitting.emit()
 	get_tree().quit()
 
-func quit_to_title(transition: bool = true) -> void:
+func quit_to_title() -> void:
 	# pre-unload
 	get_tree().paused = true
 	playing = false
-	if transition:
-		ui.transition.play("fadeout")
-		await ui.transition.finished
+	ui.transition.play("fadeout")
+	await ui.transition.finished
 	ui.hud.hide()
 	# unload
 	world.unload()
 	# post-unload
 	ui.title.current = ui.title.main
-	if transition:
-		ui.transition.play("fadein")
-		await ui.transition.finished
+	ui.transition.play("fadein")
+	await ui.transition.finished
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

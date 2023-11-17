@@ -10,5 +10,8 @@ signal toggle_inventory(external_inventory_owner)
 @onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
 @onready var interactable: Interactable = $Interactable
 
+func _ready() -> void:
+	interactable.interacted.connect(_on_interacted)
+
 func _on_interacted(_other) -> void:
 	toggle_inventory.emit(self)

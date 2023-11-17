@@ -37,8 +37,18 @@ func _physics_process(_delta) -> void:
 	if external_inventory_owner \
 	and external_inventory_owner.global_position.distance_to(Ref.player.global_position) > 4:
 		force_close.emit()
-	
+
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func toggle() -> void:
+	visible = not visible
+
+func toggle_inventory(_external_inventory_owner = null) -> void:
+	toggle()
+	if _external_inventory_owner and visible:
+		set_external_inventory_owner(_external_inventory_owner)
+	else:
+		clear_external_inventory()
 
 func set_player_data(value: PlayerData) -> void:
 	if player_data == value: return
@@ -56,20 +66,8 @@ func clear_player_data() -> void:
 	equip_inventory.clear_inventory_data(player_data.equip)
 	player_data = null
 
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func toggle() -> void:
-	visible = not visible
-
-func toggle_inventory(value = null) -> void:
-	toggle()
-	if value and visible:
-		set_external_inventory_owner(value)
-	else:
-		clear_external_inventory()
-
-func set_external_inventory_owner(value) -> void:
-	external_inventory_owner = value
+func set_external_inventory_owner(_external_inventory_owner) -> void:
+	external_inventory_owner = _external_inventory_owner
 	var inventory_data = external_inventory_owner.inventory_data
 	if not inventory_data.inventory_interact.is_connected(on_inventory_interact):
 		inventory_data.inventory_interact.connect(on_inventory_interact)

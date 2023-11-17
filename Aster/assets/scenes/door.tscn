@@ -23,9 +23,6 @@ shape = SubResource("BoxShape3D_xohy8")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("BoxMesh_ge0vy")
 
-[node name="SpawnPoint" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
-
 [node name="Interactable" type="StaticBody3D" parent="."]
 collision_layer = 4
 collision_mask = 0
@@ -35,4 +32,5 @@ script = ExtResource("2_58bwt")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_xohy8")
 
-[connection signal="interacted" from="Interactable" to="." method="_on_interacted"]
+[node name="SpawnPoint" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)

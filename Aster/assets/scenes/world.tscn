@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cagnofcp3jxwf"]
+[gd_scene load_steps=15 format=3 uid="uid://cagnofcp3jxwf"]
 
 [ext_resource type="Script" path="res://src/world.gd" id="1_higy5"]
 [ext_resource type="Script" path="res://src/world_data.gd" id="2_7rtdm"]
@@ -9,16 +9,15 @@
 [ext_resource type="Resource" uid="uid://yjvloyxn845p" path="res://assets/items/potion.tres" id="7_mqlmy"]
 [ext_resource type="Script" path="res://src/item_stack.gd" id="8_56u81"]
 [ext_resource type="PackedScene" uid="uid://bt3ygtr7jmwhx" path="res://assets/scenes/door.tscn" id="9_v1euk"]
-[ext_resource type="PackedScene" uid="uid://3ioo106b4s3t" path="res://assets/scenes/player.tscn" id="10_yeixn"]
-[ext_resource type="Script" path="res://src/inventory_data_equip.gd" id="11_qe40a"]
-[ext_resource type="Script" path="res://src/player_data.gd" id="12_hpiuf"]
 
 [sub_resource type="Resource" id="Resource_4kex0"]
 script = ExtResource("2_7rtdm")
-guid = "Save_New"
-name = "New Save"
+guid = "World_New"
+name = "New World"
+index = 0
 actors = {}
 players = {}
+objects = {}
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_x5deb"]
 
@@ -32,37 +31,6 @@ quantity = 15
 [sub_resource type="Resource" id="Resource_3v5xi"]
 script = ExtResource("6_cpi8b")
 stacks = Array[ExtResource("8_56u81")]([SubResource("Resource_se2iu"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
-
-[sub_resource type="Resource" id="Resource_25s1f"]
-script = ExtResource("11_qe40a")
-stacks = Array[ExtResource("8_56u81")]([null])
-
-[sub_resource type="Resource" id="Resource_w5a5l"]
-script = ExtResource("6_cpi8b")
-stacks = Array[ExtResource("8_56u81")]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
-
-[sub_resource type="Resource" id="Resource_8l4tj"]
-script = ExtResource("12_hpiuf")
-guid = "Player_New"
-name = "New Player"
-index = 0
-position = Vector3(0, 0, 0)
-direction = Vector3(0, 0, -1)
-cell_name = ""
-inventory = SubResource("Resource_w5a5l")
-equip = SubResource("Resource_25s1f")
-health = 100
-health_max = 100
-health_regen = 0
-stamina = 100
-stamina_max = 100
-stamina_regen = 0
-mana = 100
-mana_max = 100
-mana_regen = 0
-attack = 1
-defense = 1
-speed = 1
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_higy5")
@@ -84,33 +52,29 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="Item" type="Node3D" parent="WorldCell0"]
 
-[node name="Light" type="Node3D" parent="WorldCell0"]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="WorldCell0/Light"]
-environment = SubResource("Environment_de777")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldCell0/Light"]
-transform = Transform3D(0.707107, -0.298836, 0.640857, 0, 0.906308, 0.422618, -0.707107, -0.298836, 0.640857, 50, 50, 50)
-
 [node name="Misc" type="Node3D" parent="WorldCell0"]
 
-[node name="Chest0" parent="WorldCell0/Misc" instance=ExtResource("5_lu22n")]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="WorldCell0/Misc"]
+environment = SubResource("Environment_de777")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldCell0/Misc"]
+transform = Transform3D(0.707107, -0.298836, 0.640857, 0, 0.906308, 0.422618, -0.707107, -0.298836, 0.640857, 50, 50, 50)
+
+[node name="Object" type="Node3D" parent="WorldCell0"]
+
+[node name="Chest0" parent="WorldCell0/Object" instance=ExtResource("5_lu22n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
 inventory_data = SubResource("Resource_3v5xi")
 
-[node name="Door0" parent="WorldCell0/Misc" node_paths=PackedStringArray("destination") instance=ExtResource("9_v1euk")]
+[node name="Door0" parent="WorldCell0/Object" node_paths=PackedStringArray("destination") instance=ExtResource("9_v1euk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.77927, 0, -2.99888)
-destination = NodePath("../../../WorldCell1/Misc/Door0")
+destination = NodePath("../../../WorldCell1/Object/Door0")
 
 [node name="Player" type="Node3D" parent="WorldCell0"]
-
-[node name="Player0" parent="WorldCell0/Player" instance=ExtResource("10_yeixn")]
-data = SubResource("Resource_8l4tj")
 
 [node name="Tile" type="Node3D" parent="WorldCell0"]
 
 [node name="WorldCell1" type="GridMap" parent="."]
-visible = false
 mesh_library = ExtResource("3_ogybk")
 physics_material = SubResource("PhysicsMaterial_x5deb")
 cell_size = Vector3(1, 1, 1)
@@ -126,19 +90,19 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="Item" type="Node3D" parent="WorldCell1"]
 
-[node name="Light" type="Node3D" parent="WorldCell1"]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="WorldCell1/Light"]
-environment = SubResource("Environment_de777")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldCell1/Light"]
-transform = Transform3D(0.707107, -0.298836, 0.640857, 0, 0.906308, 0.422618, -0.707107, -0.298836, 0.640857, 50, 50, 50)
-
 [node name="Misc" type="Node3D" parent="WorldCell1"]
 
-[node name="Door0" parent="WorldCell1/Misc" node_paths=PackedStringArray("destination") instance=ExtResource("9_v1euk")]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="WorldCell1/Misc"]
+environment = SubResource("Environment_de777")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldCell1/Misc"]
+transform = Transform3D(0.707107, -0.298836, 0.640857, 0, 0.906308, 0.422618, -0.707107, -0.298836, 0.640857, 50, 50, 50)
+
+[node name="Object" type="Node3D" parent="WorldCell1"]
+
+[node name="Door0" parent="WorldCell1/Object" node_paths=PackedStringArray("destination") instance=ExtResource("9_v1euk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.50834, -2.38419e-07, -2.04362)
-destination = NodePath("../../../WorldCell0/Misc/Door0")
+destination = NodePath("../../../WorldCell0/Object/Door0")
 
 [node name="Player" type="Node3D" parent="WorldCell1"]
 

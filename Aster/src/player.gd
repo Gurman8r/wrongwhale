@@ -3,15 +3,10 @@ class_name Player
 extends CharacterBody3D
 
 enum { LEFT, RIGHT, FORWARD, BACKWARD }
-
-enum {
-	PRIMARY_BEGIN, PRIMARY, PRIMARY_END,
-	SECONDARY_BEGIN, SECONDARY, SECONDARY_END,
-}
+enum { PRIMARY_BEGIN, PRIMARY, PRIMARY_END, SECONDARY_BEGIN, SECONDARY, SECONDARY_END, }
 
 signal move(delta: float, direction: Vector3)
 signal move_collide(body: KinematicCollision3D)
-
 signal toggle_debug()
 signal toggle_inventory()
 signal hotbar_prev()
@@ -39,7 +34,7 @@ signal action(mode: int)
 @onready var state_machine      : StateMachine     = $StateMachine
 @onready var target_marker      : Node3D           = $TargetMarker
 
-var cell: WorldCell : get = get_cell, set = set_cell
+var cell: WorldCell : get = get_cell
 
 var item_index: int = 0 : set = set_item_index
 
@@ -47,14 +42,7 @@ var move_input: Array[bool] = [0, 0, 0, 0]
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func _init() -> void:
-	assert(not Ref.player)
-	Ref.player = self
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
 func _ready() -> void:
-	data.cell_name = get_cell().name
 	action.connect(func(mode: int): data.inventory.use_stack(item_index, mode, self))
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -103,6 +91,8 @@ func _unhandled_input(_event) -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _process(delta: float) -> void:
+	if not data: return
+	
 	# update movement
 	var move_axes: Vector3 = Vector3.ZERO
 	if move_input[LEFT]: move_axes -= camera_pivot_y.transform.basis.x
@@ -131,26 +121,22 @@ func _process(delta: float) -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func load_from_memory(world_data: WorldData) -> Player:
-	if not world_data.players.has(data.guid): return self
-	data = world_data.players[data.guid].duplicate()
-	set_cell(Ref.world.find_cell(data.cell_name))
+func load_data(world_data: WorldData) -> Player:
+	print("player reading: %s" % [name])
+	if not world_data.players.has(name): return self
+	data = world_data.players[name].duplicate()
 	return self
 
-func save_to_memory(world_data: WorldData) -> Player:
-	world_data.players[data.guid] = data.duplicate()
+func save_data(world_data: WorldData) -> Player:
+	print("player writing: %s" % [name])
+	data.cell_name = get_cell().name
+	world_data.players[name] = data.duplicate()
 	return self
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func get_cell() -> WorldCell:
 	return get_parent().get_parent() as WorldCell
-
-func set_cell(world_cell: WorldCell) -> Player:
-	Ref.world.transfer(self, world_cell, data.position, false)
-	return self
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func get_drop_position() -> Vector3:
 	var pos: Vector3 = global_transform.origin + data.direction * drop_range
