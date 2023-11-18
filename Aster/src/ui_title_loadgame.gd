@@ -1,19 +1,19 @@
 # ui_title_loadgame.gd
 class_name UI_TitleLoadGame
-extends Control
+extends PanelContainer
 
 const world_preview_prefab = preload("res://assets/scenes/world_preview.tscn")
 
+@onready var back_button = $MarginContainer/VBoxContainer/BackButton
 @onready var preview_root = $MarginContainer/VBoxContainer/MarginContainer/VBoxContainer
 @onready var empty_label = $MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/EmptyLabel
 
 var path_list: Array[String]
 var previews: Array[WorldPreview]
 
-func _ready() -> void:
-	visibility_changed.connect(func():
-		if not visible: clear()
-		else: refresh())
+func _ready():
+	back_button.pressed.connect(func(): Ref.ui.title.current_menu = Ref.ui.title.main)
+	visibility_changed.connect(func(): if not visible: clear() else: refresh())
 
 func clear() -> void:
 	for preview in previews: preview.queue_free()

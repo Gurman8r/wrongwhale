@@ -1,18 +1,16 @@
 # ui_title_main.gd
 class_name UI_TitleMain
-extends Control
+extends PanelContainer
 
-func _on_button_loadgame_pressed() -> void:
-	Ref.ui.title.current_menu = Ref.ui.title.loadgame
+@onready var load_button = $MarginContainer/VBoxContainer/LoadButton
+@onready var new_button = $MarginContainer/VBoxContainer/NewButton
+@onready var options_button = $MarginContainer/VBoxContainer/OptionsButton
+@onready var mods_button = $MarginContainer/VBoxContainer/ModsButton
+@onready var quit_button = $MarginContainer/VBoxContainer/QuitButton
 
-func _on_button_newgame_pressed() -> void:
-	Ref.ui.title.current_menu = Ref.ui.title.newgame
-
-func _on_button_options_pressed() -> void:
-	Ref.ui.title.current_menu = Ref.ui.title.options
-
-func _on_button_mods_pressed() -> void:
-	Ref.ui.title.current_menu = Ref.ui.title.mods
-
-func _on_button_quit_pressed() -> void:
-	Ref.main.quit_to_desktop()
+func _ready() -> void:
+	load_button.pressed.connect(func(): Ref.ui.title.current_menu = Ref.ui.title.loadgame)
+	new_button.pressed.connect(func(): Ref.ui.title.current_menu = Ref.ui.title.newgame)
+	options_button.pressed.connect(func(): Ref.ui.title.current_menu = Ref.ui.title.options)
+	mods_button.pressed.connect(func(): Ref.ui.title.current_menu = Ref.ui.title.mods)
+	quit_button.pressed.connect(func(): Ref.main.quit_to_desktop())

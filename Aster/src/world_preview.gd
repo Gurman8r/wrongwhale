@@ -4,11 +4,10 @@ extends PanelContainer
 
 @onready var name_panel = $MarginContainer/HBoxContainer/NamePanel
 @onready var name_label = $MarginContainer/HBoxContainer/NamePanel/MarginContainer/NameLabel
-@onready var name_edit: LineEdit = $MarginContainer/HBoxContainer/NamePanel/MarginContainer/NameEdit
-@onready var buttons_panel = $MarginContainer/HBoxContainer/ButtonsPanel
-@onready var play_button = $MarginContainer/HBoxContainer/ButtonsPanel/MarginContainer/HBoxContainer/PlayButton
-@onready var delete_button = $MarginContainer/HBoxContainer/ButtonsPanel/MarginContainer/HBoxContainer/DeleteButton
-@onready var edit_button = $MarginContainer/HBoxContainer/ButtonsPanel/MarginContainer/HBoxContainer/EditButton
+@onready var name_edit = $MarginContainer/HBoxContainer/NamePanel/MarginContainer/NameEdit
+@onready var play_button = $MarginContainer/HBoxContainer/PlayButton
+@onready var delete_button = $MarginContainer/HBoxContainer/DeleteButton
+@onready var edit_button = $MarginContainer/HBoxContainer/EditButton
 @onready var delete_confirm_panel = $MarginContainer/HBoxContainer/DeleteConfirmPanel
 @onready var delete_confirm_label = $MarginContainer/HBoxContainer/DeleteConfirmPanel/MarginContainer/VBoxContainer/DeleteConfirmLabel
 @onready var delete_accept_button = $MarginContainer/HBoxContainer/DeleteConfirmPanel/MarginContainer/VBoxContainer/HBoxContainer/DeleteAcceptButton
@@ -22,7 +21,9 @@ func set_world_data(world_data: WorldData):
 	
 	delete_button.pressed.connect(func():
 		name_label.hide()
-		buttons_panel.hide()
+		play_button.hide()
+		delete_button.hide()
+		edit_button.hide()
 		delete_confirm_label.text = "Are you sure you want to delete \'%s\'?" % [world_data.name]
 		delete_confirm_panel.show())
 	
@@ -58,5 +59,7 @@ func set_world_data(world_data: WorldData):
 	
 	delete_cancel_button.pressed.connect(func():
 		name_label.show()
-		buttons_panel.show()
+		play_button.show()
+		delete_button.show()
+		edit_button.show()
 		delete_confirm_panel.hide())

@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://x46qnwrp88hj" path="res://assets/icons/icon_edit.png" id="4_2l57k"]
 
 [node name="WorldPreview" type="PanelContainer"]
+size_flags_horizontal = 4
 script = ExtResource("1_8u25h")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -44,30 +45,16 @@ alignment = 1
 max_length = 20
 expand_to_text_length = true
 
-[node name="ButtonsPanel" type="PanelContainer" parent="MarginContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/ButtonsPanel"]
-layout_mode = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/ButtonsPanel/MarginContainer"]
-layout_mode = 2
-
-[node name="PlayButton" type="Button" parent="MarginContainer/HBoxContainer/ButtonsPanel/MarginContainer/HBoxContainer"]
+[node name="PlayButton" type="Button" parent="MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
-size_flags_horizontal = 8
 icon = ExtResource("2_gca2d")
 
-[node name="DeleteButton" type="Button" parent="MarginContainer/HBoxContainer/ButtonsPanel/MarginContainer/HBoxContainer"]
+[node name="DeleteButton" type="Button" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 icon = ExtResource("3_inye2")
 
-[node name="EditButton" type="Button" parent="MarginContainer/HBoxContainer/ButtonsPanel/MarginContainer/HBoxContainer"]
+[node name="EditButton" type="Button" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 icon = ExtResource("4_2l57k")
 
