@@ -6,25 +6,29 @@ extends PanelContainer
 @onready var back_button = $MarginContainer/VBoxContainer/BackButton
 
 var farm_name: String
+@onready var farm_name_panel = $MarginContainer/VBoxContainer/FarmNamePanel
 @onready var farm_name_label = $MarginContainer/VBoxContainer/FarmNamePanel/MarginContainer/HBoxContainer/FarmNameLabel
 @onready var farm_name_edit = $MarginContainer/VBoxContainer/FarmNamePanel/MarginContainer/HBoxContainer/FarmNameEdit
 
 var player_name: String
-var player_gender: int
+@onready var player_name_panel = $MarginContainer/VBoxContainer/PlayerNamePanel
 @onready var player_name_edit = $MarginContainer/VBoxContainer/PlayerNamePanel/MarginContainer/HBoxContainer/PlayerNameEdit
 @onready var player_name_label = $MarginContainer/VBoxContainer/PlayerNamePanel/MarginContainer/HBoxContainer/PlayerNameLabel
+
+var player_gender: int
+@onready var player_gender_panel = $MarginContainer/VBoxContainer/PlayerGenderPanel
 @onready var player_gender_button_0 = $MarginContainer/VBoxContainer/PlayerGenderPanel/MarginContainer/HBoxContainer/PlayerGenderButton0
 @onready var player_gender_button_1 = $MarginContainer/VBoxContainer/PlayerGenderPanel/MarginContainer/HBoxContainer/PlayerGenderButton1
 @onready var player_gender_button_2 = $MarginContainer/VBoxContainer/PlayerGenderPanel/MarginContainer/HBoxContainer/PlayerGenderButton2
 @onready var player_pronoun_label = $MarginContainer/VBoxContainer/PlayerGenderPanel/MarginContainer/HBoxContainer/PlayerPronounLabel
 
-func _reset():
-	farm_name = ""
-	player_name = ""
-	player_gender = 1
-	farm_name_label.text = "\"Farm\""
-	player_name_label.text = "\"Farmer\""
-	player_pronoun_label.text = "She/Her"
+func _input(event: InputEvent):
+	if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1:
+		var evLocal = make_input_local(event)
+		if !Rect2(player_name_edit.global_position, player_name_edit.size).has_point(evLocal.position) \
+		or !Rect2(farm_name_edit.global_position, farm_name_edit.size).has_point(evLocal.position):
+			farm_name_edit.release_focus()
+			player_name_edit.release_focus()
 
 func _ready():
 	_reset()
@@ -35,15 +39,15 @@ func _ready():
 	farm_name_edit.text_changed.connect(func(new_text: String):
 		if farm_name == new_text: return
 		farm_name = new_text
-		farm_name_label.text = "\"%s Farm\"" % [farm_name])
-	farm_name_edit.text_submitted.connect(func(new_text: String):
+		farm_name_label.text = "%s Farm" % [farm_name])
+	farm_name_edit.text_submitted.connect(func(_new_text: String):
 		farm_name_edit.release_focus())
 	
 	player_name_edit.text_changed.connect(func(new_text: String):
 		if player_name == new_text: return
 		player_name = new_text
-		player_name_label.text = "\"Farmer %s\"" % [player_name])
-	player_name_edit.text_submitted.connect(func(new_text: String):
+		player_name_label.text = "Farmer %s" % [player_name])
+	player_name_edit.text_submitted.connect(func(_new_text: String):
 		player_name_edit.release_focus())
 	
 	player_gender_button_0.pressed.connect(func():
@@ -58,6 +62,14 @@ func _ready():
 		player_gender = 2
 		player_pronoun_label.text = "They/Them"
 		player_gender_button_2.release_focus())
+
+func _reset():
+	farm_name = ""
+	player_name = ""
+	player_gender = 1
+	farm_name_label.text = "Farm"
+	player_name_label.text = "Farmer"
+	player_pronoun_label.text = "She/Her"
 
 func _on_button_play_pressed():
 	if farm_name == "" or player_name == "": return

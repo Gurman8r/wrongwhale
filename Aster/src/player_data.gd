@@ -23,3 +23,6 @@ extends Resource
 @export var attack: int = 1
 @export var defense: int = 1
 @export var speed: int = 1
+
+@export var gender: int = 1
+

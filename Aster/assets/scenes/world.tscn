@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cagnofcp3jxwf"]
+[gd_scene load_steps=16 format=3 uid="uid://cagnofcp3jxwf"]
 
 [ext_resource type="Script" path="res://src/world.gd" id="1_higy5"]
 [ext_resource type="Script" path="res://src/world_data.gd" id="2_7rtdm"]
@@ -26,9 +26,13 @@ script = ExtResource("8_56u81")
 item_data = ExtResource("7_mqlmy")
 quantity = 15
 
+[sub_resource type="Resource" id="Resource_mso6h"]
+script = ExtResource("8_56u81")
+quantity = 1
+
 [sub_resource type="Resource" id="Resource_3v5xi"]
 script = ExtResource("6_cpi8b")
-stacks = Array[ExtResource("8_56u81")]([SubResource("Resource_se2iu"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+stacks = Array[ExtResource("8_56u81")]([SubResource("Resource_se2iu"), SubResource("Resource_mso6h"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 
 [sub_resource type="Environment" id="Environment_de777"]
 

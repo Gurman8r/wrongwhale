@@ -30,7 +30,7 @@ theme_override_constants/margin_bottom = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/FarmNamePanel/MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 0
 theme_override_constants/separation = 4
 
 [node name="FarmNameEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/FarmNamePanel/MarginContainer/HBoxContainer"]
@@ -38,14 +38,14 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 placeholder_text = "Farm Name"
 alignment = 1
-max_length = 15
+max_length = 12
 expand_to_text_length = true
 clear_button_enabled = true
 
 [node name="FarmNameLabel" type="Label" parent="MarginContainer/VBoxContainer/FarmNamePanel/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
-text = "\"Farm\""
+text = "Farm"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -61,7 +61,7 @@ theme_override_constants/margin_bottom = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/PlayerNamePanel/MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 0
 theme_override_constants/separation = 4
 
 [node name="PlayerNameEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/PlayerNamePanel/MarginContainer/HBoxContainer"]
@@ -69,14 +69,14 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 placeholder_text = "Player Name"
 alignment = 1
-max_length = 20
+max_length = 12
 expand_to_text_length = true
 clear_button_enabled = true
 
 [node name="PlayerNameLabel" type="Label" parent="MarginContainer/VBoxContainer/PlayerNamePanel/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
-text = "\"Farmer\""
+text = "Farmer"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -92,7 +92,7 @@ theme_override_constants/margin_bottom = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/PlayerGenderPanel/MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 0
 theme_override_constants/separation = 4
 
 [node name="PlayerGenderButton0" type="Button" parent="MarginContainer/VBoxContainer/PlayerGenderPanel/MarginContainer/HBoxContainer"]
@@ -114,7 +114,7 @@ icon = ExtResource("2_gdp88")
 icon_alignment = 1
 
 [node name="PlayerPronounLabel" type="Label" parent="MarginContainer/VBoxContainer/PlayerGenderPanel/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
 text = "She/Her"
 horizontal_alignment = 1
