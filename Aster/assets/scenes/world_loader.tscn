@@ -31,7 +31,7 @@ size_flags_vertical = 4
 
 [node name="EmptyLabel" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "No worlds found."
+text = "NO DATA"
 
 [node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
