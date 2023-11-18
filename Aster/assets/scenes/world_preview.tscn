@@ -45,7 +45,7 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_6adc1")
 alignment = 1
-max_length = 15
+max_length = 12
 clear_button_enabled = true
 
 [node name="PlayButton" type="Button" parent="MarginContainer/HBoxContainer"]

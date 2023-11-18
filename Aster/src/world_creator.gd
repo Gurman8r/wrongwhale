@@ -30,6 +30,16 @@ func _input(event: InputEvent):
 			farm_name_edit.release_focus()
 			player_name_edit.release_focus()
 
+func _reset():
+	farm_name = ""
+	player_name = ""
+	player_gender = 1
+	farm_name_label.text = "____________ Farm"
+	farm_name_edit.text = ""
+	player_name_label.text = "Farmer ____________"
+	player_name_edit.text = ""
+	player_pronoun_label.text = "She/Her"
+
 func _ready():
 	_reset()
 	visibility_changed.connect(func(): if visible: _reset())
@@ -62,16 +72,6 @@ func _ready():
 		player_gender = 2
 		player_pronoun_label.text = "They/Them"
 		player_gender_button_2.release_focus())
-
-func _reset():
-	farm_name = ""
-	player_name = ""
-	player_gender = 1
-	farm_name_label.text = "____________ Farm"
-	farm_name_edit.text = ""
-	player_name_label.text = "Farmer ____________"
-	player_name_edit.text = ""
-	player_pronoun_label.text = "She/Her"
 
 func _on_button_play_pressed():
 	if farm_name == "" or player_name == "": return
