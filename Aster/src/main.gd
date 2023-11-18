@@ -20,7 +20,8 @@ func _ready() -> void:
 	
 	# LOADED
 	world.loading_finished.connect(func():
-		ui.set_player_data(Ref.player.data)
+		ui.game.set_player_data(Ref.player.data)
+		ui.hud.set_player_data(Ref.player.data)
 		Ref.player.toggle_debug.connect(ui.debug.toggle)
 		Ref.player.toggle_inventory.connect(ui.game.toggle_inventory)
 		Ref.player.hotbar_next.connect(ui.hud.hotbar.next)
@@ -31,7 +32,8 @@ func _ready() -> void:
 	
 	# UNLOADED
 	world.unloading_started.connect(func():
-		ui.clear_player_data()
+		ui.game.clear_player_data()
+		ui.hud.clear_player_data()
 		Ref.player.toggle_debug.disconnect(ui.debug.toggle)
 		Ref.player.toggle_inventory.disconnect(ui.game.toggle_inventory)
 		Ref.player.hotbar_next.disconnect(ui.hud.hotbar.next)
@@ -45,7 +47,7 @@ func _ready() -> void:
 func _unhandled_input(_event) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		if playing: save_world_to_file_and_quit_to_title()
-		elif ui.title.current_menu == ui.title.main: quit_to_desktop()
+		elif ui.title.menu == ui.title.main_menu: quit_to_desktop()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -54,7 +56,7 @@ func load_world_from_memory(world_data: WorldData) -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	ui.transition.play("fadeout")
 	await ui.transition.finished
-	ui.title.current_menu = null
+	ui.title.menu = null
 	# load
 	world.load_from_memory(world_data)
 	# post-load
@@ -96,7 +98,7 @@ func save_world_to_file_and_quit_to_title(path_stem: String = "") -> void:
 	# unload
 	world.unload()
 	# post-unload
-	ui.title.current_menu = ui.title.main
+	ui.title.menu = ui.title.main
 	ui.transition.play("fadein")
 	await ui.transition.finished
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -120,7 +122,7 @@ func quit_to_title() -> void:
 	# unload
 	world.unload()
 	# post-unload
-	ui.title.current_menu = ui.title.main
+	ui.title.menu = ui.title.main
 	ui.transition.play("fadein")
 	await ui.transition.finished
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

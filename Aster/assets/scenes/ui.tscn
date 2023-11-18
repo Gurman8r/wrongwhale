@@ -7,14 +7,32 @@
 [ext_resource type="PackedScene" uid="uid://dv6li4wxrohgf" path="res://assets/scenes/inventory.tscn" id="5_q445p"]
 [ext_resource type="PackedScene" uid="uid://ddxw2b6u1pxow" path="res://assets/scenes/item_slot.tscn" id="6_5hooo"]
 [ext_resource type="Script" path="res://src/ui_title.gd" id="7_1ios3"]
-[ext_resource type="Script" path="res://src/ui_title_main.gd" id="8_u8iyv"]
-[ext_resource type="Script" path="res://src/ui_title_loadgame.gd" id="9_rxilb"]
-[ext_resource type="Script" path="res://src/ui_title_newgame.gd" id="10_rbkte"]
-[ext_resource type="Script" path="res://src/ui_title_options.gd" id="11_4vdrh"]
+[ext_resource type="Script" path="res://src/world_loader.gd" id="9_8qnxf"]
+[ext_resource type="Script" path="res://src/world_creator.gd" id="10_ojp73"]
 [ext_resource type="Texture2D" uid="uid://x46qnwrp88hj" path="res://assets/icons/icon_edit.png" id="11_5omgl"]
-[ext_resource type="Script" path="res://src/ui_title_mods.gd" id="12_lxn40"]
 [ext_resource type="Script" path="res://src/ui_transition.gd" id="13_6da11"]
+[ext_resource type="Script" path="res://src/opt_manager.gd" id="13_40axk"]
+[ext_resource type="Script" path="res://src/mod_manager.gd" id="13_dbhdo"]
 [ext_resource type="Script" path="res://src/ui_debug.gd" id="14_laiv1"]
+
+[sub_resource type="GDScript" id="GDScript_ikl0f"]
+script/source = "# ui_title_mainmenu.gd
+class_name UI_Title_MainMenu
+extends PanelContainer
+
+@onready var load_button = $MarginContainer/VBoxContainer/LoadButton
+@onready var new_button = $MarginContainer/VBoxContainer/NewButton
+@onready var options_button = $MarginContainer/VBoxContainer/OptionsButton
+@onready var mods_button = $MarginContainer/VBoxContainer/ModsButton
+@onready var quit_button = $MarginContainer/VBoxContainer/QuitButton
+
+func _ready() -> void:
+	load_button.pressed.connect(func(): Ref.ui.title.menu = Ref.ui.title.world_loader)
+	new_button.pressed.connect(func(): Ref.ui.title.menu = Ref.ui.title.world_creator)
+	options_button.pressed.connect(func(): Ref.ui.title.menu = Ref.ui.title.opt_manager)
+	mods_button.pressed.connect(func(): Ref.ui.title.menu = Ref.ui.title.mod_manager)
+	quit_button.pressed.connect(func(): Ref.main.quit_to_desktop())
+"
 
 [sub_resource type="Animation" id="Animation_ubt67"]
 resource_name = "RESET"
@@ -148,7 +166,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Main" type="PanelContainer" parent="Title"]
 layout_mode = 2
-script = ExtResource("8_u8iyv")
+script = SubResource("GDScript_ikl0f")
 
 [node name="MarginContainer" type="MarginContainer" parent="Title/Main"]
 layout_mode = 2
@@ -192,184 +210,186 @@ layout_mode = 2
 size_flags_vertical = 5
 text = "Quit"
 
-[node name="LoadGame" type="PanelContainer" parent="Title"]
+[node name="WorldLoader" type="PanelContainer" parent="Title"]
 visible = false
 layout_mode = 2
-script = ExtResource("9_rxilb")
+script = ExtResource("9_8qnxf")
 
-[node name="MarginContainer" type="MarginContainer" parent="Title/LoadGame"]
+[node name="MarginContainer" type="MarginContainer" parent="Title/WorldLoader"]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Title/LoadGame/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Title/WorldLoader/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="Title/LoadGame/MarginContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Title/WorldLoader/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Title/LoadGame/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Title/WorldLoader/MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="EmptyLabel" type="Label" parent="Title/LoadGame/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="EmptyLabel" type="Label" parent="Title/WorldLoader/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "No worlds found."
 
-[node name="BackButton" type="Button" parent="Title/LoadGame/MarginContainer/VBoxContainer"]
+[node name="BackButton" type="Button" parent="Title/WorldLoader/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 5
 text = "Back"
 
-[node name="NewGame" type="PanelContainer" parent="Title"]
+[node name="WorldCreator" type="PanelContainer" parent="Title"]
 visible = false
 layout_mode = 2
-script = ExtResource("10_rbkte")
+script = ExtResource("10_ojp73")
 
-[node name="MarginContainer" type="MarginContainer" parent="Title/NewGame"]
+[node name="MarginContainer" type="MarginContainer" parent="Title/WorldCreator"]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Title/NewGame/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Title/WorldCreator/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="WorldNamePanel" type="PanelContainer" parent="Title/NewGame/MarginContainer/VBoxContainer"]
+[node name="FarmNamePanel" type="PanelContainer" parent="Title/WorldCreator/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Title/NewGame/MarginContainer/VBoxContainer/WorldNamePanel"]
+[node name="MarginContainer" type="MarginContainer" parent="Title/WorldCreator/MarginContainer/VBoxContainer/FarmNamePanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Title/NewGame/MarginContainer/VBoxContainer/WorldNamePanel/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Title/WorldCreator/MarginContainer/VBoxContainer/FarmNamePanel/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="WorldNameLabel" type="Label" parent="Title/NewGame/MarginContainer/VBoxContainer/WorldNamePanel/MarginContainer/HBoxContainer"]
+[node name="FarmNameLabel" type="Label" parent="Title/WorldCreator/MarginContainer/VBoxContainer/FarmNamePanel/MarginContainer/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "New World"
 horizontal_alignment = 1
 
-[node name="WorldNameEdit" type="LineEdit" parent="Title/NewGame/MarginContainer/VBoxContainer/WorldNamePanel/MarginContainer/HBoxContainer"]
-visible = false
+[node name="FarmNameEdit" type="LineEdit" parent="Title/WorldCreator/MarginContainer/VBoxContainer/FarmNamePanel/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-placeholder_text = "New World"
+placeholder_text = "Farm Name"
 alignment = 1
 max_length = 20
 expand_to_text_length = true
 
-[node name="WorldNameEditButton" type="Button" parent="Title/NewGame/MarginContainer/VBoxContainer/WorldNamePanel/MarginContainer/HBoxContainer"]
+[node name="FarmNameEditButton" type="Button" parent="Title/WorldCreator/MarginContainer/VBoxContainer/FarmNamePanel/MarginContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 icon = ExtResource("11_5omgl")
 
-[node name="PlayerNamePanel" type="PanelContainer" parent="Title/NewGame/MarginContainer/VBoxContainer"]
+[node name="PlayerNamePanel" type="PanelContainer" parent="Title/WorldCreator/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Title/NewGame/MarginContainer/VBoxContainer/PlayerNamePanel"]
+[node name="MarginContainer" type="MarginContainer" parent="Title/WorldCreator/MarginContainer/VBoxContainer/PlayerNamePanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Title/NewGame/MarginContainer/VBoxContainer/PlayerNamePanel/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Title/WorldCreator/MarginContainer/VBoxContainer/PlayerNamePanel/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="PlayerNameLabel" type="Label" parent="Title/NewGame/MarginContainer/VBoxContainer/PlayerNamePanel/MarginContainer/HBoxContainer"]
+[node name="PlayerNameLabel" type="Label" parent="Title/WorldCreator/MarginContainer/VBoxContainer/PlayerNamePanel/MarginContainer/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "New Player"
 horizontal_alignment = 1
 
-[node name="PlayerNameEdit" type="LineEdit" parent="Title/NewGame/MarginContainer/VBoxContainer/PlayerNamePanel/MarginContainer/HBoxContainer"]
-visible = false
+[node name="PlayerNameEdit" type="LineEdit" parent="Title/WorldCreator/MarginContainer/VBoxContainer/PlayerNamePanel/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-placeholder_text = "New Player"
+placeholder_text = "Player Name"
 alignment = 1
 max_length = 20
 expand_to_text_length = true
 
-[node name="PlayerNameEditButton" type="Button" parent="Title/NewGame/MarginContainer/VBoxContainer/PlayerNamePanel/MarginContainer/HBoxContainer"]
+[node name="PlayerNameEditButton" type="Button" parent="Title/WorldCreator/MarginContainer/VBoxContainer/PlayerNamePanel/MarginContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 icon = ExtResource("11_5omgl")
 
-[node name="PlayButton" type="Button" parent="Title/NewGame/MarginContainer/VBoxContainer"]
+[node name="PlayButton" type="Button" parent="Title/WorldCreator/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 5
 text = "Play"
 
-[node name="BackButton" type="Button" parent="Title/NewGame/MarginContainer/VBoxContainer"]
+[node name="BackButton" type="Button" parent="Title/WorldCreator/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 5
 text = "Back"
 
-[node name="Options" type="PanelContainer" parent="Title"]
+[node name="OptManager" type="PanelContainer" parent="Title"]
 visible = false
 layout_mode = 2
-script = ExtResource("11_4vdrh")
+script = ExtResource("13_40axk")
 
-[node name="MarginContainer" type="MarginContainer" parent="Title/Options"]
+[node name="MarginContainer" type="MarginContainer" parent="Title/OptManager"]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Title/Options/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Title/OptManager/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="BackButton" type="Button" parent="Title/Options/MarginContainer/VBoxContainer"]
+[node name="BackButton" type="Button" parent="Title/OptManager/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_vertical = 5
 text = "Back"
 
-[node name="Mods" type="PanelContainer" parent="Title"]
+[node name="ModManager" type="PanelContainer" parent="Title"]
 visible = false
 layout_mode = 2
-script = ExtResource("12_lxn40")
+script = ExtResource("13_dbhdo")
 
-[node name="MarginContainer" type="MarginContainer" parent="Title/Mods"]
+[node name="MarginContainer" type="MarginContainer" parent="Title/ModManager"]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Title/Mods/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Title/ModManager/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="BackButton" type="Button" parent="Title/Mods/MarginContainer/VBoxContainer"]
+[node name="BackButton" type="Button" parent="Title/ModManager/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_vertical = 5
