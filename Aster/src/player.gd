@@ -42,8 +42,18 @@ var move_input: Array[bool] = [0, 0, 0, 0]
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+func _init() -> void:
+	if not Ref.player: Ref.player = self
+	Ref.world.player_created.emit(self)
+
 func _ready() -> void:
 	action.connect(func(mode: int): data.inventory.use_stack(item_index, mode, self))
+
+func _notification(what):
+	match what:
+		[NOTIFICATION_PREDELETE]:
+			Ref.world.player_destroyed.emit(self)
+			if Ref.player == self: Ref.player = null
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 	
@@ -66,8 +76,6 @@ func _input(event) -> void:
 	if Input.is_action_just_pressed("secondary"): action.emit(SECONDARY_BEGIN)
 	elif Input.is_action_pressed("secondary"): action.emit(SECONDARY)
 	elif Input.is_action_just_released("secondary"): action.emit(SECONDARY_END)
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _unhandled_input(_event) -> void:
 	# debug

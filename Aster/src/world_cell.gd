@@ -55,7 +55,6 @@ func disable() -> void:
 	set_enabled(false)
 
 func set_enabled(value: bool) -> void:
-	visible = value
 	_set_enabled(self, value)
 
 func _set_enabled(node: Node, value: bool) -> void:

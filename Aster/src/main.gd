@@ -43,6 +43,12 @@ func _ready() -> void:
 		for node in get_tree().get_nodes_in_group("external_inventory"):
 			node.toggle_inventory.disconnect(ui.game.toggle_inventory)
 		pass)
+	
+	world.player_created.connect(func(player: Player):
+		print("player created: %s" % [player.name]))
+	
+	world.player_destroyed.connect(func(player: Player):
+		print("player destroyed: %s" % [player.name]))
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -55,7 +61,7 @@ func _unhandled_input(_event) -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func play(world_data: WorldData) -> void:
+func load_game(world_data: WorldData) -> void:
 	# pre-load
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	ui.transition.play("fadeout")
@@ -70,8 +76,17 @@ func play(world_data: WorldData) -> void:
 	playing = true
 	get_tree().paused = false
 
-func play_file(path_stem: String) -> void:
-	play(WorldData.read(path_stem))
+func load_file(path_stem: String) -> void:
+	load_game(WorldData.read(path_stem))
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func quit() -> void:
+	get_tree().paused = true
+	ui.transition.play("fadeout")
+	await ui.transition.finished
+	quitting.emit()
+	get_tree().quit()
 
 func save_to_file_and_quit(path_stem: String) -> void:
 	# pre-unload
@@ -87,6 +102,23 @@ func save_to_file_and_quit(path_stem: String) -> void:
 	# post-unload
 	quitting.emit()
 	get_tree().quit()
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func quit_to_title() -> void:
+	# pre-unload
+	get_tree().paused = true
+	playing = false
+	ui.transition.play("fadeout")
+	await ui.transition.finished
+	ui.hud.hide()
+	# unload
+	world.unload()
+	# post-unload
+	ui.title.current = ui.title.main
+	ui.transition.play("fadein")
+	await ui.transition.finished
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
 func save_to_file_and_quit_to_title(path_stem: String) -> void:
 	# pre-unload
@@ -97,28 +129,6 @@ func save_to_file_and_quit_to_title(path_stem: String) -> void:
 	ui.hud.hide()
 	# save
 	world.save_file(path_stem)
-	# unload
-	world.unload()
-	# post-unload
-	ui.title.current = ui.title.main
-	ui.transition.play("fadein")
-	await ui.transition.finished
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-
-func quit() -> void:
-	get_tree().paused = true
-	ui.transition.play("fadeout")
-	await ui.transition.finished
-	quitting.emit()
-	get_tree().quit()
-
-func quit_to_title() -> void:
-	# pre-unload
-	get_tree().paused = true
-	playing = false
-	ui.transition.play("fadeout")
-	await ui.transition.finished
-	ui.hud.hide()
 	# unload
 	world.unload()
 	# post-unload

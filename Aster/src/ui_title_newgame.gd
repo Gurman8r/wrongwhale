@@ -27,7 +27,7 @@ func _on_button_play_pressed():
 	world_data.players[player_data.guid] = player_data
 	
 	WorldData.write(world_data, world_data.guid)
-	Ref.main.play(world_data)
+	Ref.main.load_game(world_data)
 
 func _on_button_back_pressed():
 	Ref.ui.title.current = Ref.ui.title.main

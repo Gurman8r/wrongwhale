@@ -5,7 +5,7 @@ extends Control
 var paths: Array[String]
 
 func _on_button_play_pressed():
-	Ref.main.play_file("World_New")
+	Ref.main.load_file("World_New")
 
 func _on_button_back_pressed() -> void:
 	Ref.ui.title.current = Ref.ui.title.main

@@ -2,24 +2,27 @@
 class_name World
 extends Node3D
 
-signal loading(world_data: WorldData)
 signal loading_started()
+signal loading(world_data: WorldData)
 signal loading_finished()
 
-signal saving(world_data: WorldData)
 signal saving_started()
+signal saving(world_data: WorldData)
 signal saving_finished()
 
 signal unloading_started()
 signal unloading()
 signal unloading_finished()
 
+signal player_created(player: Player)
+signal player_destroyed(player: Player)
+
 const player_prefab = preload("res://assets/scenes/player.tscn")
 
 @export var data: WorldData
 
-var cell: WorldCell : set = change_cell
 var cells: Array[WorldCell] = []
+var current_cell: WorldCell : set = change_cell
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -40,11 +43,9 @@ func load_data(world_data: WorldData) -> void:
 	
 	for guid in data.players:
 		var player: Player = player_prefab.instantiate()
-		if not Ref.player: Ref.player = player
 		player.name = guid
 		change_cell(find_cell(data.players[guid].cell_name))
-		cell.add(player)
-		print("player created: %s" % [player.name])
+		current_cell.add(player)
 	
 	for node in get_tree().get_nodes_in_group("rw"):
 		loading.connect(node.load_data)
@@ -87,7 +88,6 @@ func unload() -> void:
 	for node in get_tree().get_nodes_in_group("player"):
 		assert(node is Player)
 		print("player destroyed: %s" % [node.name])
-		if Ref.player == node: Ref.player = null
 		node.queue_free()
 	
 	change_cell(null)
@@ -106,10 +106,10 @@ func find_cell(cell_name: String) -> WorldCell:
 	return null
 
 func change_cell(value: WorldCell) -> void:
-	if cell == value: return
-	if cell: cell.disable()
-	cell = value
-	if cell: cell.enable()
+	if current_cell == value: return
+	if current_cell: current_cell.disable()
+	current_cell = value
+	if current_cell: current_cell.enable()
 
 func transfer(node: Node, target_cell: WorldCell, target_pos: Vector3 = Vector3.ZERO, transition: bool = true) -> void:
 	assert(node)
@@ -119,12 +119,12 @@ func transfer(node: Node, target_cell: WorldCell, target_pos: Vector3 = Vector3.
 		Ref.ui.transition.play("fadeout")
 		await Ref.ui.transition.finished
 	
-	cell.remove(node)
+	current_cell.remove(node)
 	change_cell(target_cell)
-	cell.add(node, target_pos)
+	current_cell.add(node, target_pos)
 	
 	if "data" in node and "cell_name" in node.data:
-		node.data.cell_name = cell.name
+		node.data.cell_name = current_cell.name
 	
 	if transition:
 		Ref.ui.transition.play("fadein")
