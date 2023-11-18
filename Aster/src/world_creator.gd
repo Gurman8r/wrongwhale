@@ -77,12 +77,12 @@ func _on_button_play_pressed():
 	var world_data = WorldData.new()
 	world_data.guid = farm_name.replace(" ", "_")
 	world_data.name = farm_name
-	world_data.index = WorldData.list().size()
+	world_data.index = WorldData.count()
 	
 	var player_data = PlayerData.new()
 	player_data.guid = player_name.replace(" ", "_")
 	player_data.name = player_name
-	player_data.index = 0
+	player_data.index = world_data.players.size()
 	player_data.position = Vector3.ZERO
 	player_data.direction = Vector3.FORWARD
 	player_data.cell_name = "WorldCell0"

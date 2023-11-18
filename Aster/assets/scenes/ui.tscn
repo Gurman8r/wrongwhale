@@ -32,7 +32,7 @@ func _ready() -> void:
 	mods_button.pressed.connect(func(): Ref.ui.title.menu = Ref.ui.title.mod_manager)
 	quit_button.pressed.connect(func(): Ref.main.quit_to_desktop())
 	
-	load_button.visible = not WorldData.list().is_empty()
+	load_button.visible = 0 < WorldData.count()
 	visibility_changed.connect(func(): if visible: load_button.visible = not WorldData.list().is_empty())
 "
 

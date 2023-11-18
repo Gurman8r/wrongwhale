@@ -50,7 +50,6 @@ static func list() -> Array[String]:
 	var path_list: Array[String] = []
 	DirAccess.make_dir_absolute(SAVES_PATH)
 	var saves_dir = DirAccess.open(SAVES_PATH)
-	if not saves_dir: return path_list
 	saves_dir.list_dir_begin()
 	var path = saves_dir.get_next()
 	while  path != "":
@@ -62,5 +61,21 @@ static func list() -> Array[String]:
 				path_list.append(path)
 		path = saves_dir.get_next()
 	return path_list
+
+static func count() -> int:
+	var path_count: int = 0
+	DirAccess.make_dir_absolute(SAVES_PATH)
+	var saves_dir = DirAccess.open(SAVES_PATH)
+	saves_dir.list_dir_begin()
+	var path = saves_dir.get_next()
+	while  path != "":
+		if saves_dir.current_is_dir():
+			var world_dir = DirAccess.open(get_dir_path(path))
+			if not world_dir: continue
+			world_dir.list_dir_begin()
+			if world_dir.file_exists("world.tres"):
+				path_count += 1
+		path = saves_dir.get_next()
+	return path_count
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
