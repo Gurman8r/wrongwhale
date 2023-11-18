@@ -148,7 +148,6 @@ func _read(world_data: WorldData) -> Player:
 	return self
 
 func _write(world_data: WorldData) -> Player:
-	data.cell_name = get_cell().name
 	world_data.player_data[name] = data.duplicate()
 	return self
 

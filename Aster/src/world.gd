@@ -45,18 +45,21 @@ func load_from_memory(world_data: WorldData) -> void:
 	loading_started.emit()
 	data = world_data.duplicate()
 	
+	# WIP
 	for guid in data.object_data:
+		break
 		var object_data: Resource = data.object_data[guid]
+		assert("prefab" in object_data)
+		assert("cell_name" in object_data)
 		var object: Node = object_data.prefab.instantiate()
+		find_cell(object_data.cell_name).add(object)
 		object.name = guid
-		if "data" in object and "cell_name" in object_data:
-			find_cell(object_data.cell_name).add(object)
 	
 	# load players
 	for guid in data.player_data:
 		var player: Player = player_prefab.instantiate()
-		player.name = guid
 		find_cell(data.player_data[guid].cell_name).add(player)
+		player.name = guid
 	
 	for node in get_tree().get_nodes_in_group("read"):
 		assert("_read" in node)

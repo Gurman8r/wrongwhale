@@ -23,6 +23,14 @@ var world_data: WorldData = null
 var farm_data: FarmData = null
 var player_data: PlayerData = null
 
+func _input(event: InputEvent):
+	if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1:
+		var evLocal = make_input_local(event)
+		if !Rect2(player_name_edit.global_position, player_name_edit.size).has_point(evLocal.position) \
+		or !Rect2(farm_name_edit.global_position, farm_name_edit.size).has_point(evLocal.position):
+			farm_name_edit.release_focus()
+			player_name_edit.release_focus()
+
 func _reset():
 	world_data = WorldData.new()
 	farm_data = world_data.farm_data
@@ -74,14 +82,6 @@ func _ready():
 		player_data.pronoun1 = "Them"
 		player_pronoun_label.text = "%s/%s" % [player_data.pronoun0, player_data.pronoun1]
 		player_gender_button_2.release_focus())
-
-func _input(event: InputEvent):
-	if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1:
-		var evLocal = make_input_local(event)
-		if !Rect2(player_name_edit.global_position, player_name_edit.size).has_point(evLocal.position) \
-		or !Rect2(farm_name_edit.global_position, farm_name_edit.size).has_point(evLocal.position):
-			farm_name_edit.release_focus()
-			player_name_edit.release_focus()
 
 func _on_button_play_pressed():
 	assert(world_data)

@@ -17,29 +17,33 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="NamePanel" type="PanelContainer" parent="MarginContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/NamePanel"]
+[node name="FarmNamePanel" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/FarmNamePanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="NameLabel" type="Label" parent="MarginContainer/HBoxContainer/NamePanel/MarginContainer"]
+[node name="FarmNameLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/FarmNamePanel/MarginContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_fonts/font = ExtResource("2_6adc1")
-text = "Quality Farm"
+text = "Farm Name"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="NameEdit" type="LineEdit" parent="MarginContainer/HBoxContainer/NamePanel/MarginContainer"]
+[node name="FarmNameEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/FarmNamePanel/MarginContainer"]
 visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
@@ -48,54 +52,66 @@ alignment = 1
 max_length = 12
 clear_button_enabled = true
 
-[node name="PlayButton" type="Button" parent="MarginContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_6adc1")
 icon = ExtResource("2_gca2d")
+icon_alignment = 1
 
-[node name="DeleteButton" type="Button" parent="MarginContainer/HBoxContainer"]
+[node name="DeleteButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_6adc1")
 icon = ExtResource("3_inye2")
+icon_alignment = 1
 
-[node name="EditButton" type="Button" parent="MarginContainer/HBoxContainer"]
+[node name="EditButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_6adc1")
 icon = ExtResource("4_2l57k")
+icon_alignment = 1
 
-[node name="DeleteConfirmPanel" type="PanelContainer" parent="MarginContainer/HBoxContainer"]
+[node name="DeleteConfirmPanel" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
 visible = false
+custom_minimum_size = Vector2(316, 0)
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/DeleteConfirmPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/DeleteConfirmPanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/DeleteConfirmPanel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/DeleteConfirmPanel/MarginContainer"]
 layout_mode = 2
 
-[node name="DeleteConfirmLabel" type="Label" parent="MarginContainer/HBoxContainer/DeleteConfirmPanel/MarginContainer/VBoxContainer"]
+[node name="DeleteConfirmLabel" type="Label" parent="MarginContainer/VBoxContainer/DeleteConfirmPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_6adc1")
-text = "Are you sure you want to delete this save?"
+text = "Delete 'Quality Farm'?"
+horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/DeleteConfirmPanel/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/DeleteConfirmPanel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 4
 
-[node name="DeleteAcceptButton" type="Button" parent="MarginContainer/HBoxContainer/DeleteConfirmPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="DeleteAcceptButton" type="Button" parent="MarginContainer/VBoxContainer/DeleteConfirmPanel/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_6adc1")
 text = "Yes"
 
-[node name="DeleteCancelButton" type="Button" parent="MarginContainer/HBoxContainer/DeleteConfirmPanel/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="DeleteCancelButton" type="Button" parent="MarginContainer/VBoxContainer/DeleteConfirmPanel/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_6adc1")

@@ -14,11 +14,13 @@ extends Resource
 @export var pronoun0: String = "She"
 @export var pronoun1: String = "Her"
 
-@export var health: int = 100
+@export var health_current: int = 100
 @export var health_max: int = 100
-@export var stamina: int = 100
+
+@export var stamina_current: int = 100
 @export var stamina_max: int = 100
-@export var mana: int = 100
+
+@export var mana_current: int = 100
 @export var mana_max: int = 100
 
 @export var attack: int = 1
