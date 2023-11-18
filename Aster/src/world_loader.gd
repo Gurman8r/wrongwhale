@@ -8,18 +8,17 @@ const preview_prefab = preload("res://assets/scenes/world_preview.tscn")
 @onready var preview_root = $MarginContainer/VBoxContainer/MarginContainer/VBoxContainer
 @onready var empty_label = $MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/EmptyLabel
 
-var previews: Array[WorldPreview]
-
 func _ready():
 	back_button.pressed.connect(func(): Ref.ui.title.menu = Ref.ui.title.main)
 	visibility_changed.connect(func(): if not visible: clear() else: refresh())
 
 func clear() -> void:
-	for preview in previews: preview.queue_free()
-	previews.clear()
+	for child in preview_root.get_children():
+		if child is WorldPreview:
+			child.queue_free()
 
 func refresh() -> void:
-	previews = []
+	clear()
 	DirAccess.make_dir_absolute(WorldData.SAVES_PATH)
 	var saves_dir = DirAccess.open(WorldData.SAVES_PATH)
 	if not saves_dir: return
@@ -33,7 +32,6 @@ func refresh() -> void:
 			world_dir.list_dir_begin()
 			if world_dir.file_exists("world.tres"):
 				var preview: WorldPreview = preview_prefab.instantiate()
-				previews.append(preview)
 				preview_root.add_child(preview)
 				preview.set_world_data(WorldData.read(path))
 		path = saves_dir.get_next()
