@@ -90,7 +90,6 @@ func unload() -> void:
 		assert("_save_data" in node)
 		loading.disconnect(node._load_data)
 		saving.disconnect(node._save_data)
-		node.queue_free()
 	
 	change_cell(null)
 	data = null
