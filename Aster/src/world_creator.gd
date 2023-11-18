@@ -114,13 +114,13 @@ func _on_button_play_pressed():
 	world_data.index = WorldData.count()
 	
 	player_data.guid = player_data.name.replace(" ", "_")
-	player_data.index = world_data.player_data.size()
+	player_data.index = world_data.object_data.size()
 	player_data.position = Vector3.ZERO
 	player_data.direction = Vector3.FORWARD
 	player_data.cell_name = "WorldCell0"
 	player_data.inventory_data.resize(30)
 	player_data.equip_data.resize(1)
-	world_data.player_data[player_data.guid] = player_data
+	world_data.object_data[player_data.guid] = player_data
 	
 	WorldData.write(world_data, world_data.guid)
 	Ref.main.load_world_from_memory(world_data)

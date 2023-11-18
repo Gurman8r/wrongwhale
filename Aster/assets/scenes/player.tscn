@@ -13,7 +13,7 @@ index = 0
 cell_name = ""
 position = Vector3(0, 0, 0)
 direction = Vector3(0, 0, -1)
-gender = 1
+gender = 0
 pronoun0 = "She"
 pronoun1 = "Her"
 pet_species = 0
@@ -32,18 +32,18 @@ speed = 1
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_oi3bu"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mvv3f"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gx7sn"]
 albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_726kc"]
-material = SubResource("StandardMaterial3D_mvv3f")
+material = SubResource("StandardMaterial3D_gx7sn")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hqt4h"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bk7uc"]
 transparency = 1
 albedo_color = Color(0.8, 0.8, 0, 0.0941176)
 
 [sub_resource type="BoxMesh" id="BoxMesh_24owg"]
-material = SubResource("StandardMaterial3D_hqt4h")
+material = SubResource("StandardMaterial3D_bk7uc")
 size = Vector3(1, 0.02, 1)
 
 [node name="Player" type="CharacterBody3D" groups=["player", "read", "unload", "write"]]

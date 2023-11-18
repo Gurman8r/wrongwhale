@@ -34,7 +34,6 @@ signal action(mode: int)
 @onready var state_machine      : StateMachine     = $StateMachine
 @onready var target_marker      : Node3D           = $TargetMarker
 
-var cell: WorldCell : get = get_cell
 func get_cell() -> WorldCell: return get_parent().get_parent() as WorldCell
 
 var item_index: int = 0
@@ -142,13 +141,13 @@ func _unhandled_input(_event) -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _read(world_data: WorldData) -> Player:
-	assert(world_data.player_data.has(name))
-	data = world_data.player_data[name].duplicate()
+	assert(world_data.object_data.has(name))
+	data = world_data.object_data[name].duplicate()
 	Ref.world.change_cell(Ref.world.find_cell(data.cell_name))
 	return self
 
 func _write(world_data: WorldData) -> Player:
-	world_data.player_data[name] = data.duplicate()
+	world_data.object_data[name] = data.duplicate()
 	return self
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

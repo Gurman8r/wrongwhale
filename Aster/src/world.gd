@@ -17,11 +17,9 @@ signal unloading_finished()
 signal player_created(player: Player)
 signal player_destroyed(player: Player)
 
-const player_prefab = preload("res://assets/scenes/player.tscn")
-
 @export var data: WorldData = null
 
-var cell: WorldCell : set = change_cell
+var cell: WorldCell = null : set = change_cell
 var cells: Array[WorldCell] = []
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -45,21 +43,14 @@ func load_from_memory(world_data: WorldData) -> void:
 	loading_started.emit()
 	data = world_data.duplicate()
 	
-	# WIP
+	# create objects
 	for guid in data.object_data:
-		break
 		var object_data: Resource = data.object_data[guid]
 		assert("prefab" in object_data)
 		assert("cell_name" in object_data)
 		var object: Node = object_data.prefab.instantiate()
 		find_cell(object_data.cell_name).add(object)
 		object.name = guid
-	
-	# load players
-	for guid in data.player_data:
-		var player: Player = player_prefab.instantiate()
-		find_cell(data.player_data[guid].cell_name).add(player)
-		player.name = guid
 	
 	for node in get_tree().get_nodes_in_group("read"):
 		assert("_read" in node)

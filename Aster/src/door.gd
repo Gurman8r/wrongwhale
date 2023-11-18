@@ -9,7 +9,6 @@ extends StaticBody3D
 @onready var interactable: Interactable = $Interactable
 @onready var spawn_point: Node3D = $SpawnPoint
 
-var cell: WorldCell : get = get_cell
 func get_cell() -> WorldCell: return get_parent().get_parent() as WorldCell
 
 func _ready() -> void:
@@ -21,7 +20,7 @@ func _ready() -> void:
 			await Ref.ui.transition.finished
 		Ref.world.transfer(
 			other,
-			destination.cell,
+			destination.get_cell(),
 			destination.spawn_point.global_transform.origin)
 		if other == Ref.player:
 			Ref.ui.transition.play("fadein")

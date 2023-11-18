@@ -10,7 +10,6 @@ const FILE_NAME := "world.tres"
 @export var index: int = 0
 
 @export var farm_data: FarmData = FarmData.new()
-@export var player_data: Dictionary = {}
 @export var object_data: Dictionary = {}
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

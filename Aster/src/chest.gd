@@ -10,9 +10,14 @@ signal toggle_inventory(external_inventory_owner)
 @onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
 @onready var interactable: Interactable = $Interactable
 
-var cell: WorldCell : get = get_cell
 func get_cell() -> WorldCell: return get_parent().get_parent() as WorldCell
 
 func _ready() -> void:
 	interactable.interacted.connect(func(_other) -> void:
 		toggle_inventory.emit(self))
+
+func _read(_world_data: WorldData) -> Chest:
+	return self
+
+func _write(_world_data: WorldData) -> Chest:
+	return self

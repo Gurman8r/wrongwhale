@@ -8,7 +8,6 @@ extends StaticBody3D
 @onready var mesh_instance_3d = $MeshInstance3D
 @onready var interactable = $Interactable
 
-var cell: WorldCell : get = get_cell
 func get_cell() -> WorldCell: return get_parent().get_parent() as WorldCell
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
