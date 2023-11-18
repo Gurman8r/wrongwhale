@@ -164,26 +164,31 @@ size_flags_vertical = 4
 [node name="ButtonLoad" type="Button" parent="Title/Main/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
+size_flags_vertical = 5
 text = "Load Game"
 
 [node name="ButtonNew" type="Button" parent="Title/Main/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
+size_flags_vertical = 5
 text = "New Game"
 
 [node name="ButtonOptions" type="Button" parent="Title/Main/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
+size_flags_vertical = 5
 text = "Options"
 
 [node name="ButtonMods" type="Button" parent="Title/Main/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
+size_flags_vertical = 5
 text = "Mods"
 
 [node name="ButtonQuit" type="Button" parent="Title/Main/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
+size_flags_vertical = 5
 text = "Quit"
 
 [node name="LoadGame" type="PanelContainer" parent="Title"]
@@ -215,9 +220,15 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
+[node name="EmptyLabel" type="Label" parent="Title/LoadGame/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "No worlds found."
+
 [node name="ButtonBack" type="Button" parent="Title/LoadGame/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 5
 text = "Back"
 
 [node name="NewGame" type="PanelContainer" parent="Title"]
@@ -240,11 +251,13 @@ size_flags_vertical = 4
 [node name="ButtonPlay" type="Button" parent="Title/NewGame/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
+size_flags_vertical = 5
 text = "Play"
 
 [node name="ButtonBack" type="Button" parent="Title/NewGame/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
+size_flags_vertical = 5
 text = "Back"
 
 [node name="Options" type="PanelContainer" parent="Title"]
@@ -267,6 +280,7 @@ size_flags_vertical = 4
 [node name="ButtonBack" type="Button" parent="Title/Options/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
+size_flags_vertical = 5
 text = "Back"
 
 [node name="Mods" type="Control" parent="Title"]
@@ -289,6 +303,7 @@ size_flags_vertical = 4
 [node name="ButtonBack" type="Button" parent="Title/Mods/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
+size_flags_vertical = 5
 text = "Back"
 
 [node name="Transition" type="Control" parent="."]

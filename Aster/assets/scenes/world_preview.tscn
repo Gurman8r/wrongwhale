@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c6f00cytdr6s2"]
+[gd_scene load_steps=5 format=3 uid="uid://c6f00cytdr6s2"]
 
 [ext_resource type="Script" path="res://src/world_preview.gd" id="1_8u25h"]
 [ext_resource type="Texture2D" uid="uid://cnjn52yl7koe" path="res://assets/icons/icon_play.png" id="2_gca2d"]
 [ext_resource type="Texture2D" uid="uid://dhd7d4t7fy4sy" path="res://assets/icons/icon_trash.png" id="3_inye2"]
+[ext_resource type="Texture2D" uid="uid://x46qnwrp88hj" path="res://assets/icons/icon_edit.png" id="4_2l57k"]
 
 [node name="WorldPreview" type="PanelContainer"]
 script = ExtResource("1_8u25h")
@@ -17,43 +18,70 @@ theme_override_constants/margin_bottom = 4
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(160, 0)
+[node name="NamePanel" type="PanelContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/NamePanel"]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="LabelName" type="Label" parent="MarginContainer/HBoxContainer/PanelContainer/MarginContainer"]
+[node name="NameLabel" type="Label" parent="MarginContainer/HBoxContainer/NamePanel/MarginContainer"]
 layout_mode = 2
 text = "Name"
 vertical_alignment = 1
 
-[node name="ButtonPlay" type="Button" parent="MarginContainer/HBoxContainer"]
+[node name="ButtonsPanel" type="PanelContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/ButtonsPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/ButtonsPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="PlayButton" type="Button" parent="MarginContainer/HBoxContainer/ButtonsPanel/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 8
 icon = ExtResource("2_gca2d")
 
-[node name="ButtonDelete" type="Button" parent="MarginContainer/HBoxContainer"]
+[node name="DeleteButton" type="Button" parent="MarginContainer/HBoxContainer/ButtonsPanel/MarginContainer/HBoxContainer"]
 layout_mode = 2
 icon = ExtResource("3_inye2")
 
-[node name="LabelDeleteConfirmation" type="Label" parent="MarginContainer/HBoxContainer"]
+[node name="EditButton" type="Button" parent="MarginContainer/HBoxContainer/ButtonsPanel/MarginContainer/HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("4_2l57k")
+
+[node name="DeleteConfirmationPanel" type="PanelContainer" parent="MarginContainer/HBoxContainer"]
 visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/DeleteConfirmationPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/DeleteConfirmationPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="DeleteMessageLabel" type="Label" parent="MarginContainer/HBoxContainer/DeleteConfirmationPanel/MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "Are you sure you want to delete this save?"
 
-[node name="ButtonConfirmDelete" type="Button" parent="MarginContainer/HBoxContainer"]
-visible = false
+[node name="DeleteConfirmButton" type="Button" parent="MarginContainer/HBoxContainer/DeleteConfirmationPanel/MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "Yes"
 
-[node name="ButtonCancelDelete" type="Button" parent="MarginContainer/HBoxContainer"]
-visible = false
+[node name="DeleteCancelButton" type="Button" parent="MarginContainer/HBoxContainer/DeleteConfirmationPanel/MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "No"
