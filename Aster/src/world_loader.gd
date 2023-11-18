@@ -10,7 +10,7 @@ const preview_prefab = preload("res://assets/scenes/world_preview.tscn")
 
 func _ready():
 	back_button.pressed.connect(func(): Ref.ui.title.menu = Ref.ui.title.main)
-	visibility_changed.connect(func(): if not visible: clear() else: refresh())
+	visibility_changed.connect(func(): if visible: refresh())
 
 func clear() -> void:
 	for child in preview_root.get_children():
