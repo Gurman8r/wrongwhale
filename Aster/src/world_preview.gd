@@ -38,7 +38,7 @@ func set_world_data(world_data: WorldData):
 			name_label.hide()
 			play_button.hide()
 			delete_button.hide()
-			name_edit.placeholder_text = "%s Farm" % [world_data.name]
+			name_edit.placeholder_text = "%s" % [world_data.name]
 			name_edit.show()
 		else:
 			name_edit.hide()
