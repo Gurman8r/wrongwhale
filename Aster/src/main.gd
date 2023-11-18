@@ -2,8 +2,6 @@
 class_name Main
 extends Node
 
-signal quitting()
-
 @onready var database : Database = $Database
 @onready var settings : Settings = $Settings
 @onready var world    : World    = $World
@@ -19,11 +17,6 @@ func _init() -> void:
 
 func _ready() -> void:
 	get_tree().paused = true
-	
-	print("HELLO")
-	tree_entered.connect(func(): quitting.emit())
-	quitting.connect(func():
-		print("GOODBYE"))
 	
 	# LOADED
 	world.loading_finished.connect(func():
@@ -49,17 +42,10 @@ func _ready() -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func _notification(what):
-	match what:
-		[NOTIFICATION_WM_CLOSE_REQUEST]:
-			quit_to_desktop()
-
 func _unhandled_input(_event) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
-		if playing:
-			save_world_to_file_and_quit_to_title()
-		else:
-			quit_to_desktop()
+		if playing: save_world_to_file_and_quit_to_title()
+		elif ui.title.current_menu == ui.title.main: quit_to_desktop()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -95,7 +81,6 @@ func save_world_to_file_and_quit_to_desktop(path_stem: String = "") -> void:
 	# unload
 	world.unload()
 	# post-unload
-	quitting.emit()
 	get_tree().quit()
 	
 func save_world_to_file_and_quit_to_title(path_stem: String = "") -> void:
@@ -122,7 +107,6 @@ func quit_to_desktop() -> void:
 	get_tree().paused = true
 	ui.transition.play("fadeout")
 	await ui.transition.finished
-	quitting.emit()
 	get_tree().quit()
 
 func quit_to_title() -> void:

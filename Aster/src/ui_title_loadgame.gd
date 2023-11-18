@@ -11,11 +11,9 @@ var path_list: Array[String]
 var previews: Array[WorldPreview]
 
 func _ready() -> void:
-	visibility_changed.connect(_on_visibility_changed)
-
-func _on_visibility_changed() -> void:
-	if not visible: clear()
-	else: refresh()
+	visibility_changed.connect(func():
+		if not visible: clear()
+		else: refresh())
 
 func clear() -> void:
 	for preview in previews: preview.queue_free()
