@@ -29,8 +29,9 @@ static func read(path_stem: String) -> Resource:
 	if not ResourceLoader.exists(file_path): return null
 	return ResourceLoader.load(file_path)
 
-static func write(world_data: WorldData, path_stem: String) -> Error:
+static func write(world_data: WorldData, path_stem: String = "") -> Error:
 	assert(world_data)
+	if path_stem.is_empty(): path_stem = world_data.guid
 	var dir_path = get_dir_path(path_stem)
 	Util.wipe(dir_path)
 	DirAccess.make_dir_absolute(SAVES_PATH)

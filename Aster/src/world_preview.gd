@@ -43,15 +43,16 @@ func set_world_data(world_data: WorldData):
 	name_edit.text_submitted.connect(func(new_text: String):
 		name_edit.hide()
 		if world_data.name != new_text:
+			Util.wipe(WorldData.get_dir_path(world_data.guid))
+			world_data.guid = new_text.replace(" ", "_")
 			world_data.name = new_text
-			name_label.text = world_data.name
-			WorldData.write(world_data, world_data.guid)
+			name_label.text = new_text
+			WorldData.write(world_data)
 		name_label.show()
 		play_button.show()
 		delete_button.show())
 	
 	delete_accept_button.pressed.connect(func():
-		Util.wipe(WorldData.get_dir_path(world_data.guid))
 		Ref.ui.title.loadgame.refresh()
 		queue_free())
 	
