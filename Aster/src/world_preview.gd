@@ -4,29 +4,49 @@ extends PanelContainer
 
 @onready var name_panel = $MarginContainer/HBoxContainer/NamePanel
 @onready var name_label = $MarginContainer/HBoxContainer/NamePanel/MarginContainer/NameLabel
+@onready var name_edit: LineEdit = $MarginContainer/HBoxContainer/NamePanel/MarginContainer/NameEdit
 @onready var buttons_panel = $MarginContainer/HBoxContainer/ButtonsPanel
 @onready var play_button = $MarginContainer/HBoxContainer/ButtonsPanel/MarginContainer/HBoxContainer/PlayButton
 @onready var delete_button = $MarginContainer/HBoxContainer/ButtonsPanel/MarginContainer/HBoxContainer/DeleteButton
 @onready var edit_button = $MarginContainer/HBoxContainer/ButtonsPanel/MarginContainer/HBoxContainer/EditButton
-@onready var delete_confirmation_panel = $MarginContainer/HBoxContainer/DeleteConfirmationPanel
-@onready var delete_message_label = $MarginContainer/HBoxContainer/DeleteConfirmationPanel/MarginContainer/HBoxContainer/DeleteMessageLabel
-@onready var delete_confirm_button = $MarginContainer/HBoxContainer/DeleteConfirmationPanel/MarginContainer/HBoxContainer/DeleteConfirmButton
-@onready var delete_cancel_button = $MarginContainer/HBoxContainer/DeleteConfirmationPanel/MarginContainer/HBoxContainer/DeleteCancelButton
+@onready var delete_confirm_panel = $MarginContainer/HBoxContainer/DeleteConfirmPanel
+@onready var delete_confirm_label = $MarginContainer/HBoxContainer/DeleteConfirmPanel/MarginContainer/VBoxContainer/DeleteConfirmLabel
+@onready var delete_accept_button = $MarginContainer/HBoxContainer/DeleteConfirmPanel/MarginContainer/VBoxContainer/HBoxContainer/DeleteAcceptButton
+@onready var delete_cancel_button = $MarginContainer/HBoxContainer/DeleteConfirmPanel/MarginContainer/VBoxContainer/HBoxContainer/DeleteCancelButton
 
 func set_world_data(world_data: WorldData):
 	name_label.text = world_data.name
+	
 	play_button.pressed.connect(func():
-		Ref.main.load_world_from_file(world_data.guid))
+		Ref.main.load_world_from_memory(world_data))
+	
 	delete_button.pressed.connect(func():
 		name_label.hide()
 		buttons_panel.hide()
-		delete_confirmation_panel.show()
-		delete_message_label.text = "Are you sure you want to delete %s?" % [world_data.name])
-	delete_confirm_button.pressed.connect(func():
+		delete_confirm_label.text = "Are you sure you want to delete \'%s\'?" % [world_data.name]
+		delete_confirm_panel.show())
+	
+	edit_button.pressed.connect(func():
+		name_label.hide()
+		buttons_panel.hide()
+		name_edit.placeholder_text = world_data.name
+		name_edit.show())
+	
+	name_edit.text_submitted.connect(func(new_text: String):
+		name_edit.hide()
+		if world_data.name != new_text:
+			world_data.name = new_text
+			name_label.text = world_data.name
+			WorldData.write(world_data, world_data.guid)
+		name_label.show()
+		buttons_panel.show())
+	
+	delete_accept_button.pressed.connect(func():
 		Util.wipe(WorldData.get_dir_path(world_data.guid))
 		Ref.ui.title.loadgame.refresh()
 		queue_free())
+	
 	delete_cancel_button.pressed.connect(func():
 		name_label.show()
 		buttons_panel.show()
-		delete_confirmation_panel.hide())
+		delete_confirm_panel.hide())
