@@ -77,7 +77,7 @@ func _on_button_play_pressed():
 	var world_data = WorldData.new()
 	world_data.guid = farm_name.replace(" ", "_")
 	world_data.name = farm_name
-	world_data.index = 0
+	world_data.index = WorldData.list().size()
 	
 	var player_data = PlayerData.new()
 	player_data.guid = player_name.replace(" ", "_")
