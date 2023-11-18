@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cwt1khy7c6ido"]
+[gd_scene load_steps=7 format=3 uid="uid://cwt1khy7c6ido"]
 
 [ext_resource type="Script" path="res://src/world_creator.gd" id="1_ktptq"]
 [ext_resource type="SystemFont" uid="uid://be14qyvbd8lox" path="res://assets/fonts/system_font.tres" id="2_nxuyy"]
 [ext_resource type="Texture2D" uid="uid://ls4xvaxskcgq" path="res://assets/icons/icon_gender_f.png" id="3_0xtfb"]
 [ext_resource type="Texture2D" uid="uid://5ykxpd27xw6k" path="res://assets/icons/icon_gender_m.png" id="4_w6g73"]
 [ext_resource type="Texture2D" uid="uid://cidqu1dl48oje" path="res://assets/icons/icon_gender_nb.png" id="5_sox4h"]
+[ext_resource type="Texture2D" uid="uid://dwi4nguld0m87" path="res://assets/icons/icon_circle.png" id="6_gm6jw"]
 
 [node name="WorldCreator" type="PanelContainer"]
 script = ExtResource("1_ktptq")
@@ -49,6 +50,7 @@ clear_button_enabled = true
 [node name="FarmNameLabel" type="Label" parent="MarginContainer/VBoxContainer/FarmNamePanel/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_nxuyy")
 text = "............ Farm"
 horizontal_alignment = 1
@@ -82,6 +84,7 @@ clear_button_enabled = true
 [node name="PlayerNameLabel" type="Label" parent="MarginContainer/VBoxContainer/PlayerNamePanel/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_nxuyy")
 text = "Farmer ............"
 horizontal_alignment = 1
@@ -106,6 +109,7 @@ theme_override_constants/separation = 4
 [node name="PlayerGenderButton0" type="Button" parent="MarginContainer/VBoxContainer/PlayerGenderPanel/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(64, 32)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_nxuyy")
 icon = ExtResource("3_0xtfb")
 icon_alignment = 1
@@ -113,6 +117,7 @@ icon_alignment = 1
 [node name="PlayerGenderButton1" type="Button" parent="MarginContainer/VBoxContainer/PlayerGenderPanel/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(64, 32)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_nxuyy")
 icon = ExtResource("4_w6g73")
 icon_alignment = 1
@@ -120,6 +125,7 @@ icon_alignment = 1
 [node name="PlayerGenderButton2" type="Button" parent="MarginContainer/VBoxContainer/PlayerGenderPanel/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(64, 32)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_nxuyy")
 icon = ExtResource("5_sox4h")
 icon_alignment = 1
@@ -127,8 +133,50 @@ icon_alignment = 1
 [node name="PlayerPronounLabel" type="Label" parent="MarginContainer/VBoxContainer/PlayerGenderPanel/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_nxuyy")
 text = "She/Her"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerPetPanel" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/PlayerPetPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/PlayerPetPanel/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 4
+
+[node name="PlayerCatButton" type="Button" parent="MarginContainer/VBoxContainer/PlayerPetPanel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(98, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_nxuyy")
+icon = ExtResource("6_gm6jw")
+icon_alignment = 1
+
+[node name="PlayerDogButton" type="Button" parent="MarginContainer/VBoxContainer/PlayerPetPanel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(98, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_nxuyy")
+icon = ExtResource("6_gm6jw")
+icon_alignment = 1
+
+[node name="PlayerPetLabel" type="Label" parent="MarginContainer/VBoxContainer/PlayerPetPanel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_nxuyy")
+text = "Cat"
 horizontal_alignment = 1
 vertical_alignment = 1
 

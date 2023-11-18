@@ -19,6 +19,11 @@ extends PanelContainer
 @onready var player_gender_button_2 = $MarginContainer/VBoxContainer/PlayerGenderPanel/MarginContainer/HBoxContainer/PlayerGenderButton2
 @onready var player_pronoun_label = $MarginContainer/VBoxContainer/PlayerGenderPanel/MarginContainer/HBoxContainer/PlayerPronounLabel
 
+@onready var player_pet_panel = $MarginContainer/VBoxContainer/PlayerPetPanel
+@onready var player_cat_button = $MarginContainer/VBoxContainer/PlayerPetPanel/MarginContainer/HBoxContainer/PlayerCatButton
+@onready var player_dog_button = $MarginContainer/VBoxContainer/PlayerPetPanel/MarginContainer/HBoxContainer/PlayerDogButton
+@onready var player_pet_label = $MarginContainer/VBoxContainer/PlayerPetPanel/MarginContainer/HBoxContainer/PlayerPetLabel
+
 var world_data: WorldData = null
 var farm_data: FarmData = null
 var player_data: PlayerData = null
@@ -40,6 +45,7 @@ func _reset():
 	player_name_label.text = "Farmer ............"
 	player_name_edit.text = ""
 	player_pronoun_label.text = "She/Her"
+	player_pet_label.text = "Cat"
 
 func _ready():
 	_reset()
@@ -82,6 +88,18 @@ func _ready():
 		player_data.pronoun1 = "Them"
 		player_pronoun_label.text = "%s/%s" % [player_data.pronoun0, player_data.pronoun1]
 		player_gender_button_2.release_focus())
+	
+	# player pet
+	player_cat_button.pressed.connect(func():
+		player_pet_label.text = "Cat"
+		player_data.pet_species = PlayerData.CAT
+		player_data.pet_breed = 0
+		player_cat_button.release_focus())
+	player_dog_button.pressed.connect(func():
+		player_pet_label.text = "Dog"
+		player_data.pet_species = PlayerData.DOG
+		player_data.pet_breed = 0
+		player_dog_button.release_focus())
 
 func _on_button_play_pressed():
 	assert(world_data)
