@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://bwsftfna5831c"]
 
-[ext_resource type="Script" path="res://src/mod_interface.gd" id="1_gcm8v"]
+[ext_resource type="Script" path="res://src/mod_menu.gd" id="1_smg4m"]
 [ext_resource type="SystemFont" uid="uid://be14qyvbd8lox" path="res://assets/fonts/system_font.tres" id="2_o7s2f"]
 
-[node name="ModInterface" type="PanelContainer"]
-script = ExtResource("1_gcm8v")
+[node name="ModMenu" type="PanelContainer"]
+script = ExtResource("1_smg4m")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

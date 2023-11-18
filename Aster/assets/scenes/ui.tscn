@@ -147,51 +147,51 @@ grow_vertical = 2
 script = ExtResource("8_ymkqk")
 metadata/_edit_use_anchors_ = true
 
-[node name="TitleMain" type="PanelContainer" parent="TitleInterface"]
+[node name="MainMenu" type="PanelContainer" parent="TitleInterface"]
 layout_mode = 2
 script = ExtResource("8_yl4vl")
 
-[node name="MarginContainer" type="MarginContainer" parent="TitleInterface/TitleMain"]
+[node name="MarginContainer" type="MarginContainer" parent="TitleInterface/MainMenu"]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TitleInterface/TitleMain/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TitleInterface/MainMenu/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="LoadButton" type="Button" parent="TitleInterface/TitleMain/MarginContainer/VBoxContainer"]
+[node name="LoadButton" type="Button" parent="TitleInterface/MainMenu/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_fonts/font = ExtResource("4_6cpgp")
 text = "Load Game"
 
-[node name="NewButton" type="Button" parent="TitleInterface/TitleMain/MarginContainer/VBoxContainer"]
+[node name="NewButton" type="Button" parent="TitleInterface/MainMenu/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_fonts/font = ExtResource("4_6cpgp")
 text = "New Game"
 
-[node name="OptionsButton" type="Button" parent="TitleInterface/TitleMain/MarginContainer/VBoxContainer"]
+[node name="OptionsButton" type="Button" parent="TitleInterface/MainMenu/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_fonts/font = ExtResource("4_6cpgp")
 text = "Options"
 
-[node name="ModsButton" type="Button" parent="TitleInterface/TitleMain/MarginContainer/VBoxContainer"]
+[node name="ModsButton" type="Button" parent="TitleInterface/MainMenu/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_fonts/font = ExtResource("4_6cpgp")
 text = "Mods"
 
-[node name="QuitButton" type="Button" parent="TitleInterface/TitleMain/MarginContainer/VBoxContainer"]
+[node name="QuitButton" type="Button" parent="TitleInterface/MainMenu/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_vertical = 5
@@ -206,11 +206,11 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
-[node name="OptionInterface" parent="TitleInterface" instance=ExtResource("10_s2lf1")]
+[node name="OptionsMenu" parent="TitleInterface" instance=ExtResource("10_s2lf1")]
 visible = false
 layout_mode = 2
 
-[node name="ModInterface" parent="TitleInterface" instance=ExtResource("11_afpvn")]
+[node name="ModMenu" parent="TitleInterface" instance=ExtResource("11_afpvn")]
 visible = false
 layout_mode = 2
 

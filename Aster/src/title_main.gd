@@ -11,6 +11,6 @@ extends PanelContainer
 func _ready() -> void:
 	load_button.pressed.connect(func(): Ref.ui.title.menu = Ref.ui.title.world_loader)
 	new_button.pressed.connect(func(): Ref.ui.title.menu = Ref.ui.title.world_creator)
-	options_button.pressed.connect(func(): Ref.ui.title.menu = Ref.ui.title.option_interface)
-	mods_button.pressed.connect(func(): Ref.ui.title.menu = Ref.ui.title.mod_interface)
+	options_button.pressed.connect(func(): Ref.ui.title.menu = Ref.ui.title.options_menu)
+	mods_button.pressed.connect(func(): Ref.ui.title.menu = Ref.ui.title.mod_menu)
 	quit_button.pressed.connect(func(): Ref.main.quit_to_desktop())

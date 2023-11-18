@@ -9,7 +9,7 @@ const preview_prefab = preload("res://assets/scenes/world_preview.tscn")
 @onready var empty_label = $MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/EmptyLabel
 
 func _ready():
-	back_button.pressed.connect(func(): Ref.ui.title.menu = Ref.ui.title.main)
+	back_button.pressed.connect(func(): Ref.ui.title.menu = Ref.ui.title.main_menu)
 	visibility_changed.connect(func(): if visible: refresh())
 
 func refresh() -> void:

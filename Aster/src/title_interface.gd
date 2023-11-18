@@ -2,12 +2,12 @@
 class_name TitleInterface
 extends PanelContainer
 
-@onready var menu: Control = $TitleMain : set = set_menu
-@onready var main: Control = $TitleMain
+@onready var menu: Control = $MainMenu : set = set_menu
+@onready var main_menu: Control = $MainMenu
 @onready var world_loader: Control = $WorldLoader
 @onready var world_creator: Control = $WorldCreator
-@onready var option_interface: Control = $OptionInterface
-@onready var mod_interface: Control = $ModInterface
+@onready var options_menu: Control = $OptionsMenu
+@onready var mod_menu: Control = $ModMenu
 
 func _ready():
 	visibility_changed.connect(_on_visibility_changed)

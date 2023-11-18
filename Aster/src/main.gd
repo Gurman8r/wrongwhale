@@ -47,7 +47,7 @@ func _ready() -> void:
 func _unhandled_input(_event) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		if playing: save_world_to_file_and_quit_to_title()
-		elif ui.title.menu == ui.title.main: quit_to_desktop()
+		elif ui.title.menu == ui.title.main_menu: quit_to_desktop()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -98,7 +98,7 @@ func save_world_to_file_and_quit_to_title(path_stem: String = "") -> void:
 	# unload
 	world.unload()
 	# post-unload
-	ui.title.menu = ui.title.main
+	ui.title.menu = ui.title.main_menu
 	ui.transition.play("fadein")
 	await ui.transition.finished
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -122,7 +122,7 @@ func quit_to_title() -> void:
 	# unload
 	world.unload()
 	# post-unload
-	ui.title.menu = ui.title.main
+	ui.title.menu = ui.title.main_menu
 	ui.transition.play("fadein")
 	await ui.transition.finished
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
