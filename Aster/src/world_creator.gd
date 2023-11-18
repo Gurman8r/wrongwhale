@@ -32,16 +32,18 @@ func _ready():
 	play_button.pressed.connect(_on_button_play_pressed)
 	back_button.pressed.connect(func(): Ref.ui.title.menu = Ref.ui.title.main)
 	
-	farm_name_edit.text_submitted.connect(func(new_text: String):
+	farm_name_edit.text_changed.connect(func(new_text: String):
 		if farm_name == new_text: return
 		farm_name = new_text
-		farm_name_label.text = "\"%s Farm\"" % [farm_name]
+		farm_name_label.text = "\"%s Farm\"" % [farm_name])
+	farm_name_edit.text_submitted.connect(func(new_text: String):
 		farm_name_edit.release_focus())
 	
-	player_name_edit.text_submitted.connect(func(new_text: String):
+	player_name_edit.text_changed.connect(func(new_text: String):
 		if player_name == new_text: return
 		player_name = new_text
-		player_name_label.text = "\"Farmer %s\"" % [player_name]
+		player_name_label.text = "\"Farmer %s\"" % [player_name])
+	player_name_edit.text_submitted.connect(func(new_text: String):
 		player_name_edit.release_focus())
 	
 	player_gender_button_0.pressed.connect(func():
@@ -58,6 +60,8 @@ func _ready():
 		player_gender_button_2.release_focus())
 
 func _on_button_play_pressed():
+	if farm_name == "" or player_name == "": return
+	
 	var world_data = WorldData.new()
 	world_data.guid = farm_name.replace(" ", "_")
 	world_data.name = farm_name

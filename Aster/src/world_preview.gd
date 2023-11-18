@@ -42,6 +42,7 @@ func set_world_data(world_data: WorldData):
 		edit_button.release_focus())
 	
 	name_edit.text_submitted.connect(func(new_text: String):
+		if new_text == "": return
 		name_edit.hide()
 		if world_data.name != new_text:
 			Util.wipe(WorldData.get_dir_path(world_data.guid))
