@@ -20,7 +20,12 @@ func _init() -> void:
 func _ready() -> void:
 	get_tree().paused = true
 	
-	# WORLD LOADED
+	print("HELLO")
+	tree_entered.connect(func(): quitting.emit())
+	quitting.connect(func():
+		print("GOODBYE"))
+	
+	# LOADED
 	world.loading_finished.connect(func():
 		ui.set_player_data(Ref.player.data)
 		Ref.player.toggle_debug.connect(ui.debug.toggle)
@@ -29,10 +34,9 @@ func _ready() -> void:
 		Ref.player.hotbar_prev.connect(ui.hud.hotbar.prev)
 		Ref.player.hotbar_select.connect(ui.hud.hotbar.set_item_index)
 		for node in get_tree().get_nodes_in_group("external_inventory"):
-			node.toggle_inventory.connect(ui.game.toggle_inventory)
-		pass)
+			node.toggle_inventory.connect(ui.game.toggle_inventory))
 	
-	# WORLD UNLOADED
+	# UNLOADED
 	world.unloading_started.connect(func():
 		ui.clear_player_data()
 		Ref.player.toggle_debug.disconnect(ui.debug.toggle)
@@ -41,28 +45,32 @@ func _ready() -> void:
 		Ref.player.hotbar_prev.disconnect(ui.hud.hotbar.prev)
 		Ref.player.hotbar_select.disconnect(ui.hud.hotbar.set_item_index)
 		for node in get_tree().get_nodes_in_group("external_inventory"):
-			node.toggle_inventory.disconnect(ui.game.toggle_inventory)
-		pass)
+			node.toggle_inventory.disconnect(ui.game.toggle_inventory))
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func _notification(what):
+	match what:
+		[NOTIFICATION_WM_CLOSE_REQUEST]:
+			quit_to_desktop()
 
 func _unhandled_input(_event) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		if playing:
-			save_to_file_and_quit_to_title("World_New")
+			save_world_to_file_and_quit_to_title()
 		else:
-			quit()
+			quit_to_desktop()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func load_world(world_data: WorldData) -> void:
+func load_world_from_memory(world_data: WorldData) -> void:
 	# pre-load
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	ui.transition.play("fadeout")
 	await ui.transition.finished
 	ui.title.current_menu = null
 	# load
-	world.load_data(world_data)
+	world.load_from_memory(world_data)
 	# post-load
 	ui.hud.show()
 	ui.transition.play("fadein")
@@ -71,9 +79,11 @@ func load_world(world_data: WorldData) -> void:
 	get_tree().paused = false
 
 func load_world_from_file(path_stem: String) -> void:
-	load_world(WorldData.read(path_stem))
+	load_world_from_memory(WorldData.read(path_stem))
 
-func save_to_file_and_quit(path_stem: String) -> void:
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func save_world_to_file_and_quit_to_desktop(path_stem: String = "") -> void:
 	# pre-unload
 	get_tree().paused = true
 	playing = false
@@ -88,7 +98,7 @@ func save_to_file_and_quit(path_stem: String) -> void:
 	quitting.emit()
 	get_tree().quit()
 	
-func save_to_file_and_quit_to_title(path_stem: String) -> void:
+func save_world_to_file_and_quit_to_title(path_stem: String = "") -> void:
 	# pre-unload
 	get_tree().paused = true
 	playing = false
@@ -106,7 +116,9 @@ func save_to_file_and_quit_to_title(path_stem: String) -> void:
 	await ui.transition.finished
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
-func quit() -> void:
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func quit_to_desktop() -> void:
 	get_tree().paused = true
 	ui.transition.play("fadeout")
 	await ui.transition.finished

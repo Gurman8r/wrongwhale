@@ -12,6 +12,11 @@ extends PanelContainer
 func _ready():
 	visibility_changed.connect(_on_visibility_changed)
 
+func _on_visibility_changed():
+	if not visible and current_menu and current_menu.visible:
+		current_menu.hide()
+		current_menu = null
+
 func set_current_menu(value: Control):
 	if not current_menu and not value:
 		return
@@ -31,8 +36,3 @@ func set_current_menu(value: Control):
 		current_menu = value
 		current_menu.show()
 		show()
-
-func _on_visibility_changed():
-	if not visible and current_menu and current_menu.visible:
-		current_menu.hide()
-		current_menu = null

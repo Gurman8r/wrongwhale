@@ -151,6 +151,10 @@ script = ExtResource("8_u8iyv")
 
 [node name="MarginContainer" type="MarginContainer" parent="Title/Main"]
 layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Title/Main/MarginContainer"]
 layout_mode = 2
@@ -160,12 +164,12 @@ size_flags_vertical = 4
 [node name="ButtonLoad" type="Button" parent="Title/Main/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
-text = "Load"
+text = "Load Game"
 
 [node name="ButtonNew" type="Button" parent="Title/Main/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
-text = "New"
+text = "New Game"
 
 [node name="ButtonOptions" type="Button" parent="Title/Main/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
@@ -189,16 +193,27 @@ script = ExtResource("9_rxilb")
 
 [node name="MarginContainer" type="MarginContainer" parent="Title/LoadGame"]
 layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Title/LoadGame/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="ButtonPlay" type="Button" parent="Title/LoadGame/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(160, 32)
+[node name="MarginContainer" type="MarginContainer" parent="Title/LoadGame/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Play"
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Title/LoadGame/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="ButtonBack" type="Button" parent="Title/LoadGame/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
@@ -212,6 +227,10 @@ script = ExtResource("10_rbkte")
 
 [node name="MarginContainer" type="MarginContainer" parent="Title/NewGame"]
 layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Title/NewGame/MarginContainer"]
 layout_mode = 2
@@ -235,6 +254,10 @@ script = ExtResource("11_4vdrh")
 
 [node name="MarginContainer" type="MarginContainer" parent="Title/Options"]
 layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Title/Options/MarginContainer"]
 layout_mode = 2
@@ -253,6 +276,10 @@ script = ExtResource("12_lxn40")
 
 [node name="MarginContainer" type="MarginContainer" parent="Title/Mods"]
 layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Title/Mods/MarginContainer"]
 layout_mode = 2
@@ -321,7 +348,6 @@ text = "FPS: 0.0"
 [connection signal="pressed" from="Title/Main/MarginContainer/VBoxContainer/ButtonOptions" to="Title/Main" method="_on_button_options_pressed"]
 [connection signal="pressed" from="Title/Main/MarginContainer/VBoxContainer/ButtonMods" to="Title/Main" method="_on_button_options_pressed"]
 [connection signal="pressed" from="Title/Main/MarginContainer/VBoxContainer/ButtonQuit" to="Title/Main" method="_on_button_quit_pressed"]
-[connection signal="pressed" from="Title/LoadGame/MarginContainer/VBoxContainer/ButtonPlay" to="Title/LoadGame" method="_on_button_play_pressed"]
 [connection signal="pressed" from="Title/LoadGame/MarginContainer/VBoxContainer/ButtonBack" to="Title/LoadGame" method="_on_button_back_pressed"]
 [connection signal="pressed" from="Title/NewGame/MarginContainer/VBoxContainer/ButtonPlay" to="Title/NewGame" method="_on_button_play_pressed"]
 [connection signal="pressed" from="Title/NewGame/MarginContainer/VBoxContainer/ButtonBack" to="Title/NewGame" method="_on_button_back_pressed"]

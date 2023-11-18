@@ -39,6 +39,7 @@ var move_input: Array[bool] = [0, 0, 0, 0]
 
 var cell: WorldCell : get = get_cell
 func get_cell() -> WorldCell: return get_parent().get_parent() as WorldCell
+func get_class_name() -> String: return "Player"
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -139,13 +140,13 @@ func _unhandled_input(_event) -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func _load_data(world_data: WorldData) -> Player:
+func _read(world_data: WorldData) -> Player:
 	print("LOADING PLAYER: %s" % [name])
 	assert(world_data.players.has(name))
 	data = world_data.players[name].duplicate()
 	return self
 
-func _save_data(world_data: WorldData) -> Player:
+func _write(world_data: WorldData) -> Player:
 	print("SAVING PLAYER: %s" % [name])
 	data.cell_name = get_cell().name
 	world_data.players[name] = data.duplicate()
@@ -157,8 +158,5 @@ func get_drop_position() -> Vector3:
 	var pos: Vector3 = global_transform.origin + data.direction * drop_range
 	pos.y = 0.5
 	return pos
-
-func get_held_item() -> ItemData:
-	return data.inventory.get_item(item_index)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

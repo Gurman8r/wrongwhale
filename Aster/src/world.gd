@@ -19,10 +19,10 @@ signal player_destroyed(player: Player)
 
 const player_prefab = preload("res://assets/scenes/player.tscn")
 
-@export var data: WorldData
+@export var data: WorldData = null
 
+var cell: WorldCell : set = change_cell
 var cells: Array[WorldCell] = []
-var current_cell: WorldCell : set = change_cell
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -35,9 +35,9 @@ func _ready():
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func load_data(world_data: WorldData) -> void:
-	print("LOADING WORLD: %s" % [world_data.guid])
+func load_from_memory(world_data: WorldData) -> void:
 	assert(world_data)
+	print("LOADING WORLD: %s" % [world_data.guid])
 	loading_started.emit()
 	data = world_data.duplicate()
 	
@@ -45,66 +45,87 @@ func load_data(world_data: WorldData) -> void:
 	for guid in data.players:
 		var player: Player = player_prefab.instantiate()
 		player.name = guid
-		change_cell(get_cell(data.players[guid].cell_name))
-		current_cell.add(player)
+		change_cell(find_cell(data.players[guid].cell_name))
+		cell.add(player)
 	
-	# setup read/write
-	for node in get_tree().get_nodes_in_group("rw"):
-		assert("_load_data" in node)
-		assert("_save_data" in node)
-		loading.connect(node._load_data)
-		saving.connect(node._save_data)
+	for node in get_tree().get_nodes_in_group("read"):
+		assert("_read" in node)
+		loading.connect(node._read)
+	
+	for node in get_tree().get_nodes_in_group("write"):
+		assert("_write" in node)
+		saving.connect(node._write)
+	
+	for node in get_tree().get_nodes_in_group("unload"):
+		if "_unload" in node:
+			unloading.connect(node._unload)
 	
 	loading.emit(data)
 	show()
 	loading_finished.emit()
 
-func load_from_file(path_stem: String) -> void:
+func load_from_file(path_stem: String = "") -> void:
+	if path_stem.is_empty() and data: path_stem = data.guid
 	assert(0 < path_stem.length())
-	load_data(WorldData.read(path_stem))
+	load_from_memory(WorldData.read(path_stem))
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func save_data(world_data: WorldData) -> void:
-	print("SAVING WORLD: %s" % [world_data.guid])
+func save_to_memory(world_data: WorldData) -> void:
 	assert(world_data)
+	print("SAVING WORLD: %s" % [world_data.guid])
 	saving_started.emit()
 	saving.emit(world_data)
 	saving_finished.emit()
 
-func save_to_file(path_stem: String) -> void:
+func save_to_file(path_stem: String = "") -> void:
+	if path_stem.is_empty() and data: path_stem = data.guid
 	assert(0 < path_stem.length())
-	save_data(data)
+	print("SAVING WORLD: %s" % [path_stem])
+	saving_started.emit()
+	saving.emit(data)
 	WorldData.write(data, path_stem)
+	saving_finished.emit()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func unload() -> void:
+	assert(data)
 	print("UNLOADING WORLD: %s" % [data.guid])
 	unloading_started.emit()
+	
+	for node in get_tree().get_nodes_in_group("read"):
+		assert("_read" in node)
+		assert(loading.is_connected(node._read))
+		loading.disconnect(node._read)
+	
+	for node in get_tree().get_nodes_in_group("write"):
+		assert("_write" in node)
+		assert(saving.is_connected(node._write))
+		saving.disconnect(node._write)
+	
 	unloading.emit()
+	for node in get_tree().get_nodes_in_group("unload"):
+		if "_unload" in node:
+			assert(unloading.is_connected(node._unload))
+			unloading.disconnect(node._unload)
+		node.queue_free()
 	
-	# cleanup read/write
-	for node in get_tree().get_nodes_in_group("rw"):
-		assert("_load_data" in node)
-		assert("_save_data" in node)
-		loading.disconnect(node._load_data)
-		saving.disconnect(node._save_data)
-	
-	change_cell(null)
-	data = null
+	if cell: cell.disable()
 	hide()
+	cell = null
+	data = null
 	unloading_finished.emit()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func change_cell(value: WorldCell) -> void:
-	if current_cell == value: return
-	if current_cell: current_cell.disable()
-	current_cell = value
-	if current_cell: current_cell.enable()
+func change_cell(world_cell: WorldCell) -> void:
+	if cell == world_cell: return
+	if cell: cell.disable()
+	cell = world_cell
+	if cell: cell.enable()
 
-func get_cell(cell_name: String) -> WorldCell:
+func find_cell(cell_name: String) -> WorldCell:
 	if has_node(cell_name): return get_node(cell_name) as WorldCell
 	else: return null
 
@@ -118,12 +139,12 @@ func transfer(node: Node, target_cell: WorldCell, target_pos: Vector3 = Vector3.
 		Ref.ui.transition.play("fadeout")
 		await Ref.ui.transition.finished
 	
-	current_cell.remove(node)
+	cell.remove(node)
 	change_cell(target_cell)
-	current_cell.add(node, target_pos)
+	cell.add(node, target_pos)
 	
 	if "data" in node and "cell_name" in node.data:
-		node.data.cell_name = current_cell.name
+		node.data.cell_name = cell.name
 	
 	if transition:
 		Ref.ui.transition.play("fadein")

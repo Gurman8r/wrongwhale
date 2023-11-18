@@ -2,9 +2,9 @@
 class_name Inventory
 extends PanelContainer
 
-const item_slot = preload("res://assets/scenes/item_slot.tscn")
+const item_slot_prefab = preload("res://assets/scenes/item_slot.tscn")
 
-@onready var item_grid = $MarginContainer/ItemGrid
+@onready var grid_container = $MarginContainer/GridContainer
 
 var slots: Array[ItemSlot]
 
@@ -19,12 +19,11 @@ func clear_inventory_data(inventory_data: InventoryData) -> void:
 
 func populate_item_grid(inventory_data: InventoryData) -> void:
 	slots.clear()
-	for child in item_grid.get_children():
+	for child in grid_container.get_children():
 		child.queue_free()
 	for stack in inventory_data.stacks:
-		var slot = item_slot.instantiate()
+		var slot = item_slot_prefab.instantiate()
 		slots.append(slot)
-		item_grid.add_child(slot)
+		grid_container.add_child(slot)
 		slot.clicked.connect(inventory_data.on_slot_clicked)
-		if stack:
-			slot.set_stack(stack)
+		if stack: slot.set_stack(stack)

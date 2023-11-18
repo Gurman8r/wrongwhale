@@ -10,21 +10,21 @@ func _init() -> void:
 	assert(Ref.world)
 	Ref.world.cells.append(self)
 
-func _ready():
+func _ready() -> void:
 	disable()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func enable() -> void:
-	_set_enabled(self, true)
+	WorldCell._set_enabled(self, true)
 
 func disable() -> void:
-	_set_enabled(self, false)
+	WorldCell._set_enabled(self, false)
 
 func set_enabled(value: bool) -> void:
-	_set_enabled(self, value)
+	WorldCell._set_enabled(self, value)
 
-func _set_enabled(node: Node, value: bool) -> void:
+static func _set_enabled(node: Node, value: bool) -> void:
 	if not node: return
 	for child in node.get_children(): _set_enabled(child, value)
 	node.set_physics_process(value)
@@ -74,13 +74,5 @@ func remove(node: Node3D) -> WorldCell:
 	assert(node)
 	get_root_node(node).remove_child(node)
 	return self
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func _load_data(_world_data: WorldData) -> void:
-	print("LOADING CELL: %s" % [name])
-
-func _save_data(_world_data: WorldData) -> void:
-	print("SAVING CELL: %s" % [name])
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

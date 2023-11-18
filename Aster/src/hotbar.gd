@@ -2,7 +2,7 @@
 class_name Hotbar
 extends PanelContainer
 
-const item_slot = preload("res://assets/scenes/item_slot.tscn")
+const item_slot_prefab = preload("res://assets/scenes/item_slot.tscn")
 
 @onready var h_box_container = $MarginContainer/HBoxContainer
 
@@ -25,7 +25,7 @@ func populate_item_grid(inventory_data: InventoryData) -> void:
 		child.queue_free()
 	for i in range(0, 10):
 		var stack = inventory_data.stacks[i]
-		var slot = item_slot.instantiate()
+		var slot = item_slot_prefab.instantiate()
 		slots.append(slot)
 		h_box_container.add_child(slot)
 		if stack: slot.set_stack(stack)

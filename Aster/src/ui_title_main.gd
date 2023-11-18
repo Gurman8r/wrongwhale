@@ -15,4 +15,4 @@ func _on_button_mods_pressed() -> void:
 	Ref.ui.title.current_menu = Ref.ui.title.mods
 
 func _on_button_quit_pressed() -> void:
-	Ref.main.quit()
+	Ref.main.quit_to_desktop()
