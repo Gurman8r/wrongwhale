@@ -27,10 +27,18 @@ func set_world_data(world_data: WorldData):
 		delete_confirm_panel.show())
 	
 	edit_button.pressed.connect(func():
-		name_label.hide()
-		buttons_panel.hide()
-		name_edit.placeholder_text = world_data.name
-		name_edit.show())
+		if not name_edit.visible:
+			name_label.hide()
+			play_button.hide()
+			delete_button.hide()
+			name_edit.placeholder_text = world_data.name
+			name_edit.show()
+		else:
+			name_edit.hide()
+			name_label.show()
+			play_button.show()
+			delete_button.show()
+		edit_button.release_focus())
 	
 	name_edit.text_submitted.connect(func(new_text: String):
 		name_edit.hide()
@@ -39,7 +47,8 @@ func set_world_data(world_data: WorldData):
 			name_label.text = world_data.name
 			WorldData.write(world_data, world_data.guid)
 		name_label.show()
-		buttons_panel.show())
+		play_button.show()
+		delete_button.show())
 	
 	delete_accept_button.pressed.connect(func():
 		Util.wipe(WorldData.get_dir_path(world_data.guid))
