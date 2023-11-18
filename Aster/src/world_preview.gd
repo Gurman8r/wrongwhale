@@ -30,7 +30,7 @@ func set_world_data(world_data: WorldData):
 		play_button.hide()
 		delete_button.hide()
 		edit_button.hide()
-		delete_confirm_label.text = "Are you sure you want to delete \'%s\'?" % [world_data.name]
+		delete_confirm_label.text = "Are you sure you want to delete \'%s Farm\'?" % [world_data.name]
 		delete_confirm_panel.show())
 	
 	edit_button.pressed.connect(func():
@@ -38,7 +38,7 @@ func set_world_data(world_data: WorldData):
 			name_label.hide()
 			play_button.hide()
 			delete_button.hide()
-			name_edit.placeholder_text = world_data.name
+			name_edit.placeholder_text = "%s Farm" % [world_data.name]
 			name_edit.show()
 		else:
 			name_edit.hide()
@@ -57,6 +57,7 @@ func set_world_data(world_data: WorldData):
 			name_label.text = new_text
 			WorldData.write(world_data)
 			Util.wipe(WorldData.get_dir_path(old_guid))
+		name_label.text = "%s Farm" % [world_data.name]
 		name_label.show()
 		play_button.show()
 		delete_button.show())

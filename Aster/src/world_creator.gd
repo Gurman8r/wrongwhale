@@ -88,6 +88,7 @@ func _on_button_play_pressed():
 	player_data.cell_name = "WorldCell0"
 	player_data.inventory.stacks.resize(30)
 	player_data.equip.stacks.resize(1)
+	player_data.gender = player_gender
 	world_data.players[player_data.guid] = player_data
 	
 	WorldData.write(world_data, world_data.guid)

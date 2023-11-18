@@ -2,8 +2,8 @@
 class_name PlayerData
 extends Resource
 
-@export var guid: String = "Player_New"
-@export var name: String = "New Player"
+@export var guid: String
+@export var name: String
 @export var index: int = 0
 
 @export var cell_name: String = ""

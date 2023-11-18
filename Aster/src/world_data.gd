@@ -4,8 +4,8 @@ extends Resource
 
 const SAVES_PATH := "user://saves"
 
-@export var guid: String = "World_New"
-@export var name: String = "New World"
+@export var guid: String
+@export var name: String
 @export var index: int = 0
 
 @export var actors: Dictionary = {}
