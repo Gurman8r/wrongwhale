@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://cn6nx0dd15xf6"]
 
-[ext_resource type="Script" path="res://src/opt_manager.gd" id="1_na87v"]
-[ext_resource type="SystemFont" uid="uid://be14qyvbd8lox" path="res://assets/fonts/system_font.tres" id="2_n8q27"]
+[ext_resource type="Script" path="res://src/option_interface.gd" id="1_4y8mc"]
+[ext_resource type="SystemFont" uid="uid://be14qyvbd8lox" path="res://assets/fonts/system_font.tres" id="2_hxn2s"]
 
-[node name="OptManager" type="PanelContainer"]
-script = ExtResource("1_na87v")
+[node name="OptionInterface" type="PanelContainer"]
+script = ExtResource("1_4y8mc")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -22,5 +22,5 @@ size_flags_vertical = 4
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_vertical = 5
-theme_override_fonts/font = ExtResource("2_n8q27")
+theme_override_fonts/font = ExtResource("2_hxn2s")
 text = "Back"

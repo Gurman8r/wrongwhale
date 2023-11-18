@@ -1,5 +1,5 @@
-# ui_game.gd
-class_name UI_Game
+# game_interface.gd
+class_name GameInterface
 extends Control
 
 signal drop_stack(stack: ItemStack)
@@ -27,7 +27,7 @@ func _ready():
 func _unhandled_input(_event) -> void:
 	if visible \
 	and (Input.is_action_just_pressed("ui_cancel") \
-	or Input.is_action_just_pressed("inventory")):
+	or Input.is_action_just_pressed("toggle_inventory")):
 		toggle_inventory()
 		get_viewport().set_input_as_handled()
 
@@ -40,6 +40,24 @@ func _physics_process(_delta) -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+func set_player_data(value: PlayerData) -> void:
+	if player_data == value: return
+	player_data = value
+	if not player_data.inventory_data.inventory_interact.is_connected(on_inventory_interact):
+		player_data.inventory_data.inventory_interact.connect(on_inventory_interact)
+	player_inventory.set_inventory_data(player_data.inventory_data)
+	equip_inventory.set_inventory_data(player_data.equip_data)
+
+func clear_player_data() -> void:
+	if not player_data: return
+	if player_data.inventory_data.inventory_interact.is_connected(on_inventory_interact):
+		player_data.inventory_data.inventory_interact.disconnect(on_inventory_interact)
+	player_inventory.clear_inventory_data(player_data.inventory_data)
+	equip_inventory.clear_inventory_data(player_data.equip_data)
+	player_data = null
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 func toggle() -> void:
 	visible = not visible
 
@@ -49,22 +67,6 @@ func toggle_inventory(_external_inventory_owner = null) -> void:
 		set_external_inventory_owner(_external_inventory_owner)
 	else:
 		clear_external_inventory()
-
-func set_player_data(value: PlayerData) -> void:
-	if player_data == value: return
-	player_data = value
-	if not player_data.inventory.inventory_interact.is_connected(on_inventory_interact):
-		player_data.inventory.inventory_interact.connect(on_inventory_interact)
-	player_inventory.set_inventory_data(player_data.inventory)
-	equip_inventory.set_inventory_data(player_data.equip)
-
-func clear_player_data() -> void:
-	if not player_data: return
-	if player_data.inventory.inventory_interact.is_connected(on_inventory_interact):
-		player_data.inventory.inventory_interact.disconnect(on_inventory_interact)
-	player_inventory.clear_inventory_data(player_data.inventory)
-	equip_inventory.clear_inventory_data(player_data.equip)
-	player_data = null
 
 func set_external_inventory_owner(_external_inventory_owner) -> void:
 	external_inventory_owner = _external_inventory_owner

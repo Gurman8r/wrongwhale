@@ -10,11 +10,11 @@ stacks = Array[Resource("res://src/item_stack.gd")]([null, null, null, null, nul
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_h062n"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fbvmg"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_60ojv"]
 albedo_color = Color(0.384314, 0.215686, 0.101961, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_30nq0"]
-material = SubResource("StandardMaterial3D_fbvmg")
+material = SubResource("StandardMaterial3D_60ojv")
 
 [node name="Chest" type="StaticBody3D" groups=["external_inventory"]]
 collision_mask = 3

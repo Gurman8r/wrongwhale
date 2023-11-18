@@ -57,7 +57,7 @@ func get_root_name(node: Node3D) -> String:
 	elif node is Door: return "Door"
 	elif node is ItemDrop: return "Item"
 	elif node is Player: return "Player"
-	elif node is Tile: return "Tile"
+	elif node is WorldTile: return "Tile"
 	else: return "Misc"
 
 func get_root_node(node: Node3D) -> Node3D:

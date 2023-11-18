@@ -35,18 +35,28 @@ func _ready():
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+func load_from_file(path_stem: String = "") -> void:
+	if path_stem.is_empty() and data: path_stem = data.guid
+	assert(0 < path_stem.length())
+	load_from_memory(WorldData.read(path_stem))
+
 func load_from_memory(world_data: WorldData) -> void:
 	assert(world_data)
-	print("LOADING WORLD: %s" % [world_data.guid])
 	loading_started.emit()
 	data = world_data.duplicate()
 	
+	for guid in data.object_data:
+		var object_data: Resource = data.object_data[guid]
+		var object: Node = object_data.prefab.instantiate()
+		object.name = guid
+		if "data" in object and "cell_name" in object_data:
+			find_cell(object_data.cell_name).add(object)
+	
 	# load players
-	for guid in data.players:
+	for guid in data.player_data:
 		var player: Player = player_prefab.instantiate()
 		player.name = guid
-		change_cell(find_cell(data.players[guid].cell_name))
-		cell.add(player)
+		find_cell(data.player_data[guid].cell_name).add(player)
 	
 	for node in get_tree().get_nodes_in_group("read"):
 		assert("_read" in node)
@@ -64,34 +74,26 @@ func load_from_memory(world_data: WorldData) -> void:
 	show()
 	loading_finished.emit()
 
-func load_from_file(path_stem: String = "") -> void:
-	if path_stem.is_empty() and data: path_stem = data.guid
-	assert(0 < path_stem.length())
-	load_from_memory(WorldData.read(path_stem))
-
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func save_to_memory(world_data: WorldData) -> void:
-	assert(world_data)
-	print("SAVING WORLD: %s" % [world_data.guid])
-	saving_started.emit()
-	saving.emit(world_data)
-	saving_finished.emit()
 
 func save_to_file(path_stem: String = "") -> void:
 	if path_stem.is_empty() and data: path_stem = data.guid
 	assert(0 < path_stem.length())
-	print("SAVING WORLD: %s" % [path_stem])
 	saving_started.emit()
 	saving.emit(data)
 	WorldData.write(data, path_stem)
+	saving_finished.emit()
+
+func save_to_memory(world_data: WorldData) -> void:
+	assert(world_data)
+	saving_started.emit()
+	saving.emit(world_data)
 	saving_finished.emit()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func unload() -> void:
 	assert(data)
-	print("UNLOADING WORLD: %s" % [data.guid])
 	unloading_started.emit()
 	
 	for node in get_tree().get_nodes_in_group("read"):
@@ -119,35 +121,23 @@ func unload() -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+func find_cell(cell_name: String) -> WorldCell:
+	if has_node(cell_name): return get_node(cell_name) as WorldCell
+	else: return null
+
 func change_cell(world_cell: WorldCell) -> void:
 	if cell == world_cell: return
 	if cell: cell.disable()
 	cell = world_cell
 	if cell: cell.enable()
 
-func find_cell(cell_name: String) -> WorldCell:
-	if has_node(cell_name): return get_node(cell_name) as WorldCell
-	else: return null
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func transfer(node: Node, target_cell: WorldCell, target_pos: Vector3 = Vector3.ZERO, transition: bool = true) -> void:
+func transfer(node: Node, world_cell: WorldCell, target_pos: Vector3 = Vector3.ZERO) -> void:
 	assert(node)
-	assert(target_cell)
-	
-	if transition:
-		Ref.ui.transition.play("fadeout")
-		await Ref.ui.transition.finished
-	
-	cell.remove(node)
-	change_cell(target_cell)
-	cell.add(node, target_pos)
-	
+	assert(world_cell)
+	if cell: cell.remove(node)
+	change_cell(world_cell)
+	if cell: cell.add(node, target_pos)
 	if "data" in node and "cell_name" in node.data:
 		node.data.cell_name = cell.name
-	
-	if transition:
-		Ref.ui.transition.play("fadein")
-		await Ref.ui.transition.finished
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

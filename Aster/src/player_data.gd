@@ -10,8 +10,9 @@ extends Resource
 @export var position: Vector3 = Vector3.ZERO
 @export var direction: Vector3 = Vector3.FORWARD
 
-@export var inventory: InventoryData = InventoryData.new()
-@export var equip: InventoryDataEquip = InventoryDataEquip.new()
+@export var gender: int = 1
+@export var pronoun0: String = "She"
+@export var pronoun1: String = "Her"
 
 @export var health: int = 100
 @export var health_max: int = 100
@@ -24,5 +25,5 @@ extends Resource
 @export var defense: int = 1
 @export var speed: int = 1
 
-@export var gender: int = 1
-
+@export var inventory_data: InventoryData = InventoryData.new()
+@export var equip_data: InventoryDataEquip = InventoryDataEquip.new()

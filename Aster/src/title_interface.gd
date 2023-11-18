@@ -1,13 +1,13 @@
-# ui_title.gd
-class_name UI_Title
+# title_interface.gd
+class_name TitleInterface
 extends PanelContainer
 
 @onready var menu: Control = $TitleMain : set = set_menu
 @onready var main: Control = $TitleMain
 @onready var world_loader: Control = $WorldLoader
 @onready var world_creator: Control = $WorldCreator
-@onready var mod_manager: Control = $ModManager
-@onready var opt_manager: Control = $OptManager
+@onready var option_interface: Control = $OptionInterface
+@onready var mod_interface: Control = $ModInterface
 
 func _ready():
 	visibility_changed.connect(_on_visibility_changed)

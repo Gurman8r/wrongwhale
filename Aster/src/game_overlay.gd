@@ -1,5 +1,5 @@
-# ui_hud.gd
-class_name UI_HUD
+# game_overlay.gd
+class_name GameOverlay
 extends Control
 
 @onready var hotbar: Hotbar = $ItemHotbar
@@ -15,11 +15,11 @@ func _ready():
 func set_player_data(value: PlayerData) -> void:
 	if player_data == value: return
 	player_data = value
-	hotbar.set_inventory_data(player_data.inventory)
+	hotbar.set_inventory_data(player_data.inventory_data)
 
 func clear_player_data() -> void:
 	if not player_data: return
-	hotbar.clear_inventory_data(player_data.inventory)
+	hotbar.clear_inventory_data(player_data.inventory_data)
 	player_data = null
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

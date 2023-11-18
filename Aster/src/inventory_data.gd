@@ -2,7 +2,7 @@
 class_name InventoryData
 extends Resource
 
-@export var stacks: Array[ItemStack]
+@export var stacks: Array[ItemStack] = []
 
 signal inventory_interact(inventory_data: InventoryData, index: int, button: int)
 signal inventory_updated(inventory_data: InventoryData)
@@ -14,6 +14,10 @@ func get_item(index: int) -> ItemData:
 	var stack = stacks[index]
 	if stack: return stack.item_data
 	else: return null
+
+func resize(count: int) -> InventoryData:
+	stacks.resize(count)
+	return self
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

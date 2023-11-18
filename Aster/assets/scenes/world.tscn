@@ -1,7 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://cagnofcp3jxwf"]
+[gd_scene load_steps=14 format=3 uid="uid://cagnofcp3jxwf"]
 
 [ext_resource type="Script" path="res://src/world.gd" id="1_higy5"]
-[ext_resource type="Script" path="res://src/world_data.gd" id="2_7rtdm"]
 [ext_resource type="MeshLibrary" uid="uid://cwqb6ao2pijf4" path="res://assets/meshes/blocks.meshlib" id="3_ogybk"]
 [ext_resource type="Script" path="res://src/world_cell.gd" id="4_ilte3"]
 [ext_resource type="PackedScene" uid="uid://dhii3qy5e8ljo" path="res://assets/scenes/chest.tscn" id="5_lu22n"]
@@ -9,15 +8,6 @@
 [ext_resource type="Resource" uid="uid://yjvloyxn845p" path="res://assets/items/potion.tres" id="7_mqlmy"]
 [ext_resource type="Script" path="res://src/item_stack.gd" id="8_56u81"]
 [ext_resource type="PackedScene" uid="uid://bt3ygtr7jmwhx" path="res://assets/scenes/door.tscn" id="9_v1euk"]
-
-[sub_resource type="Resource" id="Resource_4kex0"]
-script = ExtResource("2_7rtdm")
-guid = ""
-name = ""
-index = 0
-actors = {}
-players = {}
-objects = {}
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_x5deb"]
 
@@ -38,7 +28,6 @@ stacks = Array[ExtResource("8_56u81")]([SubResource("Resource_se2iu"), SubResour
 
 [node name="World" type="Node3D"]
 script = ExtResource("1_higy5")
-data = SubResource("Resource_4kex0")
 
 [node name="WorldCell0" type="GridMap" parent="."]
 visible = false
@@ -62,7 +51,7 @@ inventory_data = SubResource("Resource_3v5xi")
 [node name="Door" type="Node3D" parent="WorldCell0"]
 
 [node name="Door0" parent="WorldCell0/Door" node_paths=PackedStringArray("destination") instance=ExtResource("9_v1euk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.77927, 0, -2.99888)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -3)
 destination = NodePath("../../../WorldCell1/Door/Door0")
 
 [node name="Misc" type="Node3D" parent="WorldCell0"]
@@ -89,7 +78,7 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 [node name="Door" type="Node3D" parent="WorldCell1"]
 
 [node name="Door0" parent="WorldCell1/Door" node_paths=PackedStringArray("destination") instance=ExtResource("9_v1euk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.50834, -2.38419e-07, -2.04362)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -2)
 destination = NodePath("../../../WorldCell0/Door/Door0")
 
 [node name="Misc" type="Node3D" parent="WorldCell1"]

@@ -1,5 +1,5 @@
-# opt_manager.gd
-class_name OptManager
+# option_interface.gd
+class_name OptionInterface
 extends PanelContainer
 
 @onready var back_button = $MarginContainer/VBoxContainer/BackButton

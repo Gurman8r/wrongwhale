@@ -34,12 +34,11 @@ signal action(mode: int)
 @onready var state_machine      : StateMachine     = $StateMachine
 @onready var target_marker      : Node3D           = $TargetMarker
 
-var item_index: int = 0
-var move_input: Array[bool] = [0, 0, 0, 0]
-
 var cell: WorldCell : get = get_cell
 func get_cell() -> WorldCell: return get_parent().get_parent() as WorldCell
-func get_class_name() -> String: return "Player"
+
+var item_index: int = 0
+var move_input: Array[bool] = [0, 0, 0, 0]
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -48,7 +47,7 @@ func _init() -> void:
 	Ref.world.player_created.emit(self)
 
 func _ready() -> void:
-	action.connect(func(mode: int): data.inventory.use_stack(item_index, mode, self))
+	action.connect(func(mode: int): data.inventory_data.use_stack(item_index, mode, self))
 
 func _notification(what):
 	match what:
@@ -109,22 +108,14 @@ func _input(event) -> void:
 	elif Input.is_action_pressed("secondary"): action.emit(SECONDARY)
 	elif Input.is_action_just_released("secondary"): action.emit(SECONDARY_END)
 
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 func _unhandled_input(_event) -> void:
 	# debug
-	if Input.is_action_just_pressed("debug"): toggle_debug.emit()
+	if Input.is_action_just_pressed("toggle_debug"): toggle_debug.emit()
 	
-	# primary action
-	if Input.is_action_just_pressed("primary"): action.emit(PRIMARY_BEGIN)
-	elif Input.is_action_pressed("primary"): action.emit(PRIMARY)
-	elif Input.is_action_just_released("primary"): action.emit(PRIMARY_END)
-	
-	# secondary action
-	if Input.is_action_just_pressed("secondary"): action.emit(SECONDARY_BEGIN)
-	elif Input.is_action_pressed("secondary"): action.emit(SECONDARY)
-	elif Input.is_action_just_released("secondary"): action.emit(SECONDARY_END)
-	
-	# inventory
-	if Input.is_action_just_pressed("inventory"): toggle_inventory.emit()
+	# inventory_data
+	if Input.is_action_just_pressed("toggle_inventory"): toggle_inventory.emit()
 	if Input.is_action_just_released("hotbar_prev"): hotbar_prev.emit()
 	elif Input.is_action_just_released("hotbar_next"): hotbar_next.emit()
 	for i in range(0, 10):
@@ -137,19 +128,28 @@ func _unhandled_input(_event) -> void:
 	move_input[RIGHT] = Input.is_action_pressed("move_right")
 	move_input[FORWARD] = Input.is_action_pressed("move_forward")
 	move_input[BACKWARD] = Input.is_action_pressed("move_backward")
+	
+	# primary action
+	if Input.is_action_just_pressed("primary"): action.emit(PRIMARY_BEGIN)
+	elif Input.is_action_pressed("primary"): action.emit(PRIMARY)
+	elif Input.is_action_just_released("primary"): action.emit(PRIMARY_END)
+	
+	# secondary action
+	if Input.is_action_just_pressed("secondary"): action.emit(SECONDARY_BEGIN)
+	elif Input.is_action_pressed("secondary"): action.emit(SECONDARY)
+	elif Input.is_action_just_released("secondary"): action.emit(SECONDARY_END)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _read(world_data: WorldData) -> Player:
-	print("LOADING PLAYER: %s" % [name])
-	assert(world_data.players.has(name))
-	data = world_data.players[name].duplicate()
+	assert(world_data.player_data.has(name))
+	data = world_data.player_data[name].duplicate()
+	Ref.world.change_cell(Ref.world.find_cell(data.cell_name))
 	return self
 
 func _write(world_data: WorldData) -> Player:
-	print("SAVING PLAYER: %s" % [name])
 	data.cell_name = get_cell().name
-	world_data.players[name] = data.duplicate()
+	world_data.player_data[name] = data.duplicate()
 	return self
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

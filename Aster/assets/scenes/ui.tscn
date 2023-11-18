@@ -1,20 +1,20 @@
-[gd_scene load_steps=19 format=3 uid="uid://bx570xqwl6a7i"]
+[gd_scene load_steps=19 format=3 uid="uid://16joywapgbic"]
 
 [ext_resource type="Script" path="res://src/ui.gd" id="1_assrp"]
-[ext_resource type="Script" path="res://src/ui_hud.gd" id="2_t7ihg"]
+[ext_resource type="Script" path="res://src/game_overlay.gd" id="2_ljiwu"]
 [ext_resource type="PackedScene" uid="uid://dnhnrabrf57os" path="res://assets/scenes/hotbar.tscn" id="3_jmb8r"]
 [ext_resource type="SystemFont" uid="uid://be14qyvbd8lox" path="res://assets/fonts/system_font.tres" id="4_6cpgp"]
-[ext_resource type="Script" path="res://src/ui_game.gd" id="4_r37xa"]
+[ext_resource type="Script" path="res://src/game_interface.gd" id="5_ht361"]
 [ext_resource type="PackedScene" uid="uid://dv6li4wxrohgf" path="res://assets/scenes/inventory.tscn" id="5_q445p"]
 [ext_resource type="PackedScene" uid="uid://ddxw2b6u1pxow" path="res://assets/scenes/item_slot.tscn" id="6_5hooo"]
-[ext_resource type="Script" path="res://src/ui_title.gd" id="7_1ios3"]
 [ext_resource type="PackedScene" uid="uid://vw0n0v6gcdcl" path="res://assets/scenes/world_loader.tscn" id="8_x2ykj"]
 [ext_resource type="Script" path="res://src/title_main.gd" id="8_yl4vl"]
+[ext_resource type="Script" path="res://src/title_interface.gd" id="8_ymkqk"]
 [ext_resource type="PackedScene" uid="uid://cwt1khy7c6ido" path="res://assets/scenes/world_creator.tscn" id="9_86lig"]
-[ext_resource type="PackedScene" uid="uid://cn6nx0dd15xf6" path="res://assets/scenes/opt_manager.tscn" id="10_s2lf1"]
-[ext_resource type="PackedScene" uid="uid://bwsftfna5831c" path="res://assets/scenes/mod_manager.tscn" id="11_afpvn"]
-[ext_resource type="Script" path="res://src/ui_transition.gd" id="13_6da11"]
-[ext_resource type="Script" path="res://src/ui_debug.gd" id="14_laiv1"]
+[ext_resource type="PackedScene" uid="uid://cn6nx0dd15xf6" path="res://assets/scenes/option_interface.tscn" id="10_s2lf1"]
+[ext_resource type="PackedScene" uid="uid://bwsftfna5831c" path="res://assets/scenes/mod_interface.tscn" id="11_afpvn"]
+[ext_resource type="Script" path="res://src/transition_interface.gd" id="14_o8y1e"]
+[ext_resource type="Script" path="res://src/debug_overlay.gd" id="15_gmebu"]
 
 [sub_resource type="Animation" id="Animation_ubt67"]
 resource_name = "RESET"
@@ -58,7 +58,7 @@ _data = {
 process_mode = 3
 script = ExtResource("1_assrp")
 
-[node name="HUD" type="Control" parent="."]
+[node name="GameOverlay" type="Control" parent="."]
 process_mode = 3
 visible = false
 layout_mode = 3
@@ -68,9 +68,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("2_t7ihg")
+script = ExtResource("2_ljiwu")
 
-[node name="ItemHotbar" parent="HUD" instance=ExtResource("3_jmb8r")]
+[node name="ItemHotbar" parent="GameOverlay" instance=ExtResource("3_jmb8r")]
 layout_mode = 0
 offset_left = 10.0
 offset_top = 10.0
@@ -78,7 +78,7 @@ offset_right = 694.0
 offset_bottom = 82.0
 mouse_filter = 2
 
-[node name="InteractLabel" type="Label" parent="HUD"]
+[node name="InteractLabel" type="Label" parent="GameOverlay"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -96,7 +96,7 @@ text = "Interact"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Game" type="Control" parent="."]
+[node name="GameInterface" type="Control" parent="."]
 process_mode = 3
 visible = false
 layout_mode = 3
@@ -105,23 +105,23 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("4_r37xa")
+script = ExtResource("5_ht361")
 
-[node name="PlayerInventory" parent="Game" instance=ExtResource("5_q445p")]
+[node name="PlayerInventory" parent="GameInterface" instance=ExtResource("5_q445p")]
 layout_mode = 2
 offset_left = 10.0
 offset_top = 10.0
 offset_right = 50.0
 offset_bottom = 50.0
 
-[node name="EquipInventory" parent="Game" instance=ExtResource("5_q445p")]
+[node name="EquipInventory" parent="GameInterface" instance=ExtResource("5_q445p")]
 layout_mode = 2
 offset_left = 720.0
 offset_top = 10.0
 offset_right = 760.0
 offset_bottom = 50.0
 
-[node name="ExternalInventory" parent="Game" instance=ExtResource("5_q445p")]
+[node name="ExternalInventory" parent="GameInterface" instance=ExtResource("5_q445p")]
 visible = false
 layout_mode = 2
 offset_left = 10.0
@@ -129,7 +129,7 @@ offset_top = 360.0
 offset_right = 50.0
 offset_bottom = 400.0
 
-[node name="GrabbedSlot" parent="Game" instance=ExtResource("6_5hooo")]
+[node name="GrabbedSlot" parent="GameInterface" instance=ExtResource("6_5hooo")]
 visible = false
 modulate = Color(1, 1, 1, 0.501961)
 self_modulate = Color(1, 1, 1, 0)
@@ -137,84 +137,84 @@ layout_mode = 2
 offset_right = 64.0
 offset_bottom = 64.0
 
-[node name="Title" type="PanelContainer" parent="."]
+[node name="TitleInterface" type="PanelContainer" parent="."]
 process_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("7_1ios3")
+script = ExtResource("8_ymkqk")
 metadata/_edit_use_anchors_ = true
 
-[node name="TitleMain" type="PanelContainer" parent="Title"]
+[node name="TitleMain" type="PanelContainer" parent="TitleInterface"]
 layout_mode = 2
 script = ExtResource("8_yl4vl")
 
-[node name="MarginContainer" type="MarginContainer" parent="Title/TitleMain"]
+[node name="MarginContainer" type="MarginContainer" parent="TitleInterface/TitleMain"]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Title/TitleMain/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TitleInterface/TitleMain/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="LoadButton" type="Button" parent="Title/TitleMain/MarginContainer/VBoxContainer"]
+[node name="LoadButton" type="Button" parent="TitleInterface/TitleMain/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_fonts/font = ExtResource("4_6cpgp")
 text = "Load Game"
 
-[node name="NewButton" type="Button" parent="Title/TitleMain/MarginContainer/VBoxContainer"]
+[node name="NewButton" type="Button" parent="TitleInterface/TitleMain/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_fonts/font = ExtResource("4_6cpgp")
 text = "New Game"
 
-[node name="OptionsButton" type="Button" parent="Title/TitleMain/MarginContainer/VBoxContainer"]
+[node name="OptionsButton" type="Button" parent="TitleInterface/TitleMain/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_fonts/font = ExtResource("4_6cpgp")
 text = "Options"
 
-[node name="ModsButton" type="Button" parent="Title/TitleMain/MarginContainer/VBoxContainer"]
+[node name="ModsButton" type="Button" parent="TitleInterface/TitleMain/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_fonts/font = ExtResource("4_6cpgp")
 text = "Mods"
 
-[node name="QuitButton" type="Button" parent="Title/TitleMain/MarginContainer/VBoxContainer"]
+[node name="QuitButton" type="Button" parent="TitleInterface/TitleMain/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_fonts/font = ExtResource("4_6cpgp")
 text = "Quit"
 
-[node name="WorldLoader" parent="Title" instance=ExtResource("8_x2ykj")]
+[node name="WorldLoader" parent="TitleInterface" instance=ExtResource("8_x2ykj")]
 visible = false
 layout_mode = 2
 
-[node name="WorldCreator" parent="Title" instance=ExtResource("9_86lig")]
+[node name="WorldCreator" parent="TitleInterface" instance=ExtResource("9_86lig")]
 visible = false
 layout_mode = 2
 
-[node name="OptManager" parent="Title" instance=ExtResource("10_s2lf1")]
+[node name="OptionInterface" parent="TitleInterface" instance=ExtResource("10_s2lf1")]
 visible = false
 layout_mode = 2
 
-[node name="ModManager" parent="Title" instance=ExtResource("11_afpvn")]
+[node name="ModInterface" parent="TitleInterface" instance=ExtResource("11_afpvn")]
 visible = false
 layout_mode = 2
 
-[node name="Transition" type="Control" parent="."]
+[node name="TransitionInterface" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -222,10 +222,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("13_6da11")
+script = ExtResource("14_o8y1e")
 metadata/_edit_use_anchors_ = true
 
-[node name="DissolveRect" type="ColorRect" parent="Transition"]
+[node name="DissolveRect" type="ColorRect" parent="TransitionInterface"]
 modulate = Color(0, 0, 0, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -235,12 +235,12 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Transition"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TransitionInterface"]
 libraries = {
 "": SubResource("AnimationLibrary_02u0i")
 }
 
-[node name="Debug" type="Control" parent="."]
+[node name="DebugOverlay" type="Control" parent="."]
 process_mode = 3
 visible = false
 layout_mode = 3
@@ -250,19 +250,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-script = ExtResource("14_laiv1")
+script = ExtResource("15_gmebu")
 
-[node name="MarginContainer" type="MarginContainer" parent="Debug"]
+[node name="MarginContainer" type="MarginContainer" parent="DebugOverlay"]
 layout_mode = 2
 offset_right = 1280.0
 offset_bottom = 720.0
 mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Debug/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugOverlay/MarginContainer"]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Framerate" type="Label" parent="Debug/MarginContainer/VBoxContainer"]
+[node name="Framerate" type="Label" parent="DebugOverlay/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_6cpgp")
 text = "FPS: 0.0"

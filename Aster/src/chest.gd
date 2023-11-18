@@ -14,7 +14,5 @@ var cell: WorldCell : get = get_cell
 func get_cell() -> WorldCell: return get_parent().get_parent() as WorldCell
 
 func _ready() -> void:
-	interactable.interacted.connect(_on_interacted)
-
-func _on_interacted(_other) -> void:
-	toggle_inventory.emit(self)
+	interactable.interacted.connect(func(_other) -> void:
+		toggle_inventory.emit(self))

@@ -1,5 +1,5 @@
-# mod_manager.gd
-class_name ModManager
+# mod_interface.gd
+class_name ModInterface
 extends PanelContainer
 
 @onready var back_button = $MarginContainer/VBoxContainer/BackButton

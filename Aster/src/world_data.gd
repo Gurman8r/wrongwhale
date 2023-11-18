@@ -3,14 +3,15 @@ class_name WorldData
 extends Resource
 
 const SAVES_PATH := "user://saves"
+const FILE_NAME := "world.tres"
 
 @export var guid: String
 @export var name: String
 @export var index: int = 0
 
-@export var actors: Dictionary = {}
-@export var players: Dictionary = {}
-@export var objects: Dictionary = {}
+@export var farm_data: FarmData = FarmData.new()
+@export var player_data: Dictionary = {}
+@export var object_data: Dictionary = {}
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -20,7 +21,7 @@ static func get_dir_path(path_stem: String) -> String:
 
 static func get_file_path(path_stem: String) -> String:
 	assert(0 < path_stem.length())
-	return "%s/%s/world.tres" % [SAVES_PATH, path_stem]
+	return "%s/%s/%s" % [SAVES_PATH, path_stem, FILE_NAME]
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -38,9 +39,6 @@ static func write(world_data: WorldData, path_stem: String = "") -> Error:
 	DirAccess.make_dir_absolute(dir_path)
 	return ResourceSaver.save(world_data, get_file_path(path_stem))
 
-static func remove(path_stem: String) -> void:
-	Util.wipe(get_dir_path(path_stem))
-
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 static func exists(path_stem: String) -> bool:
@@ -57,7 +55,7 @@ static func list() -> Array[String]:
 			var world_dir = DirAccess.open(get_dir_path(path))
 			if not world_dir: continue
 			world_dir.list_dir_begin()
-			if world_dir.file_exists("world.tres"):
+			if world_dir.file_exists(FILE_NAME):
 				path_list.append(path)
 		path = saves_dir.get_next()
 	return path_list
@@ -73,7 +71,7 @@ static func count() -> int:
 			var world_dir = DirAccess.open(get_dir_path(path))
 			if not world_dir: continue
 			world_dir.list_dir_begin()
-			if world_dir.file_exists("world.tres"):
+			if world_dir.file_exists(FILE_NAME):
 				path_count += 1
 		path = saves_dir.get_next()
 	return path_count
