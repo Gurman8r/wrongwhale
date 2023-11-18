@@ -39,14 +39,14 @@ func _ready():
 	farm_name_edit.text_changed.connect(func(new_text: String):
 		if farm_name == new_text: return
 		farm_name = new_text
-		farm_name_label.text = "%s Farm" % [farm_name])
+		farm_name_label.text = "%s Farm" % [farm_name.rpad(12, "_")])
 	farm_name_edit.text_submitted.connect(func(_new_text: String):
 		farm_name_edit.release_focus())
 	
 	player_name_edit.text_changed.connect(func(new_text: String):
 		if player_name == new_text: return
 		player_name = new_text
-		player_name_label.text = "Farmer %s" % [player_name])
+		player_name_label.text = "Farmer %s" % [player_name.rpad(12, "_")])
 	player_name_edit.text_submitted.connect(func(_new_text: String):
 		player_name_edit.release_focus())
 	
@@ -67,8 +67,8 @@ func _reset():
 	farm_name = ""
 	player_name = ""
 	player_gender = 1
-	farm_name_label.text = "Farm"
-	player_name_label.text = "Farmer"
+	farm_name_label.text = "____________ Farm"
+	player_name_label.text = "Farmer ____________"
 	player_pronoun_label.text = "She/Her"
 
 func _on_button_play_pressed():

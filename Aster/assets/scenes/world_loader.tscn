@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://vw0n0v6gcdcl"]
+[gd_scene load_steps=3 format=3 uid="uid://vw0n0v6gcdcl"]
 
 [ext_resource type="Script" path="res://src/world_loader.gd" id="1_wd0t3"]
+[ext_resource type="SystemFont" uid="uid://be14qyvbd8lox" path="res://assets/fonts/system_font.tres" id="2_q1jh2"]
 
 [node name="WorldLoader" type="PanelContainer"]
 script = ExtResource("1_wd0t3")
@@ -31,11 +32,15 @@ size_flags_vertical = 4
 
 [node name="EmptyLabel" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_q1jh2")
 text = "NO DATA"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("2_q1jh2")
 text = "Back"

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cwt1khy7c6ido"]
+[gd_scene load_steps=4 format=3 uid="uid://cwt1khy7c6ido"]
 
 [ext_resource type="Script" path="res://src/world_creator.gd" id="1_ktptq"]
 [ext_resource type="Texture2D" uid="uid://cnjn52yl7koe" path="res://assets/icons/icon_play.png" id="2_gdp88"]
+[ext_resource type="SystemFont" uid="uid://be14qyvbd8lox" path="res://assets/fonts/system_font.tres" id="2_nxuyy"]
 
 [node name="WorldCreator" type="PanelContainer"]
 script = ExtResource("1_ktptq")
@@ -36,6 +37,7 @@ theme_override_constants/separation = 4
 [node name="FarmNameEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/FarmNamePanel/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_nxuyy")
 placeholder_text = "Farm Name"
 alignment = 1
 max_length = 12
@@ -45,7 +47,8 @@ clear_button_enabled = true
 [node name="FarmNameLabel" type="Label" parent="MarginContainer/VBoxContainer/FarmNamePanel/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
-text = "Farm"
+theme_override_fonts/font = ExtResource("2_nxuyy")
+text = "____________ Farm"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -67,6 +70,7 @@ theme_override_constants/separation = 4
 [node name="PlayerNameEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/PlayerNamePanel/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_nxuyy")
 placeholder_text = "Player Name"
 alignment = 1
 max_length = 12
@@ -76,7 +80,8 @@ clear_button_enabled = true
 [node name="PlayerNameLabel" type="Label" parent="MarginContainer/VBoxContainer/PlayerNamePanel/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
-text = "Farmer"
+theme_override_fonts/font = ExtResource("2_nxuyy")
+text = "Farmer ____________"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -98,24 +103,28 @@ theme_override_constants/separation = 4
 [node name="PlayerGenderButton0" type="Button" parent="MarginContainer/VBoxContainer/PlayerGenderPanel/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(64, 32)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_nxuyy")
 icon = ExtResource("2_gdp88")
 icon_alignment = 1
 
 [node name="PlayerGenderButton1" type="Button" parent="MarginContainer/VBoxContainer/PlayerGenderPanel/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(64, 32)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_nxuyy")
 icon = ExtResource("2_gdp88")
 icon_alignment = 1
 
 [node name="PlayerGenderButton2" type="Button" parent="MarginContainer/VBoxContainer/PlayerGenderPanel/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(64, 32)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_nxuyy")
 icon = ExtResource("2_gdp88")
 icon_alignment = 1
 
 [node name="PlayerPronounLabel" type="Label" parent="MarginContainer/VBoxContainer/PlayerGenderPanel/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_nxuyy")
 text = "She/Her"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -125,6 +134,7 @@ custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("2_nxuyy")
 text = "Play"
 
 [node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer"]
@@ -132,4 +142,5 @@ custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("2_nxuyy")
 text = "Back"

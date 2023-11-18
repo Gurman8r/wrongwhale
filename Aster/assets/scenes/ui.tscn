@@ -1,40 +1,20 @@
-[gd_scene load_steps=18 format=3 uid="uid://bx570xqwl6a7i"]
+[gd_scene load_steps=19 format=3 uid="uid://bx570xqwl6a7i"]
 
 [ext_resource type="Script" path="res://src/ui.gd" id="1_assrp"]
 [ext_resource type="Script" path="res://src/ui_hud.gd" id="2_t7ihg"]
 [ext_resource type="PackedScene" uid="uid://dnhnrabrf57os" path="res://assets/scenes/hotbar.tscn" id="3_jmb8r"]
+[ext_resource type="SystemFont" uid="uid://be14qyvbd8lox" path="res://assets/fonts/system_font.tres" id="4_6cpgp"]
 [ext_resource type="Script" path="res://src/ui_game.gd" id="4_r37xa"]
 [ext_resource type="PackedScene" uid="uid://dv6li4wxrohgf" path="res://assets/scenes/inventory.tscn" id="5_q445p"]
 [ext_resource type="PackedScene" uid="uid://ddxw2b6u1pxow" path="res://assets/scenes/item_slot.tscn" id="6_5hooo"]
 [ext_resource type="Script" path="res://src/ui_title.gd" id="7_1ios3"]
 [ext_resource type="PackedScene" uid="uid://vw0n0v6gcdcl" path="res://assets/scenes/world_loader.tscn" id="8_x2ykj"]
+[ext_resource type="Script" path="res://src/title_main.gd" id="8_yl4vl"]
 [ext_resource type="PackedScene" uid="uid://cwt1khy7c6ido" path="res://assets/scenes/world_creator.tscn" id="9_86lig"]
 [ext_resource type="PackedScene" uid="uid://cn6nx0dd15xf6" path="res://assets/scenes/opt_manager.tscn" id="10_s2lf1"]
 [ext_resource type="PackedScene" uid="uid://bwsftfna5831c" path="res://assets/scenes/mod_manager.tscn" id="11_afpvn"]
 [ext_resource type="Script" path="res://src/ui_transition.gd" id="13_6da11"]
 [ext_resource type="Script" path="res://src/ui_debug.gd" id="14_laiv1"]
-
-[sub_resource type="GDScript" id="GDScript_ikl0f"]
-script/source = "# ui_title_mainmenu.gd
-class_name UI_Title_MainMenu
-extends PanelContainer
-
-@onready var load_button = $MarginContainer/VBoxContainer/LoadButton
-@onready var new_button = $MarginContainer/VBoxContainer/NewButton
-@onready var options_button = $MarginContainer/VBoxContainer/OptionsButton
-@onready var mods_button = $MarginContainer/VBoxContainer/ModsButton
-@onready var quit_button = $MarginContainer/VBoxContainer/QuitButton
-
-func _ready() -> void:
-	load_button.pressed.connect(func(): Ref.ui.title.menu = Ref.ui.title.world_loader)
-	new_button.pressed.connect(func(): Ref.ui.title.menu = Ref.ui.title.world_creator)
-	options_button.pressed.connect(func(): Ref.ui.title.menu = Ref.ui.title.opt_manager)
-	mods_button.pressed.connect(func(): Ref.ui.title.menu = Ref.ui.title.mod_manager)
-	quit_button.pressed.connect(func(): Ref.main.quit_to_desktop())
-	
-	load_button.visible = 0 < WorldData.count()
-	visibility_changed.connect(func(): if visible: load_button.visible = not WorldData.list().is_empty())
-"
 
 [sub_resource type="Animation" id="Animation_ubt67"]
 resource_name = "RESET"
@@ -111,6 +91,7 @@ offset_right = 30.5
 offset_bottom = 66.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_6cpgp")
 text = "Interact"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -166,50 +147,55 @@ grow_vertical = 2
 script = ExtResource("7_1ios3")
 metadata/_edit_use_anchors_ = true
 
-[node name="Main" type="PanelContainer" parent="Title"]
+[node name="MainMenu" type="PanelContainer" parent="Title"]
 layout_mode = 2
-script = SubResource("GDScript_ikl0f")
+script = ExtResource("8_yl4vl")
 
-[node name="MarginContainer" type="MarginContainer" parent="Title/Main"]
+[node name="MarginContainer" type="MarginContainer" parent="Title/MainMenu"]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Title/Main/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Title/MainMenu/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="LoadButton" type="Button" parent="Title/Main/MarginContainer/VBoxContainer"]
+[node name="LoadButton" type="Button" parent="Title/MainMenu/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("4_6cpgp")
 text = "Load Game"
 
-[node name="NewButton" type="Button" parent="Title/Main/MarginContainer/VBoxContainer"]
+[node name="NewButton" type="Button" parent="Title/MainMenu/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("4_6cpgp")
 text = "New Game"
 
-[node name="OptionsButton" type="Button" parent="Title/Main/MarginContainer/VBoxContainer"]
+[node name="OptionsButton" type="Button" parent="Title/MainMenu/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("4_6cpgp")
 text = "Options"
 
-[node name="ModsButton" type="Button" parent="Title/Main/MarginContainer/VBoxContainer"]
+[node name="ModsButton" type="Button" parent="Title/MainMenu/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("4_6cpgp")
 text = "Mods"
 
-[node name="QuitButton" type="Button" parent="Title/Main/MarginContainer/VBoxContainer"]
+[node name="QuitButton" type="Button" parent="Title/MainMenu/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("4_6cpgp")
 text = "Quit"
 
 [node name="WorldLoader" parent="Title" instance=ExtResource("8_x2ykj")]
@@ -278,4 +264,5 @@ mouse_filter = 2
 
 [node name="Framerate" type="Label" parent="Debug/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("4_6cpgp")
 text = "FPS: 0.0"

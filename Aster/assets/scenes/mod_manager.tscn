@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bwsftfna5831c"]
+[gd_scene load_steps=3 format=3 uid="uid://bwsftfna5831c"]
 
 [ext_resource type="Script" path="res://src/mod_manager.gd" id="1_3a5yw"]
+[ext_resource type="SystemFont" uid="uid://be14qyvbd8lox" path="res://assets/fonts/system_font.tres" id="2_jwanr"]
 
 [node name="ModManager" type="PanelContainer"]
 script = ExtResource("1_3a5yw")
@@ -21,4 +22,5 @@ size_flags_vertical = 4
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("2_jwanr")
 text = "Back"
