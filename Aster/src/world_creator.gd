@@ -32,7 +32,7 @@ func _input(event: InputEvent):
 
 func _ready():
 	_reset()
-	visibility_changed.connect(func(): if not visible: _reset())
+	visibility_changed.connect(func(): if visible: _reset())
 	play_button.pressed.connect(_on_button_play_pressed)
 	back_button.pressed.connect(func(): Ref.ui.title.menu = Ref.ui.title.main)
 	
@@ -68,7 +68,9 @@ func _reset():
 	player_name = ""
 	player_gender = 1
 	farm_name_label.text = "____________ Farm"
+	farm_name_edit.text = ""
 	player_name_label.text = "Farmer ____________"
+	player_name_edit.text = ""
 	player_pronoun_label.text = "She/Her"
 
 func _on_button_play_pressed():

@@ -41,7 +41,6 @@ theme_override_fonts/font = ExtResource("2_nxuyy")
 placeholder_text = "Farm Name"
 alignment = 1
 max_length = 12
-expand_to_text_length = true
 clear_button_enabled = true
 
 [node name="FarmNameLabel" type="Label" parent="MarginContainer/VBoxContainer/FarmNamePanel/MarginContainer/HBoxContainer"]
@@ -74,7 +73,6 @@ theme_override_fonts/font = ExtResource("2_nxuyy")
 placeholder_text = "Player Name"
 alignment = 1
 max_length = 12
-expand_to_text_length = true
 clear_button_enabled = true
 
 [node name="PlayerNameLabel" type="Label" parent="MarginContainer/VBoxContainer/PlayerNamePanel/MarginContainer/HBoxContainer"]
