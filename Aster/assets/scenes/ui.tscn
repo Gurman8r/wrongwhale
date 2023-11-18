@@ -147,51 +147,51 @@ grow_vertical = 2
 script = ExtResource("7_1ios3")
 metadata/_edit_use_anchors_ = true
 
-[node name="MainMenu" type="PanelContainer" parent="Title"]
+[node name="TitleMain" type="PanelContainer" parent="Title"]
 layout_mode = 2
 script = ExtResource("8_yl4vl")
 
-[node name="MarginContainer" type="MarginContainer" parent="Title/MainMenu"]
+[node name="MarginContainer" type="MarginContainer" parent="Title/TitleMain"]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Title/MainMenu/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Title/TitleMain/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="LoadButton" type="Button" parent="Title/MainMenu/MarginContainer/VBoxContainer"]
+[node name="LoadButton" type="Button" parent="Title/TitleMain/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_fonts/font = ExtResource("4_6cpgp")
 text = "Load Game"
 
-[node name="NewButton" type="Button" parent="Title/MainMenu/MarginContainer/VBoxContainer"]
+[node name="NewButton" type="Button" parent="Title/TitleMain/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_fonts/font = ExtResource("4_6cpgp")
 text = "New Game"
 
-[node name="OptionsButton" type="Button" parent="Title/MainMenu/MarginContainer/VBoxContainer"]
+[node name="OptionsButton" type="Button" parent="Title/TitleMain/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_fonts/font = ExtResource("4_6cpgp")
 text = "Options"
 
-[node name="ModsButton" type="Button" parent="Title/MainMenu/MarginContainer/VBoxContainer"]
+[node name="ModsButton" type="Button" parent="Title/TitleMain/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_fonts/font = ExtResource("4_6cpgp")
 text = "Mods"
 
-[node name="QuitButton" type="Button" parent="Title/MainMenu/MarginContainer/VBoxContainer"]
+[node name="QuitButton" type="Button" parent="Title/TitleMain/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_vertical = 5

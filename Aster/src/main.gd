@@ -47,7 +47,7 @@ func _ready() -> void:
 func _unhandled_input(_event) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		if playing: save_world_to_file_and_quit_to_title()
-		elif ui.title.menu == ui.title.main_menu: quit_to_desktop()
+		elif ui.title.menu == ui.title.main: quit_to_desktop()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

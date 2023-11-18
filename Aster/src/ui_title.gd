@@ -2,8 +2,8 @@
 class_name UI_Title
 extends PanelContainer
 
-@onready var menu: Control = $MainMenu : set = set_menu
-@onready var main: Control = $MainMenu
+@onready var menu: Control = $TitleMain : set = set_menu
+@onready var main: Control = $TitleMain
 @onready var world_loader: Control = $WorldLoader
 @onready var world_creator: Control = $WorldCreator
 @onready var mod_manager: Control = $ModManager
