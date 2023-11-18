@@ -18,9 +18,126 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
+[node name="Video" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(256, 40)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Video"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Video/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Video/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(128, 32)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_hxn2s")
+text = "Video"
+vertical_alignment = 1
+
+[node name="WindowMode" type="MarginContainer" parent="MarginContainer/VBoxContainer/Video/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Video/MarginContainer/VBoxContainer/WindowMode"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 4
+
+[node name="WindowModeLabel" type="Label" parent="MarginContainer/VBoxContainer/Video/MarginContainer/VBoxContainer/WindowMode/HBoxContainer"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_hxn2s")
+text = "Window Mode"
+
+[node name="WindowModeButton" type="MenuButton" parent="MarginContainer/VBoxContainer/Video/MarginContainer/VBoxContainer/WindowMode/HBoxContainer"]
+custom_minimum_size = Vector2(128, 32)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_hxn2s")
+text = "Windowed"
+
+[node name="WindowSize" type="MarginContainer" parent="MarginContainer/VBoxContainer/Video/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Video/MarginContainer/VBoxContainer/WindowSize"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 4
+
+[node name="WindowSizeLabel" type="Label" parent="MarginContainer/VBoxContainer/Video/MarginContainer/VBoxContainer/WindowSize/HBoxContainer"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_hxn2s")
+text = "Window Size"
+
+[node name="WindowSizeButton" type="MenuButton" parent="MarginContainer/VBoxContainer/Video/MarginContainer/VBoxContainer/WindowSize/HBoxContainer"]
+custom_minimum_size = Vector2(128, 32)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_hxn2s")
+text = "1280 x 720"
+
+[node name="Graphics" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(256, 40)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Graphics"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Graphics/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Graphics/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(128, 32)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_hxn2s")
+text = "Graphics"
+vertical_alignment = 1
+
+[node name="Vsync" type="MarginContainer" parent="MarginContainer/VBoxContainer/Graphics/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Graphics/MarginContainer/VBoxContainer/Vsync"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 4
+
+[node name="WindowVsyncLabel" type="Label" parent="MarginContainer/VBoxContainer/Graphics/MarginContainer/VBoxContainer/Vsync/HBoxContainer"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_hxn2s")
+text = "V-Sync"
+
+[node name="WindowVsyncButton" type="CheckButton" parent="MarginContainer/VBoxContainer/Graphics/MarginContainer/VBoxContainer/Vsync/HBoxContainer"]
+custom_minimum_size = Vector2(128, 32)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("2_hxn2s")
+
 [node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 5
 theme_override_fonts/font = ExtResource("2_hxn2s")
 text = "Back"

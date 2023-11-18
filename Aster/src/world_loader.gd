@@ -12,13 +12,10 @@ func _ready():
 	back_button.pressed.connect(func(): Ref.ui.title.menu = Ref.ui.title.main)
 	visibility_changed.connect(func(): if visible: refresh())
 
-func clear() -> void:
+func refresh() -> void:
 	for child in preview_root.get_children():
 		if child is WorldPreview:
 			child.queue_free()
-
-func refresh() -> void:
-	clear()
 	DirAccess.make_dir_absolute(WorldData.SAVES_PATH)
 	var saves_dir = DirAccess.open(WorldData.SAVES_PATH)
 	if not saves_dir: return
