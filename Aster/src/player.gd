@@ -34,11 +34,11 @@ signal action(mode: int)
 @onready var state_machine      : StateMachine     = $StateMachine
 @onready var target_marker      : Node3D           = $TargetMarker
 
-var cell: WorldCell : get = get_cell
-
-var item_index: int = 0 : set = set_item_index
-
+var item_index: int = 0
 var move_input: Array[bool] = [0, 0, 0, 0]
+
+var cell: WorldCell : get = get_cell
+func get_cell() -> WorldCell: return get_parent().get_parent() as WorldCell
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -54,47 +54,6 @@ func _notification(what):
 		[NOTIFICATION_PREDELETE]:
 			Ref.world.player_destroyed.emit(self)
 			if Ref.player == self: Ref.player = null
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-	
-func _input(event) -> void:
-	# mouse motion
-	if event is InputEventMouseMotion:
-		camera_pivot_y.rotate_y(-event.relative.x * camera_speed.x)
-		camera_pivot_x.rotate_x(-event.relative.y * camera_speed.y)
-		camera_pivot_x.rotation.x = clamp( \
-			camera_pivot_x.rotation.x, \
-			deg_to_rad(camera_angle_min_degrees), \
-			deg_to_rad(camera_angle_max_degrees))
-	
-	# primary action
-	if Input.is_action_just_pressed("primary"): action.emit(PRIMARY_BEGIN)
-	elif Input.is_action_pressed("primary"): action.emit(PRIMARY)
-	elif Input.is_action_just_released("primary"): action.emit(PRIMARY_END)
-	
-	# secondary action
-	if Input.is_action_just_pressed("secondary"): action.emit(SECONDARY_BEGIN)
-	elif Input.is_action_pressed("secondary"): action.emit(SECONDARY)
-	elif Input.is_action_just_released("secondary"): action.emit(SECONDARY_END)
-
-func _unhandled_input(_event) -> void:
-	# debug
-	if Input.is_action_just_pressed("debug"): toggle_debug.emit()
-	
-	# inventory
-	if Input.is_action_just_pressed("inventory"): toggle_inventory.emit()
-	if Input.is_action_just_released("hotbar_prev"): hotbar_prev.emit()
-	elif Input.is_action_just_released("hotbar_next"): hotbar_next.emit()
-	for i in range(0, 10):
-		if Input.is_action_just_pressed("hotbar_%d" % [i]):
-			set_item_index(i - 1)
-			break
-	
-	# movement
-	move_input[LEFT] = Input.is_action_pressed("move_left")
-	move_input[RIGHT] = Input.is_action_pressed("move_right")
-	move_input[FORWARD] = Input.is_action_pressed("move_forward")
-	move_input[BACKWARD] = Input.is_action_pressed("move_backward")
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -128,23 +87,71 @@ func _process(delta: float) -> void:
 	target_marker.global_transform.origin.z = roundf(target_pos.z)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+	
+func _input(event) -> void:
+	# mouse motion
+	if event is InputEventMouseMotion:
+		camera_pivot_y.rotate_y(-event.relative.x * camera_speed.x)
+		camera_pivot_x.rotate_x(-event.relative.y * camera_speed.y)
+		camera_pivot_x.rotation.x = clamp( \
+			camera_pivot_x.rotation.x, \
+			deg_to_rad(camera_angle_min_degrees), \
+			deg_to_rad(camera_angle_max_degrees))
+	
+	# primary action
+	if Input.is_action_just_pressed("primary"): action.emit(PRIMARY_BEGIN)
+	elif Input.is_action_pressed("primary"): action.emit(PRIMARY)
+	elif Input.is_action_just_released("primary"): action.emit(PRIMARY_END)
+	
+	# secondary action
+	if Input.is_action_just_pressed("secondary"): action.emit(SECONDARY_BEGIN)
+	elif Input.is_action_pressed("secondary"): action.emit(SECONDARY)
+	elif Input.is_action_just_released("secondary"): action.emit(SECONDARY_END)
 
-func load_data(world_data: WorldData) -> Player:
-	print("player reading: %s" % [name])
-	if not world_data.players.has(name): return self
+func _unhandled_input(_event) -> void:
+	# debug
+	if Input.is_action_just_pressed("debug"): toggle_debug.emit()
+	
+	# primary action
+	if Input.is_action_just_pressed("primary"): action.emit(PRIMARY_BEGIN)
+	elif Input.is_action_pressed("primary"): action.emit(PRIMARY)
+	elif Input.is_action_just_released("primary"): action.emit(PRIMARY_END)
+	
+	# secondary action
+	if Input.is_action_just_pressed("secondary"): action.emit(SECONDARY_BEGIN)
+	elif Input.is_action_pressed("secondary"): action.emit(SECONDARY)
+	elif Input.is_action_just_released("secondary"): action.emit(SECONDARY_END)
+	
+	# inventory
+	if Input.is_action_just_pressed("inventory"): toggle_inventory.emit()
+	if Input.is_action_just_released("hotbar_prev"): hotbar_prev.emit()
+	elif Input.is_action_just_released("hotbar_next"): hotbar_next.emit()
+	for i in range(0, 10):
+		if Input.is_action_just_pressed("hotbar_%d" % [i]):
+			item_index = Ref.ui.hud.hotbar.set_item_index(i - 1).item_index
+			break
+	
+	# movement
+	move_input[LEFT] = Input.is_action_pressed("move_left")
+	move_input[RIGHT] = Input.is_action_pressed("move_right")
+	move_input[FORWARD] = Input.is_action_pressed("move_forward")
+	move_input[BACKWARD] = Input.is_action_pressed("move_backward")
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func _load_data(world_data: WorldData) -> Player:
+	print("LOADING PLAYER: %s" % [name])
+	assert(world_data.players.has(name))
 	data = world_data.players[name].duplicate()
 	return self
 
-func save_data(world_data: WorldData) -> Player:
-	print("player writing: %s" % [name])
+func _save_data(world_data: WorldData) -> Player:
+	print("SAVING PLAYER: %s" % [name])
 	data.cell_name = get_cell().name
 	world_data.players[name] = data.duplicate()
 	return self
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func get_cell() -> WorldCell:
-	return get_parent().get_parent() as WorldCell
 
 func get_drop_position() -> Vector3:
 	var pos: Vector3 = global_transform.origin + data.direction * drop_range
@@ -153,9 +160,5 @@ func get_drop_position() -> Vector3:
 
 func get_held_item() -> ItemData:
 	return data.inventory.get_item(item_index)
-
-func set_item_index(index: int) -> Player:
-	item_index = Ref.ui.hud.hotbar.set_item_index(index).item_index
-	return self
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

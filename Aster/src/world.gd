@@ -36,58 +36,60 @@ func _ready():
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func load_data(world_data: WorldData) -> void:
-	print("world loading")
+	print("LOADING WORLD: %s" % [world_data.guid])
 	assert(world_data)
 	loading_started.emit()
 	data = world_data.duplicate()
 	
+	# load players
 	for guid in data.players:
 		var player: Player = player_prefab.instantiate()
 		player.name = guid
-		change_cell(find_cell(data.players[guid].cell_name))
+		change_cell(get_cell(data.players[guid].cell_name))
 		current_cell.add(player)
 	
+	# setup read/write
 	for node in get_tree().get_nodes_in_group("rw"):
-		loading.connect(node.load_data)
-		saving.connect(node.save_data)
+		assert("_load_data" in node)
+		assert("_save_data" in node)
+		loading.connect(node._load_data)
+		saving.connect(node._save_data)
 	
 	loading.emit(data)
 	show()
 	loading_finished.emit()
 
-func load_file(path_stem: String) -> void:
-	print("world loading file: %s" % [path_stem])
+func load_from_file(path_stem: String) -> void:
+	assert(0 < path_stem.length())
 	load_data(WorldData.read(path_stem))
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func save_data(world_data: WorldData) -> void:
-	print("world saving")
+	print("SAVING WORLD: %s" % [world_data.guid])
 	assert(world_data)
 	saving_started.emit()
 	saving.emit(world_data)
 	saving_finished.emit()
 
-func save_file(path_stem: String) -> void:
-	print("world saving file: %s" % [path_stem])
-	assert(not path_stem.is_empty())
+func save_to_file(path_stem: String) -> void:
+	assert(0 < path_stem.length())
 	save_data(data)
 	WorldData.write(data, path_stem)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func unload() -> void:
-	print("world unloading: %s" % [name])
+	print("UNLOADING WORLD: %s" % [data.guid])
 	unloading_started.emit()
 	unloading.emit()
 	
+	# cleanup read/write
 	for node in get_tree().get_nodes_in_group("rw"):
-		loading.disconnect(node.load_data)
-		saving.disconnect(node.save_data)
-	
-	for node in get_tree().get_nodes_in_group("player"):
-		assert(node is Player)
-		print("player destroyed: %s" % [node.name])
+		assert("_load_data" in node)
+		assert("_save_data" in node)
+		loading.disconnect(node._load_data)
+		saving.disconnect(node._save_data)
 		node.queue_free()
 	
 	change_cell(null)
@@ -97,19 +99,17 @@ func unload() -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func find_cell(cell_name: String) -> WorldCell:
-	if cell_name.is_empty():
-		return null
-	for world_cell in cells:
-		if world_cell.name == cell_name:
-			return world_cell
-	return null
-
 func change_cell(value: WorldCell) -> void:
 	if current_cell == value: return
 	if current_cell: current_cell.disable()
 	current_cell = value
 	if current_cell: current_cell.enable()
+
+func get_cell(cell_name: String) -> WorldCell:
+	if has_node(cell_name): return get_node(cell_name) as WorldCell
+	else: return null
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func transfer(node: Node, target_cell: WorldCell, target_pos: Vector3 = Vector3.ZERO, transition: bool = true) -> void:
 	assert(node)

@@ -24,10 +24,11 @@ func _on_button_play_pressed():
 	player_data.inventory.stacks.resize(30)
 	player_data.equip = InventoryDataEquip.new()
 	player_data.equip.stacks.resize(1)
-	world_data.players[player_data.guid] = player_data
 	
+	# play
+	world_data.players[player_data.guid] = player_data
 	WorldData.write(world_data, world_data.guid)
-	Ref.main.load_game(world_data)
+	Ref.main.load_world(world_data)
 
 func _on_button_back_pressed():
-	Ref.ui.title.current = Ref.ui.title.main
+	Ref.ui.title.current_menu = Ref.ui.title.main

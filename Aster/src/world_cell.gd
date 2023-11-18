@@ -7,52 +7,19 @@ var enabled: bool : set = set_enabled
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
+	assert(Ref.world)
 	Ref.world.cells.append(self)
 
 func _ready():
-	set_enabled(false)
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func _get_root(root_name: String) -> Node3D:
-	if root_name.is_empty():
-		return null
-	var root: Node3D = get_node(root_name)
-	if not root:
-		root = Node3D.new()
-		add_child(root)
-	return root
-
-func get_root_name(node: Node3D) -> String:
-	if not node: return ""
-	elif node is Actor: return "Actor"
-	elif node is ItemDrop: return "Item"
-	elif node is Player: return "Player"
-	elif node is WorldObject: return "Object"
-	elif node is WorldTile: return "Tile"
-	else: return "Misc"
-
-func get_root_node(node: Node3D) -> Node3D:
-	return _get_root(get_root_name(node))
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func add(node: Node3D, location: Vector3 = Vector3.ZERO) -> void:
-	if not node: return
-	get_root_node(node).add_child(node)
-	node.global_transform.origin = location
-
-func remove(node: Node3D) -> void:
-	if not node: return
-	get_root_node(node).remove_child(node)
+	disable()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func enable() -> void:
-	set_enabled(true)
+	_set_enabled(self, true)
 
 func disable() -> void:
-	set_enabled(false)
+	_set_enabled(self, false)
 
 func set_enabled(value: bool) -> void:
 	_set_enabled(self, value)
@@ -70,5 +37,50 @@ func _set_enabled(node: Node, value: bool) -> void:
 	node.set_process_unhandled_key_input(value)
 	if "visible" in node: node.visible = value
 	if "disabled" in node: node.disabled = not value
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func _get_root(root_name: String) -> Node3D:
+	assert(0 < root_name.length())
+	if has_node(root_name):
+		return get_node(root_name)
+	else:
+		var root = Node3D.new()
+		root.name = root_name
+		add_child(root)
+		return root
+
+func get_root_name(node: Node3D) -> String:
+	assert(node)
+	if node is Actor: return "Actor"
+	elif node is Chest: return "Chest"
+	elif node is Door: return "Door"
+	elif node is ItemDrop: return "Item"
+	elif node is Player: return "Player"
+	elif node is Tile: return "Tile"
+	else: return "Misc"
+
+func get_root_node(node: Node3D) -> Node3D:
+	assert(node)
+	return _get_root(get_root_name(node))
+
+func add(node: Node3D, location: Vector3 = Vector3.ZERO) -> WorldCell:
+	assert(node)
+	get_root_node(node).add_child(node)
+	node.global_transform.origin = location
+	return self
+
+func remove(node: Node3D) -> WorldCell:
+	assert(node)
+	get_root_node(node).remove_child(node)
+	return self
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func _load_data(_world_data: WorldData) -> void:
+	print("LOADING CELL: %s" % [name])
+
+func _save_data(_world_data: WorldData) -> void:
+	print("SAVING CELL: %s" % [name])
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

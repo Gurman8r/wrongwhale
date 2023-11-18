@@ -1,6 +1,6 @@
 # door.gd
 class_name Door
-extends WorldObject
+extends StaticBody3D
 
 @export var destination: Door
 
@@ -8,6 +8,9 @@ extends WorldObject
 @onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
 @onready var interactable: Interactable = $Interactable
 @onready var spawn_point: Node3D = $SpawnPoint
+
+var cell: WorldCell : get = get_cell
+func get_cell() -> WorldCell: return get_parent().get_parent() as WorldCell
 
 func _ready() -> void:
 	interactable.interacted.connect(_on_interacted)

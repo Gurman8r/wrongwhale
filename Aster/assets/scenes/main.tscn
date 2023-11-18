@@ -1,10 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://c3r46ck1vopfk"]
+[gd_scene load_steps=6 format=3 uid="uid://c3r46ck1vopfk"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_5g4t2"]
 [ext_resource type="Script" path="res://src/database.gd" id="2_m1ams"]
-[ext_resource type="Resource" uid="uid://bricca5s4a58o" path="res://assets/data/database_default.tres" id="3_nssl2"]
 [ext_resource type="Script" path="res://src/settings.gd" id="4_7o66v"]
-[ext_resource type="Resource" uid="uid://8u3q2as2pgwn" path="res://assets/data/settings_default.tres" id="5_mo5jx"]
 [ext_resource type="PackedScene" uid="uid://cagnofcp3jxwf" path="res://assets/scenes/world.tscn" id="6_jfwg5"]
 [ext_resource type="PackedScene" uid="uid://bx570xqwl6a7i" path="res://assets/scenes/ui.tscn" id="7_uorn7"]
 
@@ -14,12 +12,9 @@ script = ExtResource("1_5g4t2")
 
 [node name="Database" type="Node" parent="."]
 script = ExtResource("2_m1ams")
-data = ExtResource("3_nssl2")
 
 [node name="Settings" type="Node" parent="."]
-process_mode = 3
 script = ExtResource("4_7o66v")
-data = ExtResource("5_mo5jx")
 
 [node name="World" parent="." instance=ExtResource("6_jfwg5")]
 process_mode = 1

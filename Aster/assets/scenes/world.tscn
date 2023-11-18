@@ -21,8 +21,6 @@ objects = {}
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_x5deb"]
 
-[sub_resource type="Environment" id="Environment_de777"]
-
 [sub_resource type="Resource" id="Resource_se2iu"]
 script = ExtResource("8_56u81")
 item_data = ExtResource("7_mqlmy")
@@ -32,11 +30,13 @@ quantity = 15
 script = ExtResource("6_cpi8b")
 stacks = Array[ExtResource("8_56u81")]([SubResource("Resource_se2iu"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
 
+[sub_resource type="Environment" id="Environment_de777"]
+
 [node name="World" type="Node3D"]
 script = ExtResource("1_higy5")
 data = SubResource("Resource_4kex0")
 
-[node name="WorldCell0" type="GridMap" parent="."]
+[node name="WorldCell0" type="GridMap" parent="." groups=["rw"]]
 mesh_library = ExtResource("3_ogybk")
 physics_material = SubResource("PhysicsMaterial_x5deb")
 cell_size = Vector3(1, 1, 1)
@@ -48,9 +48,17 @@ data = {
 script = ExtResource("4_ilte3")
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="Actor" type="Node3D" parent="WorldCell0"]
+[node name="Chest" type="Node3D" parent="WorldCell0"]
 
-[node name="Item" type="Node3D" parent="WorldCell0"]
+[node name="Chest0" parent="WorldCell0/Chest" instance=ExtResource("5_lu22n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+inventory_data = SubResource("Resource_3v5xi")
+
+[node name="Door" type="Node3D" parent="WorldCell0"]
+
+[node name="Door0" parent="WorldCell0/Door" node_paths=PackedStringArray("destination") instance=ExtResource("9_v1euk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.77927, 0, -2.99888)
+destination = NodePath("../../../WorldCell1/Door/Door0")
 
 [node name="Misc" type="Node3D" parent="WorldCell0"]
 
@@ -60,21 +68,7 @@ environment = SubResource("Environment_de777")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldCell0/Misc"]
 transform = Transform3D(0.707107, -0.298836, 0.640857, 0, 0.906308, 0.422618, -0.707107, -0.298836, 0.640857, 50, 50, 50)
 
-[node name="Object" type="Node3D" parent="WorldCell0"]
-
-[node name="Chest0" parent="WorldCell0/Object" instance=ExtResource("5_lu22n")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
-inventory_data = SubResource("Resource_3v5xi")
-
-[node name="Door0" parent="WorldCell0/Object" node_paths=PackedStringArray("destination") instance=ExtResource("9_v1euk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.77927, 0, -2.99888)
-destination = NodePath("../../../WorldCell1/Object/Door0")
-
-[node name="Player" type="Node3D" parent="WorldCell0"]
-
-[node name="Tile" type="Node3D" parent="WorldCell0"]
-
-[node name="WorldCell1" type="GridMap" parent="."]
+[node name="WorldCell1" type="GridMap" parent="." groups=["rw"]]
 mesh_library = ExtResource("3_ogybk")
 physics_material = SubResource("PhysicsMaterial_x5deb")
 cell_size = Vector3(1, 1, 1)
@@ -86,9 +80,11 @@ data = {
 script = ExtResource("4_ilte3")
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="Actor" type="Node3D" parent="WorldCell1"]
+[node name="Door" type="Node3D" parent="WorldCell1"]
 
-[node name="Item" type="Node3D" parent="WorldCell1"]
+[node name="Door0" parent="WorldCell1/Door" node_paths=PackedStringArray("destination") instance=ExtResource("9_v1euk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.50834, -2.38419e-07, -2.04362)
+destination = NodePath("../../../WorldCell0/Door/Door0")
 
 [node name="Misc" type="Node3D" parent="WorldCell1"]
 
@@ -97,13 +93,3 @@ environment = SubResource("Environment_de777")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldCell1/Misc"]
 transform = Transform3D(0.707107, -0.298836, 0.640857, 0, 0.906308, 0.422618, -0.707107, -0.298836, 0.640857, 50, 50, 50)
-
-[node name="Object" type="Node3D" parent="WorldCell1"]
-
-[node name="Door0" parent="WorldCell1/Object" node_paths=PackedStringArray("destination") instance=ExtResource("9_v1euk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.50834, -2.38419e-07, -2.04362)
-destination = NodePath("../../../WorldCell0/Object/Door0")
-
-[node name="Player" type="Node3D" parent="WorldCell1"]
-
-[node name="Tile" type="Node3D" parent="WorldCell1"]

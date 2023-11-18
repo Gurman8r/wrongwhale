@@ -9,4 +9,4 @@ func _on_visibility_changed() -> void:
 	pass
 
 func _on_button_back_pressed() -> void:
-	Ref.ui.title.current = Ref.ui.title.main
+	Ref.ui.title.current_menu = Ref.ui.title.main

@@ -15,11 +15,14 @@ const SAVES_PATH := "user://saves"
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 static func read(path_stem: String) -> Resource:
+	assert(0 < path_stem.length())
 	var save_path: String = "%s/%s/world.tres" % [SAVES_PATH, path_stem]
 	if not ResourceLoader.exists(save_path): return null
 	return ResourceLoader.load(save_path)
 
 static func write(world_data: WorldData, path_stem: String) -> Error:
+	assert(world_data)
+	assert(0 < path_stem.length())
 	DirAccess.remove_absolute("%s/%s" % [SAVES_PATH, path_stem])
 	DirAccess.make_dir_absolute("%s" % [SAVES_PATH])
 	DirAccess.make_dir_absolute("%s/%s" % [SAVES_PATH, path_stem])
