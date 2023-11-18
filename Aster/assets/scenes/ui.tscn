@@ -31,6 +31,9 @@ func _ready() -> void:
 	options_button.pressed.connect(func(): Ref.ui.title.menu = Ref.ui.title.opt_manager)
 	mods_button.pressed.connect(func(): Ref.ui.title.menu = Ref.ui.title.mod_manager)
 	quit_button.pressed.connect(func(): Ref.main.quit_to_desktop())
+	
+	load_button.visible = not WorldData.list().is_empty()
+	visibility_changed.connect(func(): if visible: load_button.visible = not WorldData.list().is_empty())
 "
 
 [sub_resource type="Animation" id="Animation_ubt67"]
