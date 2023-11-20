@@ -12,6 +12,13 @@ const item_drop = preload("res://assets/scenes/item_drop.tscn")
 @onready var external_inventory: Inventory = $ExternalInventory
 @onready var grabbed_slot: ItemSlot = $GrabbedSlot
 
+@onready var menu_tab_container: Control = $MenuTabContainer
+@onready var tab_container: TabContainer = $MenuTabContainer/TabContainer
+@onready var inventory_tab: TabBar = $MenuTabContainer/TabContainer/Inventory
+@onready var collection_tab: TabBar = $MenuTabContainer/TabContainer/Collection
+@onready var options_tab: TabBar = $MenuTabContainer/TabContainer/Options
+@onready var system_tab: TabBar = $MenuTabContainer/TabContainer/System
+
 var player_data: PlayerData
 var grabbed_stack: ItemStack
 var external_inventory_owner
