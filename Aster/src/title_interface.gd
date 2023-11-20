@@ -21,13 +21,13 @@ func set_menu(value: Control):
 	if not menu and not value:
 		return
 	elif menu and value:
-		Ref.ui.transition.play("fadeout")
-		await Ref.ui.transition.finished
+		Ref.ui.transitions.play("fadeout")
+		await Ref.ui.transitions.finished
 		menu.hide()
 		menu = value
 		menu.show()
-		Ref.ui.transition.play("fadein")
-		await Ref.ui.transition.finished
+		Ref.ui.transitions.play("fadein")
+		await Ref.ui.transitions.finished
 	elif menu and not value:
 		menu.hide()
 		menu = null

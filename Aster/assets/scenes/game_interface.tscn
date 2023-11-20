@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://csqilf6fxjsn4"]
+
+[ext_resource type="Script" path="res://src/game_interface.gd" id="1_sv1aj"]
+[ext_resource type="PackedScene" uid="uid://dv6li4wxrohgf" path="res://assets/scenes/inventory.tscn" id="2_sura8"]
+[ext_resource type="PackedScene" uid="uid://ddxw2b6u1pxow" path="res://assets/scenes/item_slot.tscn" id="3_a5cx3"]
+
+[node name="GameInterface" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sv1aj")
+
+[node name="PlayerInventory" parent="." instance=ExtResource("2_sura8")]
+layout_mode = 2
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 50.0
+offset_bottom = 50.0
+
+[node name="EquipInventory" parent="." instance=ExtResource("2_sura8")]
+layout_mode = 2
+offset_left = 720.0
+offset_top = 10.0
+offset_right = 760.0
+offset_bottom = 50.0
+
+[node name="ExternalInventory" parent="." instance=ExtResource("2_sura8")]
+visible = false
+layout_mode = 2
+offset_left = 10.0
+offset_top = 360.0
+offset_right = 50.0
+offset_bottom = 400.0
+
+[node name="GrabbedSlot" parent="." instance=ExtResource("3_a5cx3")]
+visible = false
+modulate = Color(1, 1, 1, 0.501961)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+offset_right = 64.0
+offset_bottom = 64.0

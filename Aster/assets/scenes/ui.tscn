@@ -1,141 +1,27 @@
-[gd_scene load_steps=19 format=3 uid="uid://16joywapgbic"]
+[gd_scene load_steps=13 format=3 uid="uid://16joywapgbic"]
 
 [ext_resource type="Script" path="res://src/ui.gd" id="1_assrp"]
-[ext_resource type="Script" path="res://src/game_overlay.gd" id="2_ljiwu"]
-[ext_resource type="PackedScene" uid="uid://dnhnrabrf57os" path="res://assets/scenes/hotbar.tscn" id="3_jmb8r"]
+[ext_resource type="PackedScene" uid="uid://c7k3fndqbtpcw" path="res://assets/scenes/game_overlay.tscn" id="2_lrmi8"]
+[ext_resource type="PackedScene" uid="uid://csqilf6fxjsn4" path="res://assets/scenes/game_interface.tscn" id="3_08tnt"]
 [ext_resource type="SystemFont" uid="uid://be14qyvbd8lox" path="res://assets/fonts/system_font.tres" id="4_6cpgp"]
-[ext_resource type="Script" path="res://src/game_interface.gd" id="5_ht361"]
-[ext_resource type="PackedScene" uid="uid://dv6li4wxrohgf" path="res://assets/scenes/inventory.tscn" id="5_q445p"]
-[ext_resource type="PackedScene" uid="uid://ddxw2b6u1pxow" path="res://assets/scenes/item_slot.tscn" id="6_5hooo"]
 [ext_resource type="PackedScene" uid="uid://vw0n0v6gcdcl" path="res://assets/scenes/world_loader.tscn" id="8_x2ykj"]
 [ext_resource type="Script" path="res://src/title_main.gd" id="8_yl4vl"]
 [ext_resource type="Script" path="res://src/title_interface.gd" id="8_ymkqk"]
 [ext_resource type="PackedScene" uid="uid://cwt1khy7c6ido" path="res://assets/scenes/world_creator.tscn" id="9_86lig"]
 [ext_resource type="PackedScene" uid="uid://cn6nx0dd15xf6" path="res://assets/scenes/option_interface.tscn" id="10_s2lf1"]
 [ext_resource type="PackedScene" uid="uid://bwsftfna5831c" path="res://assets/scenes/mod_interface.tscn" id="11_afpvn"]
-[ext_resource type="Script" path="res://src/transition_interface.gd" id="14_o8y1e"]
-[ext_resource type="Script" path="res://src/debug_overlay.gd" id="15_gmebu"]
-
-[sub_resource type="Animation" id="Animation_ubt67"]
-resource_name = "RESET"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("DissolveRect:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0, 0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_5xvxl"]
-resource_name = "dissolve"
-length = 0.25
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("DissolveRect:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_02u0i"]
-_data = {
-"RESET": SubResource("Animation_ubt67"),
-"dissolve": SubResource("Animation_5xvxl")
-}
+[ext_resource type="PackedScene" uid="uid://bwp3gkihsm2ah" path="res://assets/scenes/transitions.tscn" id="11_hg68u"]
+[ext_resource type="PackedScene" uid="uid://dixmxwjxalllh" path="res://assets/scenes/debug_overlay.tscn" id="12_somwx"]
 
 [node name="UI" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_assrp")
 
-[node name="GameOverlay" type="Control" parent="."]
-process_mode = 3
+[node name="GameOverlay" parent="." instance=ExtResource("2_lrmi8")]
 visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("2_ljiwu")
 
-[node name="ItemHotbar" parent="GameOverlay" instance=ExtResource("3_jmb8r")]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 694.0
-offset_bottom = 82.0
-mouse_filter = 2
-
-[node name="InteractLabel" type="Label" parent="GameOverlay"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -30.5
-offset_top = 40.0
-offset_right = 30.5
-offset_bottom = 66.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_fonts/font = ExtResource("4_6cpgp")
-text = "Interact"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="GameInterface" type="Control" parent="."]
-process_mode = 3
+[node name="GameInterface" parent="." instance=ExtResource("3_08tnt")]
 visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("5_ht361")
-
-[node name="PlayerInventory" parent="GameInterface" instance=ExtResource("5_q445p")]
-layout_mode = 2
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 50.0
-offset_bottom = 50.0
-
-[node name="EquipInventory" parent="GameInterface" instance=ExtResource("5_q445p")]
-layout_mode = 2
-offset_left = 720.0
-offset_top = 10.0
-offset_right = 760.0
-offset_bottom = 50.0
-
-[node name="ExternalInventory" parent="GameInterface" instance=ExtResource("5_q445p")]
-visible = false
-layout_mode = 2
-offset_left = 10.0
-offset_top = 360.0
-offset_right = 50.0
-offset_bottom = 400.0
-
-[node name="GrabbedSlot" parent="GameInterface" instance=ExtResource("6_5hooo")]
-visible = false
-modulate = Color(1, 1, 1, 0.501961)
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-offset_right = 64.0
-offset_bottom = 64.0
 
 [node name="TitleInterface" type="PanelContainer" parent="."]
 process_mode = 3
@@ -214,55 +100,7 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
-[node name="TransitionInterface" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("14_o8y1e")
-metadata/_edit_use_anchors_ = true
+[node name="Transitions" parent="." instance=ExtResource("11_hg68u")]
 
-[node name="DissolveRect" type="ColorRect" parent="TransitionInterface"]
-modulate = Color(0, 0, 0, 0)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="TransitionInterface"]
-libraries = {
-"": SubResource("AnimationLibrary_02u0i")
-}
-
-[node name="DebugOverlay" type="Control" parent="."]
-process_mode = 3
+[node name="DebugOverlay" parent="." instance=ExtResource("12_somwx")]
 visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("15_gmebu")
-
-[node name="MarginContainer" type="MarginContainer" parent="DebugOverlay"]
-layout_mode = 2
-offset_right = 1280.0
-offset_bottom = 720.0
-mouse_filter = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="DebugOverlay/MarginContainer"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="Framerate" type="Label" parent="DebugOverlay/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("4_6cpgp")
-text = "FPS: 0.0"

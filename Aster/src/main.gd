@@ -54,15 +54,15 @@ func _unhandled_input(_event) -> void:
 func load_world_from_memory(world_data: WorldData) -> void:
 	# pre-load
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	ui.transition.play("fadeout")
-	await ui.transition.finished
+	ui.transitions.play("fadeout")
+	await ui.transitions.finished
 	ui.title.menu = null
 	# load
 	world.load_from_memory(world_data)
 	# post-load
 	ui.hud.show()
-	ui.transition.play("fadein")
-	await ui.transition.finished
+	ui.transitions.play("fadein")
+	await ui.transitions.finished
 	playing = true
 	get_tree().paused = false
 
@@ -75,8 +75,8 @@ func save_world_to_file_and_quit_to_desktop(path_stem: String = "") -> void:
 	# pre-unload
 	get_tree().paused = true
 	playing = false
-	ui.transition.play("fadeout")
-	await ui.transition.finished
+	ui.transitions.play("fadeout")
+	await ui.transitions.finished
 	ui.hud.hide()
 	# save
 	world.save_to_file(path_stem)
@@ -89,8 +89,8 @@ func save_world_to_file_and_quit_to_title(path_stem: String = "") -> void:
 	# pre-unload
 	get_tree().paused = true
 	playing = false
-	ui.transition.play("fadeout")
-	await ui.transition.finished
+	ui.transitions.play("fadeout")
+	await ui.transitions.finished
 	ui.game.hide()
 	ui.hud.hide()
 	# save
@@ -99,32 +99,32 @@ func save_world_to_file_and_quit_to_title(path_stem: String = "") -> void:
 	world.unload()
 	# post-unload
 	ui.title.menu = ui.title.main_menu
-	ui.transition.play("fadein")
-	await ui.transition.finished
+	ui.transitions.play("fadein")
+	await ui.transitions.finished
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func quit_to_desktop() -> void:
 	get_tree().paused = true
-	ui.transition.play("fadeout")
-	await ui.transition.finished
+	ui.transitions.play("fadeout")
+	await ui.transitions.finished
 	get_tree().quit()
 
 func quit_to_title() -> void:
 	# pre-unload
 	get_tree().paused = true
 	playing = false
-	ui.transition.play("fadeout")
-	await ui.transition.finished
+	ui.transitions.play("fadeout")
+	await ui.transitions.finished
 	ui.game.hide()
 	ui.hud.hide()
 	# unload
 	world.unload()
 	# post-unload
 	ui.title.menu = ui.title.main_menu
-	ui.transition.play("fadein")
-	await ui.transition.finished
+	ui.transitions.play("fadein")
+	await ui.transitions.finished
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

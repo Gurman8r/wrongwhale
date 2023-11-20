@@ -16,12 +16,12 @@ func _ready() -> void:
 		assert(destination)
 		assert(destination.spawn_point)
 		if other == Ref.player:
-			Ref.ui.transition.play("fadeout")
-			await Ref.ui.transition.finished
+			Ref.ui.transitions.play("fadeout")
+			await Ref.ui.transitions.finished
 		Ref.world.transfer(
 			other,
 			destination.get_cell(),
 			destination.spawn_point.global_transform.origin)
 		if other == Ref.player:
-			Ref.ui.transition.play("fadein")
-			await Ref.ui.transition.finished)
+			Ref.ui.transitions.play("fadein")
+			await Ref.ui.transitions.finished)

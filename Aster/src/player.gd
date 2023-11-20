@@ -113,30 +113,24 @@ func _unhandled_input(_event) -> void:
 	# debug
 	if Input.is_action_just_pressed("toggle_debug"): toggle_debug.emit()
 	
-	# inventory_data
+	# inventory
 	if Input.is_action_just_pressed("toggle_inventory"): toggle_inventory.emit()
-	if Input.is_action_just_released("hotbar_prev"): hotbar_prev.emit()
-	elif Input.is_action_just_released("hotbar_next"): hotbar_next.emit()
+	if Input.is_action_just_released("hotbar_prev"):
+		hotbar_prev.emit()
+	elif Input.is_action_just_released("hotbar_next"):
+		hotbar_next.emit()
 	for i in range(0, 10):
 		if Input.is_action_just_pressed("hotbar_%d" % [i]):
-			item_index = Ref.ui.hud.hotbar.set_item_index(i - 1).item_index
+			Ref.ui.hud.hotbar.set_item_index(i - 1)
+			hotbar_select.emit(i - 1)
 			break
+	item_index = Ref.ui.hud.hotbar.item_index
 	
 	# movement
 	move_input[LEFT] = Input.is_action_pressed("move_left")
 	move_input[RIGHT] = Input.is_action_pressed("move_right")
 	move_input[FORWARD] = Input.is_action_pressed("move_forward")
 	move_input[BACKWARD] = Input.is_action_pressed("move_backward")
-	
-	# primary action
-	if Input.is_action_just_pressed("primary"): action.emit(PRIMARY_BEGIN)
-	elif Input.is_action_pressed("primary"): action.emit(PRIMARY)
-	elif Input.is_action_just_released("primary"): action.emit(PRIMARY_END)
-	
-	# secondary action
-	if Input.is_action_just_pressed("secondary"): action.emit(SECONDARY_BEGIN)
-	elif Input.is_action_pressed("secondary"): action.emit(SECONDARY)
-	elif Input.is_action_just_released("secondary"): action.emit(SECONDARY_END)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
