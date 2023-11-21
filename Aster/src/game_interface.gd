@@ -135,19 +135,19 @@ func _update_internal() -> void:
 func set_current_tab(tab: int) -> void:
 	if tab < 0:
 		menu_container.hide()
-	elif 0 <= tab:
+	else:
 		menu_tab_container.current_tab = tab
 		menu_tab_bar.current_tab = tab
 		menu_container.show()
 	_update_internal()
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func toggle_inventory(_external_inventory_owner = null) -> void:
 	if _external_inventory_owner: set_external_inventory_owner(_external_inventory_owner)
 	elif external_inventory_container.visible: clear_external_inventory()
 	elif not menu_container.visible: set_current_tab(0)
 	else: set_current_tab(-1)
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func set_external_inventory_owner(value) -> void:
 	external_inventory_owner = value

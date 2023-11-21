@@ -173,6 +173,30 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Collection/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="LeftPanelContainer" type="PanelContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Collection/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Collection/MarginContainer/HBoxContainer/LeftPanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Collection/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="RightPanelContainer" type="PanelContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Collection/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Collection/MarginContainer/HBoxContainer/RightPanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Collection/MarginContainer/HBoxContainer/RightPanelContainer/MarginContainer"]
+layout_mode = 2
+
 [node name="Options" type="Control" parent="MenuContainer/VBoxContainer/MenuTabContainer"]
 visible = false
 layout_mode = 2
@@ -188,6 +212,30 @@ theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Options/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="LeftPanelContainer" type="PanelContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Options/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Options/MarginContainer/HBoxContainer/LeftPanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Options/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="RightPanelContainer" type="PanelContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Options/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Options/MarginContainer/HBoxContainer/RightPanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Options/MarginContainer/HBoxContainer/RightPanelContainer/MarginContainer"]
+layout_mode = 2
 
 [node name="System" type="Control" parent="MenuContainer/VBoxContainer/MenuTabContainer"]
 visible = false
