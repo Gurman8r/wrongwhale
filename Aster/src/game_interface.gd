@@ -2,6 +2,15 @@
 class_name GameInterface
 extends Control
 
+enum {
+	INVENTORY,
+	COLLECTION,
+	SKILLS,
+	JOURNAL,
+	OPTIONS,
+	SYSTEM
+}
+
 signal drop_stack(stack: ItemStack)
 signal force_close()
 
@@ -29,7 +38,9 @@ const item_drop = preload("res://assets/scenes/item_drop.tscn")
 
 @onready var collection_tab: Control = $MenuContainer/VBoxContainer/MenuTabContainer/Collection
 
-@onready var option_tab: Control = $MenuContainer/VBoxContainer/MenuTabContainer/Options
+@onready var skills_tab: Control = $MenuContainer/VBoxContainer/MenuTabContainer/Skills
+
+@onready var options_tab: Control = $MenuContainer/VBoxContainer/MenuTabContainer/Options
 
 @onready var system_tab: Control = $MenuContainer/VBoxContainer/MenuTabContainer/System
 @onready var save_button: Button = $MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer/SaveButton
@@ -66,8 +77,7 @@ func _ready():
 	
 	menu_container.hide()
 	external_inventory_container.hide()
-	menu_tab_bar.tab_clicked.connect(func(tab: int): menu_tab_container.current_tab = tab)
-	menu_tab_container.tab_clicked.connect(func(tab: int): menu_tab_bar.current_tab = tab)
+	menu_tab_bar.tab_changed.connect(func(tab: int): menu_tab_container.current_tab = tab)
 	
 	save_button.pressed.connect(Ref.world.save_to_file)
 	save_and_quit_to_title_button.pressed.connect(Ref.main.save_world_to_file_and_quit_to_title)
@@ -132,11 +142,13 @@ func _update_internal() -> void:
 			update_grabbed_slot()
 		get_tree().paused = false
 
+func get_current_tab() -> int:
+	return menu_tab_bar.current_tab
+
 func set_current_tab(tab: int) -> void:
 	if tab < 0:
 		menu_container.hide()
 	else:
-		menu_tab_container.current_tab = tab
 		menu_tab_bar.current_tab = tab
 		menu_container.show()
 	_update_internal()

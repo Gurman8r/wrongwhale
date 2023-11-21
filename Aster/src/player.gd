@@ -127,7 +127,7 @@ func _unhandled_input(_event) -> void:
 	item_index = Ref.ui.game.hotbar_inventory.item_index
 	
 	if Input.is_action_just_pressed("ui_cancel"):
-		Ref.ui.game.set_current_tab(3)
+		Ref.ui.game.set_current_tab(GameInterface.SYSTEM)
 	
 	# movement
 	move_input[LEFT] = Input.is_action_pressed("move_left")
