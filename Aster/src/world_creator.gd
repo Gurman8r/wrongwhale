@@ -119,9 +119,6 @@ func _on_button_play_pressed():
 	player_data.direction = Vector3.FORWARD
 	player_data.cell_name = "WorldCell0"
 	player_data.inventory_data.resize(30)
-	player_data.inventory_data.stacks[0] = ItemStack.new()
-	player_data.inventory_data.stacks[0].item_data = Ref.database.data.items[1]
-	player_data.inventory_data.stacks[0].quantity = 1
 	player_data.equip_data.resize(1)
 	world_data.object_data[player_data.guid] = player_data
 	
