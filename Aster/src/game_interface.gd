@@ -7,10 +7,16 @@ signal force_close()
 
 const item_drop = preload("res://assets/scenes/item_drop.tscn")
 
-@onready var player_inventory: Inventory = $PlayerInventory
-@onready var equip_inventory: Inventory = $EquipInventory
-@onready var external_inventory: Inventory = $ExternalInventory
 @onready var grabbed_slot: ItemSlot = $GrabbedSlot
+
+
+@onready var external_container = $ExternalContainer
+@onready var external_name_label: Label = $ExternalContainer/VBoxContainer/ExternalNameLabel
+@onready var external_inventory: Inventory = $ExternalContainer/VBoxContainer/ExternalInventory
+@onready var player_name_label: Label = $ExternalContainer/VBoxContainer/PlayerNameLabel
+@onready var player_inventory: Inventory = $ExternalContainer/VBoxContainer/PlayerInventory
+@onready var equip_inventory: Inventory = $MenuTabContainer/TabContainer/Inventory/MarginContainer/HBoxContainer/EquipInventory
+@onready var main_inventory: Inventory = $MenuTabContainer/TabContainer/Inventory/MarginContainer/HBoxContainer/PlayerInventory
 
 @onready var menu_tab_container: Control = $MenuTabContainer
 @onready var tab_container: TabContainer = $MenuTabContainer/TabContainer
@@ -19,6 +25,7 @@ const item_drop = preload("res://assets/scenes/item_drop.tscn")
 @onready var options_tab: TabBar = $MenuTabContainer/TabContainer/Options
 @onready var system_tab: TabBar = $MenuTabContainer/TabContainer/System
 
+var enabled: bool : set = set_enabled
 var player_data: PlayerData
 var grabbed_stack: ItemStack
 var external_inventory_owner
@@ -29,10 +36,11 @@ func _ready():
 	force_close.connect(toggle_inventory)
 	drop_stack.connect(_on_drop_stack)
 	gui_input.connect(_on_gui_input)
-	visibility_changed.connect(_on_visibility_changed)
+	external_container.hide()
+	menu_tab_container.hide()
 
 func _unhandled_input(_event) -> void:
-	if visible \
+	if (visible and (external_container.visible or menu_tab_container.visible)) \
 	and (Input.is_action_just_pressed("ui_cancel") \
 	or Input.is_action_just_pressed("toggle_inventory")):
 		toggle_inventory()
@@ -50,38 +58,57 @@ func _physics_process(_delta) -> void:
 func set_player_data(value: PlayerData) -> void:
 	if player_data == value: return
 	player_data = value
-	if not player_data.inventory_data.inventory_interact.is_connected(on_inventory_interact):
-		player_data.inventory_data.inventory_interact.connect(on_inventory_interact)
+	player_data.inventory_data.inventory_interact.connect(on_inventory_interact)
+	player_data.equip_data.inventory_interact.connect(on_inventory_interact)
 	player_inventory.set_inventory_data(player_data.inventory_data)
+	main_inventory.set_inventory_data(player_data.inventory_data)
 	equip_inventory.set_inventory_data(player_data.equip_data)
+	player_name_label.text = "%s:" % [player_data.name]
 
 func clear_player_data() -> void:
 	if not player_data: return
-	if player_data.inventory_data.inventory_interact.is_connected(on_inventory_interact):
-		player_data.inventory_data.inventory_interact.disconnect(on_inventory_interact)
+	player_data.inventory_data.inventory_interact.disconnect(on_inventory_interact)
+	player_data.equip_data.inventory_interact.disconnect(on_inventory_interact)
 	player_inventory.clear_inventory_data(player_data.inventory_data)
+	main_inventory.clear_inventory_data(player_data.inventory_data)
 	equip_inventory.clear_inventory_data(player_data.equip_data)
+	player_name_label.text = ""
 	player_data = null
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func toggle() -> void:
-	visible = not visible
-
-func toggle_inventory(_external_inventory_owner = null) -> void:
-	toggle()
-	if _external_inventory_owner and visible:
-		set_external_inventory_owner(_external_inventory_owner)
+func set_enabled(value: bool) -> void:
+	enabled = value
+	if value:
+		get_tree().paused = true
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		Ref.ui.hud.hide()
 	else:
-		clear_external_inventory()
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		Ref.ui.hud.show()
+		if grabbed_stack:
+			drop_stack.emit(grabbed_stack)
+			grabbed_stack = null
+			update_grabbed_slot()
+		get_tree().paused = false
 
-func set_external_inventory_owner(_external_inventory_owner) -> void:
-	external_inventory_owner = _external_inventory_owner
+func toggle_inventory(value = null) -> void:
+	if value:
+		set_external_inventory_owner(value)
+	elif external_container.visible:
+		clear_external_inventory()
+	else:
+		menu_tab_container.visible = not menu_tab_container.visible
+	set_enabled(menu_tab_container.visible or external_container.visible)
+
+func set_external_inventory_owner(value) -> void:
+	external_inventory_owner = value
 	var inventory_data = external_inventory_owner.inventory_data
 	if not inventory_data.inventory_interact.is_connected(on_inventory_interact):
 		inventory_data.inventory_interact.connect(on_inventory_interact)
 	external_inventory.set_inventory_data(inventory_data)
-	external_inventory.show()
+	external_name_label.text = "%s:" % [value.name]
+	external_container.show()
 
 func clear_external_inventory() -> void:
 	if not external_inventory_owner: return
@@ -89,7 +116,7 @@ func clear_external_inventory() -> void:
 	if inventory_data.inventory_interact.is_connected(on_inventory_interact):
 		inventory_data.inventory_interact.disconnect(on_inventory_interact)
 	external_inventory.clear_inventory_data(inventory_data)
-	external_inventory.hide()
+	external_container.hide()
 	external_inventory_owner = null
 
 func on_inventory_interact(inventory_data: InventoryData, index: int, button: int) -> void:
@@ -125,19 +152,5 @@ func _on_gui_input(event: InputEvent) -> void:
 				if grabbed_stack.quantity < 1:
 					grabbed_stack = null
 		update_grabbed_slot()
-
-func _on_visibility_changed() -> void:
-	if visible:
-		get_tree().paused = true
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		Ref.ui.hud.hide()
-	else:
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		Ref.ui.hud.show()
-		if grabbed_stack:
-			drop_stack.emit(grabbed_stack)
-			grabbed_stack = null
-			update_grabbed_slot()
-		get_tree().paused = false
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="DatabaseData" load_steps=3 format=3 uid="uid://bricca5s4a58o"]
-
-[ext_resource type="Script" path="res://src/database_data.gd" id="1_qrwlb"]
-[ext_resource type="Resource" uid="uid://b7iava5knhmn" path="res://assets/items/apple.tres" id="1_x23ga"]
-
-[resource]
-script = ExtResource("1_qrwlb")
-version = 1
-items = Array[Resource("res://src/item_data.gd")]([ExtResource("1_x23ga")])

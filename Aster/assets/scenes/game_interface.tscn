@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://csqilf6fxjsn4"]
+[gd_scene load_steps=5 format=3 uid="uid://csqilf6fxjsn4"]
 
 [ext_resource type="Script" path="res://src/game_interface.gd" id="1_sv1aj"]
+[ext_resource type="SystemFont" uid="uid://be14qyvbd8lox" path="res://assets/fonts/system_font.tres" id="2_o2tpj"]
 [ext_resource type="PackedScene" uid="uid://dv6li4wxrohgf" path="res://assets/scenes/inventory.tscn" id="2_sura8"]
 [ext_resource type="PackedScene" uid="uid://ddxw2b6u1pxow" path="res://assets/scenes/item_slot.tscn" id="3_a5cx3"]
 
@@ -14,27 +15,42 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_sv1aj")
 
-[node name="PlayerInventory" parent="." instance=ExtResource("2_sura8")]
-layout_mode = 2
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 50.0
-offset_bottom = 50.0
+[node name="ExternalContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
 
-[node name="EquipInventory" parent="." instance=ExtResource("2_sura8")]
+[node name="VBoxContainer" type="VBoxContainer" parent="ExternalContainer"]
 layout_mode = 2
-offset_left = 720.0
-offset_top = 10.0
-offset_right = 760.0
-offset_bottom = 50.0
 
-[node name="ExternalInventory" parent="." instance=ExtResource("2_sura8")]
-visible = false
+[node name="ExternalNameLabel" type="Label" parent="ExternalContainer/VBoxContainer"]
 layout_mode = 2
-offset_left = 10.0
-offset_top = 360.0
-offset_right = 50.0
-offset_bottom = 400.0
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("2_o2tpj")
+text = "Chest:"
+
+[node name="ExternalInventory" parent="ExternalContainer/VBoxContainer" instance=ExtResource("2_sura8")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="PlayerNameLabel" type="Label" parent="ExternalContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("2_o2tpj")
+text = "Player:"
+
+[node name="PlayerInventory" parent="ExternalContainer/VBoxContainer" instance=ExtResource("2_sura8")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
 
 [node name="MenuTabContainer" type="Control" parent="."]
 visible = false
@@ -63,6 +79,19 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuTabContainer/TabContainer/Inventory/MarginContainer"]
+layout_mode = 2
+
+[node name="PlayerInventory" parent="MenuTabContainer/TabContainer/Inventory/MarginContainer/HBoxContainer" instance=ExtResource("2_sura8")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="EquipInventory" parent="MenuTabContainer/TabContainer/Inventory/MarginContainer/HBoxContainer" instance=ExtResource("2_sura8")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 
 [node name="Collection" type="TabBar" parent="MenuTabContainer/TabContainer"]
 visible = false

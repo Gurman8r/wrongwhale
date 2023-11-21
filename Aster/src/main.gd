@@ -60,6 +60,7 @@ func load_world_from_memory(world_data: WorldData) -> void:
 	# load
 	world.load_from_memory(world_data)
 	# post-load
+	ui.game.show()
 	ui.hud.show()
 	ui.transitions.play("fadein")
 	await ui.transitions.finished

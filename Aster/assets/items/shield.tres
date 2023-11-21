@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemDataEquip" load_steps=3 format=3 uid="uid://cv084l30vo7wr"]
+
+[ext_resource type="Script" path="res://src/item_data_equip.gd" id="1_wysk6"]
+[ext_resource type="Texture2D" uid="uid://jqpchnuuc3nj" path="res://assets/textures/item_atlas.tres" id="2_p6vfj"]
+
+[resource]
+script = ExtResource("1_wysk6")
+health = 0
+attack = 0
+defense = 0
+guid = "Shield"
+name = "Shield"
+description = "A shield"
+max_stack = 1
+durability = 100.0
+texture = ExtResource("2_p6vfj")

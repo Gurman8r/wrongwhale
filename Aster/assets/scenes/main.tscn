@@ -1,10 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://c3r46ck1vopfk"]
+[gd_scene load_steps=10 format=3 uid="uid://c3r46ck1vopfk"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_5g4t2"]
 [ext_resource type="Script" path="res://src/database.gd" id="2_m1ams"]
+[ext_resource type="Resource" uid="uid://yjvloyxn845p" path="res://assets/items/potion.tres" id="3_ibyin"]
 [ext_resource type="Script" path="res://src/settings.gd" id="4_7o66v"]
+[ext_resource type="Resource" uid="uid://cv084l30vo7wr" path="res://assets/items/shield.tres" id="4_7pn4j"]
+[ext_resource type="Script" path="res://src/database_data.gd" id="5_kogny"]
 [ext_resource type="PackedScene" uid="uid://cagnofcp3jxwf" path="res://assets/scenes/world.tscn" id="6_jfwg5"]
 [ext_resource type="PackedScene" uid="uid://16joywapgbic" path="res://assets/scenes/ui.tscn" id="7_uorn7"]
+
+[sub_resource type="Resource" id="Resource_fqgl6"]
+script = ExtResource("5_kogny")
+version = 1
+items = Array[Resource("res://src/item_data.gd")]([ExtResource("3_ibyin"), ExtResource("4_7pn4j")])
 
 [node name="Main" type="Node"]
 process_mode = 3
@@ -12,6 +20,7 @@ script = ExtResource("1_5g4t2")
 
 [node name="Database" type="Node" parent="."]
 script = ExtResource("2_m1ams")
+data = SubResource("Resource_fqgl6")
 
 [node name="Settings" type="Node" parent="."]
 script = ExtResource("4_7o66v")
