@@ -59,7 +59,7 @@ func load_world_from_memory(world_data: WorldData) -> void:
 	# load
 	world.load_from_memory(world_data)
 	# post-load
-	ui.game.overlay.show()
+	ui.game.show()
 	ui.transitions.play("fadein")
 	await ui.transitions.finished
 	playing = true
@@ -76,7 +76,7 @@ func save_world_to_file_and_quit_to_desktop(path_stem: String = "") -> void:
 	playing = false
 	ui.transitions.play("fadeout")
 	await ui.transitions.finished
-	ui.game.overlay.hide()
+	ui.game.hide()
 	# save
 	world.save_to_file(path_stem)
 	# unload
@@ -91,7 +91,6 @@ func save_world_to_file_and_quit_to_title(path_stem: String = "") -> void:
 	ui.transitions.play("fadeout")
 	await ui.transitions.finished
 	ui.game.hide()
-	ui.game.overlay.hide()
 	# save
 	world.save_to_file(path_stem)
 	# unload
@@ -116,7 +115,7 @@ func quit_to_title() -> void:
 	playing = false
 	ui.transitions.play("fadeout")
 	await ui.transitions.finished
-	ui.game.overlay.hide()
+	ui.game.hide()
 	# unload
 	world.unload()
 	# post-unload
