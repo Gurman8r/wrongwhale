@@ -34,18 +34,19 @@ func _ready() -> void:
 		ui.game.clear_player_data()
 		Ref.player.toggle_debug.disconnect(ui.debug.toggle)
 		Ref.player.toggle_inventory.disconnect(ui.game.toggle_inventory)
-		Ref.player.hotbar_inventory.next.disconnect(ui.game.hotbar_inventory.next)
-		Ref.player.hotbar_inventory.prev.disconnect(ui.game.hotbar_inventory.prev)
-		Ref.player.hotbar_inventory.select.disconnect(ui.game.hotbar_inventory.set_item_index)
+		Ref.player.hotbar_next.disconnect(ui.game.hotbar_inventory.next)
+		Ref.player.hotbar_prev.disconnect(ui.game.hotbar_inventory.prev)
+		Ref.player.hotbar_select.disconnect(ui.game.hotbar_inventory.set_item_index)
 		for node in get_tree().get_nodes_in_group("external_inventory"):
 			node.toggle_inventory.disconnect(ui.game.toggle_inventory))
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _unhandled_input(_event) -> void:
-	if Input.is_action_just_pressed("ui_cancel"):
-		if playing: save_world_to_file_and_quit_to_title()
-		elif ui.title.current_menu == ui.title.main_menu: quit_to_desktop()
+	if not playing \
+	and ui.title.current_menu == ui.title.main \
+	and Input.is_action_just_pressed("ui_cancel"):
+		quit_to_desktop()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -58,7 +59,6 @@ func load_world_from_memory(world_data: WorldData) -> void:
 	# load
 	world.load_from_memory(world_data)
 	# post-load
-	ui.game.show()
 	ui.game.overlay.show()
 	ui.transitions.play("fadein")
 	await ui.transitions.finished
@@ -97,7 +97,7 @@ func save_world_to_file_and_quit_to_title(path_stem: String = "") -> void:
 	# unload
 	world.unload()
 	# post-unload
-	ui.title.current_menu = ui.title.main_menu
+	ui.title.current_menu = ui.title.main
 	ui.transitions.play("fadein")
 	await ui.transitions.finished
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -116,12 +116,11 @@ func quit_to_title() -> void:
 	playing = false
 	ui.transitions.play("fadeout")
 	await ui.transitions.finished
-	ui.game.hide()
 	ui.game.overlay.hide()
 	# unload
 	world.unload()
 	# post-unload
-	ui.title.current_menu = ui.title.main_menu
+	ui.title.current_menu = ui.title.main
 	ui.transitions.play("fadein")
 	await ui.transitions.finished
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

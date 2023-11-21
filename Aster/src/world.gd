@@ -71,7 +71,9 @@ func load_from_memory(world_data: WorldData) -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func save_to_file(path_stem: String = "") -> void:
-	if path_stem.is_empty() and data: path_stem = data.guid
+	if path_stem.is_empty():
+		assert(data)
+		path_stem = data.guid
 	assert(0 < path_stem.length())
 	saving_started.emit()
 	saving.emit(data)

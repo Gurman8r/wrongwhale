@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://csqilf6fxjsn4"]
+[gd_scene load_steps=7 format=3 uid="uid://csqilf6fxjsn4"]
 
 [ext_resource type="Script" path="res://src/game_interface.gd" id="1_sv1aj"]
 [ext_resource type="PackedScene" uid="uid://dnhnrabrf57os" path="res://assets/scenes/hotbar_inventory.tscn" id="2_lq3ho"]
 [ext_resource type="SystemFont" uid="uid://be14qyvbd8lox" path="res://assets/fonts/system_font.tres" id="2_o2tpj"]
 [ext_resource type="PackedScene" uid="uid://dv6li4wxrohgf" path="res://assets/scenes/inventory.tscn" id="2_sura8"]
 [ext_resource type="PackedScene" uid="uid://ddxw2b6u1pxow" path="res://assets/scenes/item_slot.tscn" id="3_a5cx3"]
+[ext_resource type="Texture2D" uid="uid://dwi4nguld0m87" path="res://assets/icons/icon_circle.png" id="5_f6oen"]
 
 [node name="GameInterface" type="Control"]
 process_mode = 3
@@ -93,6 +94,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 
 [node name="MenuContainer" type="MarginContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -108,14 +110,18 @@ theme_override_constants/margin_bottom = 32
 layout_mode = 2
 
 [node name="MenuTabBar" type="TabBar" parent="MenuContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 64)
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_o2tpj")
 tab_count = 4
 tab_0/title = "Inventory"
+tab_0/icon = ExtResource("5_f6oen")
 tab_1/title = "Collection"
+tab_1/icon = ExtResource("5_f6oen")
 tab_2/title = "Options"
+tab_2/icon = ExtResource("5_f6oen")
 tab_3/title = "System"
+tab_3/icon = ExtResource("5_f6oen")
 
 [node name="MenuTabContainer" type="TabContainer" parent="MenuContainer/VBoxContainer"]
 layout_mode = 2
@@ -133,10 +139,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Inventory/MarginContainer"]
 layout_mode = 2
@@ -162,10 +168,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
 
 [node name="Options" type="Control" parent="MenuContainer/VBoxContainer/MenuTabContainer"]
 visible = false
@@ -178,10 +184,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
 
 [node name="System" type="Control" parent="MenuContainer/VBoxContainer/MenuTabContainer"]
 visible = false
@@ -194,10 +200,54 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 16
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 16
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="LeftPanelContainer" type="PanelContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="SaveButton" type="Button" parent="MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Save"
+
+[node name="SaveAndQuitToTitleButton" type="Button" parent="MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Save and Quit to Title"
+
+[node name="SaveAndQuitToDesktopButton" type="Button" parent="MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Save and Quit to Desktop"
+
+[node name="QuitToTitleButton" type="Button" parent="MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit to Title"
+
+[node name="QuitToDesktopButton" type="Button" parent="MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit to Desktop"
+
+[node name="RightPanelContainer" type="PanelContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/RightPanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/RightPanelContainer/MarginContainer"]
+layout_mode = 2
 
 [node name="GrabbedSlot" parent="." instance=ExtResource("3_a5cx3")]
 visible = false

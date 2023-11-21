@@ -13,25 +13,30 @@ const item_drop = preload("res://assets/scenes/item_drop.tscn")
 @onready var hotbar_inventory: HotbarInventory = $Overlay/HotbarInventory
 @onready var interact_label: Label = $Overlay/InteractLabel
 
-@onready var external_inventory_container = $ExternalInventoryContainer
-@onready var external_name_label = $ExternalInventoryContainer/VBoxContainer/ExternalNameLabel
-@onready var external_inventory = $ExternalInventoryContainer/VBoxContainer/ExternalInventory
-@onready var player_name_label = $ExternalInventoryContainer/VBoxContainer/PlayerNameLabel
-@onready var player_inventory = $ExternalInventoryContainer/VBoxContainer/PlayerInventory
+@onready var external_inventory_container: Control = $ExternalInventoryContainer
+@onready var external_name_label: Label = $ExternalInventoryContainer/VBoxContainer/ExternalNameLabel
+@onready var external_inventory: Inventory = $ExternalInventoryContainer/VBoxContainer/ExternalInventory
+@onready var player_name_label: Label = $ExternalInventoryContainer/VBoxContainer/PlayerNameLabel
+@onready var player_inventory: Inventory = $ExternalInventoryContainer/VBoxContainer/PlayerInventory
 
-@onready var menu_container = $MenuContainer
+@onready var menu_container: Control = $MenuContainer
 @onready var menu_tab_bar: TabBar = $MenuContainer/VBoxContainer/MenuTabBar
 @onready var menu_tab_container: TabContainer = $MenuContainer/VBoxContainer/MenuTabContainer
 
-@onready var inventory_tab = $MenuContainer/VBoxContainer/MenuTabContainer/Inventory
-@onready var main_inventory = $MenuContainer/VBoxContainer/MenuTabContainer/Inventory/MarginContainer/HBoxContainer/MainInventory
-@onready var equip_inventory = $MenuContainer/VBoxContainer/MenuTabContainer/Inventory/MarginContainer/HBoxContainer/EquipInventory
+@onready var inventory_tab: Control = $MenuContainer/VBoxContainer/MenuTabContainer/Inventory
+@onready var main_inventory: Inventory = $MenuContainer/VBoxContainer/MenuTabContainer/Inventory/MarginContainer/HBoxContainer/MainInventory
+@onready var equip_inventory: Inventory = $MenuContainer/VBoxContainer/MenuTabContainer/Inventory/MarginContainer/HBoxContainer/EquipInventory
 
-@onready var collection_tab = $MenuContainer/VBoxContainer/MenuTabContainer/Collection
+@onready var collection_tab: Control = $MenuContainer/VBoxContainer/MenuTabContainer/Collection
 
-@onready var options_tab = $MenuContainer/VBoxContainer/MenuTabContainer/Options
+@onready var option_tab: Control = $MenuContainer/VBoxContainer/MenuTabContainer/Options
 
-@onready var system_tab = $MenuContainer/VBoxContainer/MenuTabContainer/System
+@onready var system_tab: Control = $MenuContainer/VBoxContainer/MenuTabContainer/System
+@onready var save_button: Button = $MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer/SaveButton
+@onready var save_and_quit_to_title_button: Button = $MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer/SaveAndQuitToTitleButton
+@onready var save_and_quit_to_desktop_button: Button = $MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer/SaveAndQuitToDesktopButton
+@onready var quit_to_title_button: Button = $MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer/QuitToTitleButton
+@onready var quit_to_desktop_button: Button = $MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer/QuitToDesktopButton
 
 var player_data: PlayerData
 var grabbed_stack: ItemStack
@@ -41,19 +46,43 @@ var external_inventory_owner
 
 func _ready():
 	force_close.connect(toggle_inventory)
-	drop_stack.connect(_on_drop_stack)
-	gui_input.connect(_on_gui_input)
-	external_inventory_container.hide()
+	
+	drop_stack.connect(func(stack: ItemStack) -> void:
+		var drop = item_drop.instantiate()
+		drop.stack = stack
+		Ref.world.cell.add(drop, Ref.player.get_drop_position()))
+	
+	gui_input.connect(func(event: InputEvent) -> void:
+		if event is InputEventMouseButton and event.is_pressed() and grabbed_stack:
+			match event.button_index:
+				MOUSE_BUTTON_LEFT:
+					drop_stack.emit(grabbed_stack)
+					grabbed_stack = null
+				MOUSE_BUTTON_RIGHT:
+					drop_stack.emit(grabbed_stack.create_single_stack())
+					if grabbed_stack.quantity < 1:
+						grabbed_stack = null
+			update_grabbed_slot())
+	
 	menu_container.hide()
+	external_inventory_container.hide()
 	menu_tab_bar.tab_clicked.connect(func(tab: int): menu_tab_container.current_tab = tab)
 	menu_tab_container.tab_clicked.connect(func(tab: int): menu_tab_bar.current_tab = tab)
+	
+	save_button.pressed.connect(Ref.world.save_to_file)
+	save_and_quit_to_title_button.pressed.connect(Ref.main.save_world_to_file_and_quit_to_title)
+	save_and_quit_to_desktop_button.pressed.connect(Ref.main.save_world_to_file_and_quit_to_desktop)
+	quit_to_title_button.pressed.connect(Ref.main.quit_to_title)
+	quit_to_desktop_button.pressed.connect(Ref.main.quit_to_desktop)
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _unhandled_input(_event) -> void:
-	if (visible and (external_inventory_container.visible or menu_container.visible)) \
-	and (Input.is_action_just_pressed("ui_cancel") \
-	or Input.is_action_just_pressed("toggle_inventory")):
-		toggle_inventory()
-		get_viewport().set_input_as_handled()
+	if Input.is_action_just_pressed("toggle_inventory") \
+	or Input.is_action_just_pressed("ui_cancel"):
+		if external_inventory_container.visible or menu_container.visible:
+			force_close.emit()
+			get_viewport().set_input_as_handled()
 
 func _physics_process(_delta) -> void:
 	if grabbed_slot.visible:
@@ -61,11 +90,6 @@ func _physics_process(_delta) -> void:
 	if external_inventory_owner \
 	and external_inventory_owner.global_position.distance_to(Ref.player.global_position) > 4:
 		force_close.emit()
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func show_tab(tab: int) -> void:
-	pass
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -93,26 +117,37 @@ func clear_player_data() -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func toggle_inventory(_external_inventory_owner = null) -> void:
-	if _external_inventory_owner: set_external_inventory_owner(_external_inventory_owner)
-	elif external_inventory_container.visible: clear_external_inventory()
-	else: menu_container.visible = not menu_container.visible
-	if menu_container.visible:
-		menu_tab_container.current_tab = 0
-		menu_tab_bar.current_tab = 0
+func _update_internal() -> void:
 	if menu_container.visible \
 	or external_inventory_container.visible:
 		get_tree().paused = true
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		Ref.ui.game.overlay.hide()
+		overlay.hide()
 	else:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		Ref.ui.game.overlay.show()
+		overlay.show()
 		if grabbed_stack:
 			drop_stack.emit(grabbed_stack)
 			grabbed_stack = null
 			update_grabbed_slot()
 		get_tree().paused = false
+
+func set_current_tab(tab: int) -> void:
+	if tab < 0:
+		menu_container.hide()
+	elif 0 <= tab:
+		menu_tab_container.current_tab = tab
+		menu_tab_bar.current_tab = tab
+		menu_container.show()
+	_update_internal()
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func toggle_inventory(_external_inventory_owner = null) -> void:
+	if _external_inventory_owner: set_external_inventory_owner(_external_inventory_owner)
+	elif external_inventory_container.visible: clear_external_inventory()
+	elif not menu_container.visible: set_current_tab(0)
+	else: set_current_tab(-1)
 
 func set_external_inventory_owner(value) -> void:
 	external_inventory_owner = value
@@ -122,6 +157,7 @@ func set_external_inventory_owner(value) -> void:
 	external_inventory.set_inventory_data(inventory_data)
 	external_name_label.text = "%s:" % [value.name]
 	external_inventory_container.show()
+	_update_internal()
 
 func clear_external_inventory() -> void:
 	if not external_inventory_owner: return
@@ -132,6 +168,7 @@ func clear_external_inventory() -> void:
 	external_inventory_container.hide()
 	external_name_label.text = ""
 	external_inventory_owner = null
+	_update_internal()
 
 func on_inventory_interact(inventory_data: InventoryData, index: int, button: int) -> void:
 	match [grabbed_stack, button]:
@@ -147,24 +184,5 @@ func update_grabbed_slot() -> void:
 		grabbed_slot.set_stack(grabbed_stack)
 	else:
 		grabbed_slot.hide()
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func _on_drop_stack(stack: ItemStack) -> void:
-	var drop = item_drop.instantiate()
-	drop.stack = stack
-	Ref.world.cell.add(drop, Ref.player.get_drop_position())
-
-func _on_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.is_pressed() and grabbed_stack:
-		match event.button_index:
-			MOUSE_BUTTON_LEFT:
-				drop_stack.emit(grabbed_stack)
-				grabbed_stack = null
-			MOUSE_BUTTON_RIGHT:
-				drop_stack.emit(grabbed_stack.create_single_stack())
-				if grabbed_stack.quantity < 1:
-					grabbed_stack = null
-		update_grabbed_slot()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
