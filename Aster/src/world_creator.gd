@@ -51,7 +51,7 @@ func _ready():
 	_reset()
 	visibility_changed.connect(func(): if visible: _reset())
 	play_button.pressed.connect(_on_button_play_pressed)
-	back_button.pressed.connect(func(): Ref.ui.title.menu = Ref.ui.title.main_menu)
+	back_button.pressed.connect(func(): Ref.ui.title.current_menu = Ref.ui.title.main)
 	
 	# farm name
 	farm_name_edit.text_changed.connect(func(new_text: String):

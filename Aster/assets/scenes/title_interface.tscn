@@ -1,0 +1,99 @@
+[gd_scene load_steps=9 format=3 uid="uid://d0u284uvkuxp5"]
+
+[ext_resource type="Script" path="res://src/title_interface.gd" id="1_v24im"]
+[ext_resource type="Script" path="res://src/title_main.gd" id="2_w6hq1"]
+[ext_resource type="SystemFont" uid="uid://be14qyvbd8lox" path="res://assets/fonts/system_font.tres" id="3_5rwlm"]
+[ext_resource type="PackedScene" uid="uid://vw0n0v6gcdcl" path="res://assets/scenes/world_loader.tscn" id="4_fj3jq"]
+[ext_resource type="PackedScene" uid="uid://cwt1khy7c6ido" path="res://assets/scenes/world_creator.tscn" id="5_s3pu3"]
+[ext_resource type="PackedScene" uid="uid://cn6nx0dd15xf6" path="res://assets/scenes/option_menu.tscn" id="6_h6ckt"]
+[ext_resource type="PackedScene" uid="uid://bwsftfna5831c" path="res://assets/scenes/mod_menu.tscn" id="7_ccax1"]
+
+[sub_resource type="Theme" id="Theme_0eyne"]
+
+[node name="TitleInterface" type="PanelContainer"]
+process_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v24im")
+
+[node name="TitleMain" type="PanelContainer" parent="."]
+layout_mode = 2
+theme = SubResource("Theme_0eyne")
+script = ExtResource("2_w6hq1")
+
+[node name="MarginContainer" type="MarginContainer" parent="TitleMain"]
+layout_mode = 2
+theme = SubResource("Theme_0eyne")
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TitleMain/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_0eyne")
+
+[node name="LoadButton" type="Button" parent="TitleMain/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(160, 32)
+layout_mode = 2
+size_flags_vertical = 5
+theme = SubResource("Theme_0eyne")
+theme_override_fonts/font = ExtResource("3_5rwlm")
+text = "Load Game"
+
+[node name="NewButton" type="Button" parent="TitleMain/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(160, 32)
+layout_mode = 2
+size_flags_vertical = 5
+theme = SubResource("Theme_0eyne")
+theme_override_fonts/font = ExtResource("3_5rwlm")
+text = "New Game"
+
+[node name="OptionsButton" type="Button" parent="TitleMain/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(160, 32)
+layout_mode = 2
+size_flags_vertical = 5
+theme = SubResource("Theme_0eyne")
+theme_override_fonts/font = ExtResource("3_5rwlm")
+text = "Options"
+
+[node name="ModsButton" type="Button" parent="TitleMain/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(160, 32)
+layout_mode = 2
+size_flags_vertical = 5
+theme = SubResource("Theme_0eyne")
+theme_override_fonts/font = ExtResource("3_5rwlm")
+text = "Mods"
+
+[node name="QuitButton" type="Button" parent="TitleMain/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(160, 32)
+layout_mode = 2
+size_flags_vertical = 5
+theme = SubResource("Theme_0eyne")
+theme_override_fonts/font = ExtResource("3_5rwlm")
+text = "Quit"
+
+[node name="WorldLoader" parent="." instance=ExtResource("4_fj3jq")]
+visible = false
+layout_mode = 2
+theme = SubResource("Theme_0eyne")
+
+[node name="WorldCreator" parent="." instance=ExtResource("5_s3pu3")]
+visible = false
+layout_mode = 2
+theme = SubResource("Theme_0eyne")
+
+[node name="OptionMenu" parent="." instance=ExtResource("6_h6ckt")]
+visible = false
+layout_mode = 2
+theme = SubResource("Theme_0eyne")
+
+[node name="ModMenu" parent="." instance=ExtResource("7_ccax1")]
+visible = false
+layout_mode = 2
+theme = SubResource("Theme_0eyne")

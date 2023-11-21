@@ -1,5 +1,5 @@
-# transitions.gd
-class_name Transitions
+# transition_interface.gd
+class_name TransitionInterface
 extends Control
 
 signal finished()

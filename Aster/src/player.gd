@@ -121,10 +121,10 @@ func _unhandled_input(_event) -> void:
 		hotbar_next.emit()
 	for i in range(0, 10):
 		if Input.is_action_just_pressed("hotbar_%d" % [i]):
-			Ref.ui.hud.hotbar.set_item_index(i - 1)
+			Ref.ui.game.hotbar_inventory.set_item_index(i - 1)
 			hotbar_select.emit(i - 1)
 			break
-	item_index = Ref.ui.hud.hotbar.item_index
+	item_index = Ref.ui.game.hotbar_inventory.item_index
 	
 	# movement
 	move_input[LEFT] = Input.is_action_pressed("move_left")

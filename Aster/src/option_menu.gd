@@ -1,5 +1,5 @@
-# options_menu.gd
-class_name OptionsMenu
+# option_menu.gd
+class_name OptionMenu
 extends PanelContainer
 
 @onready var back_button = $MarginContainer/VBoxContainer/BackButton
@@ -13,16 +13,16 @@ func _reset() -> void:
 
 func _ready():
 	_reset()
-	back_button.pressed.connect(func(): Ref.ui.title.menu = Ref.ui.title.main_menu)
+	back_button.pressed.connect(func(): Ref.ui.title.current_menu = Ref.ui.title.main)
 	
 	#graphics_vsync_button.pressed.connect(func():
 	#	graphics_vsync_button.release_focus())
 	
+	match DisplayServer.window_get_mode():
+		DisplayServer.WINDOW_MODE_WINDOWED: window_mode_button.text = "Windowed"
+		DisplayServer.WINDOW_MODE_FULLSCREEN: window_mode_button.text = "Fullscreen"
 	window_mode_button.get_popup().add_item("Windowed", DisplayServer.WINDOW_MODE_WINDOWED)
 	window_mode_button.get_popup().add_item("Fullscreen", DisplayServer.WINDOW_MODE_FULLSCREEN)
-	match DisplayServer.window_get_mode():
-		[DisplayServer.WINDOW_MODE_WINDOWED]: window_mode_button.text = "Windowed"
-		[DisplayServer.WINDOW_MODE_FULLSCREEN]: window_mode_button.text = "Fullscreen"
 	window_mode_button.get_popup().index_pressed.connect(func(index: int):
 		var id = window_mode_button.get_popup().get_item_id(index)
 		if id == DisplayServer.window_get_mode(): return
@@ -39,17 +39,16 @@ func _ready():
 		DisplayServer.window_set_size(window_sizes[window_size_button.get_popup().get_item_id(index)])
 		window_size_button.release_focus())
 	
+	match DisplayServer.window_get_vsync_mode():
+		DisplayServer.VSYNC_DISABLED: window_vsync_button.text = "Disabled"
+		DisplayServer.VSYNC_ENABLED: window_vsync_button.text = "Enabled"
+		DisplayServer.VSYNC_ADAPTIVE: window_vsync_button.text = "Adaptive"
+		DisplayServer.VSYNC_MAILBOX: window_vsync_button.text = "Mailbox"
 	window_vsync_button.get_popup().add_item("Disabled", DisplayServer.VSYNC_DISABLED)
 	window_vsync_button.get_popup().add_item("Enabled", DisplayServer.VSYNC_ENABLED)
 	window_vsync_button.get_popup().add_item("Adaptive", DisplayServer.VSYNC_ADAPTIVE)
 	window_vsync_button.get_popup().add_item("Mailbox", DisplayServer.VSYNC_MAILBOX)
-	match DisplayServer.window_get_vsync_mode():
-		[DisplayServer.VSYNC_DISABLED]: window_vsync_button.text = "Disabled"
-		[DisplayServer.VSYNC_ENABLED]: window_vsync_button.text = "Enabled"
-		[DisplayServer.VSYNC_ADAPTIVE]: window_vsync_button.text = "Adaptive"
-		[DisplayServer.VSYNC_MAILBOX]: window_vsync_button.text = "Mailbox"
 	window_vsync_button.get_popup().index_pressed.connect(func(index: int):
-		var id = window_vsync_button.get_popup().get_item_id(index)
 		window_vsync_button.text = window_vsync_button.get_popup().get_item_text(index)
 		DisplayServer.window_set_vsync_mode(window_vsync_button.get_popup().get_item_id(index))
 		window_vsync_button.release_focus())

@@ -21,24 +21,22 @@ func _ready() -> void:
 	# LOADED
 	world.loading_finished.connect(func():
 		ui.game.set_player_data(Ref.player.data)
-		ui.hud.set_player_data(Ref.player.data)
 		Ref.player.toggle_debug.connect(ui.debug.toggle)
 		Ref.player.toggle_inventory.connect(ui.game.toggle_inventory)
-		Ref.player.hotbar_next.connect(ui.hud.hotbar.next)
-		Ref.player.hotbar_prev.connect(ui.hud.hotbar.prev)
-		Ref.player.hotbar_select.connect(ui.hud.hotbar.set_item_index)
+		Ref.player.hotbar_next.connect(ui.game.hotbar_inventory.next)
+		Ref.player.hotbar_prev.connect(ui.game.hotbar_inventory.prev)
+		Ref.player.hotbar_select.connect(ui.game.hotbar_inventory.set_item_index)
 		for node in get_tree().get_nodes_in_group("external_inventory"):
 			node.toggle_inventory.connect(ui.game.toggle_inventory))
 	
 	# UNLOADED
 	world.unloading_started.connect(func():
 		ui.game.clear_player_data()
-		ui.hud.clear_player_data()
 		Ref.player.toggle_debug.disconnect(ui.debug.toggle)
 		Ref.player.toggle_inventory.disconnect(ui.game.toggle_inventory)
-		Ref.player.hotbar_next.disconnect(ui.hud.hotbar.next)
-		Ref.player.hotbar_prev.disconnect(ui.hud.hotbar.prev)
-		Ref.player.hotbar_select.disconnect(ui.hud.hotbar.set_item_index)
+		Ref.player.hotbar_inventory.next.disconnect(ui.game.hotbar_inventory.next)
+		Ref.player.hotbar_inventory.prev.disconnect(ui.game.hotbar_inventory.prev)
+		Ref.player.hotbar_inventory.select.disconnect(ui.game.hotbar_inventory.set_item_index)
 		for node in get_tree().get_nodes_in_group("external_inventory"):
 			node.toggle_inventory.disconnect(ui.game.toggle_inventory))
 
@@ -47,7 +45,7 @@ func _ready() -> void:
 func _unhandled_input(_event) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		if playing: save_world_to_file_and_quit_to_title()
-		elif ui.title.menu == ui.title.main_menu: quit_to_desktop()
+		elif ui.title.current_menu == ui.title.main_menu: quit_to_desktop()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -56,12 +54,12 @@ func load_world_from_memory(world_data: WorldData) -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	ui.transitions.play("fadeout")
 	await ui.transitions.finished
-	ui.title.menu = null
+	ui.title.current_menu = null
 	# load
 	world.load_from_memory(world_data)
 	# post-load
 	ui.game.show()
-	ui.hud.show()
+	ui.game.overlay.show()
 	ui.transitions.play("fadein")
 	await ui.transitions.finished
 	playing = true
@@ -78,7 +76,7 @@ func save_world_to_file_and_quit_to_desktop(path_stem: String = "") -> void:
 	playing = false
 	ui.transitions.play("fadeout")
 	await ui.transitions.finished
-	ui.hud.hide()
+	ui.game.overlay.hide()
 	# save
 	world.save_to_file(path_stem)
 	# unload
@@ -93,13 +91,13 @@ func save_world_to_file_and_quit_to_title(path_stem: String = "") -> void:
 	ui.transitions.play("fadeout")
 	await ui.transitions.finished
 	ui.game.hide()
-	ui.hud.hide()
+	ui.game.overlay.hide()
 	# save
 	world.save_to_file(path_stem)
 	# unload
 	world.unload()
 	# post-unload
-	ui.title.menu = ui.title.main_menu
+	ui.title.current_menu = ui.title.main_menu
 	ui.transitions.play("fadein")
 	await ui.transitions.finished
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -119,11 +117,11 @@ func quit_to_title() -> void:
 	ui.transitions.play("fadeout")
 	await ui.transitions.finished
 	ui.game.hide()
-	ui.hud.hide()
+	ui.game.overlay.hide()
 	# unload
 	world.unload()
 	# post-unload
-	ui.title.menu = ui.title.main_menu
+	ui.title.current_menu = ui.title.main_menu
 	ui.transitions.play("fadein")
 	await ui.transitions.finished
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

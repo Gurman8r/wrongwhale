@@ -1,5 +1,5 @@
-# hotbar.gd
-class_name Hotbar
+# hotbar_inventory.gd
+class_name HotbarInventory
 extends PanelContainer
 
 const item_slot_prefab = preload("res://assets/scenes/item_slot.tscn")
@@ -31,7 +31,7 @@ func populate_item_grid(inventory_data: InventoryData) -> void:
 		if stack: slot.set_stack(stack)
 		slot.selected = i == item_index
 
-func set_item_index(value: int) -> Hotbar:
+func set_item_index(value: int) -> HotbarInventory:
 	if value < 0: value = 9
 	elif value > 9: value = 0
 	slots[item_index].selected = false
@@ -39,8 +39,8 @@ func set_item_index(value: int) -> Hotbar:
 	slots[item_index].selected = true
 	return self
 
-func next() -> Hotbar:
+func next() -> HotbarInventory:
 	return set_item_index(item_index + 1)
 
-func prev() -> Hotbar:
+func prev() -> HotbarInventory:
 	return set_item_index(item_index - 1)

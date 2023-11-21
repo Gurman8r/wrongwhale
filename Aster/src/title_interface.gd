@@ -1,38 +1,38 @@
 # title_interface.gd
 class_name TitleInterface
-extends PanelContainer
+extends Control
 
-@onready var menu: Control = $MainMenu : set = set_menu
-@onready var main_menu: Control = $MainMenu
+@onready var current_menu: Control = $TitleMain : set = set_current_menu
+@onready var main: Control = $TitleMain
 @onready var world_loader: Control = $WorldLoader
 @onready var world_creator: Control = $WorldCreator
-@onready var options_menu: Control = $OptionsMenu
-@onready var mod_menu: Control = $ModMenu
+@onready var options: Control = $OptionMenu
+@onready var mods: Control = $ModMenu
 
 func _ready():
 	visibility_changed.connect(_on_visibility_changed)
 
 func _on_visibility_changed():
-	if not visible and menu and menu.visible:
-		menu.hide()
-		menu = null
+	if not visible and current_menu and current_menu.visible:
+		current_menu.hide()
+		current_menu = null
 
-func set_menu(value: Control):
-	if not menu and not value:
+func set_current_menu(value: Control):
+	if not current_menu and not value:
 		return
-	elif menu and value:
+	elif current_menu and value:
 		Ref.ui.transitions.play("fadeout")
 		await Ref.ui.transitions.finished
-		menu.hide()
-		menu = value
-		menu.show()
+		current_menu.hide()
+		current_menu = value
+		current_menu.show()
 		Ref.ui.transitions.play("fadein")
 		await Ref.ui.transitions.finished
-	elif menu and not value:
-		menu.hide()
-		menu = null
+	elif current_menu and not value:
+		current_menu.hide()
+		current_menu = null
 		hide()
-	else: # not menu and value
-		menu = value
-		menu.show()
+	else: # not current_menu and value
+		current_menu = value
+		current_menu.show()
 		show()

@@ -1,5 +1,5 @@
-# debug_overlay.gd
-class_name DebugOverlay
+# debug_interface.gd
+class_name DebugInterface
 extends Control
 
 @onready var framerate: Label = $MarginContainer/VBoxContainer/Framerate

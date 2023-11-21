@@ -6,10 +6,10 @@ func _ready() -> void:
 	add_exception(owner)
 
 func _physics_process(_delta) -> void:
-	Ref.ui.hud.interact_label.text = ""
+	Ref.ui.game.interact_label.text = ""
 	if is_colliding():
 		var detected = get_collider()
 		if detected is Interactable:
-			Ref.ui.hud.interact_label.text = detected.get_prompt()
+			Ref.ui.game.interact_label.text = detected.get_prompt()
 			if Input.is_action_just_pressed(detected.prompt_action):
 				detected.interact(owner)

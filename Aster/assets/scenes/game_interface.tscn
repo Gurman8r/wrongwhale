@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://csqilf6fxjsn4"]
+[gd_scene load_steps=6 format=3 uid="uid://csqilf6fxjsn4"]
 
 [ext_resource type="Script" path="res://src/game_interface.gd" id="1_sv1aj"]
+[ext_resource type="PackedScene" uid="uid://dnhnrabrf57os" path="res://assets/scenes/hotbar_inventory.tscn" id="2_lq3ho"]
 [ext_resource type="SystemFont" uid="uid://be14qyvbd8lox" path="res://assets/fonts/system_font.tres" id="2_o2tpj"]
 [ext_resource type="PackedScene" uid="uid://dv6li4wxrohgf" path="res://assets/scenes/inventory.tscn" id="2_sura8"]
 [ext_resource type="PackedScene" uid="uid://ddxw2b6u1pxow" path="res://assets/scenes/item_slot.tscn" id="3_a5cx3"]
@@ -15,7 +16,46 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_sv1aj")
 
-[node name="ExternalContainer" type="MarginContainer" parent="."]
+[node name="Overlay" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HotbarInventory" parent="Overlay" instance=ExtResource("2_lq3ho")]
+layout_mode = 2
+offset_left = 298.0
+offset_top = 648.0
+offset_right = 982.0
+offset_bottom = 720.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+mouse_filter = 2
+
+[node name="InteractLabel" type="Label" parent="Overlay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -342.0
+offset_top = -10.0
+offset_right = 342.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_o2tpj")
+text = "Interact"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ExternalInventoryContainer" type="MarginContainer" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,107 +67,137 @@ theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 100
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ExternalContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ExternalInventoryContainer"]
 layout_mode = 2
 
-[node name="ExternalNameLabel" type="Label" parent="ExternalContainer/VBoxContainer"]
+[node name="ExternalNameLabel" type="Label" parent="ExternalInventoryContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_fonts/font = ExtResource("2_o2tpj")
 text = "Chest:"
 
-[node name="ExternalInventory" parent="ExternalContainer/VBoxContainer" instance=ExtResource("2_sura8")]
+[node name="ExternalInventory" parent="ExternalInventoryContainer/VBoxContainer" instance=ExtResource("2_sura8")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 
-[node name="PlayerNameLabel" type="Label" parent="ExternalContainer/VBoxContainer"]
+[node name="PlayerNameLabel" type="Label" parent="ExternalInventoryContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_fonts/font = ExtResource("2_o2tpj")
 text = "Player:"
 
-[node name="PlayerInventory" parent="ExternalContainer/VBoxContainer" instance=ExtResource("2_sura8")]
+[node name="PlayerInventory" parent="ExternalInventoryContainer/VBoxContainer" instance=ExtResource("2_sura8")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 
-[node name="MenuTabContainer" type="Control" parent="."]
-visible = false
+[node name="MenuContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
 
-[node name="TabContainer" type="TabContainer" parent="MenuTabContainer"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Inventory" type="TabBar" parent="MenuTabContainer/TabContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MenuTabContainer/TabContainer/Inventory"]
+[node name="MenuTabBar" type="TabBar" parent="MenuContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_o2tpj")
+tab_count = 4
+tab_0/title = "Inventory"
+tab_1/title = "Collection"
+tab_2/title = "Options"
+tab_3/title = "System"
+
+[node name="MenuTabContainer" type="TabContainer" parent="MenuContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+tab_alignment = 1
+tabs_visible = false
+
+[node name="Inventory" type="Control" parent="MenuContainer/VBoxContainer/MenuTabContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Inventory"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MenuTabContainer/TabContainer/Inventory/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Inventory/MarginContainer"]
 layout_mode = 2
 
-[node name="PlayerInventory" parent="MenuTabContainer/TabContainer/Inventory/MarginContainer/HBoxContainer" instance=ExtResource("2_sura8")]
+[node name="MainInventory" parent="MenuContainer/VBoxContainer/MenuTabContainer/Inventory/MarginContainer/HBoxContainer" instance=ExtResource("2_sura8")]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="EquipInventory" parent="MenuTabContainer/TabContainer/Inventory/MarginContainer/HBoxContainer" instance=ExtResource("2_sura8")]
+[node name="EquipInventory" parent="MenuContainer/VBoxContainer/MenuTabContainer/Inventory/MarginContainer/HBoxContainer" instance=ExtResource("2_sura8")]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="Collection" type="TabBar" parent="MenuTabContainer/TabContainer"]
+[node name="Collection" type="Control" parent="MenuContainer/VBoxContainer/MenuTabContainer"]
 visible = false
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MenuTabContainer/TabContainer/Collection"]
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Collection"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
 
-[node name="Options" type="TabBar" parent="MenuTabContainer/TabContainer"]
+[node name="Options" type="Control" parent="MenuContainer/VBoxContainer/MenuTabContainer"]
 visible = false
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MenuTabContainer/TabContainer/Options"]
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Options"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
 
-[node name="System" type="TabBar" parent="MenuTabContainer/TabContainer"]
+[node name="System" type="Control" parent="MenuContainer/VBoxContainer/MenuTabContainer"]
 visible = false
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MenuTabContainer/TabContainer/System"]
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/System"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
 
 [node name="GrabbedSlot" parent="." instance=ExtResource("3_a5cx3")]
 visible = false
