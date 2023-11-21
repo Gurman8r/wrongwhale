@@ -15,8 +15,8 @@ const item_drop = preload("res://assets/scenes/item_drop.tscn")
 @onready var external_inventory: Inventory = $ExternalContainer/VBoxContainer/ExternalInventory
 @onready var player_name_label: Label = $ExternalContainer/VBoxContainer/PlayerNameLabel
 @onready var player_inventory: Inventory = $ExternalContainer/VBoxContainer/PlayerInventory
-@onready var equip_inventory: Inventory = $MenuTabContainer/TabContainer/Inventory/MarginContainer/HBoxContainer/EquipInventory
 @onready var main_inventory: Inventory = $MenuTabContainer/TabContainer/Inventory/MarginContainer/HBoxContainer/PlayerInventory
+@onready var equip_inventory: Inventory = $MenuTabContainer/TabContainer/Inventory/MarginContainer/HBoxContainer/EquipInventory
 
 @onready var menu_tab_container: Control = $MenuTabContainer
 @onready var tab_container: TabContainer = $MenuTabContainer/TabContainer
@@ -25,7 +25,6 @@ const item_drop = preload("res://assets/scenes/item_drop.tscn")
 @onready var options_tab: TabBar = $MenuTabContainer/TabContainer/Options
 @onready var system_tab: TabBar = $MenuTabContainer/TabContainer/System
 
-var enabled: bool : set = set_enabled
 var player_data: PlayerData
 var grabbed_stack: ItemStack
 var external_inventory_owner
@@ -77,9 +76,11 @@ func clear_player_data() -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func set_enabled(value: bool) -> void:
-	enabled = value
-	if value:
+func toggle_inventory(_external_inventory_owner = null) -> void:
+	if _external_inventory_owner: set_external_inventory_owner(_external_inventory_owner)
+	elif external_container.visible: clear_external_inventory()
+	else: menu_tab_container.visible = not menu_tab_container.visible
+	if menu_tab_container.visible or external_container.visible:
 		get_tree().paused = true
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		Ref.ui.hud.hide()
@@ -91,15 +92,6 @@ func set_enabled(value: bool) -> void:
 			grabbed_stack = null
 			update_grabbed_slot()
 		get_tree().paused = false
-
-func toggle_inventory(value = null) -> void:
-	if value:
-		set_external_inventory_owner(value)
-	elif external_container.visible:
-		clear_external_inventory()
-	else:
-		menu_tab_container.visible = not menu_tab_container.visible
-	set_enabled(menu_tab_container.visible or external_container.visible)
 
 func set_external_inventory_owner(value) -> void:
 	external_inventory_owner = value
