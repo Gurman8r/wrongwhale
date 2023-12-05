@@ -1,0 +1,5 @@
+ART:
+	Silvia Clark
+
+PROGRAMMING:
+	Melody Gurman

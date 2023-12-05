@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d0u284uvkuxp5"]
+[gd_scene load_steps=10 format=3 uid="uid://d0u284uvkuxp5"]
 
 [ext_resource type="Script" path="res://src/title_interface.gd" id="1_v24im"]
 [ext_resource type="Script" path="res://src/title_main.gd" id="2_w6hq1"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cwt1khy7c6ido" path="res://assets/scenes/world_creator.tscn" id="5_s3pu3"]
 [ext_resource type="PackedScene" uid="uid://cn6nx0dd15xf6" path="res://assets/scenes/option_menu.tscn" id="6_h6ckt"]
 [ext_resource type="PackedScene" uid="uid://bwsftfna5831c" path="res://assets/scenes/mod_menu.tscn" id="7_ccax1"]
+[ext_resource type="PackedScene" uid="uid://bs0y3wvy51rwr" path="res://assets/scenes/credits_menu.tscn" id="8_8xnmm"]
 
 [sub_resource type="Theme" id="Theme_0eyne"]
 
@@ -70,6 +71,14 @@ theme = SubResource("Theme_0eyne")
 theme_override_fonts/font = ExtResource("3_5rwlm")
 text = "Mods"
 
+[node name="CreditsButton" type="Button" parent="TitleMain/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(160, 32)
+layout_mode = 2
+size_flags_vertical = 5
+theme = SubResource("Theme_0eyne")
+theme_override_fonts/font = ExtResource("3_5rwlm")
+text = "Credits"
+
 [node name="QuitButton" type="Button" parent="TitleMain/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
@@ -97,3 +106,7 @@ theme = SubResource("Theme_0eyne")
 visible = false
 layout_mode = 2
 theme = SubResource("Theme_0eyne")
+
+[node name="CreditsMenu" parent="." instance=ExtResource("8_8xnmm")]
+visible = false
+layout_mode = 2

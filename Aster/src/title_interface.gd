@@ -8,6 +8,7 @@ extends Control
 @onready var world_creator: Control = $WorldCreator
 @onready var options: Control = $OptionMenu
 @onready var mods: Control = $ModMenu
+@onready var credits: Control = $CreditsMenu
 
 func _ready():
 	visibility_changed.connect(_on_visibility_changed)

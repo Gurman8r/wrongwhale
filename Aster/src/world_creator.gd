@@ -2,27 +2,34 @@
 class_name WorldCreator
 extends PanelContainer
 
-@onready var play_button = $MarginContainer/VBoxContainer/PlayButton
-@onready var back_button = $MarginContainer/VBoxContainer/BackButton
+const NAME_MAX := 12
+const SEED_MAX := 16
+const SEED_CHARS := "0123456789ABCDEFGHIJKLMNOPQRZTUVWXYZabcdefghijklmnopqrstuvwxyz"
 
-@onready var farm_name_panel = $MarginContainer/VBoxContainer/FarmNamePanel
-@onready var farm_name_label = $MarginContainer/VBoxContainer/FarmNamePanel/MarginContainer/HBoxContainer/FarmNameLabel
-@onready var farm_name_edit = $MarginContainer/VBoxContainer/FarmNamePanel/MarginContainer/HBoxContainer/FarmNameEdit
+@onready var play_button: Button = $MarginContainer/VBoxContainer/PlayButton
+@onready var back_button: Control = $MarginContainer/VBoxContainer/BackButton
 
-@onready var player_name_panel = $MarginContainer/VBoxContainer/PlayerNamePanel
-@onready var player_name_edit = $MarginContainer/VBoxContainer/PlayerNamePanel/MarginContainer/HBoxContainer/PlayerNameEdit
-@onready var player_name_label = $MarginContainer/VBoxContainer/PlayerNamePanel/MarginContainer/HBoxContainer/PlayerNameLabel
+@onready var farm_name_panel: Control = $MarginContainer/VBoxContainer/FarmNamePanel
+@onready var farm_name_edit: LineEdit = $MarginContainer/VBoxContainer/FarmNamePanel/MarginContainer/HBoxContainer/FarmNameEdit
+@onready var farm_name_label: Control = $MarginContainer/VBoxContainer/FarmNamePanel/MarginContainer/HBoxContainer/FarmNameLabel
 
-@onready var player_gender_panel = $MarginContainer/VBoxContainer/PlayerGenderPanel
-@onready var player_gender_button_0 = $MarginContainer/VBoxContainer/PlayerGenderPanel/MarginContainer/HBoxContainer/PlayerGenderButton0
-@onready var player_gender_button_1 = $MarginContainer/VBoxContainer/PlayerGenderPanel/MarginContainer/HBoxContainer/PlayerGenderButton1
-@onready var player_gender_button_2 = $MarginContainer/VBoxContainer/PlayerGenderPanel/MarginContainer/HBoxContainer/PlayerGenderButton2
-@onready var player_pronoun_label = $MarginContainer/VBoxContainer/PlayerGenderPanel/MarginContainer/HBoxContainer/PlayerPronounLabel
+@onready var player_name_panel: Control = $MarginContainer/VBoxContainer/PlayerNamePanel
+@onready var player_name_edit: LineEdit = $MarginContainer/VBoxContainer/PlayerNamePanel/MarginContainer/HBoxContainer/PlayerNameEdit
+@onready var player_name_label: Label = $MarginContainer/VBoxContainer/PlayerNamePanel/MarginContainer/HBoxContainer/PlayerNameLabel
 
-@onready var player_pet_panel = $MarginContainer/VBoxContainer/PlayerPetPanel
-@onready var player_cat_button = $MarginContainer/VBoxContainer/PlayerPetPanel/MarginContainer/HBoxContainer/PlayerCatButton
-@onready var player_dog_button = $MarginContainer/VBoxContainer/PlayerPetPanel/MarginContainer/HBoxContainer/PlayerDogButton
-@onready var player_pet_label = $MarginContainer/VBoxContainer/PlayerPetPanel/MarginContainer/HBoxContainer/PlayerPetLabel
+@onready var player_gender_panel: Control = $MarginContainer/VBoxContainer/PlayerGenderPanel
+@onready var player_gender_button_0: Button = $MarginContainer/VBoxContainer/PlayerGenderPanel/MarginContainer/HBoxContainer/PlayerGenderButton0
+@onready var player_gender_button_1: Button = $MarginContainer/VBoxContainer/PlayerGenderPanel/MarginContainer/HBoxContainer/PlayerGenderButton1
+@onready var player_gender_button_2: Button = $MarginContainer/VBoxContainer/PlayerGenderPanel/MarginContainer/HBoxContainer/PlayerGenderButton2
+@onready var player_gender_label: Label = $MarginContainer/VBoxContainer/PlayerGenderPanel/MarginContainer/HBoxContainer/PlayerGenderLabel
+
+@onready var player_pet_panel: Control = $MarginContainer/VBoxContainer/PlayerPetPanel
+@onready var player_cat_button: Button = $MarginContainer/VBoxContainer/PlayerPetPanel/MarginContainer/HBoxContainer/PlayerCatButton
+@onready var player_dog_button: Button = $MarginContainer/VBoxContainer/PlayerPetPanel/MarginContainer/HBoxContainer/PlayerDogButton
+@onready var player_pet_label: Label = $MarginContainer/VBoxContainer/PlayerPetPanel/MarginContainer/HBoxContainer/PlayerPetLabel
+
+@onready var seed_edit: LineEdit = $MarginContainer/VBoxContainer/SeedPanel/MarginContainer/HBoxContainer/SeedEdit
+@onready var seed_randomize_button: Button = $MarginContainer/VBoxContainer/SeedPanel/MarginContainer/HBoxContainer/SeedRandomizeButton
 
 var world_data: WorldData = null
 var farm_data: FarmData = null
@@ -32,20 +39,30 @@ func _input(event: InputEvent):
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1:
 		var evLocal = make_input_local(event)
 		if !Rect2(player_name_edit.global_position, player_name_edit.size).has_point(evLocal.position) \
-		or !Rect2(farm_name_edit.global_position, farm_name_edit.size).has_point(evLocal.position):
+		or !Rect2(farm_name_edit.global_position, farm_name_edit.size).has_point(evLocal.position) \
+		or !Rect2(seed_edit.global_position, seed_edit.size).has_point(evLocal.position):
 			farm_name_edit.release_focus()
 			player_name_edit.release_focus()
+			seed_edit.release_focus()
 
 func _reset():
 	world_data = WorldData.new()
 	farm_data = world_data.farm_data
 	player_data = PlayerData.new()
-	farm_name_label.text = "............ Farm"
+	
 	farm_name_edit.text = ""
-	player_name_label.text = "Farmer ............"
+	farm_name_edit.max_length = NAME_MAX
+	farm_name_label.text = "............ Farm"
+	
 	player_name_edit.text = ""
-	player_pronoun_label.text = "She/Her"
+	player_name_edit.max_length = NAME_MAX
+	player_name_label.text = "Farmer ............"
+	
+	player_gender_label.text = "She/Her"
 	player_pet_label.text = "Cat"
+	
+	seed_edit.text = ""
+	seed_edit.max_length = SEED_MAX
 
 func _ready():
 	_reset()
@@ -57,7 +74,8 @@ func _ready():
 	farm_name_edit.text_changed.connect(func(new_text: String):
 		if farm_data.name == new_text: return
 		farm_data.name = new_text
-		farm_name_label.text = "%s Farm" % [farm_data.name.rpad(12, ".")])
+		farm_name_label.text = "%s Farm" % [farm_data.name]
+		farm_name_label.text.rpad(NAME_MAX, "."))
 	farm_name_edit.text_submitted.connect(func(_new_text: String):
 		farm_name_edit.release_focus())
 	
@@ -65,7 +83,8 @@ func _ready():
 	player_name_edit.text_changed.connect(func(new_text: String):
 		if player_data.name == new_text: return
 		player_data.name = new_text
-		player_name_label.text = "Farmer %s" % [player_data.name.rpad(12, ".")])
+		player_name_label.text = "Farmer %s" % [player_data.name]
+		player_name_label.text.rpad(NAME_MAX, "."))
 	player_name_edit.text_submitted.connect(func(_new_text: String):
 		player_name_edit.release_focus())
 	
@@ -74,19 +93,19 @@ func _ready():
 		player_data.gender = 1
 		player_data.pronoun0 = "She"
 		player_data.pronoun1 = "Her"
-		player_pronoun_label.text = "%s/%s" % [player_data.pronoun0, player_data.pronoun1]
+		player_gender_label.text = "%s/%s" % [player_data.pronoun0, player_data.pronoun1]
 		player_gender_button_0.release_focus())
 	player_gender_button_1.pressed.connect(func():
 		player_data.gender = 1
 		player_data.pronoun0 = "He"
 		player_data.pronoun1 = "Him"
-		player_pronoun_label.text = "%s/%s" % [player_data.pronoun0, player_data.pronoun1]
+		player_gender_label.text = "%s/%s" % [player_data.pronoun0, player_data.pronoun1]
 		player_gender_button_1.release_focus())
 	player_gender_button_2.pressed.connect(func():
 		player_data.gender = 2
 		player_data.pronoun0 = "They"
 		player_data.pronoun1 = "Them"
-		player_pronoun_label.text = "%s/%s" % [player_data.pronoun0, player_data.pronoun1]
+		player_gender_label.text = "%s/%s" % [player_data.pronoun0, player_data.pronoun1]
 		player_gender_button_2.release_focus())
 	
 	# player pet
@@ -100,6 +119,19 @@ func _ready():
 		player_data.pet_species = PlayerData.DOG
 		player_data.pet_breed = 0
 		player_dog_button.release_focus())
+	
+	# seed
+	seed_edit.text_changed.connect(func(new_text: String):
+		if world_data.world_seed == new_text: return
+		world_data.world_seed = new_text)
+	seed_edit.text_submitted.connect(func(_new_text: String):
+		seed_edit.release_focus())
+	seed_randomize_button.pressed.connect(func():
+		world_data.world_seed = ""
+		for i in range(SEED_MAX):
+			world_data.world_seed += SEED_CHARS[randi() % SEED_CHARS.length()]
+		seed_edit.text = world_data.world_seed
+		seed_randomize_button.release_focus())
 
 func _on_button_play_pressed():
 	assert(world_data)

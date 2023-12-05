@@ -6,6 +6,7 @@ extends PanelContainer
 @onready var new_button = $MarginContainer/VBoxContainer/NewButton
 @onready var options_button = $MarginContainer/VBoxContainer/OptionsButton
 @onready var mods_button = $MarginContainer/VBoxContainer/ModsButton
+@onready var credits_button = $MarginContainer/VBoxContainer/CreditsButton
 @onready var quit_button = $MarginContainer/VBoxContainer/QuitButton
 
 func _ready() -> void:
@@ -13,4 +14,5 @@ func _ready() -> void:
 	new_button.pressed.connect(func(): Ref.ui.title.current_menu = Ref.ui.title.world_creator)
 	options_button.pressed.connect(func(): Ref.ui.title.current_menu = Ref.ui.title.options)
 	mods_button.pressed.connect(func(): Ref.ui.title.current_menu = Ref.ui.title.mods)
+	credits_button.pressed.connect(func(): Ref.ui.title.current_menu = Ref.ui.title.credits)
 	quit_button.pressed.connect(func(): Ref.main.quit_to_desktop())

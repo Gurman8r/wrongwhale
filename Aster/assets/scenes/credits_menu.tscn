@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://bs0y3wvy51rwr"]
+
+[ext_resource type="Script" path="res://src/credits_menu.gd" id="1_ehq07"]
+[ext_resource type="SystemFont" uid="uid://be14qyvbd8lox" path="res://assets/fonts/system_font.tres" id="2_futiu"]
+
+[node name="CreditsMenu" type="PanelContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_ehq07")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(160, 32)
+layout_mode = 2
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("2_futiu")
+text = "Back"
