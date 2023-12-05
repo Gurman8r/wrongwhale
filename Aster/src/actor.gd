@@ -2,6 +2,8 @@
 class_name Actor
 extends CharacterBody3D
 
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 @export var data: ActorData = null
 
 @onready var animation_player = $AnimationPlayer
@@ -14,8 +16,17 @@ extends CharacterBody3D
 
 func get_cell() -> WorldCell: return get_parent().get_parent() as WorldCell
 
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func _process(_delta):
+	if not data: return
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 func _read(_world_data: WorldData) -> Actor:
 	return self
 
 func _write(_world_data: WorldData) -> Actor:
 	return self
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

@@ -2,7 +2,9 @@
 class_name WorldCell
 extends GridMap
 
-var enabled: bool : set = set_enabled
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+var enabled: bool = false : set = set_enabled
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -11,15 +13,15 @@ func _init() -> void:
 	Ref.world.cells.append(self)
 
 func _ready() -> void:
-	disable()
+	set_enabled(false)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func enable() -> void:
-	WorldCell._set_enabled(self, true)
-
-func disable() -> void:
-	WorldCell._set_enabled(self, false)
+#func enable() -> void:
+#	WorldCell._set_enabled(self, true)
+#
+#func disable() -> void:
+#	WorldCell._set_enabled(self, false)
 
 func set_enabled(value: bool) -> void:
 	WorldCell._set_enabled(self, value)

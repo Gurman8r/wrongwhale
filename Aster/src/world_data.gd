@@ -7,9 +7,8 @@ const FILE_NAME := "world.tres"
 
 @export var guid: String
 @export var name: String
-@export var index: int = 0
-
-@export var world_seed: String = ""
+@export var index: int
+@export var world_seed: String
 @export var farm_data: FarmData = FarmData.new()
 @export var object_data: Dictionary = {}
 

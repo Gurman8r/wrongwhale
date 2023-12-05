@@ -2,4 +2,4 @@
 class_name SettingsData
 extends Resource
 
-@export var version: int = 1
+@export var previous_world: String = ""

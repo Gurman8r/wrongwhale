@@ -4,6 +4,7 @@ extends StaticBody3D
 
 signal toggle_inventory(external_inventory_owner)
 
+@export var inventory_name: String = "Chest"
 @export var inventory_data: InventoryData
 
 @onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D

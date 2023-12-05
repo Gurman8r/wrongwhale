@@ -50,7 +50,7 @@ func _ready() -> void:
 
 func _notification(what):
 	match what:
-		[NOTIFICATION_PREDELETE]:
+		NOTIFICATION_PREDELETE:
 			Ref.world.player_destroyed.emit(self)
 			if Ref.player == self: Ref.player = null
 
@@ -88,7 +88,7 @@ func _process(delta: float) -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 	
 func _input(event) -> void:
-	# mouse motion
+	# mouse camera
 	if event is InputEventMouseMotion:
 		camera_pivot_y.rotate_y(-event.relative.x * camera_speed.x)
 		camera_pivot_x.rotate_x(-event.relative.y * camera_speed.y)
@@ -110,24 +110,24 @@ func _input(event) -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _unhandled_input(_event) -> void:
-	# debug
+	# toggle ui
 	if Input.is_action_just_pressed("toggle_debug"): toggle_debug.emit()
-	
-	# inventory
 	if Input.is_action_just_pressed("toggle_inventory"): toggle_inventory.emit()
-	if Input.is_action_just_released("hotbar_prev"):
-		hotbar_prev.emit()
-	elif Input.is_action_just_released("hotbar_next"):
-		hotbar_next.emit()
+	if Input.is_action_just_pressed("toggle_collection"): Ref.ui.game.set_current_tab(GameInterface.COLLECTION)
+	if Input.is_action_just_pressed("toggle_skills"): Ref.ui.game.set_current_tab(GameInterface.SKILLS)
+	if Input.is_action_just_pressed("toggle_journal"): Ref.ui.game.set_current_tab(GameInterface.JOURNAL)
+	if Input.is_action_just_pressed("toggle_options"): Ref.ui.game.set_current_tab(GameInterface.OPTIONS)
+	if Input.is_action_just_pressed("toggle_system"): Ref.ui.game.set_current_tab(GameInterface.SYSTEM)
+	
+	# hotbar
+	if Input.is_action_just_released("hotbar_prev"): hotbar_prev.emit()
+	elif Input.is_action_just_released("hotbar_next"): hotbar_next.emit()
 	for i in range(0, 10):
 		if Input.is_action_just_pressed("hotbar_%d" % [i]):
 			Ref.ui.game.hotbar_inventory.set_item_index(i - 1)
 			hotbar_select.emit(i - 1)
 			break
 	item_index = Ref.ui.game.hotbar_inventory.item_index
-	
-	if Input.is_action_just_pressed("ui_cancel"):
-		Ref.ui.game.set_current_tab(GameInterface.SYSTEM)
 	
 	# movement
 	move_input[LEFT] = Input.is_action_pressed("move_left")

@@ -54,7 +54,7 @@ theme_override_fonts/font = ExtResource("2_o2tpj")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ExternalInventoryContainer" type="MarginContainer" parent="."]
+[node name="InventoryContainer" type="MarginContainer" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -67,27 +67,27 @@ theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 100
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ExternalInventoryContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InventoryContainer"]
 layout_mode = 2
 
-[node name="ExternalNameLabel" type="Label" parent="ExternalInventoryContainer/VBoxContainer"]
+[node name="ExternalNameLabel" type="Label" parent="InventoryContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_fonts/font = ExtResource("2_o2tpj")
 text = "Chest:"
 
-[node name="ExternalInventory" parent="ExternalInventoryContainer/VBoxContainer" instance=ExtResource("2_sura8")]
+[node name="ExternalInventory" parent="InventoryContainer/VBoxContainer" instance=ExtResource("2_sura8")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 
-[node name="PlayerNameLabel" type="Label" parent="ExternalInventoryContainer/VBoxContainer"]
+[node name="InternalNameLabel" type="Label" parent="InventoryContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_fonts/font = ExtResource("2_o2tpj")
 text = "Player:"
 
-[node name="PlayerInventory" parent="ExternalInventoryContainer/VBoxContainer" instance=ExtResource("2_sura8")]
+[node name="InternalInventory" parent="InventoryContainer/VBoxContainer" instance=ExtResource("2_sura8")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8

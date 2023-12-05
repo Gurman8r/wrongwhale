@@ -74,8 +74,7 @@ func _ready():
 	farm_name_edit.text_changed.connect(func(new_text: String):
 		if farm_data.name == new_text: return
 		farm_data.name = new_text
-		farm_name_label.text = "%s Farm" % [farm_data.name]
-		farm_name_label.text.rpad(NAME_MAX, "."))
+		farm_name_label.text = "%s Farm" % [farm_data.name.rpad(NAME_MAX, ".")])
 	farm_name_edit.text_submitted.connect(func(_new_text: String):
 		farm_name_edit.release_focus())
 	
@@ -83,8 +82,7 @@ func _ready():
 	player_name_edit.text_changed.connect(func(new_text: String):
 		if player_data.name == new_text: return
 		player_data.name = new_text
-		player_name_label.text = "Farmer %s" % [player_data.name]
-		player_name_label.text.rpad(NAME_MAX, "."))
+		player_name_label.text = "Farmer %s" % [player_data.name.rpad(NAME_MAX, ".")])
 	player_name_edit.text_submitted.connect(func(_new_text: String):
 		player_name_edit.release_focus())
 	
@@ -127,9 +125,7 @@ func _ready():
 	seed_edit.text_submitted.connect(func(_new_text: String):
 		seed_edit.release_focus())
 	seed_randomize_button.pressed.connect(func():
-		world_data.world_seed = ""
-		for i in range(SEED_MAX):
-			world_data.world_seed += SEED_CHARS[randi() % SEED_CHARS.length()]
+		world_data.world_seed = generate_seed()
 		seed_edit.text = world_data.world_seed
 		seed_randomize_button.release_focus())
 
@@ -145,6 +141,9 @@ func _on_button_play_pressed():
 	world_data.name = farm_data.name
 	world_data.index = WorldData.count()
 	
+	if world_data.world_seed.is_empty():
+		world_data.world_seed = generate_seed()
+	
 	player_data.guid = player_data.name.replace(" ", "_")
 	player_data.index = world_data.object_data.size()
 	player_data.position = Vector3.ZERO
@@ -156,3 +155,9 @@ func _on_button_play_pressed():
 	
 	WorldData.write(world_data, world_data.guid)
 	Ref.main.load_world_from_memory(world_data)
+
+func generate_seed() -> String:
+	var s: String = ""
+	for i in range(SEED_MAX):
+		s += SEED_CHARS[randi() % SEED_CHARS.length()]
+	return s

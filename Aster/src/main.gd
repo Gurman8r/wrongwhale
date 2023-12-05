@@ -2,6 +2,8 @@
 class_name Main
 extends Node
 
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 @onready var database : Database = $Database
 @onready var settings : Settings = $Settings
 @onready var world    : World    = $World
