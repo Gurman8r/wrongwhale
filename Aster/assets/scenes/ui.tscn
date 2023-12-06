@@ -10,11 +10,11 @@
 process_mode = 3
 script = ExtResource("1_assrp")
 
-[node name="GameInterface" parent="." instance=ExtResource("3_08tnt")]
+[node name="GameUI" parent="." instance=ExtResource("3_08tnt")]
 
-[node name="TitleInterface" parent="." instance=ExtResource("3_dfw12")]
+[node name="TitleUI" parent="." instance=ExtResource("3_dfw12")]
 
-[node name="TransitionInterface" parent="." instance=ExtResource("11_hg68u")]
+[node name="TransitionUI" parent="." instance=ExtResource("11_hg68u")]
 
-[node name="DebugInterface" parent="." instance=ExtResource("12_somwx")]
+[node name="DebugUI" parent="." instance=ExtResource("12_somwx")]
 visible = false

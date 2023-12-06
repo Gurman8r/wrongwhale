@@ -1,5 +1,5 @@
-# title_interface.gd
-class_name TitleInterface
+# title_ui.gd
+class_name TitleUI
 extends Control
 
 @onready var current_menu: Control = $TitleMain : set = set_current_menu
@@ -22,13 +22,13 @@ func set_current_menu(value: Control):
 	if not current_menu and not value:
 		return
 	elif current_menu and value:
-		Ref.ui.transitions.play("fadeout")
-		await Ref.ui.transitions.finished
+		G.ui.transitions.play("fadeout")
+		await G.ui.transitions.finished
 		current_menu.hide()
 		current_menu = value
 		current_menu.show()
-		Ref.ui.transitions.play("fadein")
-		await Ref.ui.transitions.finished
+		G.ui.transitions.play("fadein")
+		await G.ui.transitions.finished
 	elif current_menu and not value:
 		current_menu.hide()
 		current_menu = null

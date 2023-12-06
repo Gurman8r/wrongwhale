@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://csqilf6fxjsn4"]
 
-[ext_resource type="Script" path="res://src/game_interface.gd" id="1_sv1aj"]
+[ext_resource type="Script" path="res://src/game_ui.gd" id="1_sv1aj"]
 [ext_resource type="PackedScene" uid="uid://dnhnrabrf57os" path="res://assets/scenes/hotbar_inventory.tscn" id="2_lq3ho"]
 [ext_resource type="SystemFont" uid="uid://be14qyvbd8lox" path="res://assets/fonts/system_font.tres" id="2_o2tpj"]
 [ext_resource type="PackedScene" uid="uid://dv6li4wxrohgf" path="res://assets/scenes/inventory.tscn" id="2_sura8"]

@@ -1,5 +1,5 @@
 # database.gd
-class_name Database
+# Database
 extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -10,25 +10,31 @@ signal loading_finished()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-@export var data: DatabaseData
+const defaults: DatabaseData = preload("res://assets/data/database.tres")
+
+@onready var data: DatabaseData = null
 
 var dict: Dictionary = {}
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	assert(not Ref.db)
-	Ref.db = self
+	pass
 
 func _ready() -> void:
 	_reset()
 
 func _reset() -> void:
-	pass
+	data = null
+	data = DatabaseData.read()
+	if not data:
+		data = defaults.duplicate()
+		DatabaseData.write(data)
+	assert(data)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func find(_key: String) -> Object:
+func lookup(_key: String) -> Object:
 	return null
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

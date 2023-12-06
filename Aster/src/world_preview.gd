@@ -26,7 +26,7 @@ func set_world_data(world_data: WorldData):
 	farm_name_label.text = "%s Farm" % [world_data.farm_data.name]
 	
 	play_button.pressed.connect(func():
-		Ref.main.load_world_from_memory(world_data))
+		G.main.load_world_from_memory(world_data))
 	
 	delete_button.pressed.connect(func():
 		farm_name_label.hide()
@@ -67,7 +67,7 @@ func set_world_data(world_data: WorldData):
 	
 	delete_accept_button.pressed.connect(func():
 		Util.wipe_dir(WorldData.get_dir_path(world_data.guid))
-		Ref.ui.title.world_loader._reset()
+		G.ui.title.world_loader._reset()
 		queue_free())
 	
 	delete_cancel_button.pressed.connect(func():

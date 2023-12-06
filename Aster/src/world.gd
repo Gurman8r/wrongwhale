@@ -17,6 +17,8 @@ signal unloading_finished()
 signal player_created(player: Player)
 signal player_destroyed(player: Player)
 
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 @export var data: WorldData = null
 
 var cell: WorldCell = null : set = change_cell
@@ -25,10 +27,11 @@ var cells: Array[WorldCell] = []
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	assert(not Ref.world)
-	Ref.world = self
+	assert(not G.world)
+	G.world = self
 
 func _ready():
+	# cells should automatically add themselves to the list
 	assert(cells.size() == get_child_count())
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

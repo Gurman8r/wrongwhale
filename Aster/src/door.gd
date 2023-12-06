@@ -15,13 +15,13 @@ func _ready() -> void:
 	interactable.interacted.connect(func(other) -> void:
 		assert(destination)
 		assert(destination.spawn_point)
-		if other == Ref.player:
-			Ref.ui.transitions.play("fadeout")
-			await Ref.ui.transitions.finished
-		Ref.world.transfer(
+		if other == G.player:
+			G.ui.transitions.play("fadeout")
+			await G.ui.transitions.finished
+		G.world.transfer(
 			other,
 			destination.get_cell(),
 			destination.spawn_point.global_transform.origin)
-		if other == Ref.player:
-			Ref.ui.transitions.play("fadein")
-			await Ref.ui.transitions.finished)
+		if other == G.player:
+			G.ui.transitions.play("fadein")
+			await G.ui.transitions.finished)

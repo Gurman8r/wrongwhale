@@ -4,41 +4,39 @@ extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-@onready var database : Database = $Database
-@onready var settings : Settings = $Settings
-@onready var world    : World    = $World
-@onready var ui       : UI       = $UI
+@onready var world: World = $World
+@onready var ui: UI = $UI
 
 var playing: bool = false
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	assert(not Ref.main)
-	Ref.main = self
+	assert(not G.main)
+	G.main = self
 
 func _ready() -> void:
 	get_tree().paused = true
 	
 	# LOADED
 	world.loading_finished.connect(func():
-		ui.game.set_player_data(Ref.player.data)
-		Ref.player.toggle_debug.connect(ui.debug.toggle)
-		Ref.player.toggle_inventory.connect(ui.game.toggle_inventory)
-		Ref.player.hotbar_next.connect(ui.game.hotbar_inventory.next)
-		Ref.player.hotbar_prev.connect(ui.game.hotbar_inventory.prev)
-		Ref.player.hotbar_select.connect(ui.game.hotbar_inventory.set_item_index)
+		ui.game.set_player_data(G.player.data)
+		G.player.toggle_debug.connect(ui.debug.toggle)
+		G.player.toggle_inventory.connect(ui.game.toggle_inventory)
+		G.player.hotbar_next.connect(ui.game.hotbar_inventory.next)
+		G.player.hotbar_prev.connect(ui.game.hotbar_inventory.prev)
+		G.player.hotbar_select.connect(ui.game.hotbar_inventory.set_item_index)
 		for node in get_tree().get_nodes_in_group("external_inventory"):
 			node.toggle_inventory.connect(ui.game.toggle_inventory))
 	
 	# UNLOADED
 	world.unloading_started.connect(func():
 		ui.game.clear_player_data()
-		Ref.player.toggle_debug.disconnect(ui.debug.toggle)
-		Ref.player.toggle_inventory.disconnect(ui.game.toggle_inventory)
-		Ref.player.hotbar_next.disconnect(ui.game.hotbar_inventory.next)
-		Ref.player.hotbar_prev.disconnect(ui.game.hotbar_inventory.prev)
-		Ref.player.hotbar_select.disconnect(ui.game.hotbar_inventory.set_item_index)
+		G.player.toggle_debug.disconnect(ui.debug.toggle)
+		G.player.toggle_inventory.disconnect(ui.game.toggle_inventory)
+		G.player.hotbar_next.disconnect(ui.game.hotbar_inventory.next)
+		G.player.hotbar_prev.disconnect(ui.game.hotbar_inventory.prev)
+		G.player.hotbar_select.disconnect(ui.game.hotbar_inventory.set_item_index)
 		for node in get_tree().get_nodes_in_group("external_inventory"):
 			node.toggle_inventory.disconnect(ui.game.toggle_inventory))
 
@@ -51,6 +49,8 @@ func _unhandled_input(_event) -> void:
 		quit_to_desktop()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+#region FLOW_CONTROL
 
 func load_world_from_memory(world_data: WorldData) -> void:
 	# pre-load
@@ -125,5 +125,7 @@ func quit_to_title() -> void:
 	ui.transitions.play("fadein")
 	await ui.transitions.finished
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+#endregion
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

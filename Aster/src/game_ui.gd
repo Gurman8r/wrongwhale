@@ -1,5 +1,5 @@
-# game_interface.gd
-class_name GameInterface
+# game_ui.gd
+class_name GameUI
 extends Control
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -75,7 +75,7 @@ func _ready():
 	drop_stack.connect(func(stack: ItemStack) -> void:
 		var drop = item_drop.instantiate()
 		drop.stack = stack
-		Ref.world.cell.add(drop, Ref.player.get_drop_position()))
+		G.world.cell.add(drop, G.player.get_drop_position()))
 	
 	gui_input.connect(func(event: InputEvent) -> void:
 		if event is InputEventMouseButton and event.is_pressed() and grabbed_stack:
@@ -94,11 +94,11 @@ func _ready():
 	menu_tab_bar.tab_changed.connect(func(tab: int):
 		menu_tab_container.current_tab = tab)
 	
-	save_button.pressed.connect(Ref.world.save_to_file)
-	save_and_quit_to_title_button.pressed.connect(Ref.main.save_world_to_file_and_quit_to_title)
-	save_and_quit_to_desktop_button.pressed.connect(Ref.main.save_world_to_file_and_quit_to_desktop)
-	quit_to_title_button.pressed.connect(Ref.main.quit_to_title)
-	quit_to_desktop_button.pressed.connect(Ref.main.quit_to_desktop)
+	save_button.pressed.connect(G.world.save_to_file)
+	save_and_quit_to_title_button.pressed.connect(G.main.save_world_to_file_and_quit_to_title)
+	save_and_quit_to_desktop_button.pressed.connect(G.main.save_world_to_file_and_quit_to_desktop)
+	quit_to_title_button.pressed.connect(G.main.quit_to_title)
+	quit_to_desktop_button.pressed.connect(G.main.quit_to_desktop)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -113,7 +113,7 @@ func _physics_process(_delta) -> void:
 	if grabbed_slot.visible:
 		grabbed_slot.global_position = get_global_mouse_position() + Vector2(5, 5)
 	if external_inventory_owner \
-	and external_inventory_owner.global_position.distance_to(Ref.player.global_position) > 4:
+	and external_inventory_owner.global_position.distance_to(G.player.global_position) > 4:
 		force_close.emit()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

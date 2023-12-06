@@ -1,22 +1,22 @@
-# database_data.gd
-class_name DatabaseData
+# config_data.gd
+class_name ConfigData
 extends Resource
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-@export var items: Array[ItemData]
+@export var recent_save: String = ""
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 #region RW
 
-const PATH := "user://database.tres"
+const PATH := "user://config.tres"
 
 static func read(path: String = PATH) -> Resource:
 	if not ResourceLoader.exists(path): return null
 	else: return ResourceLoader.load(path)
 
-static func write(data: DatabaseData, path: String = PATH) -> Error:
+static func write(data: ConfigData, path: String = PATH) -> Error:
 	assert(data)
 	DirAccess.remove_absolute(path)
 	return ResourceSaver.save(data, path)

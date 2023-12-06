@@ -10,7 +10,7 @@ const preview_prefab = preload("res://assets/scenes/world_preview.tscn")
 
 func _ready() -> void:
 	back_button.pressed.connect(func():
-		Ref.ui.title.current_menu = Ref.ui.title.main)
+		G.ui.title.current_menu = G.ui.title.main)
 	visibility_changed.connect(func():
 		if visible: _reset())
 
@@ -18,8 +18,8 @@ func _reset() -> void:
 	for child in preview_root.get_children():
 		if child is WorldPreview:
 			child.queue_free()
-	DirAccess.make_dir_absolute(WorldData.SAVES_PATH)
-	var saves_dir = DirAccess.open(WorldData.SAVES_PATH)
+	DirAccess.make_dir_absolute(WorldData.DIR_NAME)
+	var saves_dir = DirAccess.open(WorldData.DIR_NAME)
 	if not saves_dir: return
 	saves_dir.list_dir_begin()
 	var path = saves_dir.get_next()

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dixmxwjxalllh"]
 
-[ext_resource type="Script" path="res://src/debug_interface.gd" id="1_hh3cq"]
+[ext_resource type="Script" path="res://src/debug_ui.gd" id="1_hh3cq"]
 [ext_resource type="SystemFont" uid="uid://be14qyvbd8lox" path="res://assets/fonts/system_font.tres" id="2_5qcv8"]
 
 [node name="DebugInterface" type="Control"]

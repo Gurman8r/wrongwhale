@@ -10,9 +10,9 @@ extends PanelContainer
 @onready var quit_button = $MarginContainer/VBoxContainer/QuitButton
 
 func _ready() -> void:
-	load_button.pressed.connect(func(): Ref.ui.title.current_menu = Ref.ui.title.world_loader)
-	new_button.pressed.connect(func(): Ref.ui.title.current_menu = Ref.ui.title.world_creator)
-	options_button.pressed.connect(func(): Ref.ui.title.current_menu = Ref.ui.title.options)
-	mods_button.pressed.connect(func(): Ref.ui.title.current_menu = Ref.ui.title.mods)
-	credits_button.pressed.connect(func(): Ref.ui.title.current_menu = Ref.ui.title.credits)
-	quit_button.pressed.connect(func(): Ref.main.quit_to_desktop())
+	load_button.pressed.connect(func(): G.ui.title.current_menu = G.ui.title.world_loader)
+	new_button.pressed.connect(func(): G.ui.title.current_menu = G.ui.title.world_creator)
+	options_button.pressed.connect(func(): G.ui.title.current_menu = G.ui.title.options)
+	mods_button.pressed.connect(func(): G.ui.title.current_menu = G.ui.title.mods)
+	credits_button.pressed.connect(func(): G.ui.title.current_menu = G.ui.title.credits)
+	quit_button.pressed.connect(func(): G.main.quit_to_desktop())

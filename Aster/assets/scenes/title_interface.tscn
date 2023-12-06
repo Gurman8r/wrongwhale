@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://d0u284uvkuxp5"]
 
-[ext_resource type="Script" path="res://src/title_interface.gd" id="1_v24im"]
+[ext_resource type="Script" path="res://src/title_ui.gd" id="1_v24im"]
 [ext_resource type="Script" path="res://src/title_main.gd" id="2_w6hq1"]
 [ext_resource type="SystemFont" uid="uid://be14qyvbd8lox" path="res://assets/fonts/system_font.tres" id="3_5rwlm"]
 [ext_resource type="PackedScene" uid="uid://vw0n0v6gcdcl" path="res://assets/scenes/world_loader.tscn" id="4_fj3jq"]
