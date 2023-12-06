@@ -4,8 +4,13 @@ extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-signal loaded()
-signal saved()
+signal loading_started()
+signal loading(settings_data: SettingsData)
+signal loading_finished()
+
+signal saving_started()
+signal saving(settings_data: SettingsData)
+signal saving_finished()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -14,13 +19,13 @@ signal saved()
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	assert(not Ref.settings)
-	Ref.settings = self
-
-func _reset() -> void:
-	pass
+	assert(not Ref.cfg)
+	Ref.cfg = self
 
 func _ready() -> void:
 	_reset()
+
+func _reset() -> void:
+	pass
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

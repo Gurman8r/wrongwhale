@@ -2,6 +2,8 @@
 class_name WorldData
 extends Resource
 
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 const SAVES_PATH := "user://saves"
 const FILE_NAME := "world.tres"
 
@@ -33,7 +35,7 @@ static func write(world_data: WorldData, path_stem: String = "") -> Error:
 	assert(world_data)
 	if path_stem.is_empty(): path_stem = world_data.guid
 	var dir_path = get_dir_path(path_stem)
-	Util.wipe(dir_path)
+	Util.wipe_dir(dir_path)
 	DirAccess.make_dir_absolute(SAVES_PATH)
 	DirAccess.make_dir_absolute(dir_path)
 	return ResourceSaver.save(world_data, get_file_path(path_stem))
@@ -58,21 +60,5 @@ static func list() -> Array[String]:
 				path_list.append(path)
 		path = saves_dir.get_next()
 	return path_list
-
-static func count() -> int:
-	var path_count: int = 0
-	DirAccess.make_dir_absolute(SAVES_PATH)
-	var saves_dir = DirAccess.open(SAVES_PATH)
-	saves_dir.list_dir_begin()
-	var path = saves_dir.get_next()
-	while  path != "":
-		if saves_dir.current_is_dir():
-			var world_dir = DirAccess.open(get_dir_path(path))
-			if not world_dir: continue
-			world_dir.list_dir_begin()
-			if world_dir.file_exists(FILE_NAME):
-				path_count += 1
-		path = saves_dir.get_next()
-	return path_count
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

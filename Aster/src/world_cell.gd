@@ -4,10 +4,6 @@ extends GridMap
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-var enabled: bool = false : set = set_enabled
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
 func _init() -> void:
 	assert(Ref.world)
 	Ref.world.cells.append(self)
@@ -17,11 +13,7 @@ func _ready() -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-#func enable() -> void:
-#	WorldCell._set_enabled(self, true)
-#
-#func disable() -> void:
-#	WorldCell._set_enabled(self, false)
+var enabled: bool = false : set = set_enabled
 
 func set_enabled(value: bool) -> void:
 	WorldCell._set_enabled(self, value)

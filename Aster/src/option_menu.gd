@@ -14,21 +14,6 @@ var window_sizes: Array[Vector2i]
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func _reset() -> void:
-	window_sizes = [ Vector2i(640, 480), Vector2i(1280, 720), Vector2i(1600, 900), Vector2i(1920, 1080), ]
-	
-	match DisplayServer.window_get_mode():
-		DisplayServer.WINDOW_MODE_WINDOWED: window_mode_button.text = "Windowed"
-		DisplayServer.WINDOW_MODE_FULLSCREEN: window_mode_button.text = "Fullscreen"
-	
-	match DisplayServer.window_get_vsync_mode():
-		DisplayServer.VSYNC_DISABLED: window_vsync_button.text = "Disabled"
-		DisplayServer.VSYNC_ENABLED: window_vsync_button.text = "Enabled"
-		DisplayServer.VSYNC_ADAPTIVE: window_vsync_button.text = "Adaptive"
-		DisplayServer.VSYNC_MAILBOX: window_vsync_button.text = "Mailbox"
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
 func _ready():
 	_reset()
 	
@@ -63,5 +48,20 @@ func _ready():
 		window_vsync_button.text = window_vsync_button.get_popup().get_item_text(index)
 		DisplayServer.window_set_vsync_mode(window_vsync_button.get_popup().get_item_id(index))
 		window_vsync_button.release_focus())
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func _reset() -> void:
+	window_sizes = [ Vector2i(640, 480), Vector2i(1280, 720), Vector2i(1600, 900), Vector2i(1920, 1080), ]
+	
+	match DisplayServer.window_get_mode():
+		DisplayServer.WINDOW_MODE_WINDOWED: window_mode_button.text = "Windowed"
+		DisplayServer.WINDOW_MODE_FULLSCREEN: window_mode_button.text = "Fullscreen"
+	
+	match DisplayServer.window_get_vsync_mode():
+		DisplayServer.VSYNC_DISABLED: window_vsync_button.text = "Disabled"
+		DisplayServer.VSYNC_ENABLED: window_vsync_button.text = "Enabled"
+		DisplayServer.VSYNC_ADAPTIVE: window_vsync_button.text = "Adaptive"
+		DisplayServer.VSYNC_MAILBOX: window_vsync_button.text = "Mailbox"
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

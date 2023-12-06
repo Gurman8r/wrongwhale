@@ -8,11 +8,13 @@ const preview_prefab = preload("res://assets/scenes/world_preview.tscn")
 @onready var preview_root = $MarginContainer/VBoxContainer/MarginContainer/VBoxContainer
 @onready var empty_label = $MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/EmptyLabel
 
-func _ready():
-	back_button.pressed.connect(func(): Ref.ui.title.current_menu = Ref.ui.title.main)
-	visibility_changed.connect(func(): if visible: refresh())
+func _ready() -> void:
+	back_button.pressed.connect(func():
+		Ref.ui.title.current_menu = Ref.ui.title.main)
+	visibility_changed.connect(func():
+		if visible: _reset())
 
-func refresh() -> void:
+func _reset() -> void:
 	for child in preview_root.get_children():
 		if child is WorldPreview:
 			child.queue_free()

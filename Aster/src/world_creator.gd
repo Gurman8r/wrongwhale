@@ -2,6 +2,8 @@
 class_name WorldCreator
 extends PanelContainer
 
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 const NAME_MAX := 12
 const SEED_MAX := 16
 const SEED_CHARS := "0123456789ABCDEFGHIJKLMNOPQRZTUVWXYZabcdefghijklmnopqrstuvwxyz"
@@ -35,37 +37,23 @@ var world_data: WorldData = null
 var farm_data: FarmData = null
 var player_data: PlayerData = null
 
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 func _input(event: InputEvent):
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1:
-		var evLocal = make_input_local(event)
-		if !Rect2(player_name_edit.global_position, player_name_edit.size).has_point(evLocal.position) \
-		or !Rect2(farm_name_edit.global_position, farm_name_edit.size).has_point(evLocal.position) \
-		or !Rect2(seed_edit.global_position, seed_edit.size).has_point(evLocal.position):
+		var ev: InputEvent = make_input_local(event)
+		if !Rect2(player_name_edit.global_position, player_name_edit.size).has_point(ev.position) \
+		or !Rect2(farm_name_edit.global_position, farm_name_edit.size).has_point(ev.position) \
+		or !Rect2(seed_edit.global_position, seed_edit.size).has_point(ev.position):
 			farm_name_edit.release_focus()
 			player_name_edit.release_focus()
 			seed_edit.release_focus()
 
-func _reset():
-	world_data = WorldData.new()
-	farm_data = world_data.farm_data
-	player_data = PlayerData.new()
-	
-	farm_name_edit.text = ""
-	farm_name_edit.max_length = NAME_MAX
-	farm_name_label.text = "............ Farm"
-	
-	player_name_edit.text = ""
-	player_name_edit.max_length = NAME_MAX
-	player_name_label.text = "Farmer ............"
-	
-	player_gender_label.text = "She/Her"
-	player_pet_label.text = "Cat"
-	
-	seed_edit.text = ""
-	seed_edit.max_length = SEED_MAX
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _ready():
 	_reset()
+	
 	visibility_changed.connect(func(): if visible: _reset())
 	play_button.pressed.connect(_on_button_play_pressed)
 	back_button.pressed.connect(func(): Ref.ui.title.current_menu = Ref.ui.title.main)
@@ -125,9 +113,32 @@ func _ready():
 	seed_edit.text_submitted.connect(func(_new_text: String):
 		seed_edit.release_focus())
 	seed_randomize_button.pressed.connect(func():
-		world_data.world_seed = generate_seed()
+		world_data.world_seed = Util.rands(SEED_MAX, SEED_CHARS)
 		seed_edit.text = world_data.world_seed
 		seed_randomize_button.release_focus())
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func _reset():
+	world_data = WorldData.new()
+	farm_data = world_data.farm_data
+	player_data = PlayerData.new()
+	
+	farm_name_edit.text = ""
+	farm_name_edit.max_length = NAME_MAX
+	farm_name_label.text = "............ Farm"
+	
+	player_name_edit.text = ""
+	player_name_edit.max_length = NAME_MAX
+	player_name_label.text = "Farmer ............"
+	
+	player_gender_label.text = "She/Her"
+	player_pet_label.text = "Cat"
+	
+	seed_edit.text = ""
+	seed_edit.max_length = SEED_MAX
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _on_button_play_pressed():
 	assert(world_data)
@@ -139,10 +150,10 @@ func _on_button_play_pressed():
 	
 	world_data.guid = farm_data.name.replace(" ", "_")
 	world_data.name = farm_data.name
-	world_data.index = WorldData.count()
+	world_data.index = WorldData.list().size()
 	
 	if world_data.world_seed.is_empty():
-		world_data.world_seed = generate_seed()
+		world_data.world_seed = Util.rands(SEED_MAX, SEED_CHARS)
 	
 	player_data.guid = player_data.name.replace(" ", "_")
 	player_data.index = world_data.object_data.size()
@@ -156,8 +167,4 @@ func _on_button_play_pressed():
 	WorldData.write(world_data, world_data.guid)
 	Ref.main.load_world_from_memory(world_data)
 
-func generate_seed() -> String:
-	var s: String = ""
-	for i in range(SEED_MAX):
-		s += SEED_CHARS[randi() % SEED_CHARS.length()]
-	return s
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

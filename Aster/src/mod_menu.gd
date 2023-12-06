@@ -8,14 +8,14 @@ extends PanelContainer
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func _reset() -> void:
-	pass
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
 func _ready():
 	_reset()
 	
 	back_button.pressed.connect(func(): Ref.ui.title.current_menu = Ref.ui.title.main)
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func _reset() -> void:
+	pass
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

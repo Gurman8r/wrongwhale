@@ -1,7 +1,18 @@
 # util.gd
 class_name Util
 
-static func wipe(dir_path: String) -> void:
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+static func rands(length: int, chars: String) -> String:
+	var s: String = ""
+	var n: int = chars.length()
+	for i in range(length):
+		s += chars[randi() % n]
+	return s
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+static func wipe_dir(dir_path: String) -> void:
 	var dir: DirAccess = DirAccess.open(dir_path)
 	if not dir: return
 	if dir:
@@ -10,8 +21,10 @@ static func wipe(dir_path: String) -> void:
 		while path != "":
 			var sub_path = "%s/%s" % [dir_path, path]
 			if dir.current_is_dir():
-				wipe(sub_path)
+				wipe_dir(sub_path)
 			else:
 				DirAccess.remove_absolute(sub_path)
 			path = dir.get_next()
 	DirAccess.remove_absolute(dir_path)
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

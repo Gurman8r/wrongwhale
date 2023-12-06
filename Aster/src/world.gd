@@ -138,7 +138,7 @@ func change_cell(world_cell: WorldCell) -> void:
 	cell = world_cell
 	if cell: cell.enabled = true
 
-func transfer(node: Node, world_cell: WorldCell, target_pos: Vector3 = Vector3.ZERO) -> void:
+func transfer(node: Node3D, world_cell: WorldCell, target_pos: Vector3 = Vector3.ZERO) -> void:
 	assert(node)
 	assert(world_cell)
 	if cell: cell.remove(node)

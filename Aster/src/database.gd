@@ -4,6 +4,12 @@ extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+signal loading_started()
+signal loading(database_data: DatabaseData)
+signal loading_finished()
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 @export var data: DatabaseData
 
 var dict: Dictionary = {}
@@ -11,14 +17,14 @@ var dict: Dictionary = {}
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	assert(not Ref.database)
-	Ref.database = self
-
-func _reset() -> void:
-	pass
+	assert(not Ref.db)
+	Ref.db = self
 
 func _ready() -> void:
 	_reset()
+
+func _reset() -> void:
+	pass
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

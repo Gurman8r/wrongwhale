@@ -59,15 +59,15 @@ func set_world_data(world_data: WorldData):
 			world_data.name = new_text
 			farm_name_label.text = new_text
 			WorldData.write(world_data)
-			Util.wipe(WorldData.get_dir_path(old_guid))
+			Util.wipe_dir(WorldData.get_dir_path(old_guid))
 		farm_name_label.text = "%s Farm" % [new_text]
 		farm_name_label.show()
 		play_button.show()
 		delete_button.show())
 	
 	delete_accept_button.pressed.connect(func():
-		Util.wipe(WorldData.get_dir_path(world_data.guid))
-		Ref.ui.title.world_loader.refresh()
+		Util.wipe_dir(WorldData.get_dir_path(world_data.guid))
+		Ref.ui.title.world_loader._reset()
 		queue_free())
 	
 	delete_cancel_button.pressed.connect(func():
