@@ -4,6 +4,7 @@ extends Resource
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+@export var actors: Array[ActorData]
 @export var items: Array[ItemData]
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

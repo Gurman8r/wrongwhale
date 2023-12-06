@@ -6,4 +6,5 @@
 
 [resource]
 script = ExtResource("1_xuifm")
+actors = Array[Resource("res://src/actor_data.gd")]([])
 items = Array[Resource("res://src/item_data.gd")]([ExtResource("1_lf64y"), ExtResource("2_v11n7")])
