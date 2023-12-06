@@ -14,8 +14,6 @@ extends Resource
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-#region RW
-
 const DIR_NAME := "user://saves"
 const FILE_NAME := "world.tres"
 
@@ -56,7 +54,5 @@ static func list() -> Array[String]:
 				path_list.append(path)
 		path = saves_dir.get_next()
 	return path_list
-
-#endregion
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

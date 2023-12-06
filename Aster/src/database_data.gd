@@ -8,8 +8,6 @@ extends Resource
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-#region RW
-
 const PATH := "user://database.tres"
 
 static func read(path: String = PATH) -> DatabaseData:
@@ -20,7 +18,5 @@ static func write(data: DatabaseData, path: String = PATH) -> Error:
 	assert(data)
 	DirAccess.remove_absolute(path)
 	return ResourceSaver.save(data, path)
-
-#endregion
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
