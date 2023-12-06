@@ -12,7 +12,7 @@ extends Resource
 
 const PATH := "user://database.tres"
 
-static func read(path: String = PATH) -> Resource:
+static func read(path: String = PATH) -> DatabaseData:
 	if not ResourceLoader.exists(path): return null
 	else: return ResourceLoader.load(path)
 

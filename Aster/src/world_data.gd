@@ -7,6 +7,7 @@ extends Resource
 @export var guid: String
 @export var name: String
 @export var index: int
+
 @export var world_seed: String
 @export var farm_data: FarmData = FarmData.new()
 @export var object_data: Dictionary = {}
@@ -26,7 +27,7 @@ static func get_file_path(path_stem: String) -> String:
 	assert(0 < path_stem.length())
 	return "%s/%s/%s" % [DIR_NAME, path_stem, FILE_NAME]
 
-static func read(path_stem: String) -> Resource:
+static func read(path_stem: String) -> WorldData:
 	var file_path: String = get_file_path(path_stem)
 	if not ResourceLoader.exists(file_path): return null
 	else: return ResourceLoader.load(file_path)

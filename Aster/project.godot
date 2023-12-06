@@ -13,7 +13,7 @@ config_version=5
 config/name="Town of Aster"
 run/main_scene="res://assets/scenes/main.tscn"
 config/use_custom_user_dir=true
-config/custom_user_dir_name="TownOfAster"
+config/custom_user_dir_name=".aster"
 config/features=PackedStringArray("4.2", "Mobile")
 boot_splash/show_image=false
 config/icon="res://icon.svg"
@@ -21,7 +21,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 G="*res://src/g.gd"
-Config="*res://src/config.gd"
+Settings="*res://src/settings.gd"
 Database="*res://src/database.gd"
 
 [display]

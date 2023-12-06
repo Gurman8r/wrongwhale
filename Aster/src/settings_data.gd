@@ -1,5 +1,5 @@
-# config_data.gd
-class_name ConfigData
+# settings_data.gd
+class_name SettingsData
 extends Resource
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -10,13 +10,13 @@ extends Resource
 
 #region RW
 
-const PATH := "user://config.tres"
+const PATH := "user://settings.tres"
 
-static func read(path: String = PATH) -> Resource:
+static func read(path: String = PATH) -> SettingsData:
 	if not ResourceLoader.exists(path): return null
 	else: return ResourceLoader.load(path)
 
-static func write(data: ConfigData, path: String = PATH) -> Error:
+static func write(data: SettingsData, path: String = PATH) -> Error:
 	assert(data)
 	DirAccess.remove_absolute(path)
 	return ResourceSaver.save(data, path)

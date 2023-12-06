@@ -1,12 +1,12 @@
-# config.gd
-# Config
+# settings.gd
+# Settings
 extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-const defaults: ConfigData = preload("res://assets/data/config.tres")
+const defaults: SettingsData = preload("res://assets/data/settings.tres")
 
-@onready var data: ConfigData = null
+@onready var data: SettingsData = null
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -18,10 +18,10 @@ func _ready() -> void:
 
 func _reset() -> void:
 	data = null
-	data = ConfigData.read()
+	data = SettingsData.read()
 	if not data:
 		data = defaults.duplicate()
-		ConfigData.write(data)
+		SettingsData.write(data)
 	assert(data)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

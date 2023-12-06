@@ -1,7 +1,0 @@
-[gd_resource type="Resource" script_class="ConfigData" load_steps=2 format=3 uid="uid://8vu00mghsk64"]
-
-[ext_resource type="Script" path="res://src/config_data.gd" id="1_uoke1"]
-
-[resource]
-script = ExtResource("1_uoke1")
-recent_save = ""
