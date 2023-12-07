@@ -26,7 +26,10 @@ var debug_ui: DebugUI
 enum { STATE_TITLE, STATE_LOADING, STATE_PLAYING, STATE_QUITTING, }
 var state: int = STATE_TITLE
 func set_state(value: int) -> void: state = value
+func is_title() -> bool: return state == STATE_TITLE
+func is_loading() -> bool: return state == STATE_LOADING
 func is_playing() -> bool: return state == STATE_PLAYING
+func is_quitting() -> bool: return state == STATE_QUITTING
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -45,8 +48,9 @@ func _ready() -> void:
 	DirAccess.make_dir_absolute(MODS_DIR)
 	DirAccess.make_dir_absolute(SAVES_DIR)
 
-	# world loading finished
+	# loading finished
 	world.loading_finished.connect(func():
+		assert(player)
 		game_ui.set_player_data(player.data)
 		player.toggle_debug.connect(debug_ui.toggle)
 		player.toggle_inventory.connect(game_ui.toggle_inventory)
@@ -56,8 +60,9 @@ func _ready() -> void:
 		for node in get_tree().get_nodes_in_group("EXTERNAL_INVENTORY"):
 			node.toggle_inventory.connect(game_ui.toggle_inventory))
 	
-	# world unloading started
+	# unloading started
 	world.unloading_started.connect(func():
+		assert(player)
 		game_ui.clear_player_data()
 		player.toggle_debug.disconnect(debug_ui.toggle)
 		player.toggle_inventory.disconnect(game_ui.toggle_inventory)
@@ -70,7 +75,7 @@ func _ready() -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _unhandled_input(_event) -> void:
-	if Game.is_playing() \
+	if not Game.is_playing() \
 	and Game.title_ui.current == title_ui.home \
 	and Input.is_action_just_pressed("toggle_pause"):
 		Game.quit_to_desktop()

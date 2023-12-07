@@ -2,21 +2,8 @@
 class_name SettingsData
 extends Resource
 
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
 @export var recent_save: String = ""
 
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-const PATH := "user://data/settings.tres"
-
-static func read(path: String = PATH) -> SettingsData:
-	if not ResourceLoader.exists(path): return null
-	else: return ResourceLoader.load(path)
-
-static func write(data: SettingsData, path: String = PATH) -> Error:
-	assert(data)
-	DirAccess.remove_absolute(path)
-	return ResourceSaver.save(data, path)
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+@export var window_mode: int = DisplayServer.WINDOW_MODE_WINDOWED
+@export var window_size: Vector2i = Vector2i(1280, 720)
+@export var window_vsync: int = DisplayServer.VSYNC_ENABLED

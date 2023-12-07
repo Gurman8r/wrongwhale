@@ -28,3 +28,14 @@ static func wipe_dir(dir_path: String) -> void:
 	DirAccess.remove_absolute(dir_path)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+static func read(path: String) -> Resource:
+	if not ResourceLoader.exists(path): return null
+	else: return ResourceLoader.load(path)
+
+static func write(data: Resource, path: String) -> Error:
+	assert(data)
+	DirAccess.remove_absolute(path)
+	return ResourceSaver.save(data, path)
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

@@ -69,24 +69,24 @@ func load_from_memory(world_data: WorldData) -> void:
 	assert(world_data)
 	loading_started.emit()
 	
+	# create objects
 	data = world_data.duplicate()
 	objects.clear()
-	var o_index: int = 0
 	for o_guid in data.object_data:
 		var o_data: Resource = data.object_data[o_guid]
-		var o: Node = o_data.prefab.instantiate()
+		assert("prefab" in o_data)
+		assert("cell_name" in o_data)
+		assert("position" in o_data)
+		var o: Node3D = o_data.prefab.instantiate()
 		o.data = o_data.duplicate()
-		objects.append(o)
-		if "index" in o.data:
-			o.data.index = o_index
-			o_index += 1
 		var c: WorldCell = find_cell(o.data.cell_name)
 		c.add(o, o.data.position)
-		o.name = o_guid
 		if o is PlayerCharacter:
+			Game.player = o
 			cell = c
 			cell.enabled = true
-			Game.player = o
+		o.name = o_guid
+		objects.append(o)
 	
 	show()
 	loading_finished.emit()
@@ -97,15 +97,17 @@ func unload() -> void:
 	assert(data)
 	unloading_started.emit()
 	
+	# destroy objects
 	for o in objects:
 		o.queue_free()
 	objects.clear()
 	
 	Game.player = null
 	if cell: cell.enabled = false
-	hide()
 	cell = null
 	data = null
+	
+	hide()
 	unloading_finished.emit()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

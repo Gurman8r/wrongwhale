@@ -6,7 +6,6 @@ const prefab := preload("res://assets/scenes/actor_character.tscn")
 
 @export var guid: String
 @export var name: String
-@export var index: int = 0
 
 @export var cell_name: String = ""
 @export var position: Vector3 = Vector3.ZERO

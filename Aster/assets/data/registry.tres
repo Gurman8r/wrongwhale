@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="RegistryData" load_steps=2 format=3 uid="uid://d0ofhguv8wpgx"]
+
+[ext_resource type="Script" path="res://src/registry_data.gd" id="1_5kd6f"]
+
+[resource]
+script = ExtResource("1_5kd6f")
+dict = Array[Dictionary]([])

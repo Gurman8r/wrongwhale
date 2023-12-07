@@ -21,7 +21,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Settings="*res://src/settings.gd"
-Database="*res://src/database.gd"
+Registry="*res://src/registry.gd"
 Game="*res://src/game.gd"
 
 [display]

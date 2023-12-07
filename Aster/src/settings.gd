@@ -4,6 +4,8 @@ extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+const PATH := "user://data/settings.tres"
+
 @onready var data: SettingsData = null
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -15,10 +17,10 @@ func _ready() -> void:
 	_reset()
 
 func _reset() -> void:
-	data = SettingsData.read()
+	data = Util.read(PATH)
 	if not data:
 		data = preload("res://assets/data/settings.tres").duplicate()
-		SettingsData.write(data)
+		Util.write(data, PATH)
 	assert(data)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

@@ -48,8 +48,6 @@ func _notification(what):
 		NOTIFICATION_PREDELETE:
 			Game.world.player_destroyed.emit(self)
 
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
 func _ready() -> void:
 	action.connect(func(mode: int):
 		data.inventory_data.use_stack(item_index, mode, self))
