@@ -52,9 +52,9 @@ func _input(event: InputEvent):
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _ready():
-	_reset()
+	reset()
 	
-	visibility_changed.connect(func(): if visible: _reset())
+	visibility_changed.connect(func(): if visible: reset())
 	play_button.pressed.connect(_on_button_play_pressed)
 	back_button.pressed.connect(func(): Game.title_ui.current = Game.title_ui.home)
 	
@@ -119,7 +119,7 @@ func _ready():
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func _reset():
+func reset():
 	world_data = WorldData.new()
 	farm_data = world_data.farm_data
 	player_data = PlayerData.new()

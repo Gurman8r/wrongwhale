@@ -15,7 +15,7 @@ var window_sizes: Array[Vector2i]
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _ready():
-	_reset()
+	reset()
 	
 	back_button.pressed.connect(func(): Game.title_ui.current = Game.title_ui.home)
 	
@@ -51,7 +51,7 @@ func _ready():
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func _reset() -> void:
+func reset() -> void:
 	window_sizes = [ Vector2i(640, 480), Vector2i(1280, 720), Vector2i(1600, 900), Vector2i(1920, 1080), ]
 	
 	match DisplayServer.window_get_mode():

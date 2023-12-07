@@ -8,6 +8,7 @@ func get_dict(registry: int) -> Dictionary:
 	match registry:
 		Registries.REGISTRIES: return registries
 		_:
+			assert(registry != Registries.MAX)
 			var key = "%d" % [registry]
 			if not key in registries:
 				registries[key] = Dictionary()

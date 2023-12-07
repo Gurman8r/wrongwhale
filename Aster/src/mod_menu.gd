@@ -9,13 +9,13 @@ extends PanelContainer
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _ready():
-	_reset()
+	reset()
 	
 	back_button.pressed.connect(func(): Game.title_ui.current = Game.title_ui.home)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func _reset() -> void:
+func reset() -> void:
 	pass
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

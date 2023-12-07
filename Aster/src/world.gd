@@ -42,13 +42,11 @@ func save_to_file(path_stem: String = "") -> void:
 	saving_started.emit()
 	WorldData.write(data, path_stem)
 	saving_finished.emit()
-	print("World Written")
 
 func load_from_file(path_stem: String = "") -> void:
 	if path_stem.is_empty() and data: path_stem = data.guid
 	assert(0 < path_stem.length())
 	load_from_memory(WorldData.read(path_stem))
-	print("World Read")
 
 func load_from_memory(world_data: WorldData) -> void:
 	assert(world_data)
@@ -80,9 +78,6 @@ func load_from_memory(world_data: WorldData) -> void:
 	
 	show()
 	loading_finished.emit()
-	print("World Loaded")
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func unload() -> void:
 	assert(data)
@@ -99,7 +94,6 @@ func unload() -> void:
 	
 	hide()
 	unloading_finished.emit()
-	print("World Unloaded")
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

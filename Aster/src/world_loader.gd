@@ -8,9 +8,9 @@ extends PanelContainer
 
 func _ready() -> void:
 	back_button.pressed.connect(func(): Game.title_ui.current = Game.title_ui.home)
-	visibility_changed.connect(func(): if visible: _reset())
+	visibility_changed.connect(func(): if visible: reset())
 
-func _reset() -> void:
+func reset() -> void:
 	for child in preview_root.get_children():
 		if child is WorldLoaderPreview:
 			child.queue_free()

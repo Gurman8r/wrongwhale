@@ -4,21 +4,10 @@ extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+# PATHS
 const DATA_DIR := "user://data"
 const MODS_DIR := "user://mods"
 const SAVES_DIR := "user://saves"
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-@onready var main : Node = get_parent().get_node("Main")
-var world: World
-var player: PlayerCharacter
-
-@onready var ui: CanvasLayer = main.get_node("UI")
-var game_ui: GameUI
-var title_ui: TitleUI
-var transitions_ui: TransitionsUI
-var debug_ui: DebugUI
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -31,6 +20,18 @@ func is_title() -> bool: return state == STATE_TITLE
 func is_loading() -> bool: return state == STATE_LOADING
 func is_playing() -> bool: return state == STATE_PLAYING
 func is_quitting() -> bool: return state == STATE_QUITTING
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+@onready var main = get_parent().get_node("Main") as Node
+var world: World
+var player: PlayerCharacter
+
+@onready var ui = main.get_node("UI") as CanvasLayer
+var game_ui: GameUI
+var title_ui: TitleUI
+var transitions_ui: TransitionsUI
+var debug_ui: DebugUI
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
