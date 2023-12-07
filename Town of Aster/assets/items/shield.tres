@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemDataEquip" load_steps=2 format=3 uid="uid://cv084l30vo7wr"]
+
+[ext_resource type="Script" path="res://src/item_data_equip.gd" id="1_wysk6"]
+
+[resource]
+script = ExtResource("1_wysk6")
+health = 0
+attack = 0
+defense = 0
+guid = "Item_New"
+name = "New Item"
+description = ""
+max_stack = 9999
+durability = -1.0

@@ -1,0 +1,230 @@
+[gd_scene load_steps=8 format=3 uid="uid://dqv85mwq11dpo"]
+
+[ext_resource type="Script" path="res://src/world_creator.gd" id="1_ktptq"]
+[ext_resource type="SystemFont" uid="uid://be14qyvbd8lox" path="res://assets/fonts/system_font.tres" id="2_nxuyy"]
+[ext_resource type="Texture2D" uid="uid://ls4xvaxskcgq" path="res://assets/icons/icon_gender_f.png" id="3_0xtfb"]
+[ext_resource type="Texture2D" uid="uid://5ykxpd27xw6k" path="res://assets/icons/icon_gender_m.png" id="4_w6g73"]
+[ext_resource type="Texture2D" uid="uid://cidqu1dl48oje" path="res://assets/icons/icon_gender_nb.png" id="5_sox4h"]
+[ext_resource type="Texture2D" uid="uid://dwi4nguld0m87" path="res://assets/icons/icon_circle.png" id="6_gm6jw"]
+[ext_resource type="Texture2D" uid="uid://cssnkw7jdx720" path="res://assets/icons/icon_dice.png" id="7_x8wj1"]
+
+[node name="WorldCreator" type="PanelContainer"]
+script = ExtResource("1_ktptq")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="FarmNamePanel" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/FarmNamePanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/FarmNamePanel/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 4
+
+[node name="FarmNameEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/FarmNamePanel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_nxuyy")
+placeholder_text = "Farm Name"
+alignment = 1
+max_length = 12
+clear_button_enabled = true
+
+[node name="FarmNameLabel" type="Label" parent="MarginContainer/VBoxContainer/FarmNamePanel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_nxuyy")
+text = "............ Farm"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerNamePanel" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/PlayerNamePanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/PlayerNamePanel/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 4
+
+[node name="PlayerNameEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/PlayerNamePanel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_nxuyy")
+placeholder_text = "Your Name"
+alignment = 1
+max_length = 12
+clear_button_enabled = true
+
+[node name="PlayerNameLabel" type="Label" parent="MarginContainer/VBoxContainer/PlayerNamePanel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_nxuyy")
+text = "Farmer ............"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerGenderPanel" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/PlayerGenderPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/PlayerGenderPanel/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 4
+
+[node name="PlayerGenderButton0" type="Button" parent="MarginContainer/VBoxContainer/PlayerGenderPanel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_nxuyy")
+icon = ExtResource("3_0xtfb")
+icon_alignment = 1
+
+[node name="PlayerGenderButton1" type="Button" parent="MarginContainer/VBoxContainer/PlayerGenderPanel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_nxuyy")
+icon = ExtResource("4_w6g73")
+icon_alignment = 1
+
+[node name="PlayerGenderButton2" type="Button" parent="MarginContainer/VBoxContainer/PlayerGenderPanel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(64, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_nxuyy")
+icon = ExtResource("5_sox4h")
+icon_alignment = 1
+
+[node name="PlayerGenderLabel" type="Label" parent="MarginContainer/VBoxContainer/PlayerGenderPanel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_nxuyy")
+text = "She/Her"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerPetPanel" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/PlayerPetPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/PlayerPetPanel/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/separation = 4
+
+[node name="PlayerCatButton" type="Button" parent="MarginContainer/VBoxContainer/PlayerPetPanel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(98, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_nxuyy")
+icon = ExtResource("6_gm6jw")
+icon_alignment = 1
+
+[node name="PlayerDogButton" type="Button" parent="MarginContainer/VBoxContainer/PlayerPetPanel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(98, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_nxuyy")
+icon = ExtResource("6_gm6jw")
+icon_alignment = 1
+
+[node name="PlayerPetLabel" type="Label" parent="MarginContainer/VBoxContainer/PlayerPetPanel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_nxuyy")
+text = "Cat"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SeedPanel" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/SeedPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/SeedPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="SeedEdit" type="LineEdit" parent="MarginContainer/VBoxContainer/SeedPanel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_nxuyy")
+placeholder_text = "Seed"
+alignment = 1
+max_length = 16
+clear_button_enabled = true
+
+[node name="SeedRandomizeButton" type="Button" parent="MarginContainer/VBoxContainer/SeedPanel/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_nxuyy")
+icon = ExtResource("7_x8wj1")
+icon_alignment = 1
+
+[node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(160, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("2_nxuyy")
+text = "Play"
+
+[node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(160, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("2_nxuyy")
+text = "Back"

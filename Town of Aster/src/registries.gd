@@ -1,0 +1,22 @@
+# registries.gd
+class_name Registries
+
+enum {
+	REGISTRIES = -1,
+	
+	BLOCK,
+	ITEM,
+	BLOCK_ENTITY_TYPE,
+	STATUS_EFFECT,
+	PARTICLE_TYPE,
+	FLUID,
+	ENCHANTMENT,
+	POTION,
+	RECIPE_TYPE,
+	RECIPE_SERIALIZER,
+	SOUND_EVENT,
+	STAT,
+	CUSTOM_STAT,
+	
+	MAX
+}

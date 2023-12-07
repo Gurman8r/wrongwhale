@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwer86dgcgs0h"]
+
+[ext_resource type="MeshLibrary" uid="uid://cwqb6ao2pijf4" path="res://assets/meshes/blocks.meshlib" id="1_75kal"]
+[ext_resource type="Script" path="res://src/world_cell.gd" id="2_6tcc8"]
+
+[node name="WorldCells" type="Node"]
+
+[node name="WorldCell0" type="GridMap" parent="."]
+mesh_library = ExtResource("1_75kal")
+cell_size = Vector3(1, 1, 1)
+cell_center_x = false
+cell_center_z = false
+data = {
+"cells": PackedInt32Array(-65536, 65535, 1, -65536, 0, 1, -65536, 1, 1, -1, 1, 1, -1, 0, 1, -1, 65535, 1, -65535, 65535, 1, -65535, 0, 1, -65535, 1, 1)
+}
+script = ExtResource("2_6tcc8")
+metadata/_editor_floor_ = Vector3(0, -1, 0)

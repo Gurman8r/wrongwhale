@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://djdggjmv4d5ec"]
+
+[ext_resource type="Script" path="res://src/title_interface.gd" id="1_6xkkm"]
+
+[node name="TitleInterface" type="CanvasLayer"]
+script = ExtResource("1_6xkkm")
