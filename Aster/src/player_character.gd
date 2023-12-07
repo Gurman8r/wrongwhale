@@ -41,47 +41,18 @@ var move_input: Array[bool] = [0, 0, 0, 0]
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
+	assert(Game.player == null)
 	Game.player = self
 
 func _notification(what):
 	match what:
 		NOTIFICATION_PREDELETE:
+			assert(Game.player == self)
 			Game.player = null
 
 func _ready() -> void:
 	action.connect(func(mode: int):
 		data.inventory_data.use_stack(item_index, mode, self))
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func _process(delta: float) -> void:
-	if not data: return
-	
-	# update movement
-	var move_axes: Vector3 = Vector3.ZERO
-	if move_input[LEFT]: move_axes -= camera_pivot_y.transform.basis.x
-	elif move_input[RIGHT]: move_axes += camera_pivot_y.transform.basis.x
-	if move_input[FORWARD]: move_axes -= camera_pivot_y.transform.basis.z
-	elif move_input[BACKWARD]: move_axes += camera_pivot_y.transform.basis.z
-	move_axes.y = 0
-	move_axes = move_axes.normalized()
-	if move_axes.x != 0 or move_axes.z != 0:
-		data.direction = (data.direction + move_axes).normalized()
-		var body = move_and_collide(move_axes * move_speed * delta)
-		move.emit(delta, move_axes)
-		if body: move_collide.emit(body)
-	data.position = global_transform.origin
-		
-	# update rotation
-	if data.direction != Vector3.ZERO:
-		var rot: Basis = mesh_instance_3d.basis.slerp(Basis.looking_at(data.direction), turn_speed * delta)
-		mesh_instance_3d.basis = rot
-		interact_ray.basis = rot
-	
-	# update targeting
-	var target_pos: Vector3 = data.position + data.direction * target_range
-	target_marker.global_transform.origin.x = roundf(target_pos.x)
-	target_marker.global_transform.origin.z = roundf(target_pos.z)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 	
@@ -135,12 +106,34 @@ func _unhandled_input(_event) -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func _load(world_data: WorldData) -> void:
-	assert(name in world_data.object_data)
-	data = world_data.object_data[name].duplicate()
-
-func _save(world_data: WorldData) -> void:
-	world_data.object_data[name] = data.duplicate()
+func _process(delta: float) -> void:
+	if not data: return
+	
+	# update movement
+	var move_axes: Vector3 = Vector3.ZERO
+	if move_input[LEFT]: move_axes -= camera_pivot_y.transform.basis.x
+	elif move_input[RIGHT]: move_axes += camera_pivot_y.transform.basis.x
+	if move_input[FORWARD]: move_axes -= camera_pivot_y.transform.basis.z
+	elif move_input[BACKWARD]: move_axes += camera_pivot_y.transform.basis.z
+	move_axes.y = 0
+	move_axes = move_axes.normalized()
+	if move_axes.x != 0 or move_axes.z != 0:
+		data.direction = (data.direction + move_axes).normalized()
+		var body = move_and_collide(move_axes * move_speed * delta)
+		move.emit(delta, move_axes)
+		if body: move_collide.emit(body)
+	data.position = global_transform.origin
+		
+	# update rotation
+	if data.direction != Vector3.ZERO:
+		var rot: Basis = mesh_instance_3d.basis.slerp(Basis.looking_at(data.direction), turn_speed * delta)
+		mesh_instance_3d.basis = rot
+		interact_ray.basis = rot
+	
+	# update targeting
+	var target_pos: Vector3 = data.position + data.direction * target_range
+	target_marker.global_transform.origin.x = roundf(target_pos.x)
+	target_marker.global_transform.origin.z = roundf(target_pos.z)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

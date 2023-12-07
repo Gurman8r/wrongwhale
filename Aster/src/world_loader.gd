@@ -14,8 +14,8 @@ func _reset() -> void:
 	for child in preview_root.get_children():
 		if child is WorldLoaderPreview:
 			child.queue_free()
-	DirAccess.make_dir_absolute(WorldData.DIR_NAME)
-	var saves_dir = DirAccess.open(WorldData.DIR_NAME)
+	DirAccess.make_dir_absolute(WorldData.DIR)
+	var saves_dir = DirAccess.open(WorldData.DIR)
 	if not saves_dir: return
 	saves_dir.list_dir_begin()
 	var path = saves_dir.get_next()

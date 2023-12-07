@@ -150,13 +150,12 @@ func _on_button_play_pressed():
 	
 	world_data.guid = farm_data.name.replace(" ", "_")
 	world_data.name = farm_data.name
-	world_data.index = WorldData.list().size()
+	world_data.index = WorldData.get_path_list().size()
 	
 	if world_data.world_seed.is_empty():
 		world_data.world_seed = Util.rands(SEED_MAX, SEED_CHARS)
 	
 	player_data.guid = player_data.name.replace(" ", "_")
-	player_data.index = world_data.object_data.size()
 	player_data.position = Vector3.ZERO
 	player_data.direction = Vector3.FORWARD
 	player_data.cell_name = "WorldCell0"

@@ -36,6 +36,11 @@ func is_quitting() -> bool: return state == STATE_QUITTING
 
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	
+	# create file structure
+	DirAccess.make_dir_absolute(DATA_DIR)
+	DirAccess.make_dir_absolute(MODS_DIR)
+	DirAccess.make_dir_absolute(SAVES_DIR)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -43,11 +48,6 @@ func _ready() -> void:
 	get_tree().paused = true
 	
 	Registry.register(Registries.ITEM, "new item", ItemData.new())
-	
-	# create file structure
-	DirAccess.make_dir_absolute(DATA_DIR)
-	DirAccess.make_dir_absolute(MODS_DIR)
-	DirAccess.make_dir_absolute(SAVES_DIR)
 
 	# loading finished
 	world.loading_finished.connect(func():

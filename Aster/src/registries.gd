@@ -11,4 +11,6 @@ enum {
 	STATUS_EFFECT,
 	STAT,
 	CUSTOM_STAT,
+	
+	MAX
 }

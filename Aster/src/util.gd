@@ -12,6 +12,15 @@ static func rands(length: int, chars: String) -> String:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+static func read(path: String) -> Resource:
+	if not ResourceLoader.exists(path): return null
+	else: return ResourceLoader.load(path).duplicate()
+
+static func write(data: Resource, path: String) -> Error:
+	assert(data)
+	DirAccess.remove_absolute(path)
+	return ResourceSaver.save(data, path)
+
 static func wipe_dir(dir_path: String) -> void:
 	var dir: DirAccess = DirAccess.open(dir_path)
 	if not dir: return
@@ -26,16 +35,5 @@ static func wipe_dir(dir_path: String) -> void:
 				DirAccess.remove_absolute(sub_path)
 			path = dir.get_next()
 	DirAccess.remove_absolute(dir_path)
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-static func read(path: String) -> Resource:
-	if not ResourceLoader.exists(path): return null
-	else: return ResourceLoader.load(path).duplicate()
-
-static func write(data: Resource, path: String) -> Error:
-	assert(data)
-	DirAccess.remove_absolute(path)
-	return ResourceSaver.save(data, path)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

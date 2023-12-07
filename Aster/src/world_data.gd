@@ -14,35 +14,32 @@ extends Resource
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-const DIR_NAME := "user://saves"
-const FILE_NAME := "world.tres"
-
-static func get_dir_path(path_stem: String) -> String:
-	assert(0 < path_stem.length())
-	return "%s/%s" % [DIR_NAME, path_stem]
-
-static func get_file_path(path_stem: String) -> String:
-	assert(0 < path_stem.length())
-	return "%s/%s/%s" % [DIR_NAME, path_stem, FILE_NAME]
+const DIR := "user://saves"
+const FILE := "world.tres"
 
 static func read(path_stem: String) -> WorldData:
-	var file_path: String = get_file_path(path_stem)
-	if not ResourceLoader.exists(file_path): return null
-	else: return ResourceLoader.load(file_path)#.duplicate()
+	return Util.read(get_file_path(path_stem))
 
 static func write(world_data: WorldData, path_stem: String = "") -> Error:
 	assert(world_data)
 	if path_stem.is_empty(): path_stem = world_data.guid
 	var dir_path = get_dir_path(path_stem)
 	Util.wipe_dir(dir_path)
-	DirAccess.make_dir_absolute(DIR_NAME)
 	DirAccess.make_dir_absolute(dir_path)
 	return ResourceSaver.save(world_data, get_file_path(path_stem))
 
-static func list() -> Array[String]:
+static func get_dir_path(path_stem: String) -> String:
+	assert(0 < path_stem.length())
+	return "%s/%s" % [DIR, path_stem]
+
+static func get_file_path(path_stem: String) -> String:
+	assert(0 < path_stem.length())
+	return "%s/%s/%s" % [DIR, path_stem, FILE]
+
+static func get_path_list() -> Array[String]:
 	var path_list: Array[String] = []
-	DirAccess.make_dir_absolute(DIR_NAME)
-	var saves_dir = DirAccess.open(DIR_NAME)
+	DirAccess.make_dir_absolute(DIR)
+	var saves_dir = DirAccess.open(DIR)
 	saves_dir.list_dir_begin()
 	var path = saves_dir.get_next()
 	while  path != "":
@@ -50,7 +47,7 @@ static func list() -> Array[String]:
 			var world_dir = DirAccess.open(get_dir_path(path))
 			if not world_dir: continue
 			world_dir.list_dir_begin()
-			if world_dir.file_exists(FILE_NAME):
+			if world_dir.file_exists(FILE):
 				path_list.append(path)
 		path = saves_dir.get_next()
 	return path_list

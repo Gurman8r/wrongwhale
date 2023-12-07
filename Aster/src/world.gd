@@ -13,8 +13,6 @@ signal saving_finished()
 signal unloading_started()
 signal unloading_finished()
 
-signal player_created(player: PlayerCharacter)
-signal player_destroyed(player: PlayerCharacter)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -42,53 +40,47 @@ func save_to_file(path_stem: String = "") -> void:
 		path_stem = data.guid
 	assert(0 < path_stem.length())
 	saving_started.emit()
-	
-	for o in objects:
-		data.object_data[o.name] = o.data.duplicate()
-	
 	WorldData.write(data, path_stem)
 	saving_finished.emit()
-
-func save_to_memory(world_data: WorldData) -> void:
-	assert(world_data)
-	saving_started.emit()
-	
-	for o in objects:
-		data.object_data[o.name] = o.data.duplicate()
-	
-	saving_finished.emit()
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+	print("World Written")
 
 func load_from_file(path_stem: String = "") -> void:
 	if path_stem.is_empty() and data: path_stem = data.guid
 	assert(0 < path_stem.length())
 	load_from_memory(WorldData.read(path_stem))
+	print("World Read")
 
 func load_from_memory(world_data: WorldData) -> void:
 	assert(world_data)
 	loading_started.emit()
+	data = world_data
 	
 	# create objects
-	data = world_data.duplicate()
 	objects.clear()
-	for o_guid in data.object_data:
-		var o_data: Resource = data.object_data[o_guid]
-		assert("prefab" in o_data)
-		assert("cell_name" in o_data)
-		assert("position" in o_data)
-		var o: Node3D = o_data.prefab.instantiate()
-		o.data = o_data.duplicate()
+	for guid in data.object_data:
+		var d: Resource = data.object_data[guid]
+		assert("prefab" in d)
+		assert("cell_name" in d)
+		assert("position" in d)
+		
+		var o: Node3D = d.prefab.instantiate()
+		assert(o)
+		o.data = d
+		
 		var c: WorldCell = find_cell(o.data.cell_name)
+		assert(c)
 		c.add(o, o.data.position)
+		
 		if o is PlayerCharacter:
 			cell = c
 			cell.enabled = true
-		o.name = o_guid
+		
+		o.name = guid
 		objects.append(o)
 	
 	show()
 	loading_finished.emit()
+	print("World Loaded")
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -107,6 +99,7 @@ func unload() -> void:
 	
 	hide()
 	unloading_finished.emit()
+	print("World Unloaded")
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
