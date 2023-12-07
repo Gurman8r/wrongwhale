@@ -5,15 +5,12 @@ extends Node3D
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 signal loading_started()
-signal loading(world_data: WorldData)
 signal loading_finished()
 
 signal saving_started()
-signal saving(world_data: WorldData)
 signal saving_finished()
 
 signal unloading_started()
-signal unloading()
 signal unloading_finished()
 
 signal player_created(player: PlayerCharacter)
@@ -46,9 +43,8 @@ func save_to_file(path_stem: String = "") -> void:
 	assert(0 < path_stem.length())
 	saving_started.emit()
 	
-	saving.emit(data)
-	for node in get_tree().get_nodes_in_group("SAVE"):
-		data.object_data[name] = node.data.duplicate()
+	for o in objects:
+		data.object_data[o.name] = o.data.duplicate()
 	
 	WorldData.write(data, path_stem)
 	saving_finished.emit()
@@ -57,9 +53,8 @@ func save_to_memory(world_data: WorldData) -> void:
 	assert(world_data)
 	saving_started.emit()
 	
-	saving.emit(world_data)
-	for node in get_tree().get_nodes_in_group("SAVE"):
-		data.object_data[name] = node.data.duplicate()
+	for o in objects:
+		data.object_data[o.name] = o.data.duplicate()
 	
 	saving_finished.emit()
 
@@ -73,39 +68,26 @@ func load_from_file(path_stem: String = "") -> void:
 func load_from_memory(world_data: WorldData) -> void:
 	assert(world_data)
 	loading_started.emit()
-	data = world_data.duplicate()
 	
-	# instantiate objects
+	data = world_data.duplicate()
+	objects.clear()
 	var o_index: int = 0
 	for o_guid in data.object_data:
 		var o_data: Resource = data.object_data[o_guid]
-		assert("prefab" in o_data)
 		var o: Node = o_data.prefab.instantiate()
-		assert(o)
 		o.data = o_data.duplicate()
+		objects.append(o)
 		if "index" in o.data:
 			o.data.index = o_index
 			o_index += 1
-		assert("cell_name" in o.data)
 		var c: WorldCell = find_cell(o.data.cell_name)
-		assert(c)
-		c.add(o)
+		c.add(o, o.data.position)
 		o.name = o_guid
 		if o is PlayerCharacter:
 			cell = c
 			cell.enabled = true
 			Game.player = o
 	
-	for node in get_tree().get_nodes_in_group("LOAD"):
-		if "_load" in node: loading.connect(node._load)
-	
-	for node in get_tree().get_nodes_in_group("SAVE"):
-		if "_save" in node: saving.connect(node._save)
-	
-	for node in get_tree().get_nodes_in_group("CLEANUP"):
-		if "_cleanup" in node: unloading.connect(node._cleanup)
-	
-	loading.emit(data)
 	show()
 	loading_finished.emit()
 
@@ -115,17 +97,9 @@ func unload() -> void:
 	assert(data)
 	unloading_started.emit()
 	
-	for node in get_tree().get_nodes_in_group("LOAD"):
-		if "_load" in node: loading.disconnect(node._load)
-	
-	for node in get_tree().get_nodes_in_group("SAVE"):
-		if "_save" in node: saving.disconnect(node._save)
-	
-	unloading.emit()
-	for node in get_tree().get_nodes_in_group("CLEANUP"):
-		if "_cleanup" in node: unloading.disconnect(node._cleanup)
-		node.queue_free()
-	
+	for o in objects:
+		o.queue_free()
+	objects.clear()
 	
 	Game.player = null
 	if cell: cell.enabled = false
