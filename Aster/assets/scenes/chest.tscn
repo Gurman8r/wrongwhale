@@ -16,7 +16,7 @@ albedo_color = Color(0.384314, 0.215686, 0.101961, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_30nq0"]
 material = SubResource("StandardMaterial3D_60ojv")
 
-[node name="Chest" type="StaticBody3D" groups=["external_inventory"]]
+[node name="Chest" type="StaticBody3D" groups=["EXTERNAL_INVENTORY"]]
 collision_mask = 3
 script = ExtResource("1_nmfw5")
 inventory_data = SubResource("Resource_ucuon")

@@ -20,9 +20,9 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Game="*res://src/game.gd"
 Settings="*res://src/settings.gd"
 Database="*res://src/database.gd"
+Game="*res://src/game.gd"
 
 [display]
 

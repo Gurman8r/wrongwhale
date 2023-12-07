@@ -13,6 +13,7 @@ func _init() -> void:
 
 func _ready() -> void:
 	_reset()
+	print("Settings - OK")
 
 func _reset() -> void:
 	data = null

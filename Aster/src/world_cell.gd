@@ -46,11 +46,11 @@ func _get_root(root_name: String) -> Node3D:
 
 func get_root_name(node: Node3D) -> String:
 	assert(node)
-	if node is Actor: return "Actor"
+	if node is ActorCharacter: return "Actor"
 	elif node is Chest: return "Chest"
 	elif node is Door: return "Door"
 	elif node is ItemDrop: return "Item"
-	elif node is Player: return "Player"
+	elif node is PlayerCharacter: return "Player"
 	elif node is WorldTile: return "Tile"
 	else: return "Misc"
 

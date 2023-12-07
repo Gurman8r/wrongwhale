@@ -69,6 +69,10 @@ var external_inventory_owner: Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+func _init() -> void:
+	assert(Game.game_ui == null)
+	Game.game_ui = self
+
 func _ready():
 	force_close.connect(toggle_inventory)
 	

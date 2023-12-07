@@ -1,6 +1,6 @@
 # door.gd
 class_name Door
-extends StaticBody3D
+extends WorldStatic
 
 @export var destination: Door
 
@@ -9,19 +9,17 @@ extends StaticBody3D
 @onready var interactable: Interactable = $Interactable
 @onready var spawn_point: Node3D = $SpawnPoint
 
-func get_cell() -> WorldCell: return get_parent().get_parent() as WorldCell
-
 func _ready() -> void:
 	interactable.interacted.connect(func(other) -> void:
 		assert(destination)
 		assert(destination.spawn_point)
 		if other == Game.player:
-			Game.ui.transitions.play("fadeout")
-			await Game.ui.transitions.finished
+			Game.transitions_ui.play("fadeout")
+			await Game.transitions_ui.finished
 		Game.world.transfer(
 			other,
 			destination.get_cell(),
 			destination.spawn_point.global_transform.origin)
 		if other == Game.player:
-			Game.ui.transitions.play("fadein")
-			await Game.ui.transitions.finished)
+			Game.transitions_ui.play("fadein")
+			await Game.transitions_ui.finished)

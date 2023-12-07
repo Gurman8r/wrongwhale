@@ -10,9 +10,9 @@ extends PanelContainer
 @onready var quit_button = $MarginContainer/VBoxContainer/QuitButton
 
 func _ready() -> void:
-	load_button.pressed.connect(func(): Game.ui.title.current = Game.ui.title.world_loader)
-	new_button.pressed.connect(func(): Game.ui.title.current = Game.ui.title.world_creator)
-	options_button.pressed.connect(func(): Game.ui.title.current = Game.ui.title.option_menu)
-	mods_button.pressed.connect(func(): Game.ui.title.current = Game.ui.title.mod_menu)
-	credits_button.pressed.connect(func(): Game.ui.title.current = Game.ui.title.credits_menu)
+	load_button.pressed.connect(func(): Game.title_ui.current = Game.title_ui.world_loader)
+	new_button.pressed.connect(func(): Game.title_ui.current = Game.title_ui.world_creator)
+	options_button.pressed.connect(func(): Game.title_ui.current = Game.title_ui.option_menu)
+	mods_button.pressed.connect(func(): Game.title_ui.current = Game.title_ui.mod_menu)
+	credits_button.pressed.connect(func(): Game.title_ui.current = Game.title_ui.credits_menu)
 	quit_button.pressed.connect(func(): Game.quit_to_desktop())

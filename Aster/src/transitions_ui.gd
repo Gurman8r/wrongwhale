@@ -1,5 +1,5 @@
-# transition_ui.gd
-class_name TransitionUI
+# transitions_ui.gd
+class_name TransitionsUI
 extends Control
 
 signal finished()
@@ -8,6 +8,10 @@ signal finished()
 @onready var animation_player = $AnimationPlayer
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func _init() -> void:
+	assert(Game.transitions_ui == null)
+	Game.transitions_ui = self
 
 func _ready() -> void:
 	reset()

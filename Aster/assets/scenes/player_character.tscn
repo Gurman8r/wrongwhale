@@ -1,12 +1,12 @@
 [gd_scene load_steps=12 format=3 uid="uid://3ioo106b4s3t"]
 
-[ext_resource type="Script" path="res://src/player.gd" id="1_2eir3"]
-[ext_resource type="Script" path="res://src/player_data.gd" id="2_mny3q"]
-[ext_resource type="Script" path="res://src/interact_ray.gd" id="6_ovvvf"]
-[ext_resource type="Script" path="res://src/state_machine.gd" id="7_exy1o"]
+[ext_resource type="Script" path="res://src/player_character.gd" id="1_4a2qr"]
+[ext_resource type="Script" path="res://src/player_data.gd" id="2_2n7n7"]
+[ext_resource type="Script" path="res://src/interact_ray.gd" id="3_k02tb"]
+[ext_resource type="Script" path="res://src/state_machine.gd" id="4_nfkse"]
 
 [sub_resource type="Resource" id="Resource_jnfj5"]
-script = ExtResource("2_mny3q")
+script = ExtResource("2_2n7n7")
 guid = ""
 name = ""
 index = 0
@@ -46,11 +46,11 @@ albedo_color = Color(0.8, 0.8, 0, 0.0941176)
 material = SubResource("StandardMaterial3D_bk7uc")
 size = Vector3(1, 0.02, 1)
 
-[node name="Player" type="CharacterBody3D" groups=["player", "read", "unload", "write"]]
+[node name="PlayerCharacter" type="CharacterBody3D" groups=["LOAD", "PLAYER", "SAVE", "UNLOAD"]]
 collision_layer = 2
 axis_lock_angular_x = true
 axis_lock_angular_z = true
-script = ExtResource("1_2eir3")
+script = ExtResource("1_4a2qr")
 data = SubResource("Resource_jnfj5")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -78,14 +78,14 @@ shape = SubResource("SphereShape3D_oi3bu")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 target_position = Vector3(0, 0, -1.5)
 collision_mask = 4
-script = ExtResource("6_ovvvf")
+script = ExtResource("3_k02tb")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 mesh = SubResource("BoxMesh_726kc")
 
 [node name="StateMachine" type="Node" parent="."]
-script = ExtResource("7_exy1o")
+script = ExtResource("4_nfkse")
 
 [node name="TargetMarker" type="MeshInstance3D" parent="."]
 mesh = SubResource("BoxMesh_24owg")

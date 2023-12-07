@@ -1,6 +1,6 @@
-# actor.gd
-class_name Actor
-extends CharacterBody3D
+# actor_character.gd
+class_name ActorCharacter
+extends WorldCharacter
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -14,19 +14,13 @@ extends CharacterBody3D
 @onready var state_machine = $StateMachine
 @onready var target_marker = $TargetMarker
 
-func get_cell() -> WorldCell: return get_parent().get_parent() as WorldCell
-
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func _process(_delta):
-	if not data: return
+func _load(world_data: WorldData) -> void:
+	assert(name in world_data.object_data)
+	data = world_data.object_data[name].duplicate()
 
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func _read(_world_data: WorldData) -> Actor:
-	return self
-
-func _write(_world_data: WorldData) -> Actor:
-	return self
+func _save(world_data: WorldData) -> void:
+	world_data.object_data[name] = data.duplicate()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

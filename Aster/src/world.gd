@@ -2,6 +2,8 @@
 class_name World
 extends Node3D
 
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 signal loading_started()
 signal loading(world_data: WorldData)
 signal loading_finished()
@@ -14,8 +16,8 @@ signal unloading_started()
 signal unloading()
 signal unloading_finished()
 
-signal player_created(player: Player)
-signal player_destroyed(player: Player)
+signal player_created(player: PlayerCharacter)
+signal player_destroyed(player: PlayerCharacter)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -27,7 +29,7 @@ var cells: Array[WorldCell] = []
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	assert(not Game.world)
+	assert(Game.world == null)
 	Game.world = self
 
 func _ready():
@@ -70,29 +72,25 @@ func load_from_memory(world_data: WorldData) -> void:
 		var o_data: Resource = data.object_data[o_guid]
 		assert("prefab" in o_data)
 		var o: Node = o_data.prefab.instantiate()
+		o.name = o_guid
 		assert("cell_name" in o_data)
 		find_cell(o_data.cell_name).add(o)
-		o.name = o_guid
 		if "index" in o_data:
 			o_data.index = o_index
 			o_index += 1
 	
-	# connect reads
-	for node in get_tree().get_nodes_in_group("read"):
-		assert("_read" in node)
-		loading.connect(node._read)
+	for node in get_tree().get_nodes_in_group("LOAD"):
+		assert("_load" in node)
+		loading.connect(node._load)
 	
-	# connect writes
-	for node in get_tree().get_nodes_in_group("write"):
-		assert("_write" in node)
-		saving.connect(node._write)
+	for node in get_tree().get_nodes_in_group("SAVE"):
+		assert("_save" in node)
+		saving.connect(node._save)
 	
-	# connect unloads
-	for node in get_tree().get_nodes_in_group("unload"):
+	for node in get_tree().get_nodes_in_group("UNLOAD"):
 		if "_unload" in node:
 			unloading.connect(node._unload)
 	
-	# do loads
 	loading.emit(data)
 	show()
 	loading_finished.emit()
@@ -103,21 +101,18 @@ func unload() -> void:
 	assert(data)
 	unloading_started.emit()
 	
-	# disconnect reads
-	for node in get_tree().get_nodes_in_group("read"):
-		assert("_read" in node)
-		assert(loading.is_connected(node._read))
-		loading.disconnect(node._read)
+	for node in get_tree().get_nodes_in_group("LOAD"):
+		assert("_load" in node)
+		assert(loading.is_connected(node._load))
+		loading.disconnect(node._load)
 	
-	# disconnect writes
-	for node in get_tree().get_nodes_in_group("write"):
-		assert("_write" in node)
-		assert(saving.is_connected(node._write))
-		saving.disconnect(node._write)
+	for node in get_tree().get_nodes_in_group("SAVE"):
+		assert("_save" in node)
+		assert(saving.is_connected(node._save))
+		saving.disconnect(node._save)
 	
-	# do unloads
 	unloading.emit()
-	for node in get_tree().get_nodes_in_group("unload"):
+	for node in get_tree().get_nodes_in_group("UNLOAD"):
 		if "_unload" in node:
 			assert(unloading.is_connected(node._unload))
 			unloading.disconnect(node._unload)

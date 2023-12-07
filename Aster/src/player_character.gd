@@ -1,6 +1,6 @@
-# player.gd
-class_name Player
-extends CharacterBody3D
+# player_character.gd
+class_name PlayerCharacter
+extends WorldCharacter
 
 enum { LEFT, RIGHT, FORWARD, BACKWARD }
 enum { PRIMARY_BEGIN, PRIMARY, PRIMARY_END, SECONDARY_BEGIN, SECONDARY, SECONDARY_END, }
@@ -14,7 +14,8 @@ signal hotbar_next()
 signal hotbar_select(index: int)
 signal action(mode: int)
 
-@export var data: PlayerData
+@export var data: PlayerData = null
+
 @export var move_speed: float = 5
 @export var turn_speed: float = 15
 @export var drop_range: float = 2
@@ -34,25 +35,27 @@ signal action(mode: int)
 @onready var state_machine      : StateMachine     = $StateMachine
 @onready var target_marker      : Node3D           = $TargetMarker
 
-func get_cell() -> WorldCell: return get_parent().get_parent() as WorldCell
-
 var item_index: int = 0
 var move_input: Array[bool] = [0, 0, 0, 0]
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	if not Game.player: Game.player = self
+	assert(Game.player == null)
+	Game.player = self
 	Game.world.player_created.emit(self)
-
-func _ready() -> void:
-	action.connect(func(mode: int): data.inventory_data.use_stack(item_index, mode, self))
 
 func _notification(what):
 	match what:
 		NOTIFICATION_PREDELETE:
 			Game.world.player_destroyed.emit(self)
-			if Game.player == self: Game.player = null
+			assert(Game.player == self)
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func _ready() -> void:
+	action.connect(func(mode: int):
+		data.inventory_data.use_stack(item_index, mode, self))
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -113,21 +116,21 @@ func _unhandled_input(_event) -> void:
 	# toggle ui
 	if Input.is_action_just_pressed("toggle_debug"): toggle_debug.emit()
 	if Input.is_action_just_pressed("toggle_inventory"): toggle_inventory.emit()
-	if Input.is_action_just_pressed("toggle_collection"): Game.ui.game.set_current_tab(GameUI.COLLECTION)
-	if Input.is_action_just_pressed("toggle_skills"): Game.ui.game.set_current_tab(GameUI.SKILLS)
-	if Input.is_action_just_pressed("toggle_journal"): Game.ui.game.set_current_tab(GameUI.JOURNAL)
-	if Input.is_action_just_pressed("toggle_options"): Game.ui.game.set_current_tab(GameUI.OPTIONS)
-	if Input.is_action_just_pressed("toggle_system"): Game.ui.game.set_current_tab(GameUI.SYSTEM)
+	if Input.is_action_just_pressed("toggle_collection"): Game.game_ui.set_current_tab(GameUI.COLLECTION)
+	if Input.is_action_just_pressed("toggle_skills"): Game.game_ui.set_current_tab(GameUI.SKILLS)
+	if Input.is_action_just_pressed("toggle_journal"): Game.game_ui.set_current_tab(GameUI.JOURNAL)
+	if Input.is_action_just_pressed("toggle_options"): Game.game_ui.set_current_tab(GameUI.OPTIONS)
+	if Input.is_action_just_pressed("toggle_system"): Game.game_ui.set_current_tab(GameUI.SYSTEM)
 	
 	# hotbar
 	if Input.is_action_just_released("hotbar_prev"): hotbar_prev.emit()
 	elif Input.is_action_just_released("hotbar_next"): hotbar_next.emit()
 	for i in range(0, 10):
 		if Input.is_action_just_pressed("hotbar_%d" % [i]):
-			Game.ui.game.hotbar_inventory.set_item_index(i - 1)
+			Game.game_ui.hotbar_inventory.set_item_index(i - 1)
 			hotbar_select.emit(i - 1)
 			break
-	item_index = Game.ui.game.hotbar_inventory.item_index
+	item_index = Game.game_ui.hotbar_inventory.item_index
 	
 	# movement
 	move_input[LEFT] = Input.is_action_pressed("move_left")
@@ -137,17 +140,13 @@ func _unhandled_input(_event) -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func _read(world_data: WorldData) -> Player:
-	print("PLAYER READ")
-	assert(world_data.object_data.has(name))
+func _load(world_data: WorldData) -> void:
+	assert(name in world_data.object_data)
 	data = world_data.object_data[name].duplicate()
 	Game.world.change_cell(Game.world.find_cell(data.cell_name))
-	return self
 
-func _write(world_data: WorldData) -> Player:
-	print("PLAYER WRITE")
+func _save(world_data: WorldData) -> void:
 	world_data.object_data[name] = data.duplicate()
-	return self
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

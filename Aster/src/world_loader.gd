@@ -8,7 +8,7 @@ extends PanelContainer
 
 func _ready() -> void:
 	back_button.pressed.connect(func():
-		Game.ui.title.current = Game.ui.title.home)
+		Game.title_ui.current = Game.title_ui.home)
 	visibility_changed.connect(func():
 		if visible: _reset())
 
