@@ -1,14 +1,12 @@
-# transition_interface.gd
-class_name TransitionInterface
+# transition_overlay.gd
+class_name TransitionOverlay
 extends CanvasLayer
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 signal finished()
 
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-const PREFAB = preload("res://assets/scenes/transition_interface.tscn")
+const PREFAB = preload("res://assets/scenes/transition_overlay.tscn")
 
 @onready var dissolve_rect = $DissolveRect
 @onready var animation_player = $AnimationPlayer

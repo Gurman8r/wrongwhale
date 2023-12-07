@@ -26,7 +26,6 @@ Game="*res://src/game.gd"
 World="*res://src/world.gd"
 Title="*res://src/title.gd"
 Splash="*res://src/splash.gd"
-Player="*res://src/player.gd"
 Transition="*res://src/transition.gd"
 
 [display]

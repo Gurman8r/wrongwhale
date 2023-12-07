@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://ddxw2b6u1pxow"]
 
-[ext_resource type="Script" path="res://src/inventory_slot.gd" id="1_qfs1k"]
-[ext_resource type="Texture2D" uid="uid://d3csli70fja0p" path="res://assets/textures/item_slot_selected.png" id="2_6il28"]
+[ext_resource type="Script" path="res://src/inventory_slot.gd" id="1_yag86"]
+[ext_resource type="Texture2D" uid="uid://d3csli70fja0p" path="res://assets/textures/item_slot_selected.png" id="2_dthmo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_udm20"]
 
@@ -14,11 +14,11 @@ outline_color = Color(0, 0, 0, 1)
 shadow_size = 8
 shadow_color = Color(0, 0, 0, 1)
 
-[node name="ItemSlot" type="PanelContainer"]
+[node name="InventorySlot" type="PanelContainer"]
 custom_minimum_size = Vector2(64, 64)
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("1_qfs1k")
+script = ExtResource("1_yag86")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -35,7 +35,7 @@ stretch_mode = 5
 [node name="SelectedRect" type="TextureRect" parent="MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-texture = ExtResource("2_6il28")
+texture = ExtResource("2_dthmo")
 expand_mode = 2
 
 [node name="ProgressBar" type="ProgressBar" parent="."]

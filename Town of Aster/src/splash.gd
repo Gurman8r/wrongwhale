@@ -2,15 +2,15 @@
 # Splash
 extends Node
 
-var interface: SplashInterface
+# ui
+var overlay: SplashOverlay
 
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _ready() -> void:
-	interface = SplashInterface.PREFAB.instantiate()
-	add_child(interface)
-	interface.name = "Interface"
+	overlay = Utility.make(self, SplashOverlay.PREFAB, "Overlay")
+	
 	reset()
 
 func reset() -> void:

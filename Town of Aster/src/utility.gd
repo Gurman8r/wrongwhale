@@ -3,6 +3,14 @@ class_name Utility
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+static func make(parent, prefab, name: String):
+	var node = prefab.instantiate()
+	parent.add_child(node)
+	node.name = name
+	return node
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 static func rands(length: int, chars: String) -> String:
 	var s: String = ""
 	var n: int = chars.length()

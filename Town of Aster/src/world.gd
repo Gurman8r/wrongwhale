@@ -4,8 +4,14 @@ extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+# ui
 var interface: WorldInterface
+var overlay: WorldOverlay
+
+# lighting
 var environment: WorldEnvironment
+
+# cells
 var cell_root: Node
 var cell: WorldCell = null : set = change_cell
 var cells: Array[WorldCell] = []
@@ -17,9 +23,8 @@ func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _ready() -> void:
-	interface = WorldInterface.PREFAB.instantiate()
-	add_child(interface)
-	interface.name = "Interface"
+	interface = Utility.make(self, WorldInterface.PREFAB, "Interface")
+	overlay = Utility.make(self, WorldOverlay.PREFAB, "Overlay")
 	reset()
 
 func reset() -> void:

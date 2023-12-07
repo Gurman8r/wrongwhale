@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://h5s5wusbnk28"]
+
+[ext_resource type="Script" path="res://src/splash_overlay.gd" id="1_rm2xw"]
+
+[node name="SplashOverlay" type="CanvasLayer"]
+script = ExtResource("1_rm2xw")

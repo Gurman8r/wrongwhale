@@ -2,19 +2,19 @@
 # Transition
 extends Node
 
-var interface: TransitionInterface
+signal finished()
+
+var overlay: TransitionOverlay
 
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _ready():
-	interface = TransitionInterface.PREFAB.instantiate()
-	add_child(interface)
-	interface.name = "Interface"
+	overlay = Utility.make(self, TransitionOverlay.PREFAB, "Overlay")
 	reset()
 
 func reset() -> void:
-	interface.reset()
+	overlay.reset()
 
 func play(animation: String) -> void:
-	interface.play(animation)
+	overlay.play(animation)

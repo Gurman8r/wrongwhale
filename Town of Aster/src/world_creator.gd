@@ -33,9 +33,9 @@ const SEED_CHARS := "0123456789ABCDEFGHIJKLMNOPQRZTUVWXYZabcdefghijklmnopqrstuvw
 @onready var seed_edit: LineEdit = $MarginContainer/VBoxContainer/SeedPanel/MarginContainer/HBoxContainer/SeedEdit
 @onready var seed_randomize_button: Button = $MarginContainer/VBoxContainer/SeedPanel/MarginContainer/HBoxContainer/SeedRandomizeButton
 
-var world_data: WorldData = null
-var farm_data: FarmData = null
-var player_data: PlayerData = null
+var world_data: WorldData
+var farm_data: FarmData
+var player_data: PlayerData
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -55,8 +55,8 @@ func _ready():
 	reset()
 	
 	visibility_changed.connect(func(): if visible: reset())
+	#back_button.pressed.connect(func(): Game.title_ui.current = Game.title_ui.home)
 	play_button.pressed.connect(_on_button_play_pressed)
-	back_button.pressed.connect(func(): Game.title_ui.current = Game.title_ui.home)
 	
 	# farm name
 	farm_name_edit.text_changed.connect(func(new_text: String):

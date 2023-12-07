@@ -6,7 +6,7 @@ extends Node
 
 const PATH := "user://data/settings.tres"
 
-@onready var data: SettingsData = null
+var data: SettingsData
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

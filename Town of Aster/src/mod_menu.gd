@@ -1,23 +1,21 @@
-# game.gd
-# Game
-extends Node
+# mod_menu.gd
+class_name ModMenu
+extends PanelContainer
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-enum { SPLASH_SCREEN, TITLE_SCREEN, WORLD_SCREEN }
-
-const SCREENS := [ "SplashScreen", "TitleScreen", "WorldScreen" ]
+@onready var back_button = $MarginContainer/VBoxContainer/BackButton
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-@onready var main: StateMachine = get_parent().get_node("Main")
+func _ready():
+	reset()
+	
+	back_button.pressed.connect(func(): Game.title_ui.current = Game.title_ui.home)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func _init() -> void:
-	process_mode = Node.PROCESS_MODE_ALWAYS
-
-func _ready() -> void:
+func reset() -> void:
 	pass
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

@@ -7,8 +7,8 @@ extends PanelContainer
 @onready var empty_label = $MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/EmptyLabel
 
 func _ready() -> void:
-	back_button.pressed.connect(func(): Game.title_ui.current = Game.title_ui.home)
 	visibility_changed.connect(func(): if visible: reset())
+	#back_button.pressed.connect(func(): Game.title_ui.current = Game.title_ui.home)
 
 func reset() -> void:
 	for child in preview_root.get_children():

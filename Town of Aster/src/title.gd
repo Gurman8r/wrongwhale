@@ -2,15 +2,14 @@
 # Title
 extends Node
 
+# ui
 var interface: TitleInterface
 
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _ready() -> void:
-	interface = TitleInterface.PREFAB.instantiate()
-	add_child(interface)
-	interface.name = "Interface"
+	interface = Utility.make(self, TitleInterface.PREFAB, "Interface")
 	reset()
 
 func reset() -> void:

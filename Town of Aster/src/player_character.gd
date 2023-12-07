@@ -14,7 +14,7 @@ signal hotbar_next()
 signal hotbar_select(index: int)
 signal action(mode: int)
 
-@export var data: PlayerData = null
+@export var data: PlayerData
 
 @export var move_speed: float = 5
 @export var turn_speed: float = 15

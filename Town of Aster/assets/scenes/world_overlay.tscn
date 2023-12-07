@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2cfuyjd0e0i5"]
+
+[ext_resource type="Script" path="res://src/world_overlay.gd" id="1_r8xda"]
+
+[node name="WorldOverlay" type="CanvasLayer"]
+script = ExtResource("1_r8xda")

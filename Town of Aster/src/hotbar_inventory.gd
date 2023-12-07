@@ -27,7 +27,7 @@ func populate_item_grid(inventory_data: InventoryData) -> void:
 		child.queue_free()
 	for i in range(0, 10):
 		var stack = inventory_data.stacks[i]
-		var slot = preload("res://assets/scenes/item_slot.tscn").instantiate()
+		var slot = preload("res://assets/scenes/inventory_slot.tscn").instantiate()
 		slots.append(slot)
 		h_box_container.add_child(slot)
 		if stack: slot.set_stack(stack)

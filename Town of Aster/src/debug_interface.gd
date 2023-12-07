@@ -3,5 +3,3 @@ class_name DebugInterface
 extends CanvasLayer
 
 const PREFAB = preload("res://assets/scenes/debug_interface.tscn")
-
-@onready var overlay: Control = $Overlay
