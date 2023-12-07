@@ -1,8 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://c3r46ck1vopfk"]
+[gd_scene load_steps=8 format=3 uid="uid://c3r46ck1vopfk"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_5g4t2"]
+[ext_resource type="Script" path="res://src/ui.gd" id="3_2kyy0"]
+[ext_resource type="PackedScene" uid="uid://csqilf6fxjsn4" path="res://assets/scenes/game_ui.tscn" id="4_65lqa"]
+[ext_resource type="PackedScene" uid="uid://d0u284uvkuxp5" path="res://assets/scenes/title_ui.tscn" id="5_e8vmn"]
 [ext_resource type="PackedScene" uid="uid://cagnofcp3jxwf" path="res://assets/scenes/world.tscn" id="6_jfwg5"]
-[ext_resource type="PackedScene" uid="uid://16joywapgbic" path="res://assets/scenes/ui.tscn" id="7_uorn7"]
+[ext_resource type="PackedScene" uid="uid://bwp3gkihsm2ah" path="res://assets/scenes/transition_ui.tscn" id="6_k86vx"]
+[ext_resource type="PackedScene" uid="uid://dixmxwjxalllh" path="res://assets/scenes/debug_ui.tscn" id="7_s1tvl"]
 
 [node name="Main" type="Node"]
 process_mode = 3
@@ -12,4 +16,14 @@ script = ExtResource("1_5g4t2")
 process_mode = 1
 visible = false
 
-[node name="UI" parent="." instance=ExtResource("7_uorn7")]
+[node name="UI" type="CanvasLayer" parent="."]
+process_mode = 3
+script = ExtResource("3_2kyy0")
+
+[node name="GameUI" parent="UI" instance=ExtResource("4_65lqa")]
+
+[node name="TitleUI" parent="UI" instance=ExtResource("5_e8vmn")]
+
+[node name="TransitionUI" parent="UI" instance=ExtResource("6_k86vx")]
+
+[node name="DebugUI" parent="UI" instance=ExtResource("7_s1tvl")]

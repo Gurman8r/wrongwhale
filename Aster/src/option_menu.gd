@@ -17,7 +17,7 @@ var window_sizes: Array[Vector2i]
 func _ready():
 	_reset()
 	
-	back_button.pressed.connect(func(): G.ui.title.current_menu = G.ui.title.main)
+	back_button.pressed.connect(func(): Game.ui.title.current = Game.ui.title.home)
 	
 	#graphics_vsync_button.pressed.connect(func():
 	#	graphics_vsync_button.release_focus())

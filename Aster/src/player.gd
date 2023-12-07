@@ -42,8 +42,8 @@ var move_input: Array[bool] = [0, 0, 0, 0]
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	if not G.player: G.player = self
-	G.world.player_created.emit(self)
+	if not Game.player: Game.player = self
+	Game.world.player_created.emit(self)
 
 func _ready() -> void:
 	action.connect(func(mode: int): data.inventory_data.use_stack(item_index, mode, self))
@@ -51,8 +51,8 @@ func _ready() -> void:
 func _notification(what):
 	match what:
 		NOTIFICATION_PREDELETE:
-			G.world.player_destroyed.emit(self)
-			if G.player == self: G.player = null
+			Game.world.player_destroyed.emit(self)
+			if Game.player == self: Game.player = null
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -113,21 +113,21 @@ func _unhandled_input(_event) -> void:
 	# toggle ui
 	if Input.is_action_just_pressed("toggle_debug"): toggle_debug.emit()
 	if Input.is_action_just_pressed("toggle_inventory"): toggle_inventory.emit()
-	if Input.is_action_just_pressed("toggle_collection"): G.ui.game.set_current_tab(GameUI.COLLECTION)
-	if Input.is_action_just_pressed("toggle_skills"): G.ui.game.set_current_tab(GameUI.SKILLS)
-	if Input.is_action_just_pressed("toggle_journal"): G.ui.game.set_current_tab(GameUI.JOURNAL)
-	if Input.is_action_just_pressed("toggle_options"): G.ui.game.set_current_tab(GameUI.OPTIONS)
-	if Input.is_action_just_pressed("toggle_system"): G.ui.game.set_current_tab(GameUI.SYSTEM)
+	if Input.is_action_just_pressed("toggle_collection"): Game.ui.game.set_current_tab(GameUI.COLLECTION)
+	if Input.is_action_just_pressed("toggle_skills"): Game.ui.game.set_current_tab(GameUI.SKILLS)
+	if Input.is_action_just_pressed("toggle_journal"): Game.ui.game.set_current_tab(GameUI.JOURNAL)
+	if Input.is_action_just_pressed("toggle_options"): Game.ui.game.set_current_tab(GameUI.OPTIONS)
+	if Input.is_action_just_pressed("toggle_system"): Game.ui.game.set_current_tab(GameUI.SYSTEM)
 	
 	# hotbar
 	if Input.is_action_just_released("hotbar_prev"): hotbar_prev.emit()
 	elif Input.is_action_just_released("hotbar_next"): hotbar_next.emit()
 	for i in range(0, 10):
 		if Input.is_action_just_pressed("hotbar_%d" % [i]):
-			G.ui.game.hotbar_inventory.set_item_index(i - 1)
+			Game.ui.game.hotbar_inventory.set_item_index(i - 1)
 			hotbar_select.emit(i - 1)
 			break
-	item_index = G.ui.game.hotbar_inventory.item_index
+	item_index = Game.ui.game.hotbar_inventory.item_index
 	
 	# movement
 	move_input[LEFT] = Input.is_action_pressed("move_left")
@@ -138,12 +138,14 @@ func _unhandled_input(_event) -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _read(world_data: WorldData) -> Player:
+	print("PLAYER READ")
 	assert(world_data.object_data.has(name))
 	data = world_data.object_data[name].duplicate()
-	G.world.change_cell(G.world.find_cell(data.cell_name))
+	Game.world.change_cell(Game.world.find_cell(data.cell_name))
 	return self
 
 func _write(world_data: WorldData) -> Player:
+	print("PLAYER WRITE")
 	world_data.object_data[name] = data.duplicate()
 	return self
 

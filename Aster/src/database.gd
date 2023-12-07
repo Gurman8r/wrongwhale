@@ -10,8 +10,6 @@ signal loading_finished()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-const defaults: DatabaseData = preload("res://assets/data/database.tres")
-
 @onready var data: DatabaseData = null
 
 var dict: Dictionary = {}
@@ -19,7 +17,7 @@ var dict: Dictionary = {}
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	pass
+	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _ready() -> void:
 	_reset()
@@ -28,7 +26,7 @@ func _reset() -> void:
 	data = null
 	data = DatabaseData.read()
 	if not data:
-		data = defaults.duplicate()
+		data = preload("res://assets/data/database.tres").duplicate()
 		DatabaseData.write(data)
 	assert(data)
 

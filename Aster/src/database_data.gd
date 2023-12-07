@@ -9,7 +9,7 @@ extends Resource
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-const PATH := "user://database.tres"
+const PATH := "user://data/database.tres"
 
 static func read(path: String = PATH) -> DatabaseData:
 	if not ResourceLoader.exists(path): return null

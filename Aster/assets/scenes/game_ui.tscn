@@ -1,0 +1,404 @@
+[gd_scene load_steps=7 format=3 uid="uid://csqilf6fxjsn4"]
+
+[ext_resource type="Script" path="res://src/game_ui.gd" id="1_wrogv"]
+[ext_resource type="PackedScene" uid="uid://dnhnrabrf57os" path="res://assets/scenes/hotbar_inventory.tscn" id="2_odf3s"]
+[ext_resource type="SystemFont" uid="uid://be14qyvbd8lox" path="res://assets/fonts/system_font.tres" id="3_q575s"]
+[ext_resource type="PackedScene" uid="uid://dv6li4wxrohgf" path="res://assets/scenes/inventory.tscn" id="4_05hjp"]
+[ext_resource type="Texture2D" uid="uid://dwi4nguld0m87" path="res://assets/icons/icon_circle.png" id="5_nyv5t"]
+[ext_resource type="PackedScene" uid="uid://ddxw2b6u1pxow" path="res://assets/scenes/item_slot.tscn" id="6_tp3ih"]
+
+[node name="GameUI" type="Control"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wrogv")
+
+[node name="Overlay" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HotbarInventory" parent="Overlay" instance=ExtResource("2_odf3s")]
+layout_mode = 2
+offset_left = 298.0
+offset_top = 648.0
+offset_right = 982.0
+offset_bottom = 720.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+mouse_filter = 2
+
+[node name="InteractLabel" type="Label" parent="Overlay"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -342.0
+offset_top = -10.0
+offset_right = 342.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_q575s")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Interface" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InventoryContainer" type="MarginContainer" parent="Interface"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/InventoryContainer"]
+layout_mode = 2
+
+[node name="ExternalLabel" type="Label" parent="Interface/InventoryContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("3_q575s")
+text = "Chest:"
+
+[node name="ExternalInventory" parent="Interface/InventoryContainer/VBoxContainer" instance=ExtResource("4_05hjp")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="InternalLabel" type="Label" parent="Interface/InventoryContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("3_q575s")
+text = "Player:"
+
+[node name="InternalInventory" parent="Interface/InventoryContainer/VBoxContainer" instance=ExtResource("4_05hjp")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="MenuContainer" type="MarginContainer" parent="Interface"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/MenuContainer"]
+layout_mode = 2
+
+[node name="MenuTabBar" type="TabBar" parent="Interface/MenuContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_q575s")
+tab_count = 6
+tab_0/title = "Inventory"
+tab_0/icon = ExtResource("5_nyv5t")
+tab_1/title = "Collection"
+tab_1/icon = ExtResource("5_nyv5t")
+tab_2/title = "Skills"
+tab_2/icon = ExtResource("5_nyv5t")
+tab_3/title = "Journal"
+tab_3/icon = ExtResource("5_nyv5t")
+tab_4/title = "Options"
+tab_4/icon = ExtResource("5_nyv5t")
+tab_5/title = "System"
+tab_5/icon = ExtResource("5_nyv5t")
+
+[node name="MenuTabContainer" type="TabContainer" parent="Interface/MenuContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+tab_alignment = 1
+tabs_visible = false
+
+[node name="Inventory" type="Control" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Inventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Inventory/MarginContainer"]
+layout_mode = 2
+
+[node name="MainInventory" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Inventory/MarginContainer/HBoxContainer" instance=ExtResource("4_05hjp")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="EquipInventory" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Inventory/MarginContainer/HBoxContainer" instance=ExtResource("4_05hjp")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Collection" type="Control" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Collection"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Collection/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="LeftPanelContainer" type="PanelContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Collection/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Collection/MarginContainer/HBoxContainer/LeftPanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Collection/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="RightPanelContainer" type="PanelContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Collection/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Collection/MarginContainer/HBoxContainer/RightPanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Collection/MarginContainer/HBoxContainer/RightPanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Skills" type="Control" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Skills"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Skills/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="LeftPanelContainer" type="PanelContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Skills/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Skills/MarginContainer/HBoxContainer/LeftPanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Skills/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="RightPanelContainer" type="PanelContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Skills/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Skills/MarginContainer/HBoxContainer/RightPanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Skills/MarginContainer/HBoxContainer/RightPanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Journal" type="Control" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Journal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Journal/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="LeftPanelContainer" type="PanelContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Journal/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Journal/MarginContainer/HBoxContainer/LeftPanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Journal/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="RightPanelContainer" type="PanelContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Journal/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Journal/MarginContainer/HBoxContainer/RightPanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Journal/MarginContainer/HBoxContainer/RightPanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Options" type="Control" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Options"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Options/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="LeftPanelContainer" type="PanelContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Options/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Options/MarginContainer/HBoxContainer/LeftPanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Options/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="RightPanelContainer" type="PanelContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Options/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Options/MarginContainer/HBoxContainer/RightPanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/Options/MarginContainer/HBoxContainer/RightPanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="System" type="Control" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/System"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="LeftPanelContainer" type="PanelContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="SaveButton" type="Button" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Save"
+
+[node name="SaveAndQuitToTitleButton" type="Button" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Save and Quit to Title"
+
+[node name="SaveAndQuitToDesktopButton" type="Button" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Save and Quit to Desktop"
+
+[node name="QuitToTitleButton" type="Button" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit to Title"
+
+[node name="QuitToDesktopButton" type="Button" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit to Desktop"
+
+[node name="RightPanelContainer" type="PanelContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/RightPanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/RightPanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="GrabbedSlot" parent="Interface" instance=ExtResource("6_tp3ih")]
+visible = false
+modulate = Color(1, 1, 1, 0.501961)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+offset_right = 64.0
+offset_bottom = 64.0

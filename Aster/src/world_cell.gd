@@ -5,8 +5,8 @@ extends GridMap
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	assert(G.world)
-	G.world.cells.append(self)
+	assert(Game.world)
+	Game.world.cells.append(self)
 
 func _ready() -> void:
 	set_enabled(false)

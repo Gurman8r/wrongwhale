@@ -11,7 +11,7 @@ extends PanelContainer
 func _ready():
 	_reset()
 	
-	back_button.pressed.connect(func(): G.ui.title.current_menu = G.ui.title.main)
+	back_button.pressed.connect(func(): Game.ui.title.current = Game.ui.title.home)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

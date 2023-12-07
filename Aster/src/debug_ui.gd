@@ -2,7 +2,12 @@
 class_name DebugUI
 extends Control
 
-@onready var framerate: Label = $MarginContainer/VBoxContainer/Framerate
+# OVERLAY
+@onready var overlay: Control = $Overlay
+@onready var framerate: Label = $Overlay/VBoxContainer/Framerate
+
+# INTERFACE
+@onready var interface: Control = $Interface
 
 func _physics_process(_delta):
 	framerate.text = "FPS: %3.3f" % [Engine.get_frames_per_second()]

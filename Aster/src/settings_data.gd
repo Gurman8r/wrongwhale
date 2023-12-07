@@ -8,7 +8,7 @@ extends Resource
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-const PATH := "user://settings.tres"
+const PATH := "user://data/settings.tres"
 
 static func read(path: String = PATH) -> SettingsData:
 	if not ResourceLoader.exists(path): return null

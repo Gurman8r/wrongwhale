@@ -16,17 +16,21 @@ extends PanelContainer
 @onready var delete_accept_button = $MarginContainer/VBoxContainer/DeleteConfirmPanel/MarginContainer/VBoxContainer/HBoxContainer/DeleteAcceptButton
 @onready var delete_cancel_button = $MarginContainer/VBoxContainer/DeleteConfirmPanel/MarginContainer/VBoxContainer/HBoxContainer/DeleteCancelButton
 
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 func _input(event: InputEvent):
 	if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1:
 		var evLocal = make_input_local(event)
 		if !Rect2(farm_name_edit.global_position, farm_name_edit.size).has_point(evLocal.position):
 			farm_name_edit.release_focus()
 
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 func set_world_data(world_data: WorldData):
 	farm_name_label.text = "%s Farm" % [world_data.farm_data.name]
 	
 	play_button.pressed.connect(func():
-		G.main.load_world_from_memory(world_data))
+		Game.load_world_from_memory(world_data))
 	
 	delete_button.pressed.connect(func():
 		farm_name_label.hide()
@@ -67,10 +71,12 @@ func set_world_data(world_data: WorldData):
 	
 	delete_accept_button.pressed.connect(func():
 		Util.wipe_dir(WorldData.get_dir_path(world_data.guid))
-		G.ui.title.world_loader._reset()
+		Game.ui.title.world_loader._reset()
 		queue_free())
 	
 	delete_cancel_button.pressed.connect(func():
 		farm_name_label.show()
 		button_root.show()
 		delete_confirm_panel.hide())
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

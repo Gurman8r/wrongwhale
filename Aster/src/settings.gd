@@ -4,14 +4,12 @@ extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-const defaults: SettingsData = preload("res://assets/data/settings.tres")
-
 @onready var data: SettingsData = null
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	pass
+	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _ready() -> void:
 	_reset()
@@ -20,7 +18,7 @@ func _reset() -> void:
 	data = null
 	data = SettingsData.read()
 	if not data:
-		data = defaults.duplicate()
+		data = preload("res://assets/data/settings.tres").duplicate()
 		SettingsData.write(data)
 	assert(data)
 

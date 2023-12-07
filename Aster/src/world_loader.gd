@@ -2,15 +2,13 @@
 class_name WorldLoader
 extends PanelContainer
 
-const preview_prefab = preload("res://assets/scenes/world_preview.tscn")
-
 @onready var back_button = $MarginContainer/VBoxContainer/BackButton
 @onready var preview_root = $MarginContainer/VBoxContainer/MarginContainer/VBoxContainer
 @onready var empty_label = $MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/EmptyLabel
 
 func _ready() -> void:
 	back_button.pressed.connect(func():
-		G.ui.title.current_menu = G.ui.title.main)
+		Game.ui.title.current = Game.ui.title.home)
 	visibility_changed.connect(func():
 		if visible: _reset())
 
@@ -30,7 +28,7 @@ func _reset() -> void:
 			if not world_dir: continue
 			world_dir.list_dir_begin()
 			if world_dir.file_exists("world.tres"):
-				var preview: WorldPreview = preview_prefab.instantiate()
+				var preview: WorldPreview = preload("res://assets/scenes/world_preview.tscn").instantiate()
 				preview_root.add_child(preview)
 				preview.set_world_data(WorldData.read(path))
 		path = saves_dir.get_next()

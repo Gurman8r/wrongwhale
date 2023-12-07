@@ -56,7 +56,7 @@ func _ready():
 	
 	visibility_changed.connect(func(): if visible: _reset())
 	play_button.pressed.connect(_on_button_play_pressed)
-	back_button.pressed.connect(func(): G.ui.title.current_menu = G.ui.title.main)
+	back_button.pressed.connect(func(): Game.ui.title.current = Game.ui.title.home)
 	
 	# farm name
 	farm_name_edit.text_changed.connect(func(new_text: String):
@@ -165,6 +165,6 @@ func _on_button_play_pressed():
 	world_data.object_data[player_data.guid] = player_data
 	
 	WorldData.write(world_data, world_data.guid)
-	G.main.load_world_from_memory(world_data)
+	Game.load_world_from_memory(world_data)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

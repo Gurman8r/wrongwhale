@@ -2,11 +2,11 @@
 class_name UI
 extends CanvasLayer
 
-@onready var game: GameUI = $GameUI
-@onready var title: TitleUI = $TitleUI
-@onready var transitions: TransitionUI = $TransitionUI
-@onready var debug: DebugUI = $DebugUI
+@onready var game: Control = $GameUI
+@onready var title: Control = $TitleUI
+@onready var transitions: Control = $TransitionUI
+@onready var debug: Control = $DebugUI
 
 func _init() -> void:
-	assert(G.ui == null)
-	G.ui = self
+	assert(Game.ui == null)
+	Game.ui = self

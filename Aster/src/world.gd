@@ -27,8 +27,8 @@ var cells: Array[WorldCell] = []
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	assert(not G.world)
-	G.world = self
+	assert(not Game.world)
+	Game.world = self
 
 func _ready():
 	# cells should automatically add themselves to the list

@@ -52,5 +52,3 @@ size_flags_vertical = 8
 label_settings = SubResource("LabelSettings_hgmgp")
 horizontal_alignment = 2
 vertical_alignment = 2
-
-[connection signal="gui_input" from="." to="." method="_on_gui_input"]
