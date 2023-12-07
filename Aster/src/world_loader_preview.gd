@@ -29,7 +29,9 @@ func _input(event: InputEvent):
 var world_data: WorldData
 
 func set_world_data(value: WorldData):
+	assert(value)
 	world_data = value.duplicate()
+	
 	play_button.pressed.connect(func():
 		Game.load_world_from_memory(world_data))
 	

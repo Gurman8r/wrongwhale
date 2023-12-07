@@ -41,15 +41,12 @@ var move_input: Array[bool] = [0, 0, 0, 0]
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	assert(Game.player == null)
-	Game.player = self
 	Game.world.player_created.emit(self)
 
 func _notification(what):
 	match what:
 		NOTIFICATION_PREDELETE:
 			Game.world.player_destroyed.emit(self)
-			assert(Game.player == self)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -143,7 +140,6 @@ func _unhandled_input(_event) -> void:
 func _load(world_data: WorldData) -> void:
 	assert(name in world_data.object_data)
 	data = world_data.object_data[name].duplicate()
-	#Game.world.change_cell(Game.world.find_cell(data.cell_name))
 
 func _save(world_data: WorldData) -> void:
 	world_data.object_data[name] = data.duplicate()

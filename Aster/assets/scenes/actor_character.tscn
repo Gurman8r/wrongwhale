@@ -22,7 +22,7 @@ albedo_color = Color(0.8, 0.8, 0, 0.0941176)
 material = SubResource("StandardMaterial3D_hqt4h")
 size = Vector3(1, 0.02, 1)
 
-[node name="ActorCharacter" type="CharacterBody3D" groups=["ACTOR", "LOAD", "SAVE", "UNLOAD"]]
+[node name="ActorCharacter" type="CharacterBody3D"]
 script = ExtResource("1_kwkpx")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

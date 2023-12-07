@@ -22,7 +22,7 @@ albedo_color = Color(0.8, 0.8, 0, 0.0941176)
 material = SubResource("StandardMaterial3D_bk7uc")
 size = Vector3(1, 0.02, 1)
 
-[node name="PlayerCharacter" type="CharacterBody3D" groups=["LOAD", "PLAYER", "SAVE", "UNLOAD"]]
+[node name="PlayerCharacter" type="CharacterBody3D" groups=["CLEANUP", "SAVE"]]
 collision_layer = 2
 axis_lock_angular_x = true
 axis_lock_angular_z = true

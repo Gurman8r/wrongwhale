@@ -13,10 +13,8 @@ func _init() -> void:
 
 func _ready() -> void:
 	_reset()
-	print("Database - OK")
 
 func _reset() -> void:
-	data = null
 	data = DatabaseData.read()
 	if not data:
 		data = preload("res://assets/data/database.tres").duplicate()

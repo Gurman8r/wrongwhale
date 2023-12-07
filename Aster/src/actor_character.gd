@@ -15,12 +15,3 @@ extends WorldCharacter
 @onready var target_marker = $TargetMarker
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func _load(world_data: WorldData) -> void:
-	assert(name in world_data.object_data)
-	data = world_data.object_data[name].duplicate()
-
-func _save(world_data: WorldData) -> void:
-	world_data.object_data[name] = data.duplicate()
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

@@ -13,10 +13,8 @@ func _init() -> void:
 
 func _ready() -> void:
 	_reset()
-	print("Settings - OK")
 
 func _reset() -> void:
-	data = null
 	data = SettingsData.read()
 	if not data:
 		data = preload("res://assets/data/settings.tres").duplicate()

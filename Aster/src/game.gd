@@ -10,14 +10,10 @@ const SAVES_DIR := "user://saves"
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-# MAIN
 @onready var main : Node = get_parent().get_node("Main")
-
-# WORLD
 var world: World
 var player: PlayerCharacter
 
-# UI
 @onready var ui: CanvasLayer = main.get_node("UI")
 var game_ui: GameUI
 var title_ui: TitleUI
@@ -70,8 +66,6 @@ func _ready() -> void:
 		player.hotbar_select.disconnect(game_ui.hotbar_inventory.set_item_index)
 		for node in get_tree().get_nodes_in_group("EXTERNAL_INVENTORY"):
 			node.toggle_inventory.disconnect(game_ui.toggle_inventory))
-	
-	print("Game - OK")
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -83,7 +77,7 @@ func _unhandled_input(_event) -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-#region QUIT_GAME
+#region CONTROL_FLOW
 
 func quit_to_desktop() -> void:
 	if state == STATE_QUITTING \
@@ -112,10 +106,6 @@ func quit_to_title() -> void:
 	await transitions_ui.finished
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
-#endregion
-
-#region LOAD_GAME
-
 func load_world_from_memory(world_data: WorldData) -> void:
 	if state == STATE_QUITTING \
 	or state == STATE_LOADING: return
@@ -136,10 +126,6 @@ func load_world_from_memory(world_data: WorldData) -> void:
 
 func load_world_from_file(path_stem: String) -> void:
 	load_world_from_memory(WorldData.read(path_stem))
-
-#endregion
-
-#region SAVE_GAME
 
 func save_world_to_file_and_quit_to_desktop(path_stem: String = "") -> void:
 	if state == STATE_QUITTING \
