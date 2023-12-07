@@ -31,7 +31,7 @@ static func wipe_dir(dir_path: String) -> void:
 
 static func read(path: String) -> Resource:
 	if not ResourceLoader.exists(path): return null
-	else: return ResourceLoader.load(path)
+	else: return ResourceLoader.load(path).duplicate()
 
 static func write(data: Resource, path: String) -> Error:
 	assert(data)

@@ -1,52 +1,52 @@
-[gd_scene load_steps=10 format=3 uid="uid://bvwxccjg0l0wf"]
+[gd_scene load_steps=10 format=3 uid="uid://bu060kky4bxc0"]
 
-[ext_resource type="Script" path="res://src/actor_character.gd" id="1_kwkpx"]
-[ext_resource type="Script" path="res://src/interact_ray.gd" id="2_lca2m"]
-[ext_resource type="Script" path="res://src/state_machine.gd" id="3_apsuh"]
+[ext_resource type="Script" path="res://src/actor_character.gd" id="1_egfr2"]
+[ext_resource type="Script" path="res://src/interact_ray.gd" id="2_vfik0"]
+[ext_resource type="Script" path="res://src/state_machine.gd" id="3_ervur"]
 
-[sub_resource type="AnimationRootNode" id="AnimationRootNode_jgw0v"]
+[sub_resource type="AnimationRootNode" id="AnimationRootNode_0wjkf"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_y1i2u"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_rsqqf"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mvv3f"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gx7sn"]
 albedo_color = Color(1, 0, 0, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_ssdyd"]
-material = SubResource("StandardMaterial3D_mvv3f")
+[sub_resource type="BoxMesh" id="BoxMesh_12ug2"]
+material = SubResource("StandardMaterial3D_gx7sn")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hqt4h"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bk7uc"]
 transparency = 1
 albedo_color = Color(0.8, 0.8, 0, 0.0941176)
 
-[sub_resource type="BoxMesh" id="BoxMesh_wog6w"]
-material = SubResource("StandardMaterial3D_hqt4h")
+[sub_resource type="BoxMesh" id="BoxMesh_pfrix"]
+material = SubResource("StandardMaterial3D_bk7uc")
 size = Vector3(1, 0.02, 1)
 
 [node name="ActorCharacter" type="CharacterBody3D"]
-script = ExtResource("1_kwkpx")
+script = ExtResource("1_egfr2")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationRootNode_jgw0v")
+tree_root = SubResource("AnimationRootNode_0wjkf")
 anim_player = NodePath("../AnimationPlayer")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-shape = SubResource("SphereShape3D_y1i2u")
+shape = SubResource("SphereShape3D_rsqqf")
 
 [node name="InteractRay" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 target_position = Vector3(0, 0, -1.5)
 collision_mask = 4
-script = ExtResource("2_lca2m")
+script = ExtResource("2_vfik0")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("BoxMesh_ssdyd")
+mesh = SubResource("BoxMesh_12ug2")
 
 [node name="StateMachine" type="Node" parent="."]
-script = ExtResource("3_apsuh")
+script = ExtResource("3_ervur")
 
 [node name="TargetMarker" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_wog6w")
+mesh = SubResource("BoxMesh_pfrix")

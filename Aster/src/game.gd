@@ -23,9 +23,10 @@ var debug_ui: DebugUI
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 # STATE
-enum { STATE_TITLE, STATE_LOADING, STATE_PLAYING, STATE_QUITTING, }
+enum { STATE_SPLASH, STATE_TITLE, STATE_LOADING, STATE_PLAYING, STATE_QUITTING, }
 var state: int = STATE_TITLE
 func set_state(value: int) -> void: state = value
+func is_splash() -> bool: return state == STATE_SPLASH
 func is_title() -> bool: return state == STATE_TITLE
 func is_loading() -> bool: return state == STATE_LOADING
 func is_playing() -> bool: return state == STATE_PLAYING
@@ -39,9 +40,9 @@ func _init() -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _ready() -> void:
-	assert(main)
-	assert(ui)
 	get_tree().paused = true
+	
+	Registry.register(Registries.ITEM, "new item", ItemData.new())
 	
 	# create file structure
 	DirAccess.make_dir_absolute(DATA_DIR)

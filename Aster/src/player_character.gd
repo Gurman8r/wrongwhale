@@ -41,12 +41,12 @@ var move_input: Array[bool] = [0, 0, 0, 0]
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	Game.world.player_created.emit(self)
+	Game.player = self
 
 func _notification(what):
 	match what:
 		NOTIFICATION_PREDELETE:
-			Game.world.player_destroyed.emit(self)
+			Game.player = null
 
 func _ready() -> void:
 	action.connect(func(mode: int):

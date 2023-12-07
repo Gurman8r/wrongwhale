@@ -82,7 +82,6 @@ func load_from_memory(world_data: WorldData) -> void:
 		var c: WorldCell = find_cell(o.data.cell_name)
 		c.add(o, o.data.position)
 		if o is PlayerCharacter:
-			Game.player = o
 			cell = c
 			cell.enabled = true
 		o.name = o_guid
@@ -102,7 +101,6 @@ func unload() -> void:
 		o.queue_free()
 	objects.clear()
 	
-	Game.player = null
 	if cell: cell.enabled = false
 	cell = null
 	data = null

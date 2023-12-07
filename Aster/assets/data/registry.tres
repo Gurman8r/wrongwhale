@@ -4,4 +4,7 @@
 
 [resource]
 script = ExtResource("1_5kd6f")
-dict = Array[Dictionary]([])
+registries = null
+actors = null
+items = null
+misc = null

@@ -27,7 +27,7 @@ func _reset() -> void:
 
 func register(registry: int, key: String, value: Resource) -> bool:
 	var dict = data.get_dict(registry)
-	if not value or key in dict: return false
+	if key in dict: return false
 	dict[key] = value
 	return true
 
@@ -42,7 +42,7 @@ func find(registry: int, key: String) -> Resource:
 	if not key in dict: return null
 	return dict[key]
 
-func find_or_register(registry: int, key: String, value: Resource) -> Resource:
+func find_or_add(registry: int, key: String, value: Resource) -> Resource:
 	var dict = data.get_dict(registry)
 	if not key in dict: dict[key] = value
 	return dict[key]

@@ -28,7 +28,7 @@ static func get_file_path(path_stem: String) -> String:
 static func read(path_stem: String) -> WorldData:
 	var file_path: String = get_file_path(path_stem)
 	if not ResourceLoader.exists(file_path): return null
-	else: return ResourceLoader.load(file_path)
+	else: return ResourceLoader.load(file_path)#.duplicate()
 
 static func write(world_data: WorldData, path_stem: String = "") -> Error:
 	assert(world_data)
