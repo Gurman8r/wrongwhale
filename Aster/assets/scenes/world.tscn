@@ -32,6 +32,7 @@ stacks = Array[ExtResource("8_56u81")]([SubResource("Resource_se2iu"), SubResour
 script = ExtResource("1_higy5")
 
 [node name="WorldCell0" type="GridMap" parent="."]
+visible = false
 mesh_library = ExtResource("3_ogybk")
 physics_material = SubResource("PhysicsMaterial_x5deb")
 cell_size = Vector3(1, 1, 1)

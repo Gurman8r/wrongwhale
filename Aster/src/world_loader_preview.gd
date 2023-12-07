@@ -1,5 +1,5 @@
-# world_preview.gd
-class_name WorldPreview
+# world_loader_preview.gd
+class_name WorldLoaderPreview
 extends PanelContainer
 
 @onready var farm_name_panel = $MarginContainer/VBoxContainer/HBoxContainer/FarmNamePanel
@@ -26,11 +26,14 @@ func _input(event: InputEvent):
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func set_world_data(world_data: WorldData):
-	farm_name_label.text = "%s Farm" % [world_data.farm_data.name]
-	
+var world_data: WorldData
+
+func set_world_data(value: WorldData):
+	world_data = value.duplicate()
 	play_button.pressed.connect(func():
 		Game.load_world_from_memory(world_data))
+	
+	farm_name_label.text = "%s Farm" % [world_data.farm_data.name]
 	
 	delete_button.pressed.connect(func():
 		farm_name_label.hide()

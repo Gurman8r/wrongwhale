@@ -72,12 +72,18 @@ func load_from_memory(world_data: WorldData) -> void:
 		var o_data: Resource = data.object_data[o_guid]
 		assert("prefab" in o_data)
 		var o: Node = o_data.prefab.instantiate()
-		o.name = o_guid
+		assert(o)
 		assert("cell_name" in o_data)
-		find_cell(o_data.cell_name).add(o)
+		var c: WorldCell = find_cell(o_data.cell_name)
+		assert(c)
+		c.add(o)
+		if o is PlayerCharacter:
+			cell = c
+			cell.enabled = true
 		if "index" in o_data:
 			o_data.index = o_index
 			o_index += 1
+		o.name = o_guid
 	
 	for node in get_tree().get_nodes_in_group("LOAD"):
 		assert("_load" in node)
