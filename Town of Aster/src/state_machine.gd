@@ -7,7 +7,8 @@ extends Node
 func _ready():
 	if state is State: state._enter_state()
 
-func change_state(value: State):
+func change_state(new_state: State) -> void:
+	if state == new_state: return
 	if state is State: state._exit_state()
-	if value is State: value._enter_state()
-	state = value
+	state = new_state
+	if state is State: state._enter_state()

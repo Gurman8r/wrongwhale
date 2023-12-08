@@ -2,10 +2,8 @@
 # Title
 extends Node
 
-# prefabs
 const INTERFACE_PREFAB = preload("res://assets/scenes/title_interface.tscn")
 
-# ui
 var interface: TitleInterface
 
 func _init() -> void:

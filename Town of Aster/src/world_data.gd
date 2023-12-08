@@ -53,3 +53,25 @@ static func get_path_list() -> Array[String]:
 	return path_list
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+static func make_test() -> WorldData:
+	var f: FarmData = FarmData.new()
+	f.name = "Test"
+	
+	var p: PlayerData = PlayerData.new()
+	p.guid = "Buster"
+	p.name = "Buster"
+	p.position = Vector3.ZERO
+	p.direction = Vector3.FORWARD
+	p.cell_name = "WorldCell0"
+	p.inventory_data.resize(30)
+	p.equip_data.resize(1)
+	
+	var w: WorldData = WorldData.new()
+	w.guid = "Test"
+	w.name = "Test"
+	w.farm_data = f
+	w.object_data[p.guid] = p
+	return w
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

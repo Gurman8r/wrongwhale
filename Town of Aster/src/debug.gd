@@ -2,11 +2,9 @@
 # Debug
 extends Node
 
-# prefabs
 const INTERFACE_PREFAB = preload("res://assets/scenes/debug_interface.tscn")
 const OVERLAY_PREFAB = preload("res://assets/scenes/debug_overlay.tscn")
 
-# ui
 var interface: DebugInterface
 var overlay: DebugOverlay
 

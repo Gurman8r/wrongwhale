@@ -1,17 +1,15 @@
-# splash_screen.gd
-class_name SplashScreen
+# world_state.gd
+class_name WorldState
 extends State
 
 func _ready() -> void:
-	set_physics_process(false)
+	super._ready()
 
 func _enter_state() -> void:
 	super._enter_state()
-	set_physics_process(true)
 
 func _exit_state() -> void:
 	super._exit_state()
-	set_physics_process(false)
 
 func _physics_process(_delta) -> void:
-	Game.main.change_state($"../TitleScreen")
+	pass

@@ -4,19 +4,17 @@ extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-# prefabs
 const INTERFACE_PREFAB := preload("res://assets/scenes/world_interface.tscn")
 const OVERLAY_PREFAB := preload("res://assets/scenes/world_overlay.tscn")
 const PLAYER_PREFAB := preload("res://assets/scenes/player_character.tscn")
 
-# ui
+var data: WorldData
+
 var interface: WorldInterface
 var overlay: WorldOverlay
 
-# lighting
 var environment: WorldEnvironment
 
-# cells
 var cell_root: Node
 var cell: WorldCell = null : set = change_cell
 var cells: Array[WorldCell] = []
@@ -79,5 +77,51 @@ func transfer(node: Node3D, new_cell: WorldCell, position: Vector3 = Vector3.ZER
 	if cell: cell.add(node, position)
 	if "data" in node and "cell_name" in node.data:
 		node.data.cell_name = cell.name
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func save_to_file(path_stem: String = "") -> void:
+	if path_stem.is_empty():
+		assert(data)
+		path_stem = data.guid
+	assert(0 < path_stem.length())
+	WorldData.write(data, path_stem)
+
+func load_from_file(path_stem: String = "") -> void:
+	if path_stem.is_empty() and data: path_stem = data.guid
+	assert(0 < path_stem.length())
+	load_from_memory(WorldData.read(path_stem))
+
+func load_from_memory(new_data: WorldData) -> void:
+	assert(new_data)
+	data = new_data
+	objects.clear()
+	for guid in data.object_data:
+		var d: Resource = data.object_data[guid]
+		assert("prefab" in d)
+		assert("cell_name" in d)
+		assert("position" in d)
+		var o: Node3D = d.prefab.instantiate()
+		assert(o)
+		o.data = d
+		var c: WorldCell = find_cell(o.data.cell_name)
+		assert(c)
+		c.add(o, o.data.position)
+		if o is PlayerCharacter:
+			cell = c
+			cell.enabled = true
+		o.name = guid
+		objects.append(o)
+	#show()
+
+func unload() -> void:
+	assert(data)
+	for o in objects:
+		o.queue_free()
+	objects.clear()
+	if cell: cell.enabled = false
+	cell = null
+	data = null
+	#hide()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
