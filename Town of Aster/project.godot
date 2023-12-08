@@ -27,6 +27,7 @@ World="*res://src/world.gd"
 Title="*res://src/title.gd"
 Splash="*res://src/splash.gd"
 Transition="*res://src/transition.gd"
+Debug="*res://src/debug.gd"
 
 [display]
 
