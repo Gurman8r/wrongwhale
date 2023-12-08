@@ -2,8 +2,6 @@
 class_name PlayerData
 extends Resource
 
-const PREFAB := preload("res://assets/scenes/player_character.tscn")
-
 @export var guid: String
 @export var name: String
 

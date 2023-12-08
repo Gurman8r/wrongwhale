@@ -1,34 +1,32 @@
-[gd_scene load_steps=10 format=3 uid="uid://b6050gvap43v1"]
+[gd_scene load_steps=9 format=3 uid="uid://4nrgqg77wckl"]
 
-[ext_resource type="Script" path="res://src/player_character.gd" id="1_5om6e"]
-[ext_resource type="Script" path="res://src/interact_ray.gd" id="2_a327u"]
-[ext_resource type="Script" path="res://src/state_machine.gd" id="3_1fuoe"]
+[ext_resource type="Script" path="res://src/interact_ray.gd" id="1_v2ktu"]
+[ext_resource type="Script" path="res://src/state_machine.gd" id="2_3ku83"]
 
-[sub_resource type="AnimationRootNode" id="AnimationRootNode_b78fh"]
+[sub_resource type="AnimationRootNode" id="AnimationRootNode_be78k"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_flkk1"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_00n8s"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ecxab"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e1e5v"]
 albedo_color = Color(1, 0, 0, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_aj2sn"]
-material = SubResource("StandardMaterial3D_ecxab")
+[sub_resource type="BoxMesh" id="BoxMesh_ihth5"]
+material = SubResource("StandardMaterial3D_e1e5v")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ubpef"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s13nx"]
 transparency = 1
 albedo_color = Color(0.8, 0.8, 0, 0.0941176)
 
-[sub_resource type="BoxMesh" id="BoxMesh_57at2"]
-material = SubResource("StandardMaterial3D_ubpef")
+[sub_resource type="BoxMesh" id="BoxMesh_7jg8q"]
+material = SubResource("StandardMaterial3D_s13nx")
 size = Vector3(1, 0.02, 1)
 
-[node name="PlayerCharacter" type="CharacterBody3D"]
-script = ExtResource("1_5om6e")
+[node name="CharacterBody3D" type="CharacterBody3D"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationRootNode_b78fh")
+tree_root = SubResource("AnimationRootNode_be78k")
 anim_player = NodePath("../AnimationPlayer")
 
 [node name="CameraPivotY" type="Node3D" parent="."]
@@ -44,20 +42,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-shape = SubResource("SphereShape3D_flkk1")
+shape = SubResource("SphereShape3D_00n8s")
 
 [node name="InteractRay" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 target_position = Vector3(0, 0, -1.5)
 collision_mask = 4
-script = ExtResource("2_a327u")
+script = ExtResource("1_v2ktu")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("BoxMesh_aj2sn")
+mesh = SubResource("BoxMesh_ihth5")
 
 [node name="StateMachine" type="Node" parent="."]
-script = ExtResource("3_1fuoe")
+script = ExtResource("2_3ku83")
 
 [node name="TargetMarker" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_57at2")
+mesh = SubResource("BoxMesh_7jg8q")

@@ -2,6 +2,9 @@
 # Title
 extends Node
 
+# prefabs
+const INTERFACE_PREFAB = preload("res://assets/scenes/title_interface.tscn")
+
 # ui
 var interface: TitleInterface
 
@@ -9,7 +12,7 @@ func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _ready() -> void:
-	interface = Utility.make(self, TitleInterface.PREFAB, "Interface")
+	interface = Utility.make(self, INTERFACE_PREFAB, "Interface")
 	reset()
 
 func reset() -> void:

@@ -1,6 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cup7ogkonctxj"]
-
-[ext_resource type="Script" path="res://src/transition_overlay.gd" id="1_fy31x"]
+[gd_scene load_steps=4 format=3 uid="uid://ljwvkcclxbny"]
 
 [sub_resource type="Animation" id="Animation_ubt67"]
 resource_name = "RESET"
@@ -40,11 +38,17 @@ _data = {
 "dissolve": SubResource("Animation_5xvxl")
 }
 
-[node name="TransitionOverlay" type="CanvasLayer"]
-script = ExtResource("1_fy31x")
+[node name="TransitionInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="DissolveRect" type="ColorRect" parent="."]
 modulate = Color(0, 0, 0, 0)
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

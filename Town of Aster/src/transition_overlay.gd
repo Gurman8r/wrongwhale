@@ -6,8 +6,6 @@ extends CanvasLayer
 
 signal finished()
 
-const PREFAB = preload("res://assets/scenes/transition_overlay.tscn")
-
 @onready var dissolve_rect = $DissolveRect
 @onready var animation_player = $AnimationPlayer
 

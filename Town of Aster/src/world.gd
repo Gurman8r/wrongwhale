@@ -4,6 +4,11 @@ extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+# prefabs
+const INTERFACE_PREFAB := preload("res://assets/scenes/world_interface.tscn")
+const OVERLAY_PREFAB := preload("res://assets/scenes/world_overlay.tscn")
+const PLAYER_PREFAB := preload("res://assets/scenes/player_character.tscn")
+
 # ui
 var interface: WorldInterface
 var overlay: WorldOverlay
@@ -23,8 +28,8 @@ func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _ready() -> void:
-	interface = Utility.make(self, WorldInterface.PREFAB, "Interface")
-	overlay = Utility.make(self, WorldOverlay.PREFAB, "Overlay")
+	interface = Utility.make(self, INTERFACE_PREFAB, "Interface")
+	overlay = Utility.make(self, OVERLAY_PREFAB, "Overlay")
 	reset()
 
 func reset() -> void:
