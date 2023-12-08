@@ -1,6 +1,62 @@
-[gd_scene load_steps=2 format=3 uid="uid://h701lnewbq7r"]
+[gd_scene load_steps=10 format=3 uid="uid://banhymnyrdpfa"]
 
 [ext_resource type="Script" path="res://src/player_character.gd" id="1_1plgw"]
+[ext_resource type="Script" path="res://src/interact_ray.gd" id="2_iqfnh"]
+[ext_resource type="Script" path="res://src/state_machine.gd" id="3_grm6u"]
+
+[sub_resource type="AnimationRootNode" id="AnimationRootNode_70bx7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_p3j1i"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_god1p"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_r5b55"]
+material = SubResource("StandardMaterial3D_god1p")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c7vnp"]
+transparency = 1
+albedo_color = Color(0.752941, 0.752941, 0, 0.768627)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ubrbb"]
+material = SubResource("StandardMaterial3D_c7vnp")
+size = Vector3(1, 0.02, 1)
 
 [node name="PlayerCharacter" type="CharacterBody3D"]
+collision_layer = 2
 script = ExtResource("1_1plgw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationRootNode_70bx7")
+
+[node name="CameraPivotY" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="CameraPivotX" type="SpringArm3D" parent="CameraPivotY"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+spring_length = 10.0
+margin = 0.5
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivotY/CameraPivotX"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_p3j1i")
+
+[node name="InteractRay" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -1.5)
+collision_mask = 4
+script = ExtResource("2_iqfnh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_r5b55")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("3_grm6u")
+
+[node name="TargetMarker" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_ubrbb")
