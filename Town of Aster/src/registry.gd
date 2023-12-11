@@ -1,6 +1,6 @@
 # registry.gd
 # Registry
-extends Node
+extends System
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -10,13 +10,8 @@ var data: RegistryData
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func _init() -> void:
-	process_mode = Node.PROCESS_MODE_ALWAYS
-
 func _ready() -> void:
 	reset()
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func reset() -> void:
 	load_defaults()

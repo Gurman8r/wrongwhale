@@ -1,20 +1,30 @@
 # splash.gd
 # Splash
-extends Node
+extends System
 
-# prefabs
-const OVERLAY_PREFAB = preload("res://assets/scenes/splash_overlay.tscn")
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-# ui
+signal finished()
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+const overlay_prefab = preload("res://assets/scenes/splash_overlay.tscn")
 var overlay: SplashOverlay
 
-func _init() -> void:
-	process_mode = Node.PROCESS_MODE_ALWAYS
+var timer: Timer
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _ready() -> void:
-	overlay = Utility.make(self, OVERLAY_PREFAB, "Overlay")
+	overlay = Utility.make_child(self, overlay_prefab.instantiate(), "Overlay")
+	overlay.hide()
 	
-	reset()
+	timer = Utility.make_child(self, Timer.new(), "Timer")
+	timer.one_shot = true
+	timer.autostart = false
 
-func reset() -> void:
-	pass
+func play() -> void:
+	assert(overlay.visible)
+	finished.emit()
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

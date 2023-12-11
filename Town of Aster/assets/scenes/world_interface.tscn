@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://myqrphp0fbrc"]
+[gd_scene load_steps=3 format=3 uid="uid://myqrphp0fbrc"]
 
 [ext_resource type="Script" path="res://src/world_interface.gd" id="1_swu8f"]
+[ext_resource type="PackedScene" uid="uid://cwol5e2ccix6o" path="res://assets/scenes/world_menu.tscn" id="2_n5l82"]
 
 [node name="WorldInterface" type="CanvasLayer"]
 script = ExtResource("1_swu8f")
+
+[node name="WorldMenu" parent="." instance=ExtResource("2_n5l82")]

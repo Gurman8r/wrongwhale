@@ -6,14 +6,14 @@ signal started()
 signal finished()
 
 func _ready() -> void:
-	set_physics_process(false)
+	Utility.set_active(self, false)
 
 func _enter_state() -> void:
-	print("enter: %s" % [name])
-	set_physics_process(true)
+	print(">> %s" % [name])
+	Utility.set_active(self, true)
 	started.emit()
 
 func _exit_state() -> void:
-	print("exit: %s" % [name])
-	set_physics_process(false)
+	print("<< %s" % [name])
+	Utility.set_active(self, false)
 	finished.emit()

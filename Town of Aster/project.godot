@@ -15,6 +15,7 @@ run/main_scene="res://assets/scenes/main.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name=".townofaster"
 config/features=PackedStringArray("4.2", "Mobile")
+boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
 config/icon="res://icon.svg"
 
@@ -24,6 +25,7 @@ Settings="*res://src/settings.gd"
 Registry="*res://src/registry.gd"
 Game="*res://src/game.gd"
 World="*res://src/world.gd"
+Player="*res://src/player.gd"
 Title="*res://src/title.gd"
 Splash="*res://src/splash.gd"
 Transition="*res://src/transition.gd"

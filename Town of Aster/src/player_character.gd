@@ -5,15 +5,6 @@ extends WorldCharacter
 enum { LEFT, RIGHT, FORWARD, BACKWARD }
 enum { PRIMARY_BEGIN, PRIMARY, PRIMARY_END, SECONDARY_BEGIN, SECONDARY, SECONDARY_END, }
 
-signal move(delta: float, direction: Vector3)
-signal move_collide(body: KinematicCollision3D)
-signal toggle_debug()
-signal toggle_inventory()
-signal hotbar_prev()
-signal hotbar_next()
-signal hotbar_select(index: int)
-signal action(mode: int)
-
 @export var data: PlayerData
 
 @export var move_speed: float = 5
@@ -41,18 +32,18 @@ var move_input: Array[bool] = [0, 0, 0, 0]
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	assert(Game.player == null)
-	Game.player = self
+	Player.character = self
+	Player.data = data
 
 func _notification(what):
 	match what:
 		NOTIFICATION_PREDELETE:
-			assert(Game.player == self)
-			Game.player = null
+			Player.character = null
+			Player.data = null
 
 func _ready() -> void:
-	action.connect(func(mode: int):
-		data.inventory_data.use_stack(item_index, mode, self))
+	Player.action.connect(func(mode: int):
+		Player.data.inventory_data.use_stack(item_index, mode, self))
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 	
@@ -67,36 +58,36 @@ func _input(event) -> void:
 			deg_to_rad(camera_angle_max_degrees))
 	
 	# primary action
-	if Input.is_action_just_pressed("primary"): action.emit(PRIMARY_BEGIN)
-	elif Input.is_action_pressed("primary"): action.emit(PRIMARY)
-	elif Input.is_action_just_released("primary"): action.emit(PRIMARY_END)
+	if Input.is_action_just_pressed("primary"): Player.action.emit(PRIMARY_BEGIN)
+	elif Input.is_action_pressed("primary"): Player.action.emit(PRIMARY)
+	elif Input.is_action_just_released("primary"): Player.action.emit(PRIMARY_END)
 	
 	# secondary action
-	if Input.is_action_just_pressed("secondary"): action.emit(SECONDARY_BEGIN)
-	elif Input.is_action_pressed("secondary"): action.emit(SECONDARY)
-	elif Input.is_action_just_released("secondary"): action.emit(SECONDARY_END)
+	if Input.is_action_just_pressed("secondary"): Player.action.emit(SECONDARY_BEGIN)
+	elif Input.is_action_pressed("secondary"): Player.action.emit(SECONDARY)
+	elif Input.is_action_just_released("secondary"): Player.action.emit(SECONDARY_END)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _unhandled_input(_event) -> void:
 	# toggle ui
-	if Input.is_action_just_pressed("toggle_debug"): toggle_debug.emit()
-	if Input.is_action_just_pressed("toggle_inventory"): toggle_inventory.emit()
-	#if Input.is_action_just_pressed("toggle_collection"): Game.game_ui.set_current_tab(GameUI.COLLECTION)
-	#if Input.is_action_just_pressed("toggle_skills"): Game.game_ui.set_current_tab(GameUI.SKILLS)
-	#if Input.is_action_just_pressed("toggle_journal"): Game.game_ui.set_current_tab(GameUI.JOURNAL)
-	#if Input.is_action_just_pressed("toggle_options"): Game.game_ui.set_current_tab(GameUI.OPTIONS)
-	#if Input.is_action_just_pressed("toggle_system"): Game.game_ui.set_current_tab(GameUI.SYSTEM)
+	if Input.is_action_just_pressed("toggle_debug"): Player.toggle_debug.emit()
+	if Input.is_action_just_pressed("toggle_inventory"): Player.toggle_inventory.emit()
+	#if Input.is_action_just_pressed("toggle_collection"): Player.interface.set_current_tab(GameUI.COLLECTION)
+	#if Input.is_action_just_pressed("toggle_skills"): Player.interface.set_current_tab(GameUI.SKILLS)
+	#if Input.is_action_just_pressed("toggle_journal"): Player.interface.set_current_tab(GameUI.JOURNAL)
+	#if Input.is_action_just_pressed("toggle_options"): Player.interface.set_current_tab(GameUI.OPTIONS)
+	#if Input.is_action_just_pressed("toggle_system"): Player.interface.set_current_tab(GameUI.SYSTEM)
 	
 	# hotbar
-	if Input.is_action_just_released("hotbar_prev"): hotbar_prev.emit()
-	elif Input.is_action_just_released("hotbar_next"): hotbar_next.emit()
+	if Input.is_action_just_released("hotbar_prev"): Player.hotbar_prev.emit()
+	elif Input.is_action_just_released("hotbar_next"): Player.hotbar_next.emit()
 	for i in range(0, 10):
 		if Input.is_action_just_pressed("hotbar_%d" % [i]):
-			Game.game_ui.hotbar_inventory.set_item_index(i - 1)
-			hotbar_select.emit(i - 1)
+			Player.overlay.hotbar_inventory.set_item_index(i - 1)
+			Player.hotbar_select.emit(i - 1)
 			break
-	item_index = Game.game_ui.hotbar_inventory.item_index
+	item_index = Player.overlay.hotbar_inventory.item_index
 	
 	# movement
 	move_input[LEFT] = Input.is_action_pressed("move_left")
@@ -120,8 +111,8 @@ func _process(delta: float) -> void:
 	if move_axes.x != 0 or move_axes.z != 0:
 		data.direction = (data.direction + move_axes).normalized()
 		var body = move_and_collide(move_axes * move_speed * delta)
-		move.emit(delta, move_axes)
-		if body: move_collide.emit(body)
+		Player.move.emit(delta, move_axes)
+		if body: Player.move_collide.emit(body)
 	data.position = global_transform.origin
 		
 	# update rotation

@@ -1,6 +1,113 @@
-[gd_scene load_steps=2 format=3 uid="uid://duffpurukjsif"]
+[gd_scene load_steps=7 format=3 uid="uid://duffpurukjsif"]
 
 [ext_resource type="Script" path="res://src/title_interface.gd" id="1_n3a4w"]
+[ext_resource type="Script" path="res://src/title_home.gd" id="2_25ser"]
+[ext_resource type="PackedScene" uid="uid://vw0n0v6gcdcl" path="res://assets/scenes/world_loader.tscn" id="3_g25i2"]
+[ext_resource type="PackedScene" uid="uid://dqv85mwq11dpo" path="res://assets/scenes/world_creator.tscn" id="4_cyqy5"]
+[ext_resource type="PackedScene" uid="uid://bwsftfna5831c" path="res://assets/scenes/mod_menu.tscn" id="5_1igw4"]
+[ext_resource type="PackedScene" uid="uid://cn6nx0dd15xf6" path="res://assets/scenes/option_menu.tscn" id="6_au4yk"]
 
 [node name="TitleInterface" type="CanvasLayer"]
 script = ExtResource("1_n3a4w")
+
+[node name="TitleHome" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(160, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -89.5
+offset_right = 80.0
+offset_bottom = 89.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_25ser")
+
+[node name="MarginContainer" type="MarginContainer" parent="TitleHome"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TitleHome/MarginContainer"]
+layout_mode = 2
+
+[node name="LoadButton" type="Button" parent="TitleHome/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Load"
+
+[node name="NewButton" type="Button" parent="TitleHome/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "New"
+
+[node name="ModsButton" type="Button" parent="TitleHome/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Mods"
+
+[node name="SettingsButton" type="Button" parent="TitleHome/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+
+[node name="QuitButton" type="Button" parent="TitleHome/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit
+"
+
+[node name="WorldLoader" parent="." instance=ExtResource("3_g25i2")]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -88.0
+offset_top = -42.0
+offset_right = 88.0
+offset_bottom = 42.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="WorldCreator" parent="." instance=ExtResource("4_cyqy5")]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -238.0
+offset_top = -148.0
+offset_right = 238.0
+offset_bottom = 148.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ModMenu" parent="." instance=ExtResource("5_1igw4")]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.0
+offset_top = -20.0
+offset_right = 84.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SettingsMenu" parent="." instance=ExtResource("6_au4yk")]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -142.0
+offset_top = -108.0
+offset_right = 142.0
+offset_bottom = 108.0
+grow_horizontal = 2
+grow_vertical = 2

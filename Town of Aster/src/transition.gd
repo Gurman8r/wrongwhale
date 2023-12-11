@@ -1,23 +1,24 @@
 # transition.gd
 # Transition
-extends Node
+extends System
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 signal finished()
 
-# prefabs
-const OVERLAY_PREFAB = preload("res://assets/scenes/transition_overlay.tscn")
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 var overlay: TransitionOverlay
+const overlay_prefab = preload("res://assets/scenes/transition_overlay.tscn")
 
-func _init() -> void:
-	process_mode = Node.PROCESS_MODE_ALWAYS
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _ready():
-	overlay = Utility.make(self, OVERLAY_PREFAB, "Overlay")
-	reset()
+	overlay = Utility.make_child(self, overlay_prefab.instantiate(), "Overlay")
 
-func reset() -> void:
-	overlay.reset()
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func play(animation: String) -> void:
 	overlay.play(animation)
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

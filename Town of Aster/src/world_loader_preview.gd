@@ -33,7 +33,9 @@ func set_world_data(value: WorldData):
 	world_data = value
 	
 	play_button.pressed.connect(func():
-		Game.load_world_from_memory(world_data))
+		#Game.load_world_from_memory(world_data)
+		World.data = world_data
+		Game.main.change_state(Game.world_state))
 	
 	farm_name_label.text = "%s Farm" % [world_data.farm_data.name]
 	
@@ -76,7 +78,7 @@ func set_world_data(value: WorldData):
 	
 	delete_accept_button.pressed.connect(func():
 		Utility.wipe(WorldData.get_dir_path(world_data.guid))
-		Game.title_ui.world_loader.reset()
+		Title.interface.world_loader.reset()
 		queue_free())
 	
 	delete_cancel_button.pressed.connect(func():

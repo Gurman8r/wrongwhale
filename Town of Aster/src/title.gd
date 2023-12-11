@@ -1,17 +1,18 @@
 # title.gd
 # Title
-extends Node
+extends System
 
-const INTERFACE_PREFAB = preload("res://assets/scenes/title_interface.tscn")
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+const interface_prefab = preload("res://assets/scenes/title_interface.tscn")
 var interface: TitleInterface
 
-func _init() -> void:
-	process_mode = Node.PROCESS_MODE_ALWAYS
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _ready() -> void:
-	interface = Utility.make(self, INTERFACE_PREFAB, "Interface")
-	reset()
+	interface = Utility.make_child(self, interface_prefab.instantiate(), "Interface")
+	interface.hide()
 
-func reset() -> void:
-	pass
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

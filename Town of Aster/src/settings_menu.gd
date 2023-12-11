@@ -1,5 +1,5 @@
-# option_menu.gd
-class_name OptionMenu
+# settings_menu.gd
+class_name SettingsMenu
 extends PanelContainer
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -17,7 +17,8 @@ var window_sizes: Array[Vector2i]
 func _ready():
 	reset()
 	
-	back_button.pressed.connect(func(): Game.title_ui.current = Game.title_ui.home)
+	back_button.pressed.connect(func():
+		Title.interface.menu = Title.interface.home)
 	
 	#graphics_vsync_button.pressed.connect(func():
 	#	graphics_vsync_button.release_focus())

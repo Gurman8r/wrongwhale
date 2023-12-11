@@ -54,7 +54,7 @@ static func get_path_list() -> Array[String]:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-static func make_test() -> WorldData:
+static func make_dir_absolute_test() -> WorldData:
 	var f: FarmData = FarmData.new()
 	f.name = "Test"
 	

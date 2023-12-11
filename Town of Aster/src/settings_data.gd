@@ -2,6 +2,8 @@
 class_name SettingsData
 extends Resource
 
+@export var skip_splash: bool = false
+
 @export var recent_save: String = ""
 
 @export var window_mode: int = DisplayServer.WINDOW_MODE_WINDOWED

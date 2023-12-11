@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cn6nx0dd15xf6"]
 
-[ext_resource type="Script" path="res://src/option_menu.gd" id="1_gxxr8"]
+[ext_resource type="Script" path="res://src/settings_menu.gd" id="1_gxxr8"]
 [ext_resource type="SystemFont" uid="uid://be14qyvbd8lox" path="res://assets/fonts/system_font.tres" id="2_fmvha"]
 
 [node name="OptionsMenu" type="PanelContainer"]

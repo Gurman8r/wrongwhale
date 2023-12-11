@@ -28,14 +28,14 @@ func play(animation: String) -> void:
 func reset() -> void:
 	animation_player.play("RESET")
 
-func fadeout() -> void:
+func fadein() -> void:
 	animation_player.play("dissolve")
 	await animation_player.animation_finished
-	finished.emit()
+	Transition.finished.emit()
 
-func fadein() -> void:
+func fadeout() -> void:
 	animation_player.play_backwards("dissolve")
 	await animation_player.animation_finished
-	finished.emit()
+	Transition.finished.emit()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

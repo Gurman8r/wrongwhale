@@ -3,8 +3,7 @@ class_name Utility
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-static func make(parent, prefab, name: String):
-	var node = prefab.instantiate()
+static func make_child(parent, node, name: String):
 	parent.add_child(node)
 	node.name = name
 	return node
@@ -20,9 +19,8 @@ static func rands(length: int, chars: String) -> String:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-static func set_enabled(node: Node, value: bool) -> void:
-	if not node: return
-	for child in node.get_children(): set_enabled(child, value)
+static func set_active(node: Node, value: bool) -> void:
+	assert(node)
 	node.set_physics_process(value)
 	node.set_physics_process_internal(value)
 	node.set_process(value)
@@ -31,6 +29,13 @@ static func set_enabled(node: Node, value: bool) -> void:
 	node.set_process_shortcut_input(value)
 	node.set_process_unhandled_input(value)
 	node.set_process_unhandled_key_input(value)
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+static func set_enabled(node: Node, value: bool, recursive: bool = true) -> void:
+	if not node: return
+	if recursive: for child in node.get_children(): set_enabled(child, value)
+	set_active(node, value)
 	if "visible" in node: node.visible = value
 	if "disabled" in node: node.disabled = not value
 
