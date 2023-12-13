@@ -35,13 +35,21 @@ func _unhandled_input(_event) -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+var paused: bool : get = get_paused, set = set_paused
+
+func get_paused() -> bool:
+	return get_tree().paused
+
+func set_paused(value: bool) -> void:
+	if value: Debug.puts(" | pause")
+	else: Debug.puts(" | unpause")
+	get_tree().paused = value
+
 func pause() -> void:
-	Debug.puts(" | pause")
-	get_tree().paused = true
+	set_paused(true)
 
 func unpause() -> void:
-	Debug.puts(" | unpause")
-	get_tree().paused = false
+	set_paused(false)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

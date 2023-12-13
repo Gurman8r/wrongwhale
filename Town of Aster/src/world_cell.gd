@@ -15,7 +15,7 @@ func _ready() -> void:
 var enabled: bool = false : set = set_enabled
 
 func set_enabled(value: bool) -> void:
-	Utility.set_enabled(self, value)
+	Util.set_enabled(self, value)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

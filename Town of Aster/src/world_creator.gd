@@ -117,7 +117,7 @@ func _ready():
 	seed_edit.text_submitted.connect(func(_new_text: String):
 		seed_edit.release_focus())
 	seed_randomize_button.pressed.connect(func():
-		world_data.world_seed = Utility.rands(SEED_MAX, SEED_CHARS)
+		world_data.world_seed = Util.rands(SEED_MAX, SEED_CHARS)
 		seed_edit.text = world_data.world_seed
 		seed_randomize_button.release_focus())
 
@@ -157,7 +157,7 @@ func _on_button_play_pressed():
 	world_data.index = WorldData.get_path_list().size()
 	
 	if world_data.world_seed.is_empty():
-		world_data.world_seed = Utility.rands(SEED_MAX, SEED_CHARS)
+		world_data.world_seed = Util.rands(SEED_MAX, SEED_CHARS)
 	
 	player_data.guid = player_data.name.replace(" ", "_")
 	player_data.position = Vector3.ZERO

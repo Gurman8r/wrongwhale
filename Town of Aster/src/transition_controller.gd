@@ -15,8 +15,8 @@ var overlay: TransitionOverlay
 
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	canvas = Utility.make_child(self, CanvasLayer.new(), "Canvas")
-	overlay = Utility.make_child(canvas, preload("res://assets/scenes/transition_overlay.tscn").instantiate(), "Overlay")
+	canvas = Util.make_as_child(self, CanvasLayer.new(), "Canvas")
+	overlay = Util.make_as_child(canvas, preload("res://assets/scenes/transition_overlay.tscn").instantiate(), "Overlay")
 
 func _ready() -> void:
 	assert(canvas.visible)

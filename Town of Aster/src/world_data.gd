@@ -18,13 +18,13 @@ const DIR := "user://saves"
 const FILE := "world.tres"
 
 static func read(path_stem: String) -> WorldData:
-	return Utility.read(get_file_path(path_stem))
+	return Util.read(get_file_path(path_stem))
 
 static func write(world_data: WorldData, path_stem: String = "") -> Error:
 	assert(world_data)
 	if path_stem.is_empty(): path_stem = world_data.guid
 	var dir_path = get_dir_path(path_stem)
-	Utility.wipe(dir_path)
+	Util.wipe(dir_path)
 	DirAccess.make_dir_absolute(dir_path)
 	return ResourceSaver.save(world_data, get_file_path(path_stem))
 

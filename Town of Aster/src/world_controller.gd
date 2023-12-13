@@ -43,8 +43,8 @@ func set_environment(value: Environment) -> void:
 
 func reset_environment() -> void:
 	if world_environment == null:
-		world_environment = Utility.make_child(self, WorldEnvironment.new(), "WorldEnvironment")
-	world_environment.environment = preload("res://assets/data/environment.tres").duplicate()
+		world_environment = Util.make_as_child(self, WorldEnvironment.new(), "WorldEnvironment")
+	world_environment.environment = preload("res://assets/data/default_environment.tres").duplicate()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -73,7 +73,7 @@ func transfer(node: Node3D, new_cell: WorldCell, position: Vector3 = Vector3.ZER
 		node.data.cell_name = cell.name
 
 func reset_cells() -> void:
-	cell_root = Utility.make_child(self, preload("res://assets/scenes/world_cells.tscn").instantiate(), "WorldCells")
+	cell_root = Util.make_as_child(self, preload("res://assets/scenes/world_cells.tscn").instantiate(), "WorldCells")
 	cell_root.process_mode = Node.PROCESS_MODE_PAUSABLE
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

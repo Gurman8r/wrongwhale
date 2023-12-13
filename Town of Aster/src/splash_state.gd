@@ -22,7 +22,7 @@ func _enter_state() -> void:
 	
 	# skip splash
 	if Settings.data.splash_delay <= 0.0:
-		Debug.puts(" | skip_splash")
+		Debug.puts(" | nosplash")
 		Game.main.change_state(Game.main.title_state)
 		Transition.play("fadein")
 		await Transition.finished
@@ -37,7 +37,7 @@ func _enter_state() -> void:
 		Splash.overlay.icon.texture = t
 		Transition.play("fadein")
 		await Transition.finished
-		Debug.puts(" | play_splash %d" % [i])
+		Debug.puts(" | splash%d" % [i])
 		Splash.timer.start(Settings.data.splash_delay)
 		await Splash.timer.timeout
 		Transition.play("fadeout")

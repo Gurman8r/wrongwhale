@@ -12,14 +12,14 @@ signal exited()
 func _ready() -> void:
 	entered.connect(func(): Debug.puts(">> %s" % [name]))
 	exited.connect(func(): Debug.puts("<< %s\n" % [name]))
-	Utility.set_active(self, false)
+	Util.set_active(self, false)
 
 func _enter_state() -> void:
-	Utility.set_active(self, true)
+	Util.set_active(self, true)
 	entered.emit()
 
 func _exit_state() -> void:
 	exited.emit()
-	Utility.set_active(self, false)
+	Util.set_active(self, false)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

@@ -6,6 +6,8 @@ extends Node
 
 const PATH := "user://data/registry.tres"
 
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 var data: RegistryData
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -21,13 +23,13 @@ func reset() -> void:
 	save_to_file()
 
 func load_defaults() -> void:
-	data = preload("res://assets/data/registry.tres").duplicate()
+	data = preload("res://assets/data/default_registry.tres").duplicate()
 
 func load_from_file() -> void:
-	data = Utility.read(PATH)
+	data = Util.read(PATH)
 
 func save_to_file() -> void:
-	Utility.write(data, PATH)
+	Util.write(data, PATH)
 
 func merge(registry_data: RegistryData) -> void:
 	if registry_data == null \

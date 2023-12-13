@@ -1,9 +1,9 @@
 # util.gd
-class_name Utility
+class_name Util
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-static func make_child(parent, node, name: String):
+static func make_as_child(parent, node, name: String):
 	parent.add_child(node)
 	node.name = name
 	return node
