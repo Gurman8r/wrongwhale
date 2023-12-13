@@ -1,6 +1,6 @@
 # hotbar_inventory.gd
 class_name HotbarInventory
-extends PanelContainer
+extends Control
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -27,7 +27,7 @@ func populate_item_grid(inventory_data: InventoryData) -> void:
 		child.queue_free()
 	for i in range(0, 10):
 		var stack = inventory_data.stacks[i]
-		var slot = preload("res://assets/scenes/inventory_slot.tscn").instantiate()
+		var slot = Prefabs.INVENTORY_SLOT.instantiate()
 		slot.index = slots.size()
 		slots.append(slot)
 		h_box_container.add_child(slot)

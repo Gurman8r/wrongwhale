@@ -1,70 +1,25 @@
-[gd_scene load_steps=7 format=3 uid="uid://cyqrx6y1cdwmc"]
+[gd_scene load_steps=7 format=3 uid="uid://bhg3bk0eojpef"]
 
-[ext_resource type="Script" path="res://src/title_interface.gd" id="1_n3a4w"]
-[ext_resource type="Script" path="res://src/title_home.gd" id="2_25ser"]
-[ext_resource type="PackedScene" uid="uid://vw0n0v6gcdcl" path="res://assets/scenes/world_loader.tscn" id="3_g25i2"]
-[ext_resource type="PackedScene" uid="uid://dqv85mwq11dpo" path="res://assets/scenes/world_creator.tscn" id="4_cyqy5"]
-[ext_resource type="PackedScene" uid="uid://bwsftfna5831c" path="res://assets/scenes/mod_menu.tscn" id="5_1igw4"]
-[ext_resource type="PackedScene" uid="uid://cn6nx0dd15xf6" path="res://assets/scenes/option_menu.tscn" id="6_au4yk"]
+[ext_resource type="Script" path="res://src/title_interface.gd" id="1_ic3qv"]
+[ext_resource type="PackedScene" uid="uid://o4pjvvpcbgku" path="res://assets/scenes/title_home.tscn" id="2_2yb1l"]
+[ext_resource type="PackedScene" uid="uid://dqv85mwq11dpo" path="res://assets/scenes/world_creator.tscn" id="4_jccja"]
+[ext_resource type="PackedScene" uid="uid://vw0n0v6gcdcl" path="res://assets/scenes/world_loader.tscn" id="4_yb5tt"]
+[ext_resource type="PackedScene" uid="uid://bwsftfna5831c" path="res://assets/scenes/mod_menu.tscn" id="5_w11ib"]
+[ext_resource type="PackedScene" uid="uid://cn6nx0dd15xf6" path="res://assets/scenes/option_menu.tscn" id="6_kju3t"]
 
-[node name="Interface" type="Control"]
+[node name="TitleInterface" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
-script = ExtResource("1_n3a4w")
+script = ExtResource("1_ic3qv")
 
-[node name="TitleHome" type="PanelContainer" parent="."]
-custom_minimum_size = Vector2(160, 0)
+[node name="TitleHome" parent="." instance=ExtResource("2_2yb1l")]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -80.0
-offset_top = -89.5
-offset_right = 80.0
-offset_bottom = 89.5
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("2_25ser")
 
-[node name="MarginContainer" type="MarginContainer" parent="TitleHome"]
-layout_mode = 2
-theme_override_constants/margin_left = 4
-theme_override_constants/margin_top = 4
-theme_override_constants/margin_right = 4
-theme_override_constants/margin_bottom = 4
-
-[node name="VBoxContainer" type="VBoxContainer" parent="TitleHome/MarginContainer"]
-layout_mode = 2
-
-[node name="LoadButton" type="Button" parent="TitleHome/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Load"
-
-[node name="NewButton" type="Button" parent="TitleHome/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "New"
-
-[node name="ModsButton" type="Button" parent="TitleHome/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Mods"
-
-[node name="SettingsButton" type="Button" parent="TitleHome/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Settings"
-
-[node name="QuitButton" type="Button" parent="TitleHome/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Quit
-"
-
-[node name="WorldLoader" parent="." instance=ExtResource("3_g25i2")]
+[node name="WorldLoader" parent="." instance=ExtResource("4_yb5tt")]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -79,7 +34,7 @@ offset_bottom = 42.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="WorldCreator" parent="." instance=ExtResource("4_cyqy5")]
+[node name="WorldCreator" parent="." instance=ExtResource("4_jccja")]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -94,7 +49,7 @@ offset_bottom = 148.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ModMenu" parent="." instance=ExtResource("5_1igw4")]
+[node name="ModMenu" parent="." instance=ExtResource("5_w11ib")]
 visible = false
 layout_mode = 1
 anchors_preset = 8
@@ -109,7 +64,7 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SettingsMenu" parent="." instance=ExtResource("6_au4yk")]
+[node name="SettingsMenu" parent="." instance=ExtResource("6_kju3t")]
 visible = false
 layout_mode = 1
 anchors_preset = 8

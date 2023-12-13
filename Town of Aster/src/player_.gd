@@ -35,8 +35,8 @@ var item_index: int
 func _init() -> void:
 	process_mode = PROCESS_MODE_ALWAYS
 	canvas = Util.make(self, CanvasLayer.new(), "Canvas")
-	overlay = Util.make(canvas, preload("res://assets/scenes/player_overlay.tscn").instantiate(), "Overlay")
-	interface = Util.make(canvas, preload("res://assets/scenes/player_interface.tscn").instantiate(), "Interface")
+	overlay = Util.make(canvas, Prefabs.PLAYER_OVERLAY.instantiate(), "Overlay")
+	interface = Util.make(canvas, Prefabs.PLAYER_INTERFACE.instantiate(), "Interface")
 
 func _ready() -> void:
 	assert(canvas.visible)

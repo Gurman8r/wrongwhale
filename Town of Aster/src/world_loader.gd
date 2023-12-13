@@ -29,7 +29,7 @@ func reset() -> void:
 			if not world_dir: continue
 			world_dir.list_dir_begin()
 			if world_dir.file_exists("world.tres"):
-				var preview: WorldLoaderPreview = preload("res://assets/scenes/world_loader_preview.tscn").instantiate()
+				var preview: WorldLoaderPreview = Prefabs.WORLD_LOADER_PREVIEW.instantiate()
 				preview_root.add_child(preview)
 				preview.set_world_data(WorldData.read(path))
 		path = saves_dir.get_next()

@@ -21,6 +21,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+Prefabs="*res://src/prefabs_.gd"
 Settings="*res://src/settings_.gd"
 Registry="*res://src/registry_.gd"
 Game="*res://src/game_.gd"

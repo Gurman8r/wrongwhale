@@ -4,11 +4,7 @@ extends State
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-const GODOT_ICON = preload("res://icon.svg")
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-var icon_textures: Array[Texture] = [ GODOT_ICON, ]
+var icon_textures: Array[Texture] = [ Prefabs.GODOT_ICON ]
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

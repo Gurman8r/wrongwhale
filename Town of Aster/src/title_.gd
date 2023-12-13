@@ -12,7 +12,7 @@ var canvas: CanvasLayer
 func _init() -> void:
 	process_mode = PROCESS_MODE_ALWAYS
 	canvas = Util.make(self, CanvasLayer.new(), "Canvas")
-	interface = Util.make(canvas, preload("res://assets/scenes/title_interface.tscn").instantiate(), "Interface")
+	interface = Util.make(canvas, Prefabs.TITLE_INTERFACE.instantiate(), "Interface")
 	
 func _ready() -> void:
 	assert(canvas.visible)

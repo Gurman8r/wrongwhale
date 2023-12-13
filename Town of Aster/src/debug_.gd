@@ -13,8 +13,8 @@ var interface: DebugInterface
 func _init() -> void:
 	process_mode = PROCESS_MODE_ALWAYS
 	canvas = Util.make(self, CanvasLayer.new(), "Canvas")
-	overlay = Util.make(canvas, preload("res://assets/scenes/debug_overlay.tscn").instantiate(), "Overlay")
-	interface = Util.make(canvas, preload("res://assets/scenes/debug_interface.tscn").instantiate(), "Interface")
+	overlay = Util.make(canvas, Prefabs.DEBUG_OVERLAY.instantiate(), "Overlay")
+	interface = Util.make(canvas, Prefabs.DEBUG_INTERFACE.instantiate(), "Interface")
 
 func _ready() -> void:
 	assert(canvas.visible)

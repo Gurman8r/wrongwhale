@@ -1,33 +1,20 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=4 format=3 uid="uid://1vbe81yk0rmc"]
 
 [ext_resource type="Script" path="res://src/item_drop.gd" id="1_bl2fy"]
-[ext_resource type="Resource" path="res://assets/items/potion.tres" id="2_814yr"]
-[ext_resource type="Script" path="res://src/item_stack.gd" id="3_vpe8c"]
-[ext_resource type="Texture2D" path="res://assets/textures/item_icons.png" id="4_7dswr"]
-
-[sub_resource type="Resource" id="Resource_se2iu"]
-script = ExtResource("3_vpe8c")
-item_data = ExtResource("2_814yr")
-quantity = 1
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_o2d1v"]
-atlas = ExtResource("4_7dswr")
-region = Rect2(384, 288, 32, 32)
+[ext_resource type="Texture2D" uid="uid://jqpchnuuc3nj" path="res://assets/textures/item_atlas.tres" id="2_yiy3m"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_g0dpn"]
 
 [node name="ItemDrop" type="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.43693, 0.5, -7.48194)
 collision_layer = 0
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 script = ExtResource("1_bl2fy")
-stack = SubResource("Resource_se2iu")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, 0)
 texture_filter = 0
-texture = SubResource("AtlasTexture_o2d1v")
+texture = ExtResource("2_yiy3m")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_g0dpn")

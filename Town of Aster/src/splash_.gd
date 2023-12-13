@@ -17,7 +17,7 @@ var timer: Timer
 func _init() -> void:
 	process_mode = PROCESS_MODE_ALWAYS
 	canvas = Util.make(self, CanvasLayer.new(), "Canvas")
-	overlay = Util.make(canvas, preload("res://assets/scenes/splash_overlay.tscn").instantiate(), "Overlay")
+	overlay = Util.make(canvas, Prefabs.SPLASH_OVERLAY.instantiate(), "Overlay")
 	timer = Util.make(self, Timer.new(), "Timer")
 	timer.one_shot = true
 

@@ -25,7 +25,7 @@ func reset() -> void:
 	#save_to_file()
 
 func load_defaults() -> void:
-	data = preload("res://assets/data/default_registry.tres").duplicate()
+	data = Prefabs.DEFAULT_REGISTRY.duplicate()
 
 func load_from_file() -> void:
 	data = Util.read(PATH)

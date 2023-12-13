@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/settings_menu.gd" id="1_gxxr8"]
 [ext_resource type="SystemFont" uid="uid://be14qyvbd8lox" path="res://assets/fonts/system_font.tres" id="2_fmvha"]
 
-[node name="OptionsMenu" type="PanelContainer"]
+[node name="SettingsMenu" type="PanelContainer"]
 script = ExtResource("1_gxxr8")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]

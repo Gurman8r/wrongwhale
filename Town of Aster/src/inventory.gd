@@ -1,6 +1,6 @@
 # inventory.gd
 class_name Inventory
-extends PanelContainer
+extends Control
 
 @onready var grid_container = $MarginContainer/GridContainer
 
@@ -20,7 +20,7 @@ func populate_item_grid(inventory_data: InventoryData) -> void:
 	for child in grid_container.get_children():
 		child.queue_free()
 	for stack in inventory_data.stacks:
-		var slot = preload("res://assets/scenes/inventory_slot.tscn").instantiate()
+		var slot = Prefabs.INVENTORY_SLOT.instantiate()
 		slot.index = slots.size()
 		slots.append(slot)
 		grid_container.add_child(slot)

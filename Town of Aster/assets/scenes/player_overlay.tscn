@@ -1,21 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://bm1302xabbjvs"]
+[gd_scene load_steps=3 format=3 uid="uid://cxjsl7mi0rwye"]
 
-[ext_resource type="Script" path="res://src/player_overlay.gd" id="1_8awoc"]
-[ext_resource type="PackedScene" uid="uid://btt626ac6pku1" path="res://assets/scenes/hotbar_inventory.tscn" id="2_4b42q"]
+[ext_resource type="Script" path="res://src/player_overlay.gd" id="1_22g4t"]
+[ext_resource type="PackedScene" uid="uid://dnhnrabrf57os" path="res://assets/scenes/hotbar_inventory.tscn" id="2_u1q8k"]
 
-[node name="Overlay" type="Control"]
-visible = false
+[node name="PlayerOverlay" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("1_8awoc")
+script = ExtResource("1_22g4t")
 
-[node name="HotbarInventory" parent="." instance=ExtResource("2_4b42q")]
+[node name="HotbarInventory" parent="." instance=ExtResource("2_u1q8k")]
 layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -342.0
+offset_top = -72.0
+offset_right = 342.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [node name="InteractLabel" type="Label" parent="."]
 layout_mode = 1
@@ -24,9 +33,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
+offset_left = -0.5
 offset_top = -11.5
-offset_right = 20.0
+offset_right = 0.5
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
