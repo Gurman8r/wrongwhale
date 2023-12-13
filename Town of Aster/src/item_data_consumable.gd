@@ -8,4 +8,4 @@ func use(owner: InventoryData, index: int, state: int, target: Node) -> void:
 		stack.quantity -= 1
 		if stack.quantity < 1:
 			owner.stacks[index] = null
-		print("%s consumed %s" % [target.name, to_string()])
+		Debug.puts("%s consumed %s" % [target.name, to_string()])

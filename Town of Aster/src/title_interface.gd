@@ -1,6 +1,6 @@
 # title_interface.gd
 class_name TitleInterface
-extends SystemInterface
+extends Control
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -12,6 +12,9 @@ extends SystemInterface
 @onready var settings: SettingsMenu = $SettingsMenu
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func _init() -> void:
+	mouse_filter = Control.MOUSE_FILTER_PASS
 
 func _ready():
 	visibility_changed.connect(_on_visibility_changed)

@@ -1,3 +1,6 @@
 # debug_interface.gd
 class_name DebugInterface
-extends SystemInterface
+extends Control
+
+func _init() -> void:
+	mouse_filter = Control.MOUSE_FILTER_PASS

@@ -1,6 +1,6 @@
 # game_controller.gd
 # Game
-extends SystemController
+extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -15,7 +15,7 @@ const SAVES_DIR := "user://saves"
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	super._init()
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	DirAccess.make_dir_absolute(DATA_DIR)
 	DirAccess.make_dir_absolute(MODS_DIR)
 	DirAccess.make_dir_absolute(SAVES_DIR)
@@ -36,11 +36,11 @@ func _unhandled_input(_event) -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func pause() -> void:
-	print("$| pause")
+	Debug.puts(" | pause")
 	get_tree().paused = true
 
 func unpause() -> void:
-	print("$| unpause")
+	Debug.puts(" | unpause")
 	get_tree().paused = false
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -48,7 +48,7 @@ func unpause() -> void:
 #region FLOW_CONTROL
 
 func load_from_memory(world_data: WorldData) -> void:
-	print("$| load_from_memory")
+	Debug.puts(" | load_from_memory")
 	Transition.play("fadeout")
 	await Transition.finished
 	World.data = world_data
@@ -57,7 +57,7 @@ func load_from_memory(world_data: WorldData) -> void:
 	await Transition.finished
 
 func load_from_file(path_stem: String) -> void:
-	print("$| load_from_file")
+	Debug.puts(" | load_from_file")
 	Transition.play("fadeout")
 	await Transition.finished
 	World.data = WorldData.read(path_stem)
@@ -68,14 +68,14 @@ func load_from_file(path_stem: String) -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func quit_to_desktop() -> void:
-	print("$| quit_to_desktop")
+	Debug.puts(" | quit_to_desktop")
 	Transition.play("fadeout")
 	await Transition.finished
 	main.force_exit()
 	get_tree().quit()
 
 func save_to_file_and_quit_to_desktop(path_stem: String = "") -> void:
-	print("$| save_to_file_and_quit_to_desktop")
+	Debug.puts(" | save_to_file_and_quit_to_desktop")
 	Transition.play("fadeout")
 	await Transition.finished
 	World.save(path_stem)
@@ -86,7 +86,7 @@ func save_to_file_and_quit_to_desktop(path_stem: String = "") -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func quit_to_title() -> void:
-	print("$| quit_to_title")
+	Debug.puts(" | quit_to_title")
 	Transition.play("fadeout")
 	await Transition.finished
 	World.unload()
@@ -95,7 +95,7 @@ func quit_to_title() -> void:
 	await Transition.finished
 
 func save_to_file_and_quit_to_title(path_stem: String = "") -> void:
-	print("$| save_to_file_and_quit_to_title")
+	Debug.puts(" | save_to_file_and_quit_to_title")
 	Transition.play("fadeout")
 	await Transition.finished
 	World.save(path_stem)

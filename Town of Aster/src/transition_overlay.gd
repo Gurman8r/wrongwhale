@@ -1,6 +1,6 @@
 # transition_overlay.gd
 class_name TransitionOverlay
-extends SystemOverlay
+extends Control
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -10,6 +10,9 @@ signal finished()
 @onready var animation_player = $AnimationPlayer
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func _init() -> void:
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 func _ready() -> void:
 	reset()

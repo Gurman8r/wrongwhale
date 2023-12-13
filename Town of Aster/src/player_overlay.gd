@@ -1,6 +1,6 @@
 # player_overlay.gd
 class_name PlayerOverlay
-extends SystemOverlay
+extends Control
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -10,6 +10,9 @@ extends SystemOverlay
 var player_data: PlayerData
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func _init() -> void:
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 func set_player_data(value: PlayerData) -> void:
 	if player_data == value: return

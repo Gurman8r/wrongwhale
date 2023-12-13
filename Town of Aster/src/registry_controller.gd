@@ -1,6 +1,6 @@
 # registry_controller.gd
 # Registry
-extends SystemController
+extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -9,6 +9,9 @@ const PATH := "user://data/registry.tres"
 var data: RegistryData
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func _init() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _ready() -> void:
 	reset()

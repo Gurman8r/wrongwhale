@@ -1,6 +1,6 @@
 # player_controller.gd
 # Player
-extends SystemController
+extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -26,7 +26,7 @@ var character: PlayerCharacter
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	super._init()
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	canvas = Utility.make_child(self, CanvasLayer.new(), "Canvas")
 	overlay = Utility.make_child(canvas, preload("res://assets/scenes/player_overlay.tscn").instantiate(), "Overlay")
 	interface = Utility.make_child(canvas, preload("res://assets/scenes/player_interface.tscn").instantiate(), "Interface")

@@ -10,8 +10,8 @@ signal exited()
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _ready() -> void:
-	entered.connect(func(): print(">| %s" % [name]))
-	exited.connect(func(): print("<| %s\n" % [name]))
+	entered.connect(func(): Debug.puts(">> %s" % [name]))
+	exited.connect(func(): Debug.puts("<< %s\n" % [name]))
 	Utility.set_active(self, false)
 
 func _enter_state() -> void:

@@ -1,6 +1,6 @@
 # splash_controller.gd
 # Splash
-extends SystemController
+extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -15,7 +15,7 @@ var timer: Timer
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	super._init()
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	canvas = Utility.make_child(self, CanvasLayer.new(), "Canvas")
 	overlay = Utility.make_child(canvas, preload("res://assets/scenes/splash_overlay.tscn").instantiate(), "Overlay")
 	timer = Utility.make_child(self, Timer.new(), "Timer")

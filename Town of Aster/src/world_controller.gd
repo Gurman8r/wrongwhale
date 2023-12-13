@@ -1,6 +1,6 @@
 # world_controller.gd
 # World
-extends SystemController
+extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -25,6 +25,9 @@ var cells: Array[WorldCell] = []
 var objects: Array[Node3D] = []
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func _init() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _ready() -> void:
 	reset_environment()

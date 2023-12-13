@@ -1,6 +1,6 @@
 # transition_controller.gd
 # Transition
-extends SystemController
+extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -14,7 +14,7 @@ var overlay: TransitionOverlay
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	super._init()
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	canvas = Utility.make_child(self, CanvasLayer.new(), "Canvas")
 	overlay = Utility.make_child(canvas, preload("res://assets/scenes/transition_overlay.tscn").instantiate(), "Overlay")
 
@@ -25,7 +25,7 @@ func _ready() -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func play(animation: String) -> void:
-	print("T| %s" % [animation])
+	Debug.puts(" | %s" % [animation])
 	overlay.play(animation)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

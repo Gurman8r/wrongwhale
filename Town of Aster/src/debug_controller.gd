@@ -1,6 +1,6 @@
 # debug_controller.gd
 # Debug
-extends SystemController
+extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -11,7 +11,7 @@ var interface: DebugInterface
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	super._init()
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	canvas = Utility.make_child(self, CanvasLayer.new(), "Canvas")
 	overlay = Utility.make_child(canvas, preload("res://assets/scenes/debug_overlay.tscn").instantiate(), "Overlay")
 	interface = Utility.make_child(canvas, preload("res://assets/scenes/debug_interface.tscn").instantiate(), "Interface")
@@ -20,5 +20,12 @@ func _ready() -> void:
 	assert(canvas.visible)
 	overlay.hide()
 	interface.hide()
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func puts(value: String):
+	if Settings.data.verbose_logging:
+		print(value)
+	return self
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

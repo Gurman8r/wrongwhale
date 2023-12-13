@@ -16,14 +16,13 @@ func _enter_state() -> void:
 	super._enter_state()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
-	# brief pause so everything can snap into place
-	Splash.timer.start(0.5)
+	# wait a second so everything can snap into place
+	Splash.timer.start(1.0)
 	await Splash.timer.timeout
 	
 	# skip splash
-	var delay: float = Settings.data.splash_delay
-	if delay <= 0.0:
-		print("$| nosplash")
+	if Settings.data.splash_delay <= 0.0:
+		Debug.puts(" | skip_splash")
 		Game.main.change_state(Game.main.title_state)
 		Transition.play("fadein")
 		await Transition.finished
@@ -38,8 +37,8 @@ func _enter_state() -> void:
 		Splash.overlay.icon.texture = t
 		Transition.play("fadein")
 		await Transition.finished
-		print("$| splash %d" % [i])
-		Splash.timer.start(delay)
+		Debug.puts(" | play_splash %d" % [i])
+		Splash.timer.start(Settings.data.splash_delay)
 		await Splash.timer.timeout
 		Transition.play("fadeout")
 		await Transition.finished
