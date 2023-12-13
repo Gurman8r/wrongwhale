@@ -22,12 +22,13 @@ func clear_inventory_data(inventory_data: InventoryData) -> void:
 		inventory_data.inventory_updated.disconnect(populate_item_grid)
 
 func populate_item_grid(inventory_data: InventoryData) -> void:
-	slots.clear()
+	slots = []
 	for child in h_box_container.get_children():
 		child.queue_free()
 	for i in range(0, 10):
 		var stack = inventory_data.stacks[i]
 		var slot = preload("res://assets/scenes/inventory_slot.tscn").instantiate()
+		slot.index = slots.size()
 		slots.append(slot)
 		h_box_container.add_child(slot)
 		if stack: slot.set_stack(stack)

@@ -40,7 +40,7 @@ func set_environment(value: Environment) -> void:
 
 func reset_environment() -> void:
 	if world_environment == null:
-		world_environment = Utility.make_child(self, WorldEnvironment.new(), "Environment")
+		world_environment = Utility.make_child(self, WorldEnvironment.new(), "WorldEnvironment")
 	world_environment.environment = preload("res://assets/data/environment.tres").duplicate()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -70,7 +70,7 @@ func transfer(node: Node3D, new_cell: WorldCell, position: Vector3 = Vector3.ZER
 		node.data.cell_name = cell.name
 
 func reset_cells() -> void:
-	cell_root = Utility.make_child(self, preload("res://assets/scenes/world_cells.tscn").instantiate(), "Cells")
+	cell_root = Utility.make_child(self, preload("res://assets/scenes/world_cells.tscn").instantiate(), "WorldCells")
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -87,7 +87,7 @@ func reload() -> void:
 	assert(data)
 	loading_started.emit()
 	
-	objects.clear()
+	objects = []
 	for guid in data.object_data:
 		var d: Resource = data.object_data[guid]
 		assert("prefab" in d)

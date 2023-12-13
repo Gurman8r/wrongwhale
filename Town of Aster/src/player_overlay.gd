@@ -1,6 +1,6 @@
 # player_overlay.gd
 class_name PlayerOverlay
-extends Control
+extends SystemOverlay
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

@@ -9,15 +9,15 @@ func _enter_state() -> void:
 	super._enter_state()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	World.reload()
-	Player.canvas.show()
+	assert(Player.canvas.visible)
 	Player.overlay.show()
-	Player.interface.hide()
+	Player.interface.show()
+	get_tree().paused = false
 
 func _exit_state() -> void:
 	super._exit_state()
-	Player.interface.hide()
 	Player.overlay.hide()
-	Player.canvas.hide()
+	Player.interface.hide()
 
 func _physics_process(_delta) -> void:
 	pass

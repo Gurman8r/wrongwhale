@@ -1,6 +1,6 @@
 # player_interface.gd
 class_name PlayerInterface
-extends Control
+extends SystemInterface
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -68,7 +68,7 @@ func _ready():
 	drop_stack.connect(func(stack: ItemStack) -> void:
 		var drop = preload("res://assets/scenes/item_drop.tscn").instantiate()
 		drop.stack = stack
-		World.cell.add(drop, Game.player.get_drop_position()))
+		World.cell.add(drop, Player.character.get_drop_position()))
 	
 	gui_input.connect(func(event: InputEvent) -> void:
 		if event is InputEventMouseButton and event.is_pressed() and grabbed_stack:
@@ -86,8 +86,6 @@ func _ready():
 		if not visible:
 			set_current_tab(-1))
 	
-	menu_container.hide()
-	inventory_container.hide()
 	menu_tab_bar.tab_changed.connect(func(tab: int):
 		menu_tab_container.current_tab = tab)
 	
@@ -95,9 +93,7 @@ func _ready():
 	save_and_quit_to_title_button.pressed.connect(Game.save_to_file_and_quit_to_title)
 	save_and_quit_to_desktop_button.pressed.connect(Game.save_to_file_and_quit_to_desktop)
 	quit_to_title_button.pressed.connect(Game.quit_to_title)
-	quit_to_desktop_button.pressed.connect(func():
-		print("HERE")
-		Game.quit_to_desktop())
+	quit_to_desktop_button.pressed.connect(Game.quit_to_desktop)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -140,8 +136,7 @@ func clear_player_data() -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _update_internal() -> void:
-	if menu_container.visible \
-	or inventory_container.visible:
+	if menu_container.visible or inventory_container.visible:
 		get_tree().paused = true
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		#Player.overlay.hide()

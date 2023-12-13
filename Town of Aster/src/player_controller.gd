@@ -19,6 +19,8 @@ signal hotbar_select(index: int)
 const overlay_prefab = preload("res://assets/scenes/player_overlay.tscn")
 const interface_prefab = preload("res://assets/scenes/player_interface.tscn")
 
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 var canvas: CanvasLayer
 var overlay: PlayerOverlay
 var interface: PlayerInterface
@@ -35,7 +37,7 @@ func _init() -> void:
 	interface = Utility.make_child(canvas, interface_prefab.instantiate(), "Interface")
 
 func _ready() -> void:
-	canvas.hide()
+	assert(canvas.visible)
 	overlay.hide()
 	interface.hide()
 	
@@ -68,7 +70,5 @@ func _ready() -> void:
 			node.toggle_inventory.disconnect(interface.toggle_inventory)
 		character = null
 		data = null)
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

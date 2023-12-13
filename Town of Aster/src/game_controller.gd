@@ -35,7 +35,7 @@ func _unhandled_input(_event) -> void:
 #region FLOW_CONTROL
 
 func load_from_memory(world_data: WorldData) -> void:
-	print("|# LOAD_FROM_MEMORY")
+	print("|! LOAD_FROM_MEMORY")
 	Transition.play("fadeout")
 	await Transition.finished
 	World.data = world_data
@@ -44,7 +44,7 @@ func load_from_memory(world_data: WorldData) -> void:
 	await Transition.finished
 
 func load_from_file(path_stem: String) -> void:
-	print("|# LOAD_FROM_FILE")
+	print("|! LOAD_FROM_FILE")
 	Transition.play("fadeout")
 	await Transition.finished
 	World.data = WorldData.read(path_stem)
@@ -55,13 +55,13 @@ func load_from_file(path_stem: String) -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func quit_to_desktop() -> void:
-	print("|# QUIT_TO_DESKTOP")
+	print("|! QUIT_TO_DESKTOP")
 	Transition.play("fadeout")
 	await Transition.finished
 	get_tree().quit()
 
 func save_to_file_and_quit_to_desktop(path_stem: String = "") -> void:
-	print("|# SAVE_TO_FILE_AND_QUIT_TO_DESKTOP")
+	print("|! SAVE_TO_FILE_AND_QUIT_TO_DESKTOP")
 	Transition.play("fadeout")
 	await Transition.finished
 	World.save(path_stem)
@@ -71,7 +71,7 @@ func save_to_file_and_quit_to_desktop(path_stem: String = "") -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func quit_to_title() -> void:
-	print("|# QUIT_TO_TITLE")
+	print("|! QUIT_TO_TITLE")
 	Transition.play("fadeout")
 	await Transition.finished
 	World.unload()
@@ -80,7 +80,7 @@ func quit_to_title() -> void:
 	await Transition.finished
 
 func save_to_file_and_quit_to_title(path_stem: String = "") -> void:
-	print("|# SAVE_TO_FILE_AND_QUIT_TO_TITLE")
+	print("|! SAVE_TO_FILE_AND_QUIT_TO_TITLE")
 	Transition.play("fadeout")
 	await Transition.finished
 	World.save(path_stem)

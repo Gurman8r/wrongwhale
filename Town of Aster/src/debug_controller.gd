@@ -7,6 +7,8 @@ extends SystemController
 const overlay_prefab = preload("res://assets/scenes/debug_overlay.tscn")
 const interface_prefab = preload("res://assets/scenes/debug_interface.tscn")
 
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 var canvas: CanvasLayer
 var overlay: DebugOverlay
 var interface: DebugInterface
@@ -20,7 +22,7 @@ func _init() -> void:
 	interface = Utility.make_child(canvas, interface_prefab.instantiate(), "Interface")
 
 func _ready() -> void:
-	canvas.hide()
+	assert(canvas.visible)
 	overlay.hide()
 	interface.hide()
 

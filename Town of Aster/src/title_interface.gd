@@ -1,6 +1,6 @@
 # title_interface.gd
 class_name TitleInterface
-extends Control
+extends SystemInterface
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

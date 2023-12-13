@@ -14,7 +14,6 @@ func _enter_state() -> void:
 func _exit_state() -> void:
 	super._exit_state()
 	Title.interface.menu = null
-	Title.canvas.hide()
 
 func _physics_process(_delta) -> void:
 	pass

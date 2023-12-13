@@ -6,6 +6,8 @@ extends SystemController
 
 const interface_prefab = preload("res://assets/scenes/title_interface.tscn")
 
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 var interface: TitleInterface
 var canvas: CanvasLayer
 
@@ -17,7 +19,7 @@ func _init() -> void:
 	interface = Utility.make_child(canvas, interface_prefab.instantiate(), "Interface")
 	
 func _ready() -> void:
-	canvas.hide()
+	assert(canvas.visible)
 	interface.hide()
 
 

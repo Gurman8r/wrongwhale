@@ -26,6 +26,7 @@ func resize(count: int) -> InventoryData:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func on_slot_clicked(index: int, button: int) -> void:
+	print("|C %d" % [index])
 	inventory_interact.emit(self, index, button)
 
 func grab_stack(index: int) -> ItemStack:

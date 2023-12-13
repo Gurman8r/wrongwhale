@@ -6,6 +6,8 @@ extends PanelContainer
 
 signal clicked(index: int, button_index: int)
 
+@export var index: int = 0
+
 @onready var texture_rect: TextureRect = $MarginContainer/TextureRect
 @onready var highlighted_rect: TextureRect = $MarginContainer/SelectedRect
 @onready var progress_bar: ProgressBar = $ProgressBar
@@ -26,7 +28,7 @@ func _ready():
 		and (event.button_index == MOUSE_BUTTON_LEFT \
 		or event.button_index == MOUSE_BUTTON_RIGHT) \
 		and event.is_pressed():
-			clicked.emit(get_index(), event.button_index))
+			clicked.emit(index, event.button_index))
 	
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

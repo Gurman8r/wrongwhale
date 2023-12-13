@@ -9,6 +9,7 @@ func _ready() -> void:
 
 func _enter_state() -> void:
 	super._enter_state()
+	get_tree().paused = true
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 	# brief pause so everything can snap into place
@@ -18,14 +19,14 @@ func _enter_state() -> void:
 	# skip splash
 	var delay: float = Settings.data.splash_delay
 	if delay <= 0.0:
-		print("|# SKIP_SPLASH")
+		print("|! SKIP_SPLASH")
 		Game.main.change_state(Game.title_state)
 		Transition.play("fadein")
 		await Transition.finished
 		return
 	
 	# play splash
-	print("|# PLAY_SPLASH")
+	print("|! PLAY_SPLASH")
 	Splash.canvas.show()
 	Splash.overlay.show()
 	
