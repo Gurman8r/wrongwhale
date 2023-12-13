@@ -351,3 +351,5 @@ layout_mode = 2
 [node name="GrabbedSlot" parent="." instance=ExtResource("2_ub5o2")]
 visible = false
 layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0

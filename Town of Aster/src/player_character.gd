@@ -32,18 +32,12 @@ var move_input: Array[bool] = [0, 0, 0, 0]
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
+	assert(Player.character == null)
 	Player.character = self
-	Player.data = data
-
-func _notification(what):
-	match what:
-		NOTIFICATION_PREDELETE:
-			Player.character = null
-			Player.data = null
 
 func _ready() -> void:
-	Player.action.connect(func(mode: int):
-		data.inventory_data.use_stack(item_index, mode, self))
+	assert(data)
+	Player.data = data
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 	

@@ -21,15 +21,15 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Settings="*res://src/settings_system.gd"
-Registry="*res://src/registry_system.gd"
-Game="*res://src/game_system.gd"
-World="*res://src/world_system.gd"
-Player="*res://src/player_system.gd"
-Title="*res://src/title_system.gd"
-Splash="*res://src/splash_system.gd"
-Transition="*res://src/transition_system.gd"
-Debug="*res://src/debug_system.gd"
+Settings="*res://src/settings_controller.gd"
+Registry="*res://src/registry_controller.gd"
+Game="*res://src/game_controller.gd"
+World="*res://src/world_controller.gd"
+Player="*res://src/player_controller.gd"
+Title="*res://src/title_controller.gd"
+Splash="*res://src/splash_controller.gd"
+Transition="*res://src/transition_controller.gd"
+Debug="*res://src/debug_controller.gd"
 
 [display]
 

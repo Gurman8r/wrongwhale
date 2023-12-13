@@ -1,5 +1,5 @@
-# settings_system.gd
-# autoload Settings
+# settings_controller.gd
+# Settings
 extends System
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

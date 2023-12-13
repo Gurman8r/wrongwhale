@@ -1,5 +1,5 @@
-# world_system.gd
-# autoload World
+# world_controller.gd
+# World
 extends System
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -105,7 +105,6 @@ func reload() -> void:
 		o.name = guid
 		objects.append(o)
 	
-	#show()
 	loading_finished.emit()
 
 func unload() -> void:
@@ -121,7 +120,6 @@ func unload() -> void:
 		cell = null
 	data = null
 	
-	#hide()
 	unloading_finished.emit()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

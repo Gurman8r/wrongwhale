@@ -2,7 +2,8 @@
 class_name SettingsData
 extends Resource
 
-@export var play_splash: bool = true
+@export var splash_delay: float = 0.1
+@export var skip_splash: bool = false
 
 @export var recent_save: String = ""
 

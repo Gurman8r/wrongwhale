@@ -95,7 +95,9 @@ func _ready():
 	save_and_quit_to_title_button.pressed.connect(Game.save_world_to_file_and_quit_to_title)
 	save_and_quit_to_desktop_button.pressed.connect(Game.save_world_to_file_and_quit_to_desktop)
 	quit_to_title_button.pressed.connect(Game.quit_to_title)
-	quit_to_desktop_button.pressed.connect(Game.quit_to_desktop)
+	quit_to_desktop_button.pressed.connect(func():
+		print("HERE")
+		Game.quit_to_desktop())
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

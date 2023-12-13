@@ -1,5 +1,5 @@
-# game_system.gd
-# autoload Game
+# game_controller.gd
+# Game
 extends System
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -36,7 +36,6 @@ func _unhandled_input(_event) -> void:
 
 func quit_to_desktop() -> void:
 	print("quit_to_desktop")
-	get_tree().paused = true
 	Transition.play("fadeout")
 	await Transition.finished
 	get_tree().quit()
@@ -58,7 +57,6 @@ func load_world_from_file(path_stem: String) -> void:
 
 func save_world_to_file_and_quit_to_desktop(path_stem: String = "") -> void:
 	print("save_world_to_file_and_quit_to_desktop")
-	get_tree().paused = true
 	Transition.play("fadeout")
 	await Transition.finished
 	World.save(path_stem)

@@ -9,13 +9,18 @@ func _ready() -> void:
 
 func _enter_state() -> void:
 	super._enter_state()
-	Splash.timer.start(0.1)
+	Splash.timer.start(Settings.data.splash_delay)
 	await Splash.timer.timeout
+	
 	Transition.play("fadein")
 	await Transition.finished
-	if Settings.data.play_splash:
-		print("SPLASH")
 	
+	if Settings.data.skip_splash:
+		Game.main.change_state(Game.title_state)
+		return
+	
+	print("SPLASH")
+	# TODO splash goes here
 	Game.main.change_state(Game.title_state)
 	
 

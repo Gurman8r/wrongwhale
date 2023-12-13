@@ -1,5 +1,5 @@
-# splash_system.gd
-# autoload Splash
+# transition_controller.gd
+# Transition
 extends System
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -8,28 +8,25 @@ signal finished()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-const overlay_prefab = preload("res://assets/scenes/splash_overlay.tscn")
+const overlay_prefab = preload("res://assets/scenes/transition_overlay.tscn")
 
 var canvas: CanvasLayer
-var overlay: SplashOverlay
-
-var timer: Timer
+var overlay: TransitionOverlay
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func _ready():
+func _init() -> void:
+	super._init()
 	canvas = Utility.make_child(self, CanvasLayer.new(), "Canvas")
-	canvas.hide()
-	
 	overlay = Utility.make_child(canvas, overlay_prefab.instantiate(), "Overlay")
-	overlay.hide()
 	
-	timer = Utility.make_child(self, Timer.new(), "Timer")
-	timer.one_shot = true
-	timer.autostart = false
+func _ready() -> void:
+	canvas.show()
+	overlay.show()
 
-func play() -> void:
-	assert(overlay.visible)
-	finished.emit()
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func play(animation: String) -> void:
+	overlay.play(animation)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

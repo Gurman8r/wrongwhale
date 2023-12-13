@@ -1,26 +1,24 @@
-# debug_system.gd
-# autoload Debug
-extends Node
+# title_controller.gd
+# Title
+extends System
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-const interface_prefab = preload("res://assets/scenes/debug_interface.tscn")
-const overlay_prefab = preload("res://assets/scenes/debug_overlay.tscn")
+const interface_prefab = preload("res://assets/scenes/title_interface.tscn")
 
-var interface: DebugInterface
+var interface: TitleInterface
 var canvas: CanvasLayer
-var overlay: DebugOverlay
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func _ready() -> void:
+func _init() -> void:
+	super._init()
 	canvas = Utility.make_child(self, CanvasLayer.new(), "Canvas")
-	canvas.hide()
-	
 	interface = Utility.make_child(canvas, interface_prefab.instantiate(), "Interface")
-	interface.hide()
 	
-	overlay = Utility.make_child(canvas, overlay_prefab.instantiate(), "Overlay")
-	overlay.hide()
+func _ready() -> void:
+	canvas.hide()
+	interface.hide()
+
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
