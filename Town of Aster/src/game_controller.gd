@@ -8,12 +8,9 @@ const DATA_DIR := "user://data"
 const MODS_DIR := "user://mods"
 const SAVES_DIR := "user://saves"
 
-enum { SPLASH_STATE, TITLE_STATE, WORLD_STATE }
-const STATES := [ "SplashState", "TitleState", "WorldState" ]
-@onready var main: StateMachine = $"../Main"
-@onready var splash_state = main.get_node(STATES[SPLASH_STATE])
-@onready var title_state = main.get_node(STATES[TITLE_STATE])
-@onready var world_state = main.get_node(STATES[WORLD_STATE])
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+@onready var main: Main = $"../Main"
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -55,7 +52,7 @@ func load_from_memory(world_data: WorldData) -> void:
 	Transition.play("fadeout")
 	await Transition.finished
 	World.data = world_data
-	main.change_state(world_state)
+	main.change_state(main.world_state)
 	Transition.play("fadein")
 	await Transition.finished
 
@@ -64,7 +61,7 @@ func load_from_file(path_stem: String) -> void:
 	Transition.play("fadeout")
 	await Transition.finished
 	World.data = WorldData.read(path_stem)
-	main.change_state(world_state)
+	main.change_state(main.world_state)
 	Transition.play("fadein")
 	await Transition.finished
 
@@ -93,7 +90,7 @@ func quit_to_title() -> void:
 	Transition.play("fadeout")
 	await Transition.finished
 	World.unload()
-	main.change_state(title_state)
+	main.change_state(main.title_state)
 	Transition.play("fadein")
 	await Transition.finished
 
@@ -103,7 +100,7 @@ func save_to_file_and_quit_to_title(path_stem: String = "") -> void:
 	await Transition.finished
 	World.save(path_stem)
 	World.unload()
-	main.change_state(title_state)
+	main.change_state(main.title_state)
 	Transition.play("fadein")
 	await Transition.finished
 

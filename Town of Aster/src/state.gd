@@ -2,8 +2,12 @@
 class_name State
 extends Node
 
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 signal entered()
 signal exited()
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _ready() -> void:
 	entered.connect(func(): print(">| %s" % [name]))
@@ -17,3 +21,5 @@ func _enter_state() -> void:
 func _exit_state() -> void:
 	exited.emit()
 	Utility.set_active(self, false)
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

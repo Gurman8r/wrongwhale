@@ -2,9 +2,15 @@
 class_name SplashState
 extends State
 
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 const GODOT_ICON = preload("res://icon.svg")
 
-var icon_textures: Array[Texture] = [ GODOT_ICON ]
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+var icon_textures: Array[Texture] = [ GODOT_ICON, ]
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _enter_state() -> void:
 	super._enter_state()
@@ -17,8 +23,8 @@ func _enter_state() -> void:
 	# skip splash
 	var delay: float = Settings.data.splash_delay
 	if delay <= 0.0:
-		print("$| skip_splash")
-		Game.main.change_state(Game.title_state)
+		print("$| nosplash")
+		Game.main.change_state(Game.main.title_state)
 		Transition.play("fadein")
 		await Transition.finished
 		return
@@ -32,18 +38,22 @@ func _enter_state() -> void:
 		Splash.overlay.icon.texture = t
 		Transition.play("fadein")
 		await Transition.finished
-		print("$| play_splash(%d)" % [i])
+		print("$| splash %d" % [i])
 		Splash.timer.start(delay)
 		await Splash.timer.timeout
 		Transition.play("fadeout")
 		await Transition.finished
 	
-	Game.main.change_state(Game.title_state)
+	Game.main.change_state(Game.main.title_state)
 	Transition.play("fadein")
 	await Transition.finished
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _exit_state() -> void:
 	super._exit_state()
 	Splash.timer.stop()
 	Splash.overlay.hide()
 	Splash.canvas.show()
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
