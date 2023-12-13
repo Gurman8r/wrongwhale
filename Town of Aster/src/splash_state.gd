@@ -17,7 +17,7 @@ func _enter_state() -> void:
 	# skip splash
 	var delay: float = Settings.data.splash_delay
 	if delay <= 0.0:
-		print("$: nosplash")
+		print("$| skip_splash")
 		Game.main.change_state(Game.title_state)
 		Transition.play("fadein")
 		await Transition.finished
@@ -29,10 +29,10 @@ func _enter_state() -> void:
 	for i in range(icon_textures.size()):
 		var t: Texture = icon_textures[i]
 		if not t: continue
-		print("$: splash%d" % [i])
 		Splash.overlay.icon.texture = t
 		Transition.play("fadein")
 		await Transition.finished
+		print("$| play_splash(%d)" % [i])
 		Splash.timer.start(delay)
 		await Splash.timer.timeout
 		Transition.play("fadeout")
