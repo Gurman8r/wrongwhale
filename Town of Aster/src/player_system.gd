@@ -1,5 +1,5 @@
-# player.gd
-# Player
+# player_system.gd
+# autoload Player
 extends System
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -16,9 +16,10 @@ signal action(mode: int)
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 const interface_prefab = preload("res://assets/scenes/player_interface.tscn")
-var interface: PlayerInterface
-
 const overlay_prefab = preload("res://assets/scenes/player_overlay.tscn")
+
+var canvas: CanvasLayer
+var interface: PlayerInterface
 var overlay: PlayerOverlay
 
 var data: PlayerData
@@ -26,16 +27,20 @@ var character: PlayerCharacter
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+func _init() -> void:
+	canvas = Utility.make_child(self, CanvasLayer.new(), "Canvas")
+	interface = Utility.make_child(canvas, interface_prefab.instantiate(), "Interface")
+	overlay = Utility.make_child(canvas, overlay_prefab.instantiate(), "Overlay")
+
 func _ready() -> void:
-	interface = Utility.make_child(self, interface_prefab.instantiate(), "Interface")
+	canvas.hide()
 	interface.hide()
-	
-	overlay = Utility.make_child(self, overlay_prefab.instantiate(), "Overlay")
 	overlay.hide()
 	
 	# loading finished
 	World.loading_finished.connect(func():
-		#game_ui.set_player_data(player.data)
+		Player.interface.set_player_data(data)
+		Player.overlay.set_player_data(data)
 		hotbar_next.connect(overlay.hotbar_inventory.next)
 		hotbar_prev.connect(overlay.hotbar_inventory.prev)
 		hotbar_select.connect(overlay.hotbar_inventory.set_item_index)
@@ -45,7 +50,8 @@ func _ready() -> void:
 	
 	# unloading started
 	World.unloading_started.connect(func():
-		#game_ui.clear_player_data()
+		Player.interface.clear_player_data()
+		Player.overlay.clear_player_data()
 		hotbar_next.disconnect(overlay.hotbar_inventory.next)
 		hotbar_prev.disconnect(overlay.hotbar_inventory.prev)
 		hotbar_select.disconnect(overlay.hotbar_inventory.set_item_index)

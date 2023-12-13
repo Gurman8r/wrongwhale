@@ -43,7 +43,7 @@ func _notification(what):
 
 func _ready() -> void:
 	Player.action.connect(func(mode: int):
-		Player.data.inventory_data.use_stack(item_index, mode, self))
+		data.inventory_data.use_stack(item_index, mode, self))
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 	
@@ -73,11 +73,11 @@ func _unhandled_input(_event) -> void:
 	# toggle ui
 	if Input.is_action_just_pressed("toggle_debug"): Player.toggle_debug.emit()
 	if Input.is_action_just_pressed("toggle_inventory"): Player.toggle_inventory.emit()
-	#if Input.is_action_just_pressed("toggle_collection"): Player.interface.set_current_tab(GameUI.COLLECTION)
-	#if Input.is_action_just_pressed("toggle_skills"): Player.interface.set_current_tab(GameUI.SKILLS)
-	#if Input.is_action_just_pressed("toggle_journal"): Player.interface.set_current_tab(GameUI.JOURNAL)
-	#if Input.is_action_just_pressed("toggle_options"): Player.interface.set_current_tab(GameUI.OPTIONS)
-	#if Input.is_action_just_pressed("toggle_system"): Player.interface.set_current_tab(GameUI.SYSTEM)
+	if Input.is_action_just_pressed("toggle_collection"): Player.interface.set_current_tab(PlayerInterface.COLLECTION)
+	if Input.is_action_just_pressed("toggle_skills"): Player.interface.set_current_tab(PlayerInterface.SKILLS)
+	if Input.is_action_just_pressed("toggle_journal"): Player.interface.set_current_tab(PlayerInterface.JOURNAL)
+	if Input.is_action_just_pressed("toggle_options"): Player.interface.set_current_tab(PlayerInterface.OPTIONS)
+	if Input.is_action_just_pressed("toggle_system"): Player.interface.set_current_tab(PlayerInterface.SYSTEM)
 	
 	# hotbar
 	if Input.is_action_just_released("hotbar_prev"): Player.hotbar_prev.emit()

@@ -7,11 +7,18 @@
 [ext_resource type="PackedScene" uid="uid://bwsftfna5831c" path="res://assets/scenes/mod_menu.tscn" id="5_1igw4"]
 [ext_resource type="PackedScene" uid="uid://cn6nx0dd15xf6" path="res://assets/scenes/option_menu.tscn" id="6_au4yk"]
 
-[node name="TitleInterface" type="CanvasLayer"]
+[node name="TitleInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_n3a4w")
 
 [node name="TitleHome" type="PanelContainer" parent="."]
 custom_minimum_size = Vector2(160, 0)
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -58,6 +65,7 @@ text = "Quit
 
 [node name="WorldLoader" parent="." instance=ExtResource("3_g25i2")]
 visible = false
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -72,6 +80,7 @@ grow_vertical = 2
 
 [node name="WorldCreator" parent="." instance=ExtResource("4_cyqy5")]
 visible = false
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -86,6 +95,7 @@ grow_vertical = 2
 
 [node name="ModMenu" parent="." instance=ExtResource("5_1igw4")]
 visible = false
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -100,6 +110,7 @@ grow_vertical = 2
 
 [node name="SettingsMenu" parent="." instance=ExtResource("6_au4yk")]
 visible = false
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

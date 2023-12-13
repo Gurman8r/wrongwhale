@@ -2,18 +2,18 @@
 class_name State
 extends Node
 
-signal started()
-signal finished()
+signal entered()
+signal exited()
 
 func _ready() -> void:
+	entered.connect(func(): print(">> %s" % [name]))
+	exited.connect(func(): print("<< %s" % [name]))
 	Utility.set_active(self, false)
 
 func _enter_state() -> void:
-	print(">> %s" % [name])
 	Utility.set_active(self, true)
-	started.emit()
+	entered.emit()
 
 func _exit_state() -> void:
-	print("<< %s" % [name])
+	exited.emit()
 	Utility.set_active(self, false)
-	finished.emit()

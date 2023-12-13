@@ -1,6 +1,6 @@
 # debug_overlay.gd
 class_name DebugOverlay
-extends CanvasLayer
+extends Control
 
 func _ready() -> void:
 	pass

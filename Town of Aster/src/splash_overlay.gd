@@ -1,6 +1,6 @@
 # splash_overlay.gd
 class_name SplashOverlay
-extends CanvasLayer
+extends Control
 
 @onready var background: ColorRect = $Background
 @onready var icon: TextureRect = $Icon

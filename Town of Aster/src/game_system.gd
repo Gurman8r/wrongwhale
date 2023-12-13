@@ -1,5 +1,5 @@
-# game.gd
-# Game
+# game_system.gd
+# autoload Game
 extends System
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -23,9 +23,6 @@ func _init() -> void:
 	DirAccess.make_dir_absolute(MODS_DIR)
 	DirAccess.make_dir_absolute(SAVES_DIR)
 
-func _ready() -> void:
-	pass
-
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _unhandled_input(_event) -> void:
@@ -38,74 +35,41 @@ func _unhandled_input(_event) -> void:
 #region CONTROL_FLOW
 
 func quit_to_desktop() -> void:
+	print("quit_to_desktop")
 	get_tree().paused = true
 	Transition.play("fadeout")
 	await Transition.finished
 	get_tree().quit()
 
 func quit_to_title() -> void:
-	# pre-unload
-	get_tree().paused = true
-	Transition.play("fadeout")
-	await Transition.finished
-	Player.interface.hide()
-	Player.overlay.hide()
-	# unload
+	print("quit_to_title")
 	World.unload()
-	# post-unload
-	Title.interface.menu = Title.interface.home
-	Transition.play("fadein")
-	await Transition.finished
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	main.change_state(title_state)
 
 func load_world_from_memory(world_data: WorldData) -> void:
-	# pre-load
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	Transition.play("fadeout")
-	await Transition.finished
-	Title.interface.menu = null
-	# load
-	World.load_from_memory(world_data)
-	# post-load
-	Player.interface.show()
-	Player.overlay.show()
-	Transition.play("fadein")
-	await Transition.finished
-	get_tree().paused = false
+	print("load_world_from_memory")
+	World.data = world_data
+	main.change_state(world_state)
 
 func load_world_from_file(path_stem: String) -> void:
-	load_world_from_memory(WorldData.read(path_stem))
+	print("load_world_from_file")
+	World.data = WorldData.read(path_stem)
+	main.change_state(world_state)
 
 func save_world_to_file_and_quit_to_desktop(path_stem: String = "") -> void:
-	# pre-unload
+	print("save_world_to_file_and_quit_to_desktop")
 	get_tree().paused = true
 	Transition.play("fadeout")
 	await Transition.finished
-	Player.interface.hide()
-	Player.overlay.hide()
-	# save
-	World.save_to_file(path_stem)
-	# unload
+	World.save(path_stem)
 	World.unload()
-	# post-unload
 	get_tree().quit()
 
 func save_world_to_file_and_quit_to_title(path_stem: String = "") -> void:
-	# pre-unload
-	get_tree().paused = true
-	Transition.play("fadeout")
-	await Transition.finished
-	Player.interface.hide()
-	Player.overlay.hide()
-	# save
-	World.save_to_file(path_stem)
-	# unload
+	print("save_world_to_file_and_quit_to_title")
+	World.save(path_stem)
 	World.unload()
-	# post-unload
-	Title.interface.menu = Title.interface.home
-	Transition.play("fadein")
-	await Transition.finished
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	main.change_state(title_state)
 
 #endregion
 

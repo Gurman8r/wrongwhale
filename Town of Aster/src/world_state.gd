@@ -8,20 +8,14 @@ func _ready() -> void:
 func _enter_state() -> void:
 	super._enter_state()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	
-	Transition.play("fadein")
-	await Transition.finished
-	
+	World.reload()
+	Player.canvas.show()
 	Player.interface.show()
-	Player.overlay.show()
-	get_tree().paused = false
+	Player.overlay.hide()
 
 func _exit_state() -> void:
 	super._exit_state()
-	
-	Transition.play("fadeout")
-	await Transition.finished
-	
+	Player.canvas.hide()
 	Player.interface.hide()
 	Player.overlay.hide()
 

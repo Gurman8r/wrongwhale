@@ -6,11 +6,18 @@
 [ext_resource type="PackedScene" uid="uid://dv6li4wxrohgf" path="res://assets/scenes/inventory.tscn" id="3_yyek6"]
 [ext_resource type="Texture2D" uid="uid://dwi4nguld0m87" path="res://assets/icons/icon_circle.png" id="4_46yrv"]
 
-[node name="PlayerInterface" type="CanvasLayer"]
+[node name="PlayerInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_2anju")
 
 [node name="InventoryContainer" type="MarginContainer" parent="."]
 visible = false
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -47,6 +54,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 8
 
 [node name="MenuContainer" type="MarginContainer" parent="."]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -341,3 +349,5 @@ theme_override_constants/margin_bottom = 4
 layout_mode = 2
 
 [node name="GrabbedSlot" parent="." instance=ExtResource("2_ub5o2")]
+visible = false
+layout_mode = 0

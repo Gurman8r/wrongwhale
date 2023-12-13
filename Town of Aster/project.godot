@@ -13,7 +13,7 @@ config_version=5
 config/name="Town of Aster"
 run/main_scene="res://assets/scenes/main.tscn"
 config/use_custom_user_dir=true
-config/custom_user_dir_name=".townofaster"
+config/custom_user_dir_name=".town_of_aster"
 config/features=PackedStringArray("4.2", "Mobile")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
@@ -21,15 +21,15 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Settings="*res://src/settings.gd"
-Registry="*res://src/registry.gd"
-Game="*res://src/game.gd"
-World="*res://src/world.gd"
-Player="*res://src/player.gd"
-Title="*res://src/title.gd"
-Splash="*res://src/splash.gd"
-Transition="*res://src/transition.gd"
-Debug="*res://src/debug.gd"
+Settings="*res://src/settings_system.gd"
+Registry="*res://src/registry_system.gd"
+Game="*res://src/game_system.gd"
+World="*res://src/world_system.gd"
+Player="*res://src/player_system.gd"
+Title="*res://src/title_system.gd"
+Splash="*res://src/splash_system.gd"
+Transition="*res://src/transition_system.gd"
+Debug="*res://src/debug_system.gd"
 
 [display]
 

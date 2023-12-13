@@ -1,6 +1,6 @@
 # player_interface.gd
 class_name PlayerInterface
-extends CanvasLayer
+extends Control
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -68,19 +68,19 @@ func _ready():
 	drop_stack.connect(func(stack: ItemStack) -> void:
 		var drop = preload("res://assets/scenes/item_drop.tscn").instantiate()
 		drop.stack = stack
-		Game.world.cell.add(drop, Game.player.get_drop_position()))
+		World.cell.add(drop, Game.player.get_drop_position()))
 	
-	#gui_input.connect(func(event: InputEvent) -> void:
-	#	if event is InputEventMouseButton and event.is_pressed() and grabbed_stack:
-	#		match event.button_index:
-	#			MOUSE_BUTTON_LEFT:
-	#				drop_stack.emit(grabbed_stack)
-	#				grabbed_stack = null
-	#			MOUSE_BUTTON_RIGHT:
-	#				drop_stack.emit(grabbed_stack.create_single_stack())
-	#				if grabbed_stack.quantity < 1:
-	#					grabbed_stack = null
-	#		update_grabbed_slot())
+	gui_input.connect(func(event: InputEvent) -> void:
+		if event is InputEventMouseButton and event.is_pressed() and grabbed_stack:
+			match event.button_index:
+				MOUSE_BUTTON_LEFT:
+					drop_stack.emit(grabbed_stack)
+					grabbed_stack = null
+				MOUSE_BUTTON_RIGHT:
+					drop_stack.emit(grabbed_stack.create_single_stack())
+					if grabbed_stack.quantity < 1:
+						grabbed_stack = null
+			update_grabbed_slot())
 	
 	visibility_changed.connect(func():
 		if not visible:
@@ -91,7 +91,7 @@ func _ready():
 	menu_tab_bar.tab_changed.connect(func(tab: int):
 		menu_tab_container.current_tab = tab)
 	
-	save_button.pressed.connect(World.save_to_file)
+	save_button.pressed.connect(World.save)
 	save_and_quit_to_title_button.pressed.connect(Game.save_world_to_file_and_quit_to_title)
 	save_and_quit_to_desktop_button.pressed.connect(Game.save_world_to_file_and_quit_to_desktop)
 	quit_to_title_button.pressed.connect(Game.quit_to_title)
@@ -107,8 +107,8 @@ func _unhandled_input(_event) -> void:
 			get_viewport().set_input_as_handled()
 
 func _physics_process(_delta) -> void:
-	#if grabbed_slot.visible:
-	#	grabbed_slot.global_position = get_global_mouse_position() + Vector2(5, 5)
+	if grabbed_slot.visible:
+		grabbed_slot.global_position = get_global_mouse_position() + Vector2(5, 5)
 	if external_inventory_owner \
 	and external_inventory_owner.global_position.distance_to(Game.player.global_position) > 4:
 		force_close.emit()
@@ -123,7 +123,6 @@ func set_player_data(value: PlayerData) -> void:
 	internal_inventory.set_inventory_data(player_data.inventory_data)
 	main_inventory.set_inventory_data(player_data.inventory_data)
 	equip_inventory.set_inventory_data(player_data.equip_data)
-	#hotbar_inventory.set_inventory_data(player_data.inventory_data)
 	internal_label.text = "%s:" % [player_data.name]
 
 func clear_player_data() -> void:
@@ -133,7 +132,6 @@ func clear_player_data() -> void:
 	internal_inventory.clear_inventory_data(player_data.inventory_data)
 	main_inventory.clear_inventory_data(player_data.inventory_data)
 	equip_inventory.clear_inventory_data(player_data.equip_data)
-	#hotbar_inventory.clear_inventory_data(player_data.inventory_data)
 	internal_label.text = ""
 	player_data = null
 
@@ -144,10 +142,10 @@ func _update_internal() -> void:
 	or inventory_container.visible:
 		get_tree().paused = true
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		#overlay.hide()
+		Player.overlay.hide()
 	else:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		#overlay.show()
+		Player.overlay.show()
 		if grabbed_stack:
 			drop_stack.emit(grabbed_stack)
 			grabbed_stack = null

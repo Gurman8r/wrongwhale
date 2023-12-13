@@ -1,5 +1,5 @@
-# world.gd
-# World
+# world_system.gd
+# autoload World
 extends System
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -17,7 +17,7 @@ signal unloading_finished()
 
 var data: WorldData
 
-var environment: WorldEnvironment
+var world_environment: WorldEnvironment
 
 var cell_root: Node
 var cell: WorldCell = null : set = change_cell
@@ -27,8 +27,21 @@ var objects: Array[Node3D] = []
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _ready() -> void:
-	reset_cells()
 	reset_environment()
+	reset_cells()
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func get_environment() -> Environment:
+	return world_environment.environment
+
+func set_environment(value: Environment) -> void:
+	world_environment.environment = value
+
+func reset_environment() -> void:
+	if world_environment == null:
+		world_environment = Utility.make_child(self, WorldEnvironment.new(), "Environment")
+	world_environment.environment = preload("res://assets/data/environment.tres").duplicate()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -42,8 +55,10 @@ func change_cell(new_cell: WorldCell) -> void:
 	if cell: cell.enabled = true
 
 func find_cell(cell_name: String) -> WorldCell:
-	if has_node(cell_name): return get_node(cell_name) as WorldCell
-	else: return null
+	if cell_root.has_node(cell_name):
+		return cell_root.get_node(cell_name)
+	else:
+		return null
 
 func transfer(node: Node3D, new_cell: WorldCell, position: Vector3 = Vector3.ZERO) -> void:
 	assert(node)
@@ -55,28 +70,11 @@ func transfer(node: Node3D, new_cell: WorldCell, position: Vector3 = Vector3.ZER
 		node.data.cell_name = cell.name
 
 func reset_cells() -> void:
-	cell_root = preload("res://assets/scenes/world_cells.tscn").instantiate()
-	add_child(cell_root)
-	cell_root.name = "Cells"
+	cell_root = Utility.make_child(self, preload("res://assets/scenes/world_cells.tscn").instantiate(), "Cells")
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func get_environment() -> Environment:
-	return environment.environment
-
-func set_environment(value: Environment) -> void:
-	environment.environment = value
-
-func reset_environment() -> void:
-	if environment == null:
-		environment = WorldEnvironment.new()
-		add_child(environment)
-		environment.name = "Environment"
-	environment.environment = preload("res://assets/data/environment.tres").duplicate()
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func save_to_file(path_stem: String = "") -> void:
+func save(path_stem: String = "") -> void:
 	if path_stem.is_empty():
 		assert(data)
 		path_stem = data.guid
@@ -85,15 +83,9 @@ func save_to_file(path_stem: String = "") -> void:
 	WorldData.write(data, path_stem)
 	saving_finished.emit()
 
-func load_from_file(path_stem: String = "") -> void:
-	if path_stem.is_empty() and data: path_stem = data.guid
-	assert(0 < path_stem.length())
-	load_from_memory(WorldData.read(path_stem))
-
-func load_from_memory(new_data: WorldData) -> void:
-	assert(new_data)
+func reload() -> void:
+	assert(data)
 	loading_started.emit()
-	data = new_data
 	
 	objects.clear()
 	for guid in data.object_data:

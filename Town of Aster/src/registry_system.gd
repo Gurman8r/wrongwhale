@@ -1,5 +1,5 @@
-# registry.gd
-# Registry
+# registry_system.gd
+# autoload Registry
 extends System
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

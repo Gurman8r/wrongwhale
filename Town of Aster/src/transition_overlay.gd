@@ -1,6 +1,6 @@
 # transition_overlay.gd
 class_name TransitionOverlay
-extends CanvasLayer
+extends Control
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
