@@ -1,6 +1,6 @@
 # title_controller.gd
 # Title
-extends System
+extends SystemController
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

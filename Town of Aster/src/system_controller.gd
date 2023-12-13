@@ -1,5 +1,5 @@
-# system.gd
-class_name System
+# system_controller.gd
+class_name SystemController
 extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

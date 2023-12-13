@@ -1,6 +1,6 @@
 # world_controller.gd
 # World
-extends System
+extends SystemController
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

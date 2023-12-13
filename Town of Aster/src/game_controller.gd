@@ -1,6 +1,6 @@
 # game_controller.gd
 # Game
-extends System
+extends SystemController
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -34,17 +34,6 @@ func _unhandled_input(_event) -> void:
 
 #region CONTROL_FLOW
 
-func quit_to_desktop() -> void:
-	print("quit_to_desktop")
-	Transition.play("fadeout")
-	await Transition.finished
-	get_tree().quit()
-
-func quit_to_title() -> void:
-	print("quit_to_title")
-	World.unload()
-	main.change_state(title_state)
-
 func load_world_from_memory(world_data: WorldData) -> void:
 	print("load_world_from_memory")
 	World.data = world_data
@@ -55,6 +44,14 @@ func load_world_from_file(path_stem: String) -> void:
 	World.data = WorldData.read(path_stem)
 	main.change_state(world_state)
 
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func quit_to_desktop() -> void:
+	print("quit_to_desktop")
+	Transition.play("fadeout")
+	await Transition.finished
+	get_tree().quit()
+
 func save_world_to_file_and_quit_to_desktop(path_stem: String = "") -> void:
 	print("save_world_to_file_and_quit_to_desktop")
 	Transition.play("fadeout")
@@ -62,6 +59,13 @@ func save_world_to_file_and_quit_to_desktop(path_stem: String = "") -> void:
 	World.save(path_stem)
 	World.unload()
 	get_tree().quit()
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func quit_to_title() -> void:
+	print("quit_to_title")
+	World.unload()
+	main.change_state(title_state)
 
 func save_world_to_file_and_quit_to_title(path_stem: String = "") -> void:
 	print("save_world_to_file_and_quit_to_title")

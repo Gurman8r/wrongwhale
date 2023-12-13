@@ -1,6 +1,6 @@
 # splash_controller.gd
 # Splash
-extends System
+extends SystemController
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

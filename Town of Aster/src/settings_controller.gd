@@ -1,6 +1,6 @@
 # settings_controller.gd
 # Settings
-extends System
+extends SystemController
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

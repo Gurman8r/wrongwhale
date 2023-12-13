@@ -1,6 +1,6 @@
 # debug_controller.gd
 # Debug
-extends System
+extends SystemController
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

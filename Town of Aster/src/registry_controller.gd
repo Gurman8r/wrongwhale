@@ -1,6 +1,6 @@
 # registry_controller.gd
 # Registry
-extends System
+extends SystemController
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

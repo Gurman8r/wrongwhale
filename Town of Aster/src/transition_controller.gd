@@ -1,6 +1,6 @@
 # transition_controller.gd
 # Transition
-extends System
+extends SystemController
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

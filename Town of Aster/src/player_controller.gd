@@ -1,6 +1,6 @@
 # player_controller.gd
 # Player
-extends System
+extends SystemController
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
