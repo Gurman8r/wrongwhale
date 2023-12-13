@@ -8,7 +8,6 @@ var icon_textures: Array[Texture] = [ GODOT_ICON ]
 
 func _enter_state() -> void:
 	super._enter_state()
-	Game.pause()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 	# brief pause so everything can snap into place

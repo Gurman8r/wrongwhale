@@ -25,6 +25,9 @@ func _init() -> void:
 	DirAccess.make_dir_absolute(MODS_DIR)
 	DirAccess.make_dir_absolute(SAVES_DIR)
 
+func _ready() -> void:
+	pause()
+
 func _notification(what) -> void:
 	match what:
 		NOTIFICATION_WM_CLOSE_REQUEST:

@@ -6,7 +6,6 @@ func _enter_state() -> void:
 	super._enter_state()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	World.reload()
-	assert(Player.canvas.visible)
 	Player.overlay.show()
 	Player.interface.show()
 	Game.unpause()

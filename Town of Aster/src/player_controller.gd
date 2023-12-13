@@ -16,11 +16,6 @@ signal hotbar_select(index: int)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-const overlay_prefab = preload("res://assets/scenes/player_overlay.tscn")
-const interface_prefab = preload("res://assets/scenes/player_interface.tscn")
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
 var canvas: CanvasLayer
 var overlay: PlayerOverlay
 var interface: PlayerInterface
@@ -33,8 +28,8 @@ var character: PlayerCharacter
 func _init() -> void:
 	super._init()
 	canvas = Utility.make_child(self, CanvasLayer.new(), "Canvas")
-	overlay = Utility.make_child(canvas, overlay_prefab.instantiate(), "Overlay")
-	interface = Utility.make_child(canvas, interface_prefab.instantiate(), "Interface")
+	overlay = Utility.make_child(canvas, preload("res://assets/scenes/player_overlay.tscn").instantiate(), "Overlay")
+	interface = Utility.make_child(canvas, preload("res://assets/scenes/player_interface.tscn").instantiate(), "Interface")
 
 func _ready() -> void:
 	assert(canvas.visible)
