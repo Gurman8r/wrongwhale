@@ -1,4 +1,4 @@
-# title_system.gd
+# title_.gd
 # Title
 extends Node
 
@@ -10,7 +10,7 @@ var canvas: CanvasLayer
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	process_mode = Node.PROCESS_MODE_ALWAYS
+	process_mode = PROCESS_MODE_ALWAYS
 	canvas = Util.make(self, CanvasLayer.new(), "Canvas")
 	interface = Util.make(canvas, preload("res://assets/scenes/title_interface.tscn").instantiate(), "Interface")
 	

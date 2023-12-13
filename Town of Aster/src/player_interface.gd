@@ -63,7 +63,7 @@ var external_inventory_owner: Node
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	mouse_filter = Control.MOUSE_FILTER_PASS
+	mouse_filter = MOUSE_FILTER_PASS
 
 func _ready():
 	force_close.connect(toggle_inventory)

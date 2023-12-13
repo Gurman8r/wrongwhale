@@ -1,4 +1,4 @@
-# registry_system.gd
+# registry_.gd
 # Registry
 extends Node
 
@@ -13,7 +13,7 @@ var data: RegistryData
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	process_mode = Node.PROCESS_MODE_ALWAYS
+	process_mode = PROCESS_MODE_ALWAYS
 
 func _ready() -> void:
 	reset()

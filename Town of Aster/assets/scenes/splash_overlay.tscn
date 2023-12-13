@@ -1,9 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://dv2ceyn58llmu"]
+[gd_scene load_steps=3 format=3 uid="uid://d0u5qcgc0ss6d"]
 
 [ext_resource type="Script" path="res://src/splash_overlay.gd" id="1_l3v2t"]
 [ext_resource type="Texture2D" uid="uid://dcsqpkl8omaid" path="res://icon.svg" id="2_63k7x"]
 
-[node name="SplashOverlay" type="Control"]
+[node name="Overlay" type="Control"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

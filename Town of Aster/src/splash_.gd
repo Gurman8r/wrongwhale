@@ -1,4 +1,4 @@
-# splash_system.gd
+# splash_.gd
 # Splash
 extends Node
 
@@ -15,7 +15,7 @@ var timer: Timer
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	process_mode = Node.PROCESS_MODE_ALWAYS
+	process_mode = PROCESS_MODE_ALWAYS
 	canvas = Util.make(self, CanvasLayer.new(), "Canvas")
 	overlay = Util.make(canvas, preload("res://assets/scenes/splash_overlay.tscn").instantiate(), "Overlay")
 	timer = Util.make(self, Timer.new(), "Timer")

@@ -1,4 +1,4 @@
-# game_system.gd
+# game_.gd
 # Game
 extends Node
 
@@ -15,7 +15,7 @@ const SAVES_DIR := "user://saves"
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	process_mode = Node.PROCESS_MODE_ALWAYS
+	process_mode = PROCESS_MODE_ALWAYS
 	DirAccess.make_dir_absolute(DATA_DIR)
 	DirAccess.make_dir_absolute(MODS_DIR)
 	DirAccess.make_dir_absolute(SAVES_DIR)

@@ -1,4 +1,4 @@
-# world_system.gd
+# world_.gd
 # World
 extends Node
 
@@ -27,7 +27,7 @@ var objects: Array[Node3D] = []
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	process_mode = Node.PROCESS_MODE_ALWAYS
+	process_mode = PROCESS_MODE_ALWAYS
 
 func _ready() -> void:
 	reset_environment()

@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://cg1to5gw4pwpg"]
+[gd_scene load_steps=2 format=3 uid="uid://ci2fyxgu5bcr3"]
 
 [ext_resource type="Script" path="res://src/debug_overlay.gd" id="1_n3s01"]
 
-[node name="DebugOverlay" type="Control"]
+[node name="Overlay" type="Control"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

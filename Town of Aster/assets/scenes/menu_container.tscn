@@ -43,7 +43,6 @@ tab_alignment = 1
 tabs_visible = false
 
 [node name="Inventory" type="Control" parent="VBoxContainer/MenuTabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MenuTabContainer/Inventory"]

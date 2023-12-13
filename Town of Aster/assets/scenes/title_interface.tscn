@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://duffpurukjsif"]
+[gd_scene load_steps=7 format=3 uid="uid://cyqrx6y1cdwmc"]
 
 [ext_resource type="Script" path="res://src/title_interface.gd" id="1_n3a4w"]
 [ext_resource type="Script" path="res://src/title_home.gd" id="2_25ser"]
@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bwsftfna5831c" path="res://assets/scenes/mod_menu.tscn" id="5_1igw4"]
 [ext_resource type="PackedScene" uid="uid://cn6nx0dd15xf6" path="res://assets/scenes/option_menu.tscn" id="6_au4yk"]
 
-[node name="TitleInterface" type="Control"]
+[node name="Interface" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

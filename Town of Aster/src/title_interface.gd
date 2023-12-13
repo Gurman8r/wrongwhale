@@ -14,7 +14,7 @@ extends Control
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	mouse_filter = Control.MOUSE_FILTER_PASS
+	mouse_filter = MOUSE_FILTER_PASS
 
 func _ready():
 	visibility_changed.connect(_on_visibility_changed)

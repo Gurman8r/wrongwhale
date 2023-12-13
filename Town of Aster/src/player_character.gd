@@ -26,7 +26,11 @@ enum { PRIMARY_BEGIN, PRIMARY, PRIMARY_END, SECONDARY_BEGIN, SECONDARY, SECONDAR
 @onready var state_machine      : StateMachine     = $StateMachine
 @onready var target_marker      : Node3D           = $TargetMarker
 
-var item_index: int = 0
+func get_right() -> Vector3: return camera_pivot_y.transform.basis.x
+func get_left() -> Vector3: return -camera_pivot_y.transform.basis.x
+func get_backward() -> Vector3: return camera_pivot_y.transform.basis.z
+func get_forward() -> Vector3: return -camera_pivot_y.transform.basis.z
+
 var move_input: Array[bool] = [0, 0, 0, 0]
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -38,56 +42,6 @@ func _init() -> void:
 func _ready() -> void:
 	assert(data)
 	Player.data = data
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-	
-func _input(event) -> void:
-	# mouse camera
-	if event is InputEventMouseMotion:
-		camera_pivot_y.rotate_y(-event.relative.x * camera_speed.x)
-		camera_pivot_x.rotate_x(-event.relative.y * camera_speed.y)
-		camera_pivot_x.rotation.x = clamp( \
-			camera_pivot_x.rotation.x, \
-			deg_to_rad(camera_angle_min_degrees), \
-			deg_to_rad(camera_angle_max_degrees))
-	
-	# primary action
-	if Input.is_action_just_pressed("primary"): Player.action.emit(PRIMARY_BEGIN)
-	elif Input.is_action_pressed("primary"): Player.action.emit(PRIMARY)
-	elif Input.is_action_just_released("primary"): Player.action.emit(PRIMARY_END)
-	
-	# secondary action
-	if Input.is_action_just_pressed("secondary"): Player.action.emit(SECONDARY_BEGIN)
-	elif Input.is_action_pressed("secondary"): Player.action.emit(SECONDARY)
-	elif Input.is_action_just_released("secondary"): Player.action.emit(SECONDARY_END)
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func _unhandled_input(_event) -> void:
-	# toggle ui
-	if Input.is_action_just_pressed("toggle_debug"): Player.toggle_debug.emit()
-	if Input.is_action_just_pressed("toggle_inventory"): Player.toggle_inventory.emit()
-	if Input.is_action_just_pressed("toggle_collection"): Player.interface.set_current_tab(PlayerInterface.COLLECTION)
-	if Input.is_action_just_pressed("toggle_skills"): Player.interface.set_current_tab(PlayerInterface.SKILLS)
-	if Input.is_action_just_pressed("toggle_journal"): Player.interface.set_current_tab(PlayerInterface.JOURNAL)
-	if Input.is_action_just_pressed("toggle_options"): Player.interface.set_current_tab(PlayerInterface.OPTIONS)
-	if Input.is_action_just_pressed("toggle_system"): Player.interface.set_current_tab(PlayerInterface.SYSTEM)
-	
-	# hotbar
-	if Input.is_action_just_released("hotbar_prev"): Player.hotbar_prev.emit()
-	elif Input.is_action_just_released("hotbar_next"): Player.hotbar_next.emit()
-	for i in range(0, 10):
-		if Input.is_action_just_pressed("hotbar_%d" % [i]):
-			Player.overlay.hotbar_inventory.set_item_index(i - 1)
-			Player.hotbar_select.emit(i - 1)
-			break
-	item_index = Player.overlay.hotbar_inventory.item_index
-	
-	# movement
-	move_input[LEFT] = Input.is_action_pressed("move_left")
-	move_input[RIGHT] = Input.is_action_pressed("move_right")
-	move_input[FORWARD] = Input.is_action_pressed("move_forward")
-	move_input[BACKWARD] = Input.is_action_pressed("move_backward")
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -119,6 +73,16 @@ func _process(delta: float) -> void:
 	var target_pos: Vector3 = data.position + data.direction * target_range
 	target_marker.global_transform.origin.x = roundf(target_pos.x)
 	target_marker.global_transform.origin.z = roundf(target_pos.z)
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func pivot(relative: Vector2) -> void:
+	camera_pivot_y.rotate_y(-relative.x * camera_speed.x)
+	camera_pivot_x.rotate_x(-relative.y * camera_speed.y)
+	camera_pivot_x.rotation.x = clamp( \
+		camera_pivot_x.rotation.x, \
+		deg_to_rad(camera_angle_min_degrees), \
+		deg_to_rad(camera_angle_max_degrees))
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

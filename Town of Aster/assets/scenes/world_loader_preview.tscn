@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://48rjf0hlop6c"]
+[gd_scene load_steps=6 format=3 uid="uid://bqwiyh8pb5ica"]
 
 [ext_resource type="Script" path="res://src/world_loader_preview.gd" id="1_dx46g"]
 [ext_resource type="SystemFont" uid="uid://be14qyvbd8lox" path="res://assets/fonts/system_font.tres" id="2_74bi0"]
@@ -39,7 +39,7 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_vertical = 1
 theme_override_fonts/font = ExtResource("2_74bi0")
-text = "Farm Name"
+text = "Farm"
 horizontal_alignment = 1
 vertical_alignment = 1
 
