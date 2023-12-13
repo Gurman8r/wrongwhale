@@ -1,31 +1,31 @@
-# transition_controller.gd
-# Transition
+# debug_system.gd
+# Debug
 extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-signal finished()
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
 var canvas: CanvasLayer
-var overlay: TransitionOverlay
+var overlay: DebugOverlay
+var interface: DebugInterface
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	canvas = Util.make(self, CanvasLayer.new(), "Canvas")
-	overlay = Util.make(canvas, preload("res://assets/scenes/transition_overlay.tscn").instantiate(), "Overlay")
+	overlay = Util.make(canvas, preload("res://assets/scenes/debug_overlay.tscn").instantiate(), "Overlay")
+	interface = Util.make(canvas, preload("res://assets/scenes/debug_interface.tscn").instantiate(), "Interface")
 
 func _ready() -> void:
 	assert(canvas.visible)
-	overlay.show()
+	overlay.hide()
+	interface.hide()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func play(animation: String) -> void:
-	Debug.puts(" | %s" % [animation])
-	overlay.play(animation)
+func puts(value: String):
+	if Settings.data.verbose_logging:
+		print(value)
+	return self
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

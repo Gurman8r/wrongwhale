@@ -14,7 +14,7 @@ var icon_textures: Array[Texture] = [ GODOT_ICON, ]
 
 func _enter_state() -> void:
 	super._enter_state()
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
 	# wait a second so everything can snap into place
 	Splash.timer.start(1.0)
@@ -42,7 +42,6 @@ func _enter_state() -> void:
 		await Splash.timer.timeout
 		Transition.play("fadeout")
 		await Transition.finished
-	
 	Game.main.change_state(Game.main.title_state)
 	Transition.play("fadein")
 	await Transition.finished

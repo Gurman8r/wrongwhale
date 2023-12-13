@@ -1,4 +1,4 @@
-# game_controller.gd
+# game_system.gd
 # Game
 extends Node
 
@@ -60,7 +60,7 @@ func load_from_memory(world_data: WorldData) -> void:
 	Transition.play("fadeout")
 	await Transition.finished
 	World.data = world_data
-	main.change_state(main.world_state)
+	main.state = main.world_state
 	Transition.play("fadein")
 	await Transition.finished
 
@@ -69,7 +69,7 @@ func load_from_file(path_stem: String) -> void:
 	Transition.play("fadeout")
 	await Transition.finished
 	World.data = WorldData.read(path_stem)
-	main.change_state(main.world_state)
+	main.state = main.world_state
 	Transition.play("fadein")
 	await Transition.finished
 
@@ -98,7 +98,7 @@ func quit_to_title() -> void:
 	Transition.play("fadeout")
 	await Transition.finished
 	World.unload()
-	main.change_state(main.title_state)
+	main.state = main.title_state
 	Transition.play("fadein")
 	await Transition.finished
 
@@ -108,7 +108,7 @@ func save_to_file_and_quit_to_title(path_stem: String = "") -> void:
 	await Transition.finished
 	World.save(path_stem)
 	World.unload()
-	main.change_state(main.title_state)
+	main.state = main.title_state
 	Transition.play("fadein")
 	await Transition.finished
 

@@ -1,4 +1,4 @@
-# player_controller.gd
+# player_system.gd
 # Player
 extends Node
 

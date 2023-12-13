@@ -1,4 +1,4 @@
-# world_controller.gd
+# world_system.gd
 # World
 extends Node
 

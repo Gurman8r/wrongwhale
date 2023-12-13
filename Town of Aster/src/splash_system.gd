@@ -1,4 +1,4 @@
-# splash_controller.gd
+# splash_system.gd
 # Splash
 extends Node
 

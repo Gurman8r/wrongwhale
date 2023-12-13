@@ -1,4 +1,4 @@
-# title_controller.gd
+# title_system.gd
 # Title
 extends Node
 

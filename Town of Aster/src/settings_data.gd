@@ -3,7 +3,6 @@ class_name SettingsData
 extends Resource
 
 @export var verbose_logging: bool = true
-
 @export var splash_delay: float = 1.0
 
 @export var window_mode: int = DisplayServer.WINDOW_MODE_WINDOWED

@@ -1,4 +1,4 @@
-# registry_controller.gd
+# registry_system.gd
 # Registry
 extends Node
 
@@ -18,9 +18,11 @@ func _init() -> void:
 func _ready() -> void:
 	reset()
 
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 func reset() -> void:
 	load_defaults()
-	save_to_file()
+	#save_to_file()
 
 func load_defaults() -> void:
 	data = preload("res://assets/data/default_registry.tres").duplicate()
