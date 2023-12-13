@@ -9,26 +9,44 @@ func _ready() -> void:
 
 func _enter_state() -> void:
 	super._enter_state()
-	Splash.timer.start(Settings.data.splash_delay)
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
+	# brief pause so everything can snap into place
+	Splash.timer.start(0.5)
 	await Splash.timer.timeout
-	Transition.play("fadein")
-	await Transition.finished
 	
 	# skip splash
-	if Settings.data.skip_splash:
-		print("SKIP_SPLASH")
+	var delay: float = Settings.data.splash_delay
+	if delay <= 0.0:
+		print("|# SKIP_SPLASH")
 		Game.main.change_state(Game.title_state)
+		Transition.play("fadein")
+		await Transition.finished
 		return
 	
 	# play splash
-	# TODO splash screen goes here
-	print("PLAY_SPLASH")
+	print("|# PLAY_SPLASH")
+	Splash.canvas.show()
+	Splash.overlay.show()
+	
+	# splash0
+	Splash.overlay.icon.texture = GODOT_ICON
+	Transition.play("fadein")
+	await Transition.finished
+	Splash.timer.start(delay)
+	await Splash.timer.timeout
+	Transition.play("fadeout")
+	await Transition.finished
+	
 	Game.main.change_state(Game.title_state)
+	Transition.play("fadein")
+	await Transition.finished
 
 func _exit_state() -> void:
 	super._exit_state()
 	Splash.timer.stop()
 	Splash.overlay.hide()
+	Splash.canvas.show()
 
 func _physics_process(_delta) -> void:
 	pass

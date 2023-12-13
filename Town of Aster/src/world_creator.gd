@@ -168,6 +168,6 @@ func _on_button_play_pressed():
 	world_data.object_data[player_data.guid] = player_data
 	
 	WorldData.write(world_data, world_data.guid)
-	Game.load_world_from_memory(world_data)
+	Game.load_from_memory(world_data)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

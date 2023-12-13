@@ -7,7 +7,7 @@ signal exited()
 
 func _ready() -> void:
 	entered.connect(func(): print(">> %s" % [name]))
-	exited.connect(func(): print("<< %s" % [name]))
+	exited.connect(func(): print("<< %s\n" % [name]))
 	Utility.set_active(self, false)
 
 func _enter_state() -> void:

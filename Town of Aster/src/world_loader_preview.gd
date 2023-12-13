@@ -33,7 +33,7 @@ func set_world_data(value: WorldData):
 	world_data = value
 	
 	play_button.pressed.connect(func():
-		Game.load_world_from_memory(world_data))
+		Game.load_from_memory(world_data))
 	
 	farm_name_label.text = "%s Farm" % [world_data.farm_data.name]
 	

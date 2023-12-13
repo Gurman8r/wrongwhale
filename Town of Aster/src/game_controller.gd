@@ -32,28 +32,36 @@ func _unhandled_input(_event) -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-#region CONTROL_FLOW
+#region FLOW_CONTROL
 
-func load_world_from_memory(world_data: WorldData) -> void:
-	print("load_world_from_memory")
+func load_from_memory(world_data: WorldData) -> void:
+	print("|# LOAD_FROM_MEMORY")
+	Transition.play("fadeout")
+	await Transition.finished
 	World.data = world_data
 	main.change_state(world_state)
+	Transition.play("fadein")
+	await Transition.finished
 
-func load_world_from_file(path_stem: String) -> void:
-	print("load_world_from_file")
+func load_from_file(path_stem: String) -> void:
+	print("|# LOAD_FROM_FILE")
+	Transition.play("fadeout")
+	await Transition.finished
 	World.data = WorldData.read(path_stem)
 	main.change_state(world_state)
+	Transition.play("fadein")
+	await Transition.finished
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func quit_to_desktop() -> void:
-	print("quit_to_desktop")
+	print("|# QUIT_TO_DESKTOP")
 	Transition.play("fadeout")
 	await Transition.finished
 	get_tree().quit()
 
-func save_world_to_file_and_quit_to_desktop(path_stem: String = "") -> void:
-	print("save_world_to_file_and_quit_to_desktop")
+func save_to_file_and_quit_to_desktop(path_stem: String = "") -> void:
+	print("|# SAVE_TO_FILE_AND_QUIT_TO_DESKTOP")
 	Transition.play("fadeout")
 	await Transition.finished
 	World.save(path_stem)
@@ -63,15 +71,23 @@ func save_world_to_file_and_quit_to_desktop(path_stem: String = "") -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func quit_to_title() -> void:
-	print("quit_to_title")
+	print("|# QUIT_TO_TITLE")
+	Transition.play("fadeout")
+	await Transition.finished
 	World.unload()
 	main.change_state(title_state)
+	Transition.play("fadein")
+	await Transition.finished
 
-func save_world_to_file_and_quit_to_title(path_stem: String = "") -> void:
-	print("save_world_to_file_and_quit_to_title")
+func save_to_file_and_quit_to_title(path_stem: String = "") -> void:
+	print("|# SAVE_TO_FILE_AND_QUIT_TO_TITLE")
+	Transition.play("fadeout")
+	await Transition.finished
 	World.save(path_stem)
 	World.unload()
 	main.change_state(title_state)
+	Transition.play("fadein")
+	await Transition.finished
 
 #endregion
 

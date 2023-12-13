@@ -92,8 +92,8 @@ func _ready():
 		menu_tab_container.current_tab = tab)
 	
 	save_button.pressed.connect(World.save)
-	save_and_quit_to_title_button.pressed.connect(Game.save_world_to_file_and_quit_to_title)
-	save_and_quit_to_desktop_button.pressed.connect(Game.save_world_to_file_and_quit_to_desktop)
+	save_and_quit_to_title_button.pressed.connect(Game.save_to_file_and_quit_to_title)
+	save_and_quit_to_desktop_button.pressed.connect(Game.save_to_file_and_quit_to_desktop)
 	quit_to_title_button.pressed.connect(Game.quit_to_title)
 	quit_to_desktop_button.pressed.connect(func():
 		print("HERE")
@@ -144,10 +144,10 @@ func _update_internal() -> void:
 	or inventory_container.visible:
 		get_tree().paused = true
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		Player.overlay.hide()
+		#Player.overlay.hide()
 	else:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		Player.overlay.show()
+		#Player.overlay.show()
 		if grabbed_stack:
 			drop_stack.emit(grabbed_stack)
 			grabbed_stack = null

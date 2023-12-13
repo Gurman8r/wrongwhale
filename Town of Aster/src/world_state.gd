@@ -10,14 +10,14 @@ func _enter_state() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	World.reload()
 	Player.canvas.show()
-	Player.interface.show()
-	Player.overlay.hide()
+	Player.overlay.show()
+	Player.interface.hide()
 
 func _exit_state() -> void:
 	super._exit_state()
-	Player.canvas.hide()
 	Player.interface.hide()
 	Player.overlay.hide()
+	Player.canvas.hide()
 
 func _physics_process(_delta) -> void:
 	pass
