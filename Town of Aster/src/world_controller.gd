@@ -71,6 +71,7 @@ func transfer(node: Node3D, new_cell: WorldCell, position: Vector3 = Vector3.ZER
 
 func reset_cells() -> void:
 	cell_root = Utility.make_child(self, preload("res://assets/scenes/world_cells.tscn").instantiate(), "WorldCells")
+	cell_root.process_mode = Node.PROCESS_MODE_PAUSABLE
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

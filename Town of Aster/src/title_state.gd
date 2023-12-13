@@ -2,9 +2,6 @@
 class_name TitleState
 extends State
 
-func _ready() -> void:
-	super._ready()
-
 func _enter_state() -> void:
 	super._enter_state()
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -14,6 +11,3 @@ func _enter_state() -> void:
 func _exit_state() -> void:
 	super._exit_state()
 	Title.interface.menu = null
-
-func _physics_process(_delta) -> void:
-	pass

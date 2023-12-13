@@ -4,12 +4,11 @@ extends State
 
 const GODOT_ICON = preload("res://icon.svg")
 
-func _ready() -> void:
-	super._ready()
+var icon_textures: Array[Texture] = [ GODOT_ICON ]
 
 func _enter_state() -> void:
 	super._enter_state()
-	get_tree().paused = true
+	Game.pause()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 	# brief pause so everything can snap into place
@@ -19,25 +18,26 @@ func _enter_state() -> void:
 	# skip splash
 	var delay: float = Settings.data.splash_delay
 	if delay <= 0.0:
-		print("|! SKIP_SPLASH")
+		print("$: nosplash")
 		Game.main.change_state(Game.title_state)
 		Transition.play("fadein")
 		await Transition.finished
 		return
 	
 	# play splash
-	print("|! PLAY_SPLASH")
 	Splash.canvas.show()
 	Splash.overlay.show()
-	
-	# splash0
-	Splash.overlay.icon.texture = GODOT_ICON
-	Transition.play("fadein")
-	await Transition.finished
-	Splash.timer.start(delay)
-	await Splash.timer.timeout
-	Transition.play("fadeout")
-	await Transition.finished
+	for i in range(icon_textures.size()):
+		var t: Texture = icon_textures[i]
+		if not t: continue
+		print("$: splash%d" % [i])
+		Splash.overlay.icon.texture = t
+		Transition.play("fadein")
+		await Transition.finished
+		Splash.timer.start(delay)
+		await Splash.timer.timeout
+		Transition.play("fadeout")
+		await Transition.finished
 	
 	Game.main.change_state(Game.title_state)
 	Transition.play("fadein")
@@ -48,6 +48,3 @@ func _exit_state() -> void:
 	Splash.timer.stop()
 	Splash.overlay.hide()
 	Splash.canvas.show()
-
-func _physics_process(_delta) -> void:
-	pass

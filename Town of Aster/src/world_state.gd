@@ -2,9 +2,6 @@
 class_name WorldState
 extends State
 
-func _ready() -> void:
-	super._ready()
-
 func _enter_state() -> void:
 	super._enter_state()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -12,12 +9,9 @@ func _enter_state() -> void:
 	assert(Player.canvas.visible)
 	Player.overlay.show()
 	Player.interface.show()
-	get_tree().paused = false
+	Game.unpause()
 
 func _exit_state() -> void:
 	super._exit_state()
 	Player.overlay.hide()
 	Player.interface.hide()
-
-func _physics_process(_delta) -> void:
-	pass

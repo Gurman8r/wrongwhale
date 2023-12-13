@@ -84,7 +84,7 @@ func _ready():
 	
 	visibility_changed.connect(func():
 		if not visible:
-			set_current_tab(-1))
+			menu_container.hide())
 	
 	menu_tab_bar.tab_changed.connect(func(tab: int):
 		menu_tab_container.current_tab = tab)
@@ -136,18 +136,19 @@ func clear_player_data() -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _update_internal() -> void:
-	if menu_container.visible or inventory_container.visible:
-		get_tree().paused = true
+	if menu_container.visible \
+	or inventory_container.visible:
+		Game.pause()
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		#Player.overlay.hide()
+		Player.overlay.hide()
 	else:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		#Player.overlay.show()
+		Player.overlay.show()
 		if grabbed_stack:
 			drop_stack.emit(grabbed_stack)
 			grabbed_stack = null
 			update_grabbed_slot()
-		get_tree().paused = false
+		Game.unpause()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

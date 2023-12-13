@@ -29,7 +29,7 @@ func _init() -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func play(animation: String) -> void:
-	print("|* %s" % [animation])
+	print("X: %s" % [animation])
 	overlay.play(animation)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
