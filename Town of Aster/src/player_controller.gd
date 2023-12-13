@@ -27,9 +27,9 @@ var character: PlayerCharacter
 
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	canvas = Util.make_as_child(self, CanvasLayer.new(), "Canvas")
-	overlay = Util.make_as_child(canvas, preload("res://assets/scenes/player_overlay.tscn").instantiate(), "Overlay")
-	interface = Util.make_as_child(canvas, preload("res://assets/scenes/player_interface.tscn").instantiate(), "Interface")
+	canvas = Util.make_child(self, CanvasLayer.new(), "Canvas")
+	overlay = Util.make_child(canvas, preload("res://assets/scenes/player_overlay.tscn").instantiate(), "Overlay")
+	interface = Util.make_child(canvas, preload("res://assets/scenes/player_interface.tscn").instantiate(), "Interface")
 
 func _ready() -> void:
 	assert(canvas.visible)

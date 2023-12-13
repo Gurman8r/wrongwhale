@@ -16,9 +16,9 @@ var timer: Timer
 
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	canvas = Util.make_as_child(self, CanvasLayer.new(), "Canvas")
-	overlay = Util.make_as_child(canvas, preload("res://assets/scenes/splash_overlay.tscn").instantiate(), "Overlay")
-	timer = Util.make_as_child(self, Timer.new(), "Timer")
+	canvas = Util.make_child(self, CanvasLayer.new(), "Canvas")
+	overlay = Util.make_child(canvas, preload("res://assets/scenes/splash_overlay.tscn").instantiate(), "Overlay")
+	timer = Util.make_child(self, Timer.new(), "Timer")
 	timer.one_shot = true
 
 func _ready():
