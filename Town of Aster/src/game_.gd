@@ -35,6 +35,8 @@ func _unhandled_input(_event) -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+#region PAUSE
+
 var paused: bool : get = get_paused, set = set_paused
 
 func get_paused() -> bool:
@@ -50,6 +52,8 @@ func pause() -> void:
 
 func unpause() -> void:
 	set_paused(false)
+
+#endregion
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

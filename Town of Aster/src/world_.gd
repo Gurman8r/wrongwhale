@@ -15,17 +15,6 @@ signal unloading_finished()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-var data: WorldData
-
-var world_environment: WorldEnvironment
-
-var cell_root: Node
-var cell: WorldCell = null : set = change_cell
-var cells: Array[WorldCell] = []
-var objects: Array[Node3D] = []
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
 func _init() -> void:
 	process_mode = PROCESS_MODE_ALWAYS
 
@@ -35,48 +24,9 @@ func _ready() -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func get_environment() -> Environment:
-	return world_environment.environment
-
-func set_environment(value: Environment) -> void:
-	world_environment.environment = value
-
-func reset_environment() -> void:
-	if world_environment == null:
-		world_environment = Util.make(self, WorldEnvironment.new(), "WorldEnvironment")
-	world_environment.environment = Prefabs.DEFAULT_ENVIRONMENT.duplicate()
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func get_cell() -> WorldCell:
-	return cell
-
-func change_cell(new_cell: WorldCell) -> void:
-	if cell == new_cell: return
-	if cell: cell.enabled = false
-	cell = new_cell
-	if cell: cell.enabled = true
-
-func find_cell(cell_name: String) -> WorldCell:
-	if cell_root.has_node(cell_name):
-		return cell_root.get_node(cell_name)
-	else:
-		return null
-
-func transfer(node: Node3D, new_cell: WorldCell, position: Vector3 = Vector3.ZERO) -> void:
-	assert(node)
-	assert(new_cell)
-	if cell: cell.remove(node)
-	change_cell(new_cell)
-	if cell: cell.add(node, position)
-	if "data" in node and "cell_name" in node.data:
-		node.data.cell_name = cell.name
-
-func reset_cells() -> void:
-	cell_root = Util.make(self, Prefabs.WORLD_CELLS.instantiate(), "WorldCells")
-	cell_root.process_mode = Node.PROCESS_MODE_PAUSABLE
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+# DATA
+var data: WorldData
+var objects: Array[Node3D]
 
 func save(path_stem: String = "") -> void:
 	if path_stem.is_empty():
@@ -117,13 +67,59 @@ func unload() -> void:
 	
 	for o in objects:
 		o.queue_free()
-	objects.clear()
+	objects = []
 	
-	if cell:
-		cell.enabled = false
-		cell = null
+	if cell: cell.enabled = false
+	cell = null
 	data = null
 	
 	unloading_finished.emit()
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+# ENVIRONMENT
+var _world_environment: WorldEnvironment
+
+var environment: Environment : get = get_environment, set = set_environment
+
+func get_environment() -> Environment: return _world_environment.environment
+
+func set_environment(value: Environment) -> void: if _world_environment.environment != value: _world_environment.environment = value
+
+func reset_environment() -> void:
+	if !_world_environment: _world_environment = Util.make(self, WorldEnvironment.new(), "WorldEnvironment")
+	_world_environment.environment = Prefabs.DEFAULT_ENVIRONMENT.duplicate()
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+# CELLS
+var cell_root: Node
+var cell: WorldCell = null : set = change_cell
+var cells: Array[WorldCell]
+
+func get_cell() -> WorldCell: return cell
+
+func change_cell(new_cell: WorldCell) -> void:
+	if cell == new_cell: return
+	if cell: cell.enabled = false
+	cell = new_cell
+	if cell: cell.enabled = true
+
+func find_cell(cell_name: String) -> WorldCell:
+	if cell_root.has_node(cell_name): return cell_root.get_node(cell_name)
+	else: return null
+
+func transfer(node: Node3D, new_cell: WorldCell, position: Vector3 = Vector3.ZERO) -> void:
+	assert(node)
+	assert(new_cell)
+	if cell: cell.remove(node)
+	change_cell(new_cell)
+	if cell: cell.add(node, position)
+	if "data" in node and "cell_name" in node.data:
+		node.data.cell_name = cell.name
+
+func reset_cells() -> void:
+	cell_root = Util.make(self, Prefabs.WORLD_CELLS.instantiate(), "WorldCells")
+	cell_root.process_mode = PROCESS_MODE_PAUSABLE
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

@@ -28,6 +28,7 @@ stacks = Array[ExtResource("6_scvyx")]([SubResource("Resource_se2iu"), SubResour
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hmr33"]
 
 [node name="WorldCells" type="Node"]
+process_mode = 1
 
 [node name="WorldCell0" type="GridMap" parent="."]
 visible = false

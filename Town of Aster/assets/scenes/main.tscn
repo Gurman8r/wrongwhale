@@ -1,19 +1,19 @@
 [gd_scene load_steps=5 format=3 uid="uid://5v7hwbs5k45a"]
 
 [ext_resource type="Script" path="res://src/main.gd" id="1_idxya"]
-[ext_resource type="Script" path="res://src/splash_state.gd" id="2_8vjqe"]
-[ext_resource type="Script" path="res://src/title_state.gd" id="3_xntyv"]
-[ext_resource type="Script" path="res://src/world_state.gd" id="4_2jd8t"]
+[ext_resource type="Script" path="res://src/main_splash_state.gd" id="2_8vjqe"]
+[ext_resource type="Script" path="res://src/main_title_state.gd" id="3_xntyv"]
+[ext_resource type="Script" path="res://src/main_world_state.gd" id="4_2jd8t"]
 
 [node name="Main" type="Node"]
 process_mode = 3
 script = ExtResource("1_idxya")
 
-[node name="SplashState" type="Node" parent="."]
+[node name="MainSplashState" type="Node" parent="."]
 script = ExtResource("2_8vjqe")
 
-[node name="TitleState" type="Node" parent="."]
+[node name="MainTitleState" type="Node" parent="."]
 script = ExtResource("3_xntyv")
 
-[node name="WorldState" type="Node" parent="."]
+[node name="MainWorldState" type="Node" parent="."]
 script = ExtResource("4_2jd8t")

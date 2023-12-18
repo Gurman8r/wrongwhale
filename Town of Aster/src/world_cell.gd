@@ -24,10 +24,7 @@ func _get_root(root_name: String) -> Node3D:
 	if has_node(root_name):
 		return get_node(root_name)
 	else:
-		var root = Node3D.new()
-		root.name = root_name
-		add_child(root)
-		return root
+		return Util.make(self, Node3D.new(), root_name)
 
 func get_root_name(node: Node3D) -> String:
 	assert(node)

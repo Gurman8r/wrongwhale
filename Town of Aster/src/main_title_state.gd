@@ -1,5 +1,5 @@
-# title_state.gd
-class_name TitleState
+# main_title_state.gd
+class_name MainTitleState
 extends State
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

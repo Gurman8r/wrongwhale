@@ -1,5 +1,5 @@
-# world_state.gd
-class_name WorldState
+# main_world_state.gd
+class_name MainWorldState
 extends State
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
