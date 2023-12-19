@@ -1,12 +1,22 @@
-[gd_scene load_steps=8 format=3 uid="uid://dhii3qy5e8ljo"]
+[gd_scene load_steps=10 format=3 uid="uid://dhii3qy5e8ljo"]
 
 [ext_resource type="Script" path="res://src/chest.gd" id="1_nmfw5"]
 [ext_resource type="Script" path="res://src/inventory_data.gd" id="2_u3pe4"]
 [ext_resource type="Script" path="res://src/interactable.gd" id="3_5fu7b"]
+[ext_resource type="Script" path="res://src/chest_data.gd" id="3_a73ud"]
 
-[sub_resource type="Resource" id="Resource_ucuon"]
+[sub_resource type="Resource" id="Resource_golrw"]
 script = ExtResource("2_u3pe4")
 stacks = Array[Resource("res://src/item_stack.gd")]([null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
+
+[sub_resource type="Resource" id="Resource_1ne14"]
+script = ExtResource("3_a73ud")
+guid = "Chest"
+name = "Chest"
+cell_name = ""
+position = Vector3(0, 0, 0)
+direction = Vector3(0, 0, -1)
+inventory_data = SubResource("Resource_golrw")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_h062n"]
 
@@ -19,7 +29,7 @@ material = SubResource("StandardMaterial3D_60ojv")
 [node name="Chest" type="StaticBody3D" groups=["EXTERNAL_INVENTORY"]]
 collision_mask = 3
 script = ExtResource("1_nmfw5")
-inventory_data = SubResource("Resource_ucuon")
+data = SubResource("Resource_1ne14")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)

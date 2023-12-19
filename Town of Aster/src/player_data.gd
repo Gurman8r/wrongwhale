@@ -2,11 +2,10 @@
 class_name PlayerData
 extends Resource
 
-const prefab = Prefabs.PLAYER_CHARACTER
+const PREFAB = Prefabs.PLAYER_CHARACTER
 
-@export var guid: String
-@export var name: String
-
+@export var guid: String = "Player"
+@export var name: String = "Player"
 @export var cell_name: String = ""
 @export var position: Vector3 = Vector3.ZERO
 @export var direction: Vector3 = Vector3.FORWARD

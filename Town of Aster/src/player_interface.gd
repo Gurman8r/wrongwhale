@@ -151,25 +151,25 @@ func set_current_tab(tab: int) -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func toggle_inventory(_external_inventory_owner: Node = null) -> void:
-	if _external_inventory_owner: set_external_inventory_owner(_external_inventory_owner)
+func toggle_inventory(value: Node = null) -> void:
+	if value: set_external_inventory_owner(value)
 	elif inventory_container.visible: clear_external_inventory()
 	elif not menu_container.visible: set_current_tab(0)
 	else: set_current_tab(-1)
 
 func set_external_inventory_owner(value: Node) -> void:
 	external_inventory_owner = value
-	var inventory_data = external_inventory_owner.inventory_data
+	var inventory_data = external_inventory_owner.data.inventory_data
 	if not inventory_data.inventory_interact.is_connected(on_inventory_interact):
 		inventory_data.inventory_interact.connect(on_inventory_interact)
 	external_inventory.set_inventory_data(inventory_data)
-	external_label.text = "%s:" % [value.inventory_name]
+	external_label.text = "%s:" % [value.data.name]
 	inventory_container.show()
 	_update_internal()
 
 func clear_external_inventory() -> void:
 	if not external_inventory_owner: return
-	var inventory_data = external_inventory_owner.inventory_data
+	var inventory_data = external_inventory_owner.data.inventory_data
 	if inventory_data.inventory_interact.is_connected(on_inventory_interact):
 		inventory_data.inventory_interact.disconnect(on_inventory_interact)
 	external_inventory.clear_inventory_data(inventory_data)

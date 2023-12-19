@@ -27,7 +27,6 @@ func _ready() -> void:
 #region DATA
 
 var data: WorldData
-var objects: Array[Node3D]
 
 func save(path_stem: String = "") -> void:
 	if path_stem.is_empty():
@@ -44,21 +43,7 @@ func reload() -> void:
 	
 	objects = []
 	for guid in data.object_data:
-		var d: Resource = data.object_data[guid]
-		assert("prefab" in d)
-		assert("cell_name" in d)
-		assert("position" in d)
-		var o: Node3D = d.prefab.instantiate()
-		assert(o)
-		o.data = d
-		var c: WorldCell = find_cell(o.data.cell_name)
-		assert(c)
-		c.add(o, o.data.position)
-		if o is PlayerCharacter:
-			_cell = c
-			_cell.enabled = true
-		o.name = guid
-		objects.append(o)
+		create_from_data(data.object_data[guid])
 	
 	loading_finished.emit()
 
@@ -66,8 +51,7 @@ func unload() -> void:
 	assert(data)
 	unloading_started.emit()
 	
-	for o in objects:
-		o.queue_free()
+	for o in objects: o.queue_free()
 	objects = []
 	
 	if _cell: _cell.enabled = false
@@ -114,6 +98,31 @@ func transfer(node: Node3D, new_cell: WorldCell, position: Vector3 = Vector3.ZER
 func reset_cells() -> void:
 	cell_root = Util.make(self, Prefabs.WORLD_CELLS.instantiate(), "WorldCells")
 	cell_root.process_mode = PROCESS_MODE_PAUSABLE
+
+#endregion
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+#region OBJECTS
+
+var objects: Array[Node3D]
+
+func create_from_data(d: Resource) -> Node3D:
+	assert("PREFAB" in d)
+	assert("cell_name" in d)
+	assert("position" in d)
+	var o: Node3D = d.PREFAB.instantiate()
+	assert(o)
+	o.data = d
+	var c: WorldCell = find_cell(o.data.cell_name)
+	assert(c)
+	c.add(o, o.data.position)
+	if o is PlayerCharacter:
+		_cell = c
+		_cell.enabled = true
+	o.name = d.guid
+	objects.append(o)
+	return o
 
 #endregion
 

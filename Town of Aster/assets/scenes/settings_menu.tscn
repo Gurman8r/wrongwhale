@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://cn6nx0dd15xf6"]
 
-[ext_resource type="Script" path="res://src/settings_menu.gd" id="1_gxxr8"]
-[ext_resource type="SystemFont" uid="uid://be14qyvbd8lox" path="res://assets/fonts/system_font.tres" id="2_fmvha"]
+[ext_resource type="Script" path="res://src/settings_menu.gd" id="1_s147n"]
+[ext_resource type="SystemFont" uid="uid://be14qyvbd8lox" path="res://assets/fonts/system_font.tres" id="2_o1oi2"]
 
 [node name="SettingsMenu" type="PanelContainer"]
-script = ExtResource("1_gxxr8")
+script = ExtResource("1_s147n")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -36,7 +36,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Video/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(128, 32)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_fmvha")
+theme_override_fonts/font = ExtResource("2_o1oi2")
 text = "Video"
 vertical_alignment = 1
 
@@ -55,13 +55,13 @@ theme_override_constants/separation = 4
 [node name="WindowModeLabel" type="Label" parent="MarginContainer/VBoxContainer/Video/MarginContainer/VBoxContainer/WindowMode/HBoxContainer"]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_fmvha")
+theme_override_fonts/font = ExtResource("2_o1oi2")
 text = "Window Mode"
 
 [node name="WindowModeButton" type="MenuButton" parent="MarginContainer/VBoxContainer/Video/MarginContainer/VBoxContainer/WindowMode/HBoxContainer"]
 custom_minimum_size = Vector2(128, 32)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_fmvha")
+theme_override_fonts/font = ExtResource("2_o1oi2")
 text = "Windowed"
 
 [node name="WindowSize" type="MarginContainer" parent="MarginContainer/VBoxContainer/Video/MarginContainer/VBoxContainer"]
@@ -79,13 +79,13 @@ theme_override_constants/separation = 4
 [node name="WindowSizeLabel" type="Label" parent="MarginContainer/VBoxContainer/Video/MarginContainer/VBoxContainer/WindowSize/HBoxContainer"]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_fmvha")
+theme_override_fonts/font = ExtResource("2_o1oi2")
 text = "Window Size"
 
 [node name="WindowSizeButton" type="MenuButton" parent="MarginContainer/VBoxContainer/Video/MarginContainer/VBoxContainer/WindowSize/HBoxContainer"]
 custom_minimum_size = Vector2(128, 32)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_fmvha")
+theme_override_fonts/font = ExtResource("2_o1oi2")
 text = "(1280, 720)"
 
 [node name="WindowVsync" type="MarginContainer" parent="MarginContainer/VBoxContainer/Video/MarginContainer/VBoxContainer"]
@@ -103,13 +103,13 @@ theme_override_constants/separation = 4
 [node name="WindowVsyncLabel" type="Label" parent="MarginContainer/VBoxContainer/Video/MarginContainer/VBoxContainer/WindowVsync/HBoxContainer"]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_fmvha")
+theme_override_fonts/font = ExtResource("2_o1oi2")
 text = "V-Sync"
 
 [node name="WindowVsyncButton" type="MenuButton" parent="MarginContainer/VBoxContainer/Video/MarginContainer/VBoxContainer/WindowVsync/HBoxContainer"]
 custom_minimum_size = Vector2(128, 32)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_fmvha")
+theme_override_fonts/font = ExtResource("2_o1oi2")
 text = "Disabled"
 
 [node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer"]
@@ -117,5 +117,5 @@ custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 5
-theme_override_fonts/font = ExtResource("2_fmvha")
+theme_override_fonts/font = ExtResource("2_o1oi2")
 text = "Back"

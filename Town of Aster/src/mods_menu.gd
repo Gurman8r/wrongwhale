@@ -1,5 +1,5 @@
-# mod_menu.gd
-class_name ModMenu
+# mods_menu.gd
+class_name ModsMenu
 extends PanelContainer
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
