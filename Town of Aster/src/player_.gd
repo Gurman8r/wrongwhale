@@ -10,11 +10,17 @@ enum { PRIMARY_BEGIN, PRIMARY, PRIMARY_END, SECONDARY_BEGIN, SECONDARY, SECONDAR
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 signal action(mode: int)
-signal move(delta: float, direction: Vector3)
-signal collide(body: KinematicCollision3D)
+signal moved(delta: float, direction: Vector3)
+signal collided(body: KinematicCollision3D)
 
 signal toggle_debug()
 signal toggle_inventory()
+#signal toggle_collection()
+#signal toggle_skills()
+#signal toggle_journal()
+#signal toggle_options()
+#signal toggle_system()
+
 signal hotbar_prev()
 signal hotbar_next()
 signal hotbar_select(index: int)
@@ -37,6 +43,8 @@ func _init() -> void:
 	canvas = Util.make(self, CanvasLayer.new(), "Canvas")
 	overlay = Util.make(canvas, Prefabs.PLAYER_OVERLAY.instantiate(), "Overlay")
 	interface = Util.make(canvas, Prefabs.PLAYER_INTERFACE.instantiate(), "Interface")
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _ready() -> void:
 	assert(canvas.visible)
@@ -74,7 +82,7 @@ func _ready() -> void:
 		data = null)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-	
+
 func _input(event) -> void:
 	if !data or !character: return
 	

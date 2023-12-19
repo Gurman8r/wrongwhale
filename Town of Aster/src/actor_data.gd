@@ -2,6 +2,8 @@
 class_name ActorData
 extends Resource
 
+const prefab = Prefabs.ACTOR_CHARACTER
+
 @export var guid: String
 @export var name: String
 

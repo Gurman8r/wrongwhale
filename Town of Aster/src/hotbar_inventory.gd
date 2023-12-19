@@ -6,11 +6,7 @@ extends Control
 
 @onready var h_box_container = $MarginContainer/HBoxContainer
 
-var item_index: int = 0 : set = set_item_index
-
 var slots: Array[InventorySlot] = []
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func set_inventory_data(inventory_data: InventoryData) -> void:
 	if not inventory_data.inventory_updated.is_connected(populate_item_grid):
@@ -36,6 +32,14 @@ func populate_item_grid(inventory_data: InventoryData) -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+#region ITEM_INDEX
+
+var _item_index: int = 0
+
+var item_index: int : get = get_item_index, set = set_item_index
+
+func get_item_index() -> int: return _item_index
+
 func set_item_index(value: int) -> HotbarInventory:
 	if value < 0: value = 9
 	elif value > 9: value = 0
@@ -44,10 +48,10 @@ func set_item_index(value: int) -> HotbarInventory:
 	slots[item_index].highlighted = true
 	return self
 
-func next() -> HotbarInventory:
-	return set_item_index(item_index + 1)
+func next() -> HotbarInventory: return set_item_index(item_index + 1)
 
-func prev() -> HotbarInventory:
-	return set_item_index(item_index - 1)
+func prev() -> HotbarInventory: return set_item_index(item_index - 1)
+
+#endregion
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

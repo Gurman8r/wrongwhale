@@ -24,7 +24,8 @@ func _ready() -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-# DATA
+#region DATA
+
 var data: WorldData
 var objects: Array[Node3D]
 
@@ -54,8 +55,8 @@ func reload() -> void:
 		assert(c)
 		c.add(o, o.data.position)
 		if o is PlayerCharacter:
-			cell = c
-			cell.enabled = true
+			_cell = c
+			_cell.enabled = true
 		o.name = guid
 		objects.append(o)
 	
@@ -69,15 +70,57 @@ func unload() -> void:
 		o.queue_free()
 	objects = []
 	
-	if cell: cell.enabled = false
-	cell = null
+	if _cell: _cell.enabled = false
+	_cell = null
 	data = null
 	
 	unloading_finished.emit()
 
+#endregion
+
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-# ENVIRONMENT
+#region CELLS
+
+var _cell: WorldCell # current cell
+var cell: WorldCell : get = get_cell, set = change_cell
+var cells: Array[WorldCell]
+var cell_root: Node
+
+func get_cell() -> WorldCell: return _cell
+
+func change_cell(new_cell: WorldCell) -> void:
+	if _cell == new_cell: return
+	if _cell:
+		Debug.puts("%s" % [""])
+		_cell.enabled = false
+	_cell = new_cell
+	if _cell:
+		_cell.enabled = true
+
+func find_cell(cell_name: String) -> WorldCell:
+	if cell_root.has_node(cell_name): return cell_root.get_node(cell_name)
+	else: return null
+
+func transfer(node: Node3D, new_cell: WorldCell, position: Vector3 = Vector3.ZERO) -> void:
+	assert(node)
+	assert(new_cell)
+	if _cell: _cell.remove(node)
+	change_cell(new_cell)
+	if _cell: _cell.add(node, position)
+	if "data" in node and "cell_name" in node.data:
+		node.data.cell_name = _cell.name
+
+func reset_cells() -> void:
+	cell_root = Util.make(self, Prefabs.WORLD_CELLS.instantiate(), "WorldCells")
+	cell_root.process_mode = PROCESS_MODE_PAUSABLE
+
+#endregion
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+#region ENVIRONMENT
+
 var _world_environment: WorldEnvironment
 
 var environment: Environment : get = get_environment, set = set_environment
@@ -90,36 +133,6 @@ func reset_environment() -> void:
 	if !_world_environment: _world_environment = Util.make(self, WorldEnvironment.new(), "WorldEnvironment")
 	_world_environment.environment = Prefabs.DEFAULT_ENVIRONMENT.duplicate()
 
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-# CELLS
-var cell_root: Node
-var cell: WorldCell = null : set = change_cell
-var cells: Array[WorldCell]
-
-func get_cell() -> WorldCell: return cell
-
-func change_cell(new_cell: WorldCell) -> void:
-	if cell == new_cell: return
-	if cell: cell.enabled = false
-	cell = new_cell
-	if cell: cell.enabled = true
-
-func find_cell(cell_name: String) -> WorldCell:
-	if cell_root.has_node(cell_name): return cell_root.get_node(cell_name)
-	else: return null
-
-func transfer(node: Node3D, new_cell: WorldCell, position: Vector3 = Vector3.ZERO) -> void:
-	assert(node)
-	assert(new_cell)
-	if cell: cell.remove(node)
-	change_cell(new_cell)
-	if cell: cell.add(node, position)
-	if "data" in node and "cell_name" in node.data:
-		node.data.cell_name = cell.name
-
-func reset_cells() -> void:
-	cell_root = Util.make(self, Prefabs.WORLD_CELLS.instantiate(), "WorldCells")
-	cell_root.process_mode = PROCESS_MODE_PAUSABLE
+#endregion
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

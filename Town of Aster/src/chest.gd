@@ -2,6 +2,8 @@
 class_name Chest
 extends WorldObject
 
+const CATEGORY := "Chest"
+
 signal toggle_inventory(external_inventory_owner)
 
 @export var inventory_name: String = "Chest"

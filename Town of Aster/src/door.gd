@@ -2,6 +2,8 @@
 class_name Door
 extends WorldObject
 
+const CATEGORY := "Door"
+
 @export var destination: Door
 
 @onready var collision_shape_3d: CollisionShape3D = $CollisionShape3D

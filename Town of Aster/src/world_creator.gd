@@ -8,6 +8,8 @@ const NAME_MAX := 12
 const SEED_MAX := 16
 const SEED_CHARS := "0123456789ABCDEFGHIJKLMNOPQRZTUVWXYZabcdefghijklmnopqrstuvwxyz"
 
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 @onready var play_button: Button = $MarginContainer/VBoxContainer/PlayButton
 @onready var back_button: Control = $MarginContainer/VBoxContainer/BackButton
 
@@ -162,7 +164,7 @@ func _on_button_play_pressed():
 	player_data.guid = player_data.name.replace(" ", "_")
 	player_data.position = Vector3.ZERO
 	player_data.direction = Vector3.FORWARD
-	player_data.cell_name = "WorldCell0"
+	player_data.cell_name = "Farm"
 	player_data.inventory_data.resize(30)
 	player_data.equip_data.resize(1)
 	world_data.object_data[player_data.guid] = player_data

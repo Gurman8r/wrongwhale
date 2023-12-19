@@ -14,27 +14,21 @@ func _ready() -> void:
 
 var enabled: bool = false : set = set_enabled
 
-func set_enabled(value: bool) -> void:
-	Util.set_enabled(self, value)
+func set_enabled(value: bool) -> void: Util.set_enabled(self, value)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+#region OBJECTS
+
 func _get_root(root_name: String) -> Node3D:
 	assert(0 < root_name.length())
-	if has_node(root_name):
-		return get_node(root_name)
-	else:
-		return Util.make(self, Node3D.new(), root_name)
+	if has_node(root_name): return get_node(root_name)
+	else: return Util.make(self, Node3D.new(), root_name)
 
 func get_root_name(node: Node3D) -> String:
 	assert(node)
-	if node is ActorCharacter: return "Actor"
-	elif node is Chest: return "Chest"
-	elif node is Door: return "Door"
-	elif node is ItemDrop: return "Item"
-	elif node is PlayerCharacter: return "Player"
-	elif node is FarmTile: return "Tile"
-	return "Misc"
+	if "CATEGORY" in node: return node.CATEGORY
+	else: return "Misc"
 
 func get_root_node(node: Node3D) -> Node3D:
 	assert(node)
@@ -50,5 +44,7 @@ func remove(node: Node3D) -> WorldCell:
 	assert(node)
 	get_root_node(node).remove_child(node)
 	return self
+
+#endregion
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

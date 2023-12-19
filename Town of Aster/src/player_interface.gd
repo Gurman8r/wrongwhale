@@ -138,23 +138,6 @@ func clear_player_data() -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func _update_internal() -> void:
-	if menu_container.visible \
-	or inventory_container.visible:
-		Game.pause()
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		Player.overlay.hide()
-	else:
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		Player.overlay.show()
-		if grabbed_stack:
-			drop_stack.emit(grabbed_stack)
-			grabbed_stack = null
-			update_grabbed_slot()
-		Game.unpause()
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
 func get_current_tab() -> int:
 	return menu_tab_bar.current_tab
 
@@ -166,13 +149,13 @@ func set_current_tab(tab: int) -> void:
 		menu_container.show()
 	_update_internal()
 
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 func toggle_inventory(_external_inventory_owner: Node = null) -> void:
 	if _external_inventory_owner: set_external_inventory_owner(_external_inventory_owner)
 	elif inventory_container.visible: clear_external_inventory()
 	elif not menu_container.visible: set_current_tab(0)
 	else: set_current_tab(-1)
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func set_external_inventory_owner(value: Node) -> void:
 	external_inventory_owner = value
@@ -209,5 +192,22 @@ func update_grabbed_slot() -> void:
 		grabbed_slot.set_stack(grabbed_stack)
 	else:
 		grabbed_slot.hide()
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func _update_internal() -> void:
+	if menu_container.visible \
+	or inventory_container.visible:
+		Game.pause()
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		Player.overlay.hide()
+	else:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		Player.overlay.show()
+		if grabbed_stack:
+			drop_stack.emit(grabbed_stack)
+			grabbed_stack = null
+			update_grabbed_slot()
+		Game.unpause()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

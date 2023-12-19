@@ -2,6 +2,8 @@
 class_name ItemDrop
 extends WorldObject
 
+const CATEGORY := "Item"
+
 @export var stack: ItemStack
 
 @onready var sprite_3d = $Sprite3D

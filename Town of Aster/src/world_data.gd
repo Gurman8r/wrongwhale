@@ -9,8 +9,8 @@ extends Resource
 @export var index: int
 
 @export var world_seed: String
-@export var farm_data: FarmData = FarmData.new()
 @export var object_data: Dictionary = {}
+@export var farm_data: FarmData = FarmData.new()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -54,7 +54,7 @@ static func get_path_list() -> Array[String]:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-static func make_dir_absolute_test() -> WorldData:
+static func make_test() -> WorldData:
 	var f: FarmData = FarmData.new()
 	f.name = "Test"
 	

@@ -1,0 +1,52 @@
+[gd_scene load_steps=10 format=3 uid="uid://dvwd8sy7qsehe"]
+
+[ext_resource type="Script" path="res://src/actor_character.gd" id="1_td6mt"]
+[ext_resource type="Script" path="res://src/interact_ray.gd" id="2_yoovk"]
+[ext_resource type="Script" path="res://src/state_machine.gd" id="3_ydrmx"]
+
+[sub_resource type="AnimationRootNode" id="AnimationRootNode_w6igt"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_cha3g"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i851t"]
+albedo_color = Color(0, 0.541176, 0.952941, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_h4ew8"]
+material = SubResource("StandardMaterial3D_i851t")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ubpef"]
+transparency = 1
+albedo_color = Color(0.8, 0.8, 0, 0.0941176)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xoedw"]
+material = SubResource("StandardMaterial3D_ubpef")
+size = Vector3(1, 0.02, 1)
+
+[node name="ActorCharacter" type="CharacterBody3D"]
+script = ExtResource("1_td6mt")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationRootNode_w6igt")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="Collider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_cha3g")
+
+[node name="InteractRay" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+target_position = Vector3(0, 0, -1.5)
+collision_mask = 4
+script = ExtResource("2_yoovk")
+
+[node name="Rig" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_h4ew8")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("3_ydrmx")
+
+[node name="TargetMarker" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_xoedw")
