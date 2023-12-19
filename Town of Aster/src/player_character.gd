@@ -78,10 +78,9 @@ func _process(delta: float) -> void:
 		interact_ray.basis = rot
 	
 	# targeting
-	var target_pos: Vector3
 	target_marker.global_transform.origin.x = roundf(data.position.x + data.direction.x * target_range)
-	target_marker.global_transform.origin.y = target_height
 	target_marker.global_transform.origin.z = roundf(data.position.z + data.direction.z * target_range)
+	target_marker.global_transform.origin.y = target_height
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

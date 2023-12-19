@@ -19,9 +19,20 @@ func get_item(index: int) -> ItemData:
 	if stack: return stack.item_data
 	else: return null
 
+func set_item(index: int, value: ItemData, quantity: int = 1) -> void:
+	assert(index >= 0 and index < stacks.size())
+	assert(0 < quantity)
+	var stack = stacks[index]
+	if !stack:
+		stacks[index] = ItemStack.new()
+		stack = stacks[index]
+	assert(stack)
+	stack.item_data = value
+	stack.quantity = quantity
+
 func resize(count: int) -> InventoryData:
 	stacks.resize(count)
-	return self
+	return self	
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

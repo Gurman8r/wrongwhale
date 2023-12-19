@@ -2,7 +2,7 @@
 class_name ChestData
 extends Resource
 
-#const PREFAB := Prefabs.CHEST
+const PREFAB := Prefabs.CHEST
 
 @export var guid: String = "Chest"
 @export var name: String = "Chest"
@@ -10,4 +10,4 @@ extends Resource
 @export var position: Vector3 = Vector3.ZERO
 @export var direction: Vector3 = Vector3.FORWARD
 
-@export var inventory_data: InventoryData
+@export var inventory_data: InventoryData = InventoryData.new()

@@ -1,33 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://drkpj71lp7mtb"]
+[gd_scene load_steps=6 format=3 uid="uid://drkpj71lp7mtb"]
 
 [ext_resource type="MeshLibrary" uid="uid://cwqb6ao2pijf4" path="res://assets/meshes/blocks.meshlib" id="1_75kal"]
 [ext_resource type="Script" path="res://src/world_cell.gd" id="2_6tcc8"]
-[ext_resource type="PackedScene" uid="uid://dhii3qy5e8ljo" path="res://assets/scenes/chest.tscn" id="3_gctol"]
-[ext_resource type="Script" path="res://src/inventory_data.gd" id="4_0a62n"]
-[ext_resource type="Resource" uid="uid://yjvloyxn845p" path="res://assets/items/potion.tres" id="5_ajl61"]
-[ext_resource type="Script" path="res://src/chest_data.gd" id="5_jqq5j"]
-[ext_resource type="Script" path="res://src/item_stack.gd" id="6_r01tp"]
 [ext_resource type="PackedScene" uid="uid://bt3ygtr7jmwhx" path="res://assets/scenes/door.tscn" id="8_27e8a"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_x5deb"]
-
-[sub_resource type="Resource" id="Resource_uw7tp"]
-script = ExtResource("6_r01tp")
-item_data = ExtResource("5_ajl61")
-quantity = 10
-
-[sub_resource type="Resource" id="Resource_golrw"]
-script = ExtResource("4_0a62n")
-stacks = Array[ExtResource("6_r01tp")]([SubResource("Resource_uw7tp"), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null])
-
-[sub_resource type="Resource" id="Resource_8uhvm"]
-script = ExtResource("5_jqq5j")
-guid = "Chest0"
-name = "Chest0"
-cell_name = "Farm"
-position = Vector3(0, 0, -3)
-direction = Vector3(0, 0, -1)
-inventory_data = SubResource("Resource_golrw")
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hmr33"]
 
@@ -46,12 +23,6 @@ data = {
 }
 script = ExtResource("2_6tcc8")
 metadata/_editor_floor_ = Vector3(0, 0, 0)
-
-[node name="Chest" type="Node3D" parent="Farm"]
-
-[node name="Chest0" parent="Farm/Chest" instance=ExtResource("3_gctol")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
-data = SubResource("Resource_8uhvm")
 
 [node name="Door" type="Node3D" parent="Farm"]
 
