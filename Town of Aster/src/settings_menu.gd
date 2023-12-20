@@ -19,12 +19,13 @@ func _ready():
 	reset()
 	
 	back_button.pressed.connect(func():
+		Debug.puts(" | save settings")
+		Settings.write()
 		Title.interface.menu = Title.interface.home)
 	
 	reset_button.pressed.connect(func():
 		Debug.puts(" | reset settings")
-		Settings.reset()
-		Settings.save())
+		Settings.reset())
 	
 	#graphics_vsync_button.pressed.connect(func():
 	#	graphics_vsync_button.release_focus())
@@ -38,7 +39,6 @@ func _ready():
 		DisplayServer.window_set_mode(id)
 		Settings.set_("window_mode", id)
 		window_mode_button.release_focus())
-	
 	
 	for i in range(0, window_sizes.size()):
 		var window_size = window_sizes[i]
