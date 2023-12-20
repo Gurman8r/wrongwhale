@@ -34,6 +34,11 @@ func _unhandled_input(_event) -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+func is_standalone() -> bool:
+	return OS.has_feature("standalone")
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 #region PAUSE
 
 var paused: bool : get = get_paused, set = set_paused
@@ -42,8 +47,7 @@ func get_paused() -> bool:
 	return get_tree().paused
 
 func set_paused(value: bool) -> void:
-	if value: Debug.puts(" | pause")
-	else: Debug.puts(" | unpause")
+	Debug.puts(" | pause %d" % [int(value)])
 	get_tree().paused = value
 
 func pause() -> void:

@@ -4,6 +4,10 @@
 [ext_resource type="SystemFont" uid="uid://be14qyvbd8lox" path="res://assets/fonts/system_font.tres" id="2_o1oi2"]
 
 [node name="SettingsMenu" type="PanelContainer"]
+offset_right = 284.0
+offset_bottom = 216.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("1_s147n")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]

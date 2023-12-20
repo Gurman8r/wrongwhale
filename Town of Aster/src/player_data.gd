@@ -29,5 +29,5 @@ enum { CAT, DOG }
 @export var defense: int = 1
 @export var speed: int = 1
 
-@export var inventory_data: InventoryData = InventoryData.new()
+@export var inventory: InventoryData = InventoryData.new()
 @export var equip_data: InventoryDataEquip = InventoryDataEquip.new()

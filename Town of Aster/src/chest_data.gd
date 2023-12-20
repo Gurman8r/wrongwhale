@@ -10,4 +10,4 @@ const PREFAB := Prefabs.CHEST_ENTITY
 @export var position: Vector3 = Vector3.ZERO
 @export var direction: Vector3 = Vector3.FORWARD
 
-@export var inventory_data: InventoryData = InventoryData.new()
+@export var inventory: InventoryData = InventoryData.new()

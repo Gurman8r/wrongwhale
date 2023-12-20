@@ -30,7 +30,7 @@ enum { PRIMARY_BEGIN, PRIMARY, PRIMARY_END, SECONDARY_BEGIN, SECONDARY, SECONDAR
 @onready var camera_3d          : Camera3D         = $CameraPivotY/CameraPivotX/Camera3D
 @onready var collider           : CollisionShape3D = $Collider
 @onready var interact_ray       : InteractRay      = $InteractRay
-@onready var rig                : MeshInstance3D   = $Rig
+@onready var rig                : Node3D           = $Rig
 @onready var state_machine      : StateMachine     = $StateMachine
 @onready var target_marker      : Node3D           = $TargetMarker
 

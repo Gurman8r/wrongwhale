@@ -30,7 +30,7 @@ func reset() -> void:
 	data = Util.read(PATH)
 	if not data:
 		data = Prefabs.DEFAULT_SETTINGS.duplicate()
-		if Engine.is_editor_hint():
+		if !Game.is_standalone():
 			Util.write(data, PATH)
 	assert(data)
 

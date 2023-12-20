@@ -167,7 +167,7 @@ func _on_button_play_pressed():
 	player_data.position = Vector3.ZERO
 	player_data.direction = Vector3.FORWARD
 	player_data.cell_name = "Farm"
-	player_data.inventory_data.resize(30)
+	player_data.inventory.resize(30)
 	player_data.equip_data.resize(1)
 	
 	var tutorial_chest: ChestData = world_data.manage(ChestData.new())
@@ -176,9 +176,9 @@ func _on_button_play_pressed():
 	tutorial_chest.cell_name = "Farm"
 	tutorial_chest.position = Vector3(0, 0, -3)
 	tutorial_chest.direction = Vector3.FORWARD
-	tutorial_chest.inventory_data.resize(30)
-	tutorial_chest.inventory_data.set_item(0, preload("res://assets/items/potion.tres"), 15)
-	#tutorial_chest.inventory_data.set_item(0, Registry.find(Registries.ITEM, "potion"), 15)
+	tutorial_chest.inventory.resize(30)
+	tutorial_chest.inventory.add_item(preload("res://assets/items/potion.tres"), 15)
+	#tutorial_chest.inventory.set_item(0, Registry.get_(Registries.ITEM, "potion"), 15)
 	
 	WorldData.write(world_data, world_data.guid)
 	Game.load_from_memory(world_data)

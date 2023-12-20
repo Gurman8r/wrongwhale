@@ -6,10 +6,11 @@ extends Control
 
 enum {
 	INVENTORY,
+	MAP,
 	COLLECTION,
 	SKILLS,
 	JOURNAL,
-	OPTIONS,
+	SETTINGS,
 	SYSTEM
 }
 
@@ -39,14 +40,17 @@ signal force_close()
 @onready var main_inventory: Inventory = $MenuContainer/VBoxContainer/MenuTabContainer/Inventory/MarginContainer/HBoxContainer/MainInventory
 @onready var equip_inventory: Inventory = $MenuContainer/VBoxContainer/MenuTabContainer/Inventory/MarginContainer/HBoxContainer/EquipInventory
 
+# MAP TAB
+@onready var map: Control = $MenuContainer/VBoxContainer/MenuTabContainer/Map
+
 # COLLECTION TAB
 @onready var collection_tab: Control = $MenuContainer/VBoxContainer/MenuTabContainer/Collection
 
 # SKILLS TAB
 @onready var skills_tab: Control = $MenuContainer/VBoxContainer/MenuTabContainer/Skills
 
-# OPTIONS TAB
-@onready var options_tab: Control = $MenuContainer/VBoxContainer/MenuTabContainer/Options
+# SETTINGS TAB
+@onready var settings_tab: Control = $MenuContainer/VBoxContainer/MenuTabContainer/Settings
 
 # SYSTEM TAB
 @onready var system_tab: Control = $MenuContainer/VBoxContainer/MenuTabContainer/System
@@ -121,19 +125,19 @@ func _physics_process(_delta) -> void:
 func set_player_data(value: PlayerData) -> void:
 	if player_data == value: return
 	player_data = value
-	player_data.inventory_data.inventory_interact.connect(on_inventory_interact)
+	player_data.inventory.inventory_interact.connect(on_inventory_interact)
 	player_data.equip_data.inventory_interact.connect(on_inventory_interact)
-	internal_inventory.set_inventory_data(player_data.inventory_data)
-	main_inventory.set_inventory_data(player_data.inventory_data)
+	internal_inventory.set_inventory_data(player_data.inventory)
+	main_inventory.set_inventory_data(player_data.inventory)
 	equip_inventory.set_inventory_data(player_data.equip_data)
 	internal_label.text = "%s:" % [player_data.name]
 
 func clear_player_data() -> void:
 	if not player_data: return
-	player_data.inventory_data.inventory_interact.disconnect(on_inventory_interact)
+	player_data.inventory.inventory_interact.disconnect(on_inventory_interact)
 	player_data.equip_data.inventory_interact.disconnect(on_inventory_interact)
-	internal_inventory.clear_inventory_data(player_data.inventory_data)
-	main_inventory.clear_inventory_data(player_data.inventory_data)
+	internal_inventory.clear_inventory_data(player_data.inventory)
+	main_inventory.clear_inventory_data(player_data.inventory)
 	equip_inventory.clear_inventory_data(player_data.equip_data)
 	internal_label.text = ""
 	player_data = null
@@ -149,7 +153,7 @@ func set_current_tab(tab: int) -> void:
 	else:
 		menu_tab_bar.current_tab = tab
 		menu_container.show()
-	_update_internal()
+	update_internal()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -161,24 +165,24 @@ func toggle_inventory(value: Node = null) -> void:
 
 func set_external_inventory_owner(value: Node) -> void:
 	external_inventory_owner = value
-	var inventory_data = external_inventory_owner.data.inventory_data
+	var inventory_data = external_inventory_owner.data.inventory
 	if not inventory_data.inventory_interact.is_connected(on_inventory_interact):
 		inventory_data.inventory_interact.connect(on_inventory_interact)
 	external_inventory.set_inventory_data(inventory_data)
 	external_label.text = "%s:" % [value.data.name]
 	inventory_container.show()
-	_update_internal()
+	update_internal()
 
 func clear_external_inventory() -> void:
 	if not external_inventory_owner: return
-	var inventory_data = external_inventory_owner.data.inventory_data
+	var inventory_data = external_inventory_owner.data.inventory
 	if inventory_data.inventory_interact.is_connected(on_inventory_interact):
 		inventory_data.inventory_interact.disconnect(on_inventory_interact)
 	external_inventory.clear_inventory_data(inventory_data)
 	inventory_container.hide()
 	external_label.text = ""
 	external_inventory_owner = null
-	_update_internal()
+	update_internal()
 
 func on_inventory_interact(inventory_data: InventoryData, index: int, button: int) -> void:
 	match [grabbed_stack, button]:
@@ -188,6 +192,8 @@ func on_inventory_interact(inventory_data: InventoryData, index: int, button: in
 		[_, MOUSE_BUTTON_RIGHT]: grabbed_stack = inventory_data.drop_single(grabbed_stack, index)
 	update_grabbed_slot()
 
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 func update_grabbed_slot() -> void:
 	if grabbed_stack:
 		grabbed_slot.show()
@@ -195,9 +201,7 @@ func update_grabbed_slot() -> void:
 	else:
 		grabbed_slot.hide()
 
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func _update_internal() -> void:
+func update_internal() -> void:
 	if menu_container.visible \
 	or inventory_container.visible:
 		Game.pause()
