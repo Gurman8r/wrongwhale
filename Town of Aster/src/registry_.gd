@@ -34,13 +34,13 @@ func _ready() -> void:
 
 func reset() -> void:
 	data = RegistryData.new()
-	data.set_registry(Registries.REGISTRIES, {})
-	_register_items()
+	set_registry(Registries.REGISTRIES, {})
+	reset_items()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func _register_items() -> void:
-	data.set_registry(Registries.ITEM, {})
+func reset_items() -> void:
+	set_registry(Registries.ITEM, {})
 	var dir_path = "res://assets/items"
 	var dir = DirAccess.open(dir_path)
 	if not dir: return
@@ -58,17 +58,25 @@ func _register_items() -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func register(registry: int, key: String, value) -> bool:
+func get_registry(registry: int) -> Dictionary:
 	assert(data)
-	var dict = data.get_registry(registry)
+	return data.get_registry(registry)
+
+func set_registry(registry: int, value: Dictionary) -> void:
+	assert(data)
+	data.set_registry(registry, value)
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func register(registry: int, key: String, value) -> bool:
+	var dict = get_registry(registry)
 	if dict.has(key): return false
 	dict[key] = value
 	registered.emit(registry, key, value)
 	return true
 
 func unregister(registry: int, key: String) -> bool:
-	assert(data)
-	var dict = data.get_registry(registry)
+	var dict = get_registry(registry)
 	if not key in dict: return false
 	dict.erase(key)
 	unregistered.emit(registry, key)
@@ -77,27 +85,15 @@ func unregister(registry: int, key: String) -> bool:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func get_(registry: int, key: String):
-	assert(data)
-	var dict = data.get_registry(registry)
+	var dict = get_registry(registry)
 	assert(dict.has(key))
 	return dict[key]
 
 func set_(registry: int, key: String, value) -> void:
-	assert(data)
-	var dict = data.get_registry(registry)
+	var dict = get_registry(registry)
 	dict[key] = value
 
 func has(registry: int, key: String) -> bool:
-	assert(data)
-	return data.get_registry(registry).has(key)
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func merge(other_data: RegistryData) -> void:
-	assert(data)
-	if other_data == null \
-	or other_data == data: return
-	for key in other_data.registries:
-		data.registries[key] = other_data.registries[key]
+	return get_registry(registry).has(key)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
