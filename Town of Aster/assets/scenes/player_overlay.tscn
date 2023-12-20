@@ -10,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_22g4t")
 
 [node name="HotbarInventory" parent="." instance=ExtResource("2_u1q8k")]
@@ -25,6 +26,7 @@ offset_right = 342.0
 offset_bottom = 0.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_filter = 2
 
 [node name="InteractLabel" type="Label" parent="."]
 layout_mode = 1
@@ -47,3 +49,4 @@ vertical_alignment = 1
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2

@@ -19,6 +19,14 @@ static func rands(length: int, chars: String) -> String:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+static func set_recursive(node: Node, name: String, value) -> void:
+	assert(node)
+	assert(0 < name.length())
+	for child in node.get_children(): set_recursive(child, name, value)
+	if name in node: node[name] = value
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 static func set_active(node: Node, value: bool) -> void:
 	assert(node)
 	node.set_physics_process(value)
@@ -48,7 +56,7 @@ static func write(data: Resource, path: String) -> Error:
 	DirAccess.remove_absolute(path)
 	return ResourceSaver.save(data, path)
 
-static func wipe(dir_path: String) -> bool:
+static func wipe_dir(dir_path: String) -> bool:
 	var dir: DirAccess = DirAccess.open(dir_path)
 	if not dir: return false
 	if dir:
@@ -57,7 +65,7 @@ static func wipe(dir_path: String) -> bool:
 		while path != "":
 			var sub_path = "%s/%s" % [dir_path, path]
 			if dir.current_is_dir():
-				wipe(sub_path)
+				wipe_dir(sub_path)
 			else:
 				DirAccess.remove_absolute(sub_path)
 			path = dir.get_next()

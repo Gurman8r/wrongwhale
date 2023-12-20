@@ -36,7 +36,7 @@ static func write(world_data: WorldData, path_stem: String = "") -> Error:
 	assert(world_data)
 	if path_stem.is_empty(): path_stem = world_data.guid
 	var dir_path = get_dir_path(path_stem)
-	Util.wipe(dir_path)
+	Util.wipe_dir(dir_path)
 	DirAccess.make_dir_absolute(dir_path)
 	return ResourceSaver.save(world_data, get_file_path(path_stem))
 

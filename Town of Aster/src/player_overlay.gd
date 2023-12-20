@@ -12,7 +12,7 @@ var player_data: PlayerData
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	Util.set_recursive(self, "mouse_filter", Control.MOUSE_FILTER_IGNORE)
 
 func set_player_data(value: PlayerData) -> void:
 	if player_data == value: return

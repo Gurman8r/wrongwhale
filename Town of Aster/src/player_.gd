@@ -53,13 +53,14 @@ func _ready() -> void:
 	overlay.hide()
 	interface.hide()
 	
+	toggle_debug.connect(Debug.overlay.toggle)
+	toggle_console.connect(Debug.interface.toggle)
+	
 	# action
 	action.connect(func(mode: int):
 		assert(data)
 		assert(character)
 		data.inventory_data.use_stack(item_index, mode, character))
-	
-	toggle_debug.connect(Debug.overlay.toggle)
 	
 	# setup
 	World.loading_finished.connect(func():
@@ -115,7 +116,6 @@ func _unhandled_input(_event) -> void:
 	
 	if Game.paused: return
 	
-	# toggles
 	if Input.is_action_just_pressed("toggle_debug"): toggle_debug.emit()
 	if Input.is_action_just_pressed("toggle_console"): toggle_console.emit()
 	if Input.is_action_just_pressed("toggle_inventory"): toggle_inventory.emit()

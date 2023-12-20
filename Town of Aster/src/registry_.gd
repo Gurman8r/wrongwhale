@@ -23,7 +23,7 @@ func _init() -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _ready() -> void:
-	registered.connect(func(registry: int, key: String, value):
+	registered.connect(func(registry: int, key: String, _value):
 		Debug.puts("registered: %s %s" % [Registries.get_id(registry), key]))
 	unregistered.connect(func(registry: int, key: String):
 		Debug.puts("unregistered: %s %s" % [Registries.get_id(registry), key]))
@@ -35,11 +35,11 @@ func _ready() -> void:
 func reset() -> void:
 	data = RegistryData.new()
 	data.set_registry(Registries.REGISTRIES, {})
-	_reset_items()
+	_register_items()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func _reset_items() -> void:
+func _register_items() -> void:
 	data.set_registry(Registries.ITEM, {})
 	var items_path = "res://assets/items"
 	var items_dir = DirAccess.open(items_path)
@@ -57,15 +57,21 @@ func _reset_items() -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+func get_registry(registry: int) -> Dictionary:
+	assert(data)
+	return data.get_registry(registry)
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 func register(registry: int, key: String, value) -> bool:
-	var dict = data.get_registry(registry)
+	var dict = get_registry(registry)
 	if key in dict: return false
 	dict[key] = value
 	registered.emit(registry, key, value)
 	return true
 
 func unregister(registry: int, key: String) -> bool:
-	var dict = data.get_registry(registry)
+	var dict = get_registry(registry)
 	if not key in dict: return false
 	dict.erase(key)
 	unregistered.emit(registry, key)
@@ -73,27 +79,24 @@ func unregister(registry: int, key: String) -> bool:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func merge(registry_data: RegistryData) -> void:
-	if registry_data == null \
-	or registry_data == data: return
-	for key in registry_data.registries:
-		data.registries[key] = registry_data.registries[key]
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
 func get_(registry: int, key: String):
-	assert(data)
-	var dict = data.get_registry(registry)
+	var dict = get_registry(registry)
 	assert(dict.has(key))
 	return dict[key]
 
 func set_(registry: int, key: String, value) -> void:
-	assert(data)
-	var dict = data.get_registry(registry)
+	var dict = get_registry(registry)
 	dict[key] = value
 
 func has(registry: int, key: String) -> bool:
-	assert(data)
-	return data.get_registry(registry).has(key)
+	return get_registry(registry).has(key)
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func merge(other_data: RegistryData) -> void:
+	if other_data == null \
+	or other_data == data: return
+	for key in other_data.registries:
+		data.registries[key] = other_data.registries[key]
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
