@@ -13,8 +13,6 @@ signal action(mode: int)
 signal moved(delta: float, direction: Vector3)
 signal collided(body: KinematicCollision3D)
 
-signal toggle_debug()
-signal toggle_console()
 signal toggle_inventory()
 #signal toggle_map()
 #signal toggle_collection()
@@ -52,9 +50,6 @@ func _ready() -> void:
 	assert(canvas_layer.visible)
 	overlay.hide()
 	interface.hide()
-	
-	toggle_debug.connect(Debug.overlay.toggle)
-	toggle_console.connect(Debug.interface.toggle)
 	
 	# action
 	action.connect(func(mode: int):
@@ -116,8 +111,6 @@ func _unhandled_input(_event) -> void:
 	
 	if Game.paused: return
 	
-	if Input.is_action_just_pressed("toggle_debug"): toggle_debug.emit()
-	if Input.is_action_just_pressed("toggle_console"): toggle_console.emit()
 	if Input.is_action_just_pressed("toggle_inventory"): toggle_inventory.emit()
 	if Input.is_action_just_pressed("toggle_map"): interface.set_current_tab(PlayerInterface.MAP)
 	if Input.is_action_just_pressed("toggle_collection"): interface.set_current_tab(PlayerInterface.COLLECTION)

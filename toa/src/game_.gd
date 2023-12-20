@@ -36,6 +36,9 @@ func _notification(what) -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _unhandled_input(_event) -> void:
+	if Input.is_action_just_pressed("toggle_debug"): Debug.overlay.toggle()
+	if Input.is_action_just_pressed("toggle_console"): Debug.interface.toggle()
+	
 	if Title.interface.menu == Title.interface.home \
 	and Input.is_physical_key_pressed(KEY_ESCAPE):
 		Game.quit_to_desktop()
@@ -133,6 +136,8 @@ func save_and_quit_to_title(path_stem: String = "") -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 #region FEATURES
+
+func is_debug() -> bool: return OS.is_debug_build()
 
 func is_standalone() -> bool: return OS.has_feature("standalone")
 

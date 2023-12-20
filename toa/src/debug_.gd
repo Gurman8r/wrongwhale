@@ -18,7 +18,7 @@ func _init() -> void:
 
 func _ready() -> void:
 	assert(canvas_layer.visible)
-	overlay.hide()
+	overlay.visible = Game.is_debug()
 	interface.hide()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
