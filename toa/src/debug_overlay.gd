@@ -27,26 +27,23 @@ func _init() -> void:
 func _physics_process(delta) -> void:
 	clear()
 	
-	append("version: %s" % [version])
-	
-	var state_name = ""
-	if Game.main.state: state_name = Game.main.state.name
-	append("state: %s" % [state_name])
-	
-	append("paused: %s" % ["true" if Game.paused else "false"])
+	puts("version: %s" % [version])
 	
 	fps_accum += delta - fps_times[fps_index];
 	fps_times[fps_index] = delta;
 	fps_index = (fps_index + 1) % fps_times.size();
-	if 0.0 < fps_accum: fps_value = (1.0 / (fps_accum / fps_times.size()))
-	else: fps_value = 1.79769e308
-	append("fps: %4.3f" % [fps_value])
+	fps_value = (1.0 / (fps_accum / fps_times.size())) if (0.0 < fps_accum) else 1.79769e308
+	puts("framerate: %.2ffps @ %fms" % [fps_value, delta])
+	
+	if Game.main.state: puts("state: %s" % [Game.main.state.name])
+	
+	puts("paused: %s" % ["true" if Game.paused else "false"])
 	
 	var pd = Player.data
 	var pc = Player.character
 	if pd and pc:
-		append("cell: %s" % [pd.cell_name])
-		append("xyz: %1.1f, %1.1f, %1.1f" % [
+		puts("cell: %s" % [pd.cell_name])
+		puts("xyz: %1.1f, %1.1f, %1.1f" % [
 			pc.global_transform.origin.x,
 			pc.global_transform.origin.y,
 			pc.global_transform.origin.z])
@@ -56,7 +53,7 @@ func _physics_process(delta) -> void:
 func toggle() -> void:
 	visible = !visible
 
-func append(text: String) -> void:
+func puts(text: String) -> void:
 	label.text += text
 	label.text += "\n"
 

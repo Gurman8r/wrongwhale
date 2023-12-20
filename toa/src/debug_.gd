@@ -22,7 +22,7 @@ func _ready() -> void:
 	interface.hide()
 
 func _unhandled_input(_event) -> void:
+	#if Input.is_action_just_pressed("toggle_console"): interface.toggle()
 	if Input.is_action_just_pressed("toggle_debug"): overlay.toggle()
-	if Input.is_action_just_pressed("toggle_console"): interface.toggle()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
