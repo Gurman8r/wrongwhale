@@ -36,9 +36,6 @@ func _notification(what) -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _unhandled_input(_event) -> void:
-	if Input.is_action_just_pressed("toggle_debug"): Debug.overlay.toggle()
-	if Input.is_action_just_pressed("toggle_console"): Debug.interface.toggle()
-	
 	if Title.interface.menu == Title.interface.home \
 	and Input.is_physical_key_pressed(KEY_ESCAPE):
 		Game.quit_to_desktop()

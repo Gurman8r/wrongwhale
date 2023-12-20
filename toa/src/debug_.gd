@@ -21,6 +21,10 @@ func _ready() -> void:
 	overlay.visible = Game.is_debug()
 	interface.hide()
 
+func _unhandled_input(_event) -> void:
+	if Input.is_action_just_pressed("toggle_debug"): overlay.toggle()
+	if Input.is_action_just_pressed("toggle_console"): interface.toggle()
+
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func puts(value: String):
