@@ -25,15 +25,14 @@ func _ready() -> void:
 func reset() -> void:
 	var path_list: Array[String] = []
 	DirAccess.make_dir_absolute(PATH)
-	var addons_dir = DirAccess.open(PATH)
-	addons_dir.list_dir_begin()
-	var path: String = addons_dir.get_next()
+	var dir = DirAccess.open(PATH)
+	dir.list_dir_begin()
+	var path: String = dir.get_next()
 	while path != "":
-		if addons_dir.current_is_dir() \
-		or path.get_extension() != "pck": continue
-		path_list.append(path)
-		path = addons_dir.get_next()
-	addons_dir.list_dir_end()
+		if path.get_extension() != "pck":
+			path_list.append(path)
+		path = dir.get_next()
+	dir.list_dir_end()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

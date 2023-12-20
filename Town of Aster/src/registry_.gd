@@ -41,37 +41,34 @@ func reset() -> void:
 
 func _register_items() -> void:
 	data.set_registry(Registries.ITEM, {})
-	var items_path = "res://assets/items"
-	var items_dir = DirAccess.open(items_path)
-	items_dir.list_dir_begin()
-	var path: String = items_dir.get_next()
+	var dir_path = "res://assets/items"
+	var dir = DirAccess.open(dir_path)
+	if not dir: return
+	dir.list_dir_begin()
+	var path: String = dir.get_next()
 	while path != "":
-		if items_dir.current_is_dir() \
-		or path.get_extension() != "tres": continue
-		register(
-			Registries.ITEM,
-			path.get_slice(".", 0),
-			ResourceLoader.load("%s/%s" % [items_path, path]))
-		path = items_dir.get_next()
-	items_dir.list_dir_end()
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func get_registry(registry: int) -> Dictionary:
-	assert(data)
-	return data.get_registry(registry)
+		if !dir.current_is_dir():
+			path = path.trim_suffix(".remap")
+			register(
+				Registries.ITEM,
+				path.get_slice(".", 0),
+				ResourceLoader.load("%s/%s" % [dir_path, path]))
+		path = dir.get_next()
+	dir.list_dir_end()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func register(registry: int, key: String, value) -> bool:
-	var dict = get_registry(registry)
-	if key in dict: return false
+	assert(data)
+	var dict = data.get_registry(registry)
+	if dict.has(key): return false
 	dict[key] = value
 	registered.emit(registry, key, value)
 	return true
 
 func unregister(registry: int, key: String) -> bool:
-	var dict = get_registry(registry)
+	assert(data)
+	var dict = data.get_registry(registry)
 	if not key in dict: return false
 	dict.erase(key)
 	unregistered.emit(registry, key)
@@ -80,20 +77,24 @@ func unregister(registry: int, key: String) -> bool:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func get_(registry: int, key: String):
-	var dict = get_registry(registry)
+	assert(data)
+	var dict = data.get_registry(registry)
 	assert(dict.has(key))
 	return dict[key]
 
 func set_(registry: int, key: String, value) -> void:
-	var dict = get_registry(registry)
+	assert(data)
+	var dict = data.get_registry(registry)
 	dict[key] = value
 
 func has(registry: int, key: String) -> bool:
-	return get_registry(registry).has(key)
+	assert(data)
+	return data.get_registry(registry).has(key)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func merge(other_data: RegistryData) -> void:
+	assert(data)
 	if other_data == null \
 	or other_data == data: return
 	for key in other_data.registries:
