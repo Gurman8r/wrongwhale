@@ -84,10 +84,8 @@ static func wipe_dir(dir_path: String) -> bool:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 static func load_texture(path: String) -> ImageTexture:
-	if Game.is_editor():
-		return ImageTexture.create_from_image(Image.load_from_file(path))
-	else:
-		return load(path)
+	if Game.is_standalone(): return load(path)
+	else: return ImageTexture.create_from_image(Image.load_from_file(path))
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

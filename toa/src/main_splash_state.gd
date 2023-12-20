@@ -6,7 +6,6 @@ extends MainState
 
 @export var splashes: Array[String] = [
 	"res://assets/icons/icon_godot.png",
-	"res://assets/icons/icon_game.png",
 ]
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -31,9 +30,7 @@ func _enter_state() -> void:
 		Splash.canvas_layer.show()
 		Splash.overlay.show()
 		for i in range(splashes.size()):
-			var texture = Util.load_texture(splashes[i])
-			if !texture: continue
-			Splash.overlay.icon.texture = texture
+			Splash.overlay.icon.texture = Util.load_texture(splashes[i])
 			Transition.play("fadein")
 			await Transition.finished
 			Debug.puts(" | splash: %s" % [splashes[i]])
