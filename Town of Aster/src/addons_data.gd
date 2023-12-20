@@ -2,4 +2,4 @@
 class_name AddonsData
 extends Resource
 
-@export var mods: Array[AddonData]
+@export var addons: Array[AddonData]

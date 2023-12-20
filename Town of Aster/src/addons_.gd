@@ -11,6 +11,7 @@ extends Node
 func _init() -> void:
 	process_mode = PROCESS_MODE_ALWAYS
 
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+func _ready() -> void:
+	pass
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

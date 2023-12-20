@@ -4,10 +4,10 @@ extends Resource
 
 @export var registries: Dictionary
 
-func get_dict(registry: int) -> Dictionary:
+func get_registry(registry: int) -> Dictionary:
 	match registry:
 		Registries.REGISTRIES: return registries
-		_:
+		_: # default
 			assert(registry != Registries.MAX)
 			var key = "%d" % [registry]
 			if not key in registries:

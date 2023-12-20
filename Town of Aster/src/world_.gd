@@ -39,9 +39,11 @@ func reload() -> void:
 	assert(data)
 	loading_started.emit()
 	
+	seed(data.random_seed.hash())
+	
 	objects = []
 	for guid in data.object_data:
-		create_from_data(data.object_data[guid])
+		assert(create_object(data.object_data[guid]))
 	
 	loading_finished.emit()
 
@@ -49,12 +51,15 @@ func unload() -> void:
 	assert(data)
 	unloading_started.emit()
 	
-	for o in objects: o.queue_free()
+	for o in objects:
+		o.queue_free()
 	objects = []
 	
 	if _cell: _cell.enabled = false
 	_cell = null
 	data = null
+	
+	randomize()
 	
 	unloading_finished.emit()
 
@@ -94,7 +99,7 @@ func transfer(node: Node3D, new_cell: WorldCell, position: Vector3 = Vector3.ZER
 		node.data.cell_name = _cell.name
 
 func reset_cells() -> void:
-	cell_root = Util.make(self, Prefabs.WORLD_CELLS.instantiate(), "WorldCells")
+	cell_root = Util.make(self, Prefabs.WORLD_CELLS.instantiate(), "Cells")
 	cell_root.process_mode = PROCESS_MODE_PAUSABLE
 
 #endregion
@@ -105,7 +110,7 @@ func reset_cells() -> void:
 
 var objects: Array[Node3D]
 
-func create_from_data(d: Resource) -> Node3D:
+func create_object(d: Resource) -> Node3D:
 	assert("PREFAB" in d)
 	assert("cell_name" in d)
 	assert("position" in d)
@@ -137,7 +142,7 @@ func get_environment() -> Environment: return _world_environment.environment
 func set_environment(value: Environment) -> void: if _world_environment.environment != value: _world_environment.environment = value
 
 func reset_environment() -> void:
-	if !_world_environment: _world_environment = Util.make(self, WorldEnvironment.new(), "WorldEnvironment")
+	if !_world_environment: _world_environment = Util.make(self, WorldEnvironment.new(), "Environment")
 	_world_environment.environment = Prefabs.DEFAULT_ENVIRONMENT.duplicate()
 
 #endregion

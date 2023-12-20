@@ -25,7 +25,7 @@ func _enter_state() -> void:
 		return
 	
 	# play splash
-	Splash.canvas.show()
+	Splash.canvas_layer.show()
 	Splash.overlay.show()
 	for i in range(icon_textures.size()):
 		var t: Texture = icon_textures[i]

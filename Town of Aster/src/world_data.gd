@@ -8,7 +8,7 @@ extends Resource
 @export var name: String
 @export var index: int
 
-@export var world_seed: String
+@export var random_seed: String
 @export var object_data: Dictionary = {}
 @export var farm_data: FarmData = FarmData.new()
 

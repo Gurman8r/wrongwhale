@@ -24,7 +24,7 @@ func _ready() -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func puts(value: String):
-	if Settings.data.verbose_logging:
+	if Settings.get_("verbose_logging"):
 		print(value)
 	return self
 
