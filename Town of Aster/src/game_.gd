@@ -21,17 +21,23 @@ func _init() -> void:
 	DirAccess.make_dir_absolute(DATA_PATH)
 	DirAccess.make_dir_absolute(SAVES_PATH)
 
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 func _ready() -> void:
 	get_tree().paused = true
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _notification(what) -> void:
 	match what:
 		Node.NOTIFICATION_WM_CLOSE_REQUEST:
 			main.force_exit()
 
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 func _unhandled_input(_event) -> void:
 	if Title.interface.menu == Title.interface.home \
-	and Input.is_action_just_pressed("toggle_pause"):
+	and Input.is_physical_key_pressed(KEY_ESCAPE):
 		Game.quit_to_desktop()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
