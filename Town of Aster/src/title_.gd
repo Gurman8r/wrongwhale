@@ -4,8 +4,8 @@ extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-var interface: TitleInterface
 var canvas_layer: CanvasLayer
+var interface: TitleInterface
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -17,6 +17,5 @@ func _init() -> void:
 func _ready() -> void:
 	assert(canvas_layer.visible)
 	interface.hide()
-
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

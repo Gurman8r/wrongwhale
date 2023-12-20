@@ -15,13 +15,13 @@ extends Resource
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func add_object(data: Resource) -> Resource:
+func manage(data: Resource) -> Resource:
 	assert(data)
 	assert("guid" in data)
 	object_data[data.guid] = data
 	return data
 
-func erase_object(key: String) -> void:
+func unmanage(key: String) -> void:
 	object_data.erase(key)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

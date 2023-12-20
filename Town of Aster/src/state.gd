@@ -10,8 +10,6 @@ signal exited()
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _ready() -> void:
-	entered.connect(func(): Debug.puts(">> %s" % [name]))
-	exited.connect(func(): Debug.puts("<< %s\n" % [name]))
 	Util.set_active(self, false)
 
 func _enter_state() -> void:
@@ -19,7 +17,7 @@ func _enter_state() -> void:
 	entered.emit()
 
 func _exit_state() -> void:
-	exited.emit()
 	Util.set_active(self, false)
+	exited.emit()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

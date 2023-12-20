@@ -79,10 +79,11 @@ func get_cell() -> WorldCell: return _cell
 func change_cell(new_cell: WorldCell) -> void:
 	if _cell == new_cell: return
 	if _cell:
-		Debug.puts("%s" % [""])
+		Debug.puts(" | << %s" % [_cell.name])
 		_cell.enabled = false
 	_cell = new_cell
 	if _cell:
+		Debug.puts(" | >> %s" % [_cell.name])
 		_cell.enabled = true
 
 func find_cell(cell_name: String) -> WorldCell:
@@ -123,6 +124,7 @@ func create_object(d: Resource) -> Node3D:
 	if o is PlayerCharacter:
 		_cell = c
 		_cell.enabled = true
+		Debug.puts(" | >> %s" % [_cell.name])
 	o.name = d.guid
 	objects.append(o)
 	return o

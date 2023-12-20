@@ -18,10 +18,6 @@ func _ready() -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func has(key: String) -> bool:
-	assert(data)
-	return key in data
-
 func get_(key: String):
 	assert(data)
 	assert(key in data)
@@ -30,5 +26,9 @@ func get_(key: String):
 func set_(key: String, value) -> void:
 	assert(data)
 	data[key] = value
+
+func has(key: String) -> bool:
+	assert(data)
+	return key in data
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

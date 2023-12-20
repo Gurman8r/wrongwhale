@@ -4,9 +4,9 @@ extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-const DATA_DIR := "user://data"
-const MODS_DIR := "user://mods"
-const SAVES_DIR := "user://saves"
+const ADDONS_PATH := "user://addons"
+const DATA_PATH := "user://data"
+const SAVES_PATH := "user://saves"
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -16,9 +16,8 @@ const SAVES_DIR := "user://saves"
 
 func _init() -> void:
 	process_mode = PROCESS_MODE_ALWAYS
-	DirAccess.make_dir_absolute(DATA_DIR)
-	DirAccess.make_dir_absolute(MODS_DIR)
-	DirAccess.make_dir_absolute(SAVES_DIR)
+	
+	_make_directories()
 
 func _ready() -> void:
 	get_tree().paused = true
@@ -123,5 +122,12 @@ func save_and_quit_to_title(path_stem: String = "") -> void:
 	await Transition.finished
 
 #endregion
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func _make_directories() -> void:
+	DirAccess.make_dir_absolute(ADDONS_PATH)
+	DirAccess.make_dir_absolute(DATA_PATH)
+	DirAccess.make_dir_absolute(SAVES_PATH)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

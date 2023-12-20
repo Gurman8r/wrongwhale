@@ -1,6 +1,6 @@
 # main_splash_state.gd
 class_name MainSplashState
-extends State
+extends MainState
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

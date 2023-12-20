@@ -30,8 +30,6 @@ static func set_active(node: Node, value: bool) -> void:
 	node.set_process_unhandled_input(value)
 	node.set_process_unhandled_key_input(value)
 
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
 static func set_enabled(node: Node, value: bool, recursive: bool = true) -> void:
 	if not node: return
 	if recursive: for child in node.get_children(): set_enabled(child, value)

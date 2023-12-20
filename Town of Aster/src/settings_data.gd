@@ -10,3 +10,5 @@ extends Resource
 @export var window_vsync: int = DisplayServer.VSYNC_ENABLED
 
 @export var recent_save: String = ""
+
+@export var show_fps: bool = true

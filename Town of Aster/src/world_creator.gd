@@ -130,7 +130,7 @@ func _ready():
 func reset():
 	world_data = WorldData.new()
 	farm_data = world_data.farm_data
-	player_data = world_data.add_object(PlayerData.new())
+	player_data = world_data.manage(PlayerData.new())
 	
 	farm_name_edit.text = ""
 	farm_name_edit.max_length = NAME_MAX
@@ -170,7 +170,7 @@ func _on_button_play_pressed():
 	player_data.inventory_data.resize(30)
 	player_data.equip_data.resize(1)
 	
-	var tutorial_chest: ChestData = world_data.add_object(ChestData.new())
+	var tutorial_chest: ChestData = world_data.manage(ChestData.new())
 	tutorial_chest.guid = "Tutorial_Chest"
 	tutorial_chest.name = "Tutorial Chest"
 	tutorial_chest.cell_name = "Farm"
