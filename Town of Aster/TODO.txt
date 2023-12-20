@@ -1,0 +1,17 @@
+PlayerData
+	inventory
+	
+	clothing_head
+	clothing_chest
+	clothing_hands
+	clothing_legs
+	clothing_feet
+	
+	armor_head
+	armor_chest
+	armor_hands
+	armor_legs
+	armor_feet
+	
+	glasses
+	rings

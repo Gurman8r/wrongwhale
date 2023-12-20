@@ -79,6 +79,12 @@ func load_from_file(path_stem: String) -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+func save(path_stem: String = "") -> void:
+	Debug.puts(" | save")
+	World.save(path_stem)
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 func quit_to_desktop() -> void:
 	Debug.puts(" | quit_to_desktop")
 	Transition.play("fadeout")
@@ -86,8 +92,8 @@ func quit_to_desktop() -> void:
 	main.force_exit()
 	get_tree().quit()
 
-func save_to_file_and_quit_to_desktop(path_stem: String = "") -> void:
-	Debug.puts(" | save_to_file_and_quit_to_desktop")
+func save_and_quit_to_desktop(path_stem: String = "") -> void:
+	Debug.puts(" | save_and_quit_to_desktop")
 	Transition.play("fadeout")
 	await Transition.finished
 	World.save(path_stem)
@@ -106,8 +112,8 @@ func quit_to_title() -> void:
 	Transition.play("fadein")
 	await Transition.finished
 
-func save_to_file_and_quit_to_title(path_stem: String = "") -> void:
-	Debug.puts(" | save_to_file_and_quit_to_title")
+func save_and_quit_to_title(path_stem: String = "") -> void:
+	Debug.puts(" | save_and_quit_to_title")
 	Transition.play("fadeout")
 	await Transition.finished
 	World.save(path_stem)

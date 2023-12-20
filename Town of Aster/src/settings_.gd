@@ -24,7 +24,7 @@ func reset() -> void:
 	data = Util.read(PATH)
 	if not data:
 		load_defaults()
-		#save_to_file()
+		save_to_file()
 	assert(data)
 
 func load_defaults() -> void:

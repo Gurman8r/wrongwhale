@@ -4,7 +4,9 @@
 
 [resource]
 script = ExtResource("1_ptc00")
-recent_save = ""
+verbose_logging = true
+splash_delay = 1.0
 window_mode = 0
 window_size = Vector2i(1280, 720)
 window_vsync = 1
+recent_save = ""

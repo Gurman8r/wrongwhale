@@ -1,0 +1,84 @@
+[gd_scene load_steps=3 format=3 uid="uid://dg63ln4n0tu00"]
+
+[ext_resource type="Script" path="res://src/mod_preview.gd" id="1_4r88l"]
+[ext_resource type="Texture2D" uid="uid://dwi4nguld0m87" path="res://assets/icons/icon_circle.png" id="2_0gghv"]
+
+[node name="ModPreview" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_4r88l")
+
+[node name="bg" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="bg"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="bg/MarginContainer"]
+layout_mode = 2
+
+[node name="IconContainer" type="MarginContainer" parent="bg/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(85, 64)
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="icon" type="TextureRect" parent="bg/MarginContainer/HBoxContainer/IconContainer"]
+layout_mode = 2
+texture = ExtResource("2_0gghv")
+stretch_mode = 3
+
+[node name="LabelsContainer" type="MarginContainer" parent="bg/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="bg/MarginContainer/HBoxContainer/LabelsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="name" type="Label" parent="bg/MarginContainer/HBoxContainer/LabelsContainer/VBoxContainer"]
+layout_mode = 2
+text = "Name"
+
+[node name="version" type="Label" parent="bg/MarginContainer/HBoxContainer/LabelsContainer/VBoxContainer"]
+layout_mode = 2
+text = "Version"
+
+[node name="tagline" type="Label" parent="bg/MarginContainer/HBoxContainer/LabelsContainer/VBoxContainer"]
+layout_mode = 2
+text = "Tagline
+"
+
+[node name="ButtonsContainer" type="MarginContainer" parent="bg/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="bg/MarginContainer/HBoxContainer/ButtonsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="enabled" type="CheckButton" parent="bg/MarginContainer/HBoxContainer/ButtonsContainer/VBoxContainer"]
+layout_mode = 2
+text = "Enabled"
+
+[node name="reload" type="Button" parent="bg/MarginContainer/HBoxContainer/ButtonsContainer/VBoxContainer"]
+layout_mode = 2
+text = "Reload"

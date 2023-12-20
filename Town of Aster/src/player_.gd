@@ -14,6 +14,7 @@ signal moved(delta: float, direction: Vector3)
 signal collided(body: KinematicCollision3D)
 
 signal toggle_debug()
+signal toggle_console()
 signal toggle_inventory()
 #signal toggle_collection()
 #signal toggle_skills()
@@ -34,7 +35,7 @@ var interface: PlayerInterface
 var data: PlayerData
 var character: PlayerCharacter
 
-var item_index: int
+var item_index: int = 0
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -54,6 +55,8 @@ func _ready() -> void:
 	# action
 	action.connect(func(mode: int):
 		data.inventory_data.use_stack(item_index, mode, character))
+	
+	toggle_debug.connect(Debug.overlay.toggle)
 	
 	# setup
 	World.loading_finished.connect(func():
@@ -109,8 +112,9 @@ func _unhandled_input(_event) -> void:
 	
 	if Game.paused: return
 	
-	# toggle ui
+	# toggles
 	if Input.is_action_just_pressed("toggle_debug"): toggle_debug.emit()
+	if Input.is_action_just_pressed("toggle_console"): toggle_console.emit()
 	if Input.is_action_just_pressed("toggle_inventory"): toggle_inventory.emit()
 	if Input.is_action_just_pressed("toggle_collection"): interface.set_current_tab(PlayerInterface.COLLECTION)
 	if Input.is_action_just_pressed("toggle_skills"): interface.set_current_tab(PlayerInterface.SKILLS)
@@ -133,5 +137,14 @@ func _unhandled_input(_event) -> void:
 	character.move_input[RIGHT] = Input.is_action_pressed("move_right")
 	character.move_input[FORWARD] = Input.is_action_pressed("move_forward")
 	character.move_input[BACKWARD] = Input.is_action_pressed("move_backward")
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func _physics_process(delta) -> void:
+	if !data or !character: return
+	
+	if Game.paused: return
+	
+	pass
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

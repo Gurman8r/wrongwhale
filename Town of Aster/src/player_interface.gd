@@ -92,9 +92,9 @@ func _ready():
 	menu_tab_bar.tab_changed.connect(func(tab: int):
 		menu_tab_container.current_tab = tab)
 	
-	save_button.pressed.connect(World.save)
-	save_and_quit_to_title_button.pressed.connect(Game.save_to_file_and_quit_to_title)
-	save_and_quit_to_desktop_button.pressed.connect(Game.save_to_file_and_quit_to_desktop)
+	save_button.pressed.connect(Game.save)
+	save_and_quit_to_title_button.pressed.connect(Game.save_and_quit_to_title)
+	save_and_quit_to_desktop_button.pressed.connect(Game.save_and_quit_to_desktop)
 	quit_to_title_button.pressed.connect(Game.quit_to_title)
 	quit_to_desktop_button.pressed.connect(Game.quit_to_desktop)
 
@@ -106,6 +106,8 @@ func _unhandled_input(_event) -> void:
 		if inventory_container.visible or menu_container.visible:
 			force_close.emit()
 			get_viewport().set_input_as_handled()
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _physics_process(_delta) -> void:
 	if grabbed_slot.visible:
