@@ -1,10 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://bwsftfna5831c"]
+[gd_scene load_steps=3 format=3 uid="uid://b8shgrgj8nnmd"]
 
-[ext_resource type="Script" path="res://src/mod_menu.gd" id="1_06ew3"]
-[ext_resource type="SystemFont" uid="uid://be14qyvbd8lox" path="res://assets/fonts/system_font.tres" id="2_bethx"]
+[ext_resource type="Script" path="res://src/credits_menu.gd" id="1_rtxlp"]
+[ext_resource type="SystemFont" uid="uid://be14qyvbd8lox" path="res://assets/fonts/system_font.tres" id="2_v16d1"]
 
-[node name="ModsMenu" type="PanelContainer"]
-script = ExtResource("1_06ew3")
+[node name="CreditsMenu" type="PanelContainer"]
+script = ExtResource("1_rtxlp")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -22,5 +22,5 @@ size_flags_vertical = 4
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_vertical = 5
-theme_override_fonts/font = ExtResource("2_bethx")
+theme_override_fonts/font = ExtResource("2_v16d1")
 text = "Back"

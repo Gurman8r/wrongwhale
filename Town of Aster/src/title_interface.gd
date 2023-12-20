@@ -8,8 +8,10 @@ extends Control
 @onready var home: TitleHome = $TitleHome
 @onready var world_loader: WorldLoader = $WorldLoader
 @onready var world_creator: WorldCreator = $WorldCreator
-@onready var mods: ModMenu = $ModMenu
 @onready var settings: SettingsMenu = $SettingsMenu
+@onready var mods: ModMenu = $ModMenu
+@onready var credits: CreditsMenu = $CreditsMenu
+
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

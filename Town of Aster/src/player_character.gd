@@ -48,7 +48,8 @@ func _init() -> void:
 	Player.character = self
 
 func _ready() -> void:
-	assert(data)
+	assert(Player.data == null)
+	assert(data != null)
 	Player.data = data
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -87,17 +88,17 @@ func _process(delta: float) -> void:
 func pivot(relative: Vector2) -> void:
 	camera_pivot_y.rotate_y(-relative.x * camera_speed.x)
 	camera_pivot_x.rotate_x(-relative.y * camera_speed.y)
-	camera_pivot_x.rotation.x = clamp( \
-		camera_pivot_x.rotation.x, \
-		deg_to_rad(camera_angle_min_degrees), \
+	camera_pivot_x.rotation.x = clamp(
+		camera_pivot_x.rotation.x,
+		deg_to_rad(camera_angle_min_degrees),
 		deg_to_rad(camera_angle_max_degrees))
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func get_drop_position() -> Vector3:
-	return Vector3( \
-		global_transform.origin.x + data.direction.x * drop_range, \
-		drop_height, \
+	return Vector3(
+		global_transform.origin.x + data.direction.x * drop_range,
+		drop_height,
 		global_transform.origin.z + data.direction.z * drop_range)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
