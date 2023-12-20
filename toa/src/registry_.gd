@@ -24,16 +24,16 @@ func _init() -> void:
 
 func _ready() -> void:
 	registered.connect(func(registry: int, key: String, _value):
-		Debug.puts("registered: %s %s" % [Registries.get_id(registry), key]))
+		print("registered: %s %s" % [Registries.get_id(registry), key]))
 	unregistered.connect(func(registry: int, key: String):
-		Debug.puts("unregistered: %s %s" % [Registries.get_id(registry), key]))
+		print("unregistered: %s %s" % [Registries.get_id(registry), key]))
 	
 	reset()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func reset() -> void:
-	if !data: data = RegistryData.new()
+	data = RegistryData.new()
 	set_registry(Registries.REGISTRIES, {})
 	register_directory(Registries.ITEM, "res://assets/items")
 

@@ -8,7 +8,7 @@ const PATH := "user://addons"
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-@export var data: AddonsData
+var path_list: Array[String]
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -18,35 +18,23 @@ func _init() -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _ready() -> void:
-	reset()
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func reset() -> void:
-	var path_list: Array[String] = []
+	print("")
+	path_list = []
 	DirAccess.make_dir_absolute(PATH)
 	var dir = DirAccess.open(PATH)
 	dir.list_dir_begin()
 	var path: String = dir.get_next()
 	while path != "":
-		if path.get_extension() != "pck":
-			path_list.append(path)
+		var extension = path.get_extension()
+		if extension == "pck" \
+		or extension == "zip":
+			var full_path = "%s/%s" % [PATH, path]
+			if ProjectSettings.load_resource_pack(full_path):
+				print("addon: %s" % [full_path])
+				path_list.append(full_path)
+			else:
+				printerr("invalid pack: %s" % [full_path])
 		path = dir.get_next()
 	dir.list_dir_end()
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func get_(key: String):
-	assert(data)
-	if not key in data: return null
-	else: return data[key]
-
-func set_(key: String, value) -> void:
-	assert(data)
-	data[key] = value
-
-func has(key: String) -> bool:
-	assert(data)
-	return key in data
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

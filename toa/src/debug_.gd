@@ -28,7 +28,7 @@ func _unhandled_input(_event) -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func puts(value: String):
-	if Settings.get_("verbose_logging"):
+	if Settings.get_setting("verbose_logging"):
 		print(value)
 	return self
 

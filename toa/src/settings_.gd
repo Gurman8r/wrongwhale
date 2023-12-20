@@ -23,9 +23,9 @@ func _ready() -> void:
 	assert(data)
 	write()
 	
-	DisplayServer.window_set_mode(get_("window_mode"))
-	DisplayServer.window_set_size(get_("window_size"))
-	DisplayServer.window_set_vsync_mode(get_("window_vsync"))
+	DisplayServer.window_set_mode(get_setting("window_mode"))
+	DisplayServer.window_set_size(get_setting("window_size"))
+	DisplayServer.window_set_vsync_mode(get_setting("window_vsync"))
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -40,16 +40,16 @@ func write() -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func get_(key: String):
+func get_setting(key: String):
 	assert(data)
 	assert(key in data)
 	return data[key]
 
-func set_(key: String, value) -> void:
+func set_setting(key: String, value) -> void:
 	assert(data)
 	data[key] = value
 
-func has(key: String) -> bool:
+func has_setting(key: String) -> bool:
 	assert(data)
 	return key in data
 

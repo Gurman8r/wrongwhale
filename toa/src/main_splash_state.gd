@@ -4,7 +4,7 @@ extends MainState
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-var icon_textures: Array[Texture] = [ Prefabs.GODOT_ICON ]
+var splash_textures: Array[String] = [ "res://icon.svg", ]
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -17,9 +17,9 @@ func _enter_state() -> void:
 	await Splash.timer.timeout
 	
 	# skip splash
-	if Settings.get_("splash_delay") <= 0.0:
+	if Settings.get_setting("splash_delay") <= 0.0:
 		Debug.puts(" | nosplash")
-		Game.main.change_state(Game.main.title_state)
+		Game.main.state = Game.main.title_state
 		Transition.play("fadein")
 		await Transition.finished
 		return
@@ -27,18 +27,18 @@ func _enter_state() -> void:
 	# play splash
 	Splash.canvas_layer.show()
 	Splash.overlay.show()
-	for i in range(icon_textures.size()):
-		var t: Texture = icon_textures[i]
-		if not t: continue
-		Splash.overlay.icon.texture = t
+	for i in range(splash_textures.size()):
+		Splash.overlay.icon.texture = ImageTexture.create_from_image(Image.load_from_file(splash_textures[i]))
 		Transition.play("fadein")
 		await Transition.finished
-		Debug.puts(" | splash (%d)" % [i])
-		Splash.timer.start(Settings.get_("splash_delay"))
+		Debug.puts(" | splash: %s" % [splash_textures[i]])
+		Splash.timer.start(Settings.get_setting("splash_delay"))
 		await Splash.timer.timeout
 		Transition.play("fadeout")
 		await Transition.finished
-	Game.main.change_state(Game.main.title_state)
+		Splash.timer.start(Settings.get_setting("splash_delay"))
+		await Splash.timer.timeout
+	Game.main.state = Game.main.title_state
 	Transition.play("fadein")
 	await Transition.finished
 
