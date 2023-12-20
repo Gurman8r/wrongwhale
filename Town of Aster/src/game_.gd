@@ -46,18 +46,18 @@ func _unhandled_input(_event) -> void:
 
 var paused: bool : get = get_paused, set = set_paused
 
-func get_paused() -> bool:
-	return get_tree().paused
+func get_paused() -> bool: return get_tree().paused
 
 func set_paused(value: bool) -> void:
-	Debug.puts(" | pause %d" % [int(value)])
+	if value: Debug.puts(" | pause")
+	else: Debug.puts(" | unpause ")
 	get_tree().paused = value
 
-func pause() -> void:
-	set_paused(true)
+func pause() -> void: set_paused(true)
 
-func unpause() -> void:
-	set_paused(false)
+func unpause() -> void: set_paused(false)
+
+func toggle_pause() -> void: set_paused(!get_paused())
 
 #endregion
 
@@ -66,7 +66,7 @@ func unpause() -> void:
 #region FLOW_CONTROL
 
 func load_from_memory(world_data: WorldData) -> void:
-	Debug.puts(" | load_from_memory")
+	Debug.puts(" | reload")
 	Transition.play("fadeout")
 	await Transition.finished
 	World.data = world_data
@@ -134,8 +134,9 @@ func save_and_quit_to_title(path_stem: String = "") -> void:
 
 #region FEATURES
 
-func is_standalone() -> bool:
-	return OS.has_feature("standalone")
+func is_standalone() -> bool: return OS.has_feature("standalone")
+
+func is_editor() -> bool: return !is_standalone()
 
 #endregion
 

@@ -33,28 +33,9 @@ func _ready() -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func reset() -> void:
-	data = RegistryData.new()
+	if !data: data = RegistryData.new()
 	set_registry(Registries.REGISTRIES, {})
-	reset_items()
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func reset_items() -> void:
-	set_registry(Registries.ITEM, {})
-	var dir_path = "res://assets/items"
-	var dir = DirAccess.open(dir_path)
-	if not dir: return
-	dir.list_dir_begin()
-	var path: String = dir.get_next()
-	while path != "":
-		if !dir.current_is_dir():
-			path = path.trim_suffix(".remap")
-			register(
-				Registries.ITEM,
-				path.get_slice(".", 0),
-				ResourceLoader.load("%s/%s" % [dir_path, path]))
-		path = dir.get_next()
-	dir.list_dir_end()
+	register_directory(Registries.ITEM, "res://assets/items")
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -84,6 +65,46 @@ func unregister(registry: int, key: String) -> bool:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+func register_directory(registry: int, dir_path: String) -> void:
+	set_registry(registry, {})
+	var dir = DirAccess.open(dir_path)
+	if not dir: return
+	dir.list_dir_begin()
+	var path: String = dir.get_next()
+	while path != "":
+		if !dir.current_is_dir():
+			if ".remap" in path: path = path.trim_suffix(".remap")
+			var extension = path.get_extension()
+			if extension == "tres":
+				var full_path: String = "%s/%s" % [dir_path, path]
+				if ResourceLoader.exists(full_path):
+					register(registry, path.get_slice(".", 0), ResourceLoader.load(full_path))
+				else:
+					printerr("invalid resource %s" % [full_path])
+			else:
+				printerr("invalid extension %s" % [extension])
+		path = dir.get_next()
+	dir.list_dir_end()
+
+func unregister_directory(registry: int, dir_path: String) -> void:
+	set_registry(registry, {})
+	var dir = DirAccess.open(dir_path)
+	if not dir: return
+	dir.list_dir_begin()
+	var path: String = dir.get_next()
+	while path != "":
+		if !dir.current_is_dir():
+			if ".remap" in path: path = path.trim_suffix(".remap")
+			var extension = path.get_extension()
+			if extension == "tres":
+				unregister(registry, path.get_slice(".", 0))
+			else:
+				printerr("invalid extension %s" % [extension])
+		path = dir.get_next()
+	dir.list_dir_end()
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 func get_(registry: int, key: String):
 	var dict = get_registry(registry)
 	assert(dict.has(key))
@@ -94,6 +115,7 @@ func set_(registry: int, key: String, value) -> void:
 	dict[key] = value
 
 func has(registry: int, key: String) -> bool:
-	return get_registry(registry).has(key)
+	var dict = get_registry(registry)
+	return dict.has(key)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
