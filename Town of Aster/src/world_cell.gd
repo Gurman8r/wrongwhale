@@ -45,6 +45,12 @@ func remove(node: Node3D) -> WorldCell:
 	get_root_node(node).remove_child(node)
 	return self
 
+func find(root_name: String, node_name: String) -> Node3D:
+	if not has_node(root_name): return null
+	var root: Node3D = get_node(root_name)
+	if not root.has_node(node_name): return null
+	return root.get_node(node_name)
+
 #endregion
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

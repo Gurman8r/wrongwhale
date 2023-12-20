@@ -128,7 +128,7 @@ func _ready():
 func reset():
 	world_data = WorldData.new()
 	farm_data = world_data.farm_data
-	player_data = PlayerData.new()
+	player_data = world_data.add_object_data(PlayerData.new())
 	
 	farm_name_edit.text = ""
 	farm_name_edit.max_length = NAME_MAX
@@ -167,17 +167,13 @@ func _on_button_play_pressed():
 	player_data.cell_name = "Farm"
 	player_data.inventory_data.resize(30)
 	player_data.equip_data.resize(1)
-	world_data.object_data[player_data.guid] = player_data
 	
-	var tutorial_chest: ChestData = ChestData.new()
-	tutorial_chest.guid = "Tutorial_Chest"
-	tutorial_chest.name = "Tutorial Chest"
+	var tutorial_chest: ChestData = world_data.add_object_data(ChestData.make("Tutorial_Chest", "Tutorial Chest"))
 	tutorial_chest.cell_name = "Farm"
 	tutorial_chest.position = Vector3(0, 0, -3)
 	tutorial_chest.direction = Vector3.FORWARD
 	tutorial_chest.inventory_data.resize(30)
 	tutorial_chest.inventory_data.set_item(0, preload("res://assets/items/potion.tres"), 15)
-	world_data.object_data[tutorial_chest.guid] = tutorial_chest
 	
 	WorldData.write(world_data, world_data.guid)
 	Game.load_from_memory(world_data)

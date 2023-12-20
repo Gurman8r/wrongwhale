@@ -4,7 +4,7 @@ extends WorldEntity
 
 const CATEGORY := "Door"
 
-@export var destination: DoorEntity
+@export var data: DoorData
 
 @onready var animation_player   : AnimationPlayer  = $AnimationPlayer
 @onready var animation_tree     : AnimationTree    = $AnimationTree
@@ -15,15 +15,24 @@ const CATEGORY := "Door"
 
 func _ready() -> void:
 	interactable.interacted.connect(func(other) -> void:
-		assert(destination)
-		assert(destination.spawn_point)
+		assert(data)
+		
+		var target_cell: WorldCell = World.find_cell(data.target_cell)
+		assert(target_cell)
+		
+		var target_door: DoorEntity = target_cell.find(CATEGORY, data.target_door)
+		assert(target_door)
+		assert(target_door.spawn_point)
+		
 		if other == Player.character:
 			Transition.play("fadeout")
 			await Transition.finished
+		
 		World.transfer(
 			other,
-			destination.get_cell(),
-			destination.spawn_point.global_transform.origin)
+			target_cell,
+			target_door.spawn_point.global_transform.origin)
+		
 		if other == Player.character:
 			Transition.play("fadein")
 			await Transition.finished)

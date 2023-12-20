@@ -15,8 +15,8 @@ signal used()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-@export var guid: String = "Item_New"
-@export var name: String = "New Item"
+@export var guid: String = "Item"
+@export var name: String = "Item"
 
 @export_multiline var description: String = ""
 @export_range(1, ItemStack.MAX) var max_stack: int = ItemStack.MAX

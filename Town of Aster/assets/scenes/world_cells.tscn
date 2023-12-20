@@ -1,12 +1,33 @@
-[gd_scene load_steps=6 format=3 uid="uid://drkpj71lp7mtb"]
+[gd_scene load_steps=9 format=3 uid="uid://drkpj71lp7mtb"]
 
 [ext_resource type="MeshLibrary" uid="uid://cwqb6ao2pijf4" path="res://assets/meshes/blocks.meshlib" id="1_75kal"]
 [ext_resource type="Script" path="res://src/world_cell.gd" id="2_6tcc8"]
 [ext_resource type="PackedScene" uid="uid://bt3ygtr7jmwhx" path="res://assets/scenes/door_entity.tscn" id="3_eytw0"]
+[ext_resource type="Script" path="res://src/door_data.gd" id="4_8k6op"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_x5deb"]
 
+[sub_resource type="Resource" id="Resource_rlrbt"]
+script = ExtResource("4_8k6op")
+guid = "Door0"
+name = "Door0"
+cell_name = "Farm"
+position = Vector3(2, 0, -3)
+direction = Vector3(0, 0, -1)
+target_cell = "Town"
+target_door = "Door0"
+
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hmr33"]
+
+[sub_resource type="Resource" id="Resource_070jb"]
+script = ExtResource("4_8k6op")
+guid = "Door0"
+name = "Door0"
+cell_name = "Town"
+position = Vector3(-3, 0, -2)
+direction = Vector3(0, 0, -1)
+target_cell = "Farm"
+target_door = "Door0"
 
 [node name="WorldCells" type="Node"]
 process_mode = 1
@@ -26,9 +47,9 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="Door" type="Node3D" parent="Farm"]
 
-[node name="Door0" parent="Farm/Door" node_paths=PackedStringArray("destination") instance=ExtResource("3_eytw0")]
+[node name="Door0" parent="Farm/Door" instance=ExtResource("3_eytw0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -3)
-destination = NodePath("../../../Town/Door/Door0")
+data = SubResource("Resource_rlrbt")
 
 [node name="Misc" type="Node3D" parent="Farm"]
 
@@ -50,9 +71,9 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 
 [node name="Door" type="Node3D" parent="Town"]
 
-[node name="Door0" parent="Town/Door" node_paths=PackedStringArray("destination") instance=ExtResource("3_eytw0")]
+[node name="Door0" parent="Town/Door" instance=ExtResource("3_eytw0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -2)
-destination = NodePath("../../../Farm/Door/Door0")
+data = SubResource("Resource_070jb")
 
 [node name="Misc" type="Node3D" parent="Town"]
 
