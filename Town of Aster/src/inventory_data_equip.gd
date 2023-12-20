@@ -11,4 +11,3 @@ func drop_single(grabbed_stack: ItemStack, index: int) -> ItemStack:
 	if not grabbed_stack.item_data is ItemDataEquip:
 		return grabbed_stack
 	return super.drop_single(grabbed_stack, index)
-

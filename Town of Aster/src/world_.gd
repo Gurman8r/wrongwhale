@@ -16,7 +16,7 @@ signal unloading_finished()
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	process_mode = PROCESS_MODE_ALWAYS
+	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _ready() -> void:
 	reset_environment()
@@ -101,7 +101,7 @@ func transfer(node: Node3D, new_cell: WorldCell, position: Vector3 = Vector3.ZER
 
 func reset_cells() -> void:
 	cell_root = Util.make(self, Prefabs.WORLD_CELLS.instantiate(), "Cells")
-	cell_root.process_mode = PROCESS_MODE_PAUSABLE
+	cell_root.process_mode = Node.PROCESS_MODE_PAUSABLE
 
 #endregion
 

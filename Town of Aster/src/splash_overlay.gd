@@ -6,4 +6,4 @@ extends Control
 @onready var icon: TextureRect = $Icon
 
 func _init() -> void:
-	mouse_filter = MOUSE_FILTER_IGNORE
+	mouse_filter = Control.MOUSE_FILTER_IGNORE

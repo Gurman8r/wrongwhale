@@ -61,7 +61,9 @@ static func get_path_list() -> Array[String]:
 			world_dir.list_dir_begin()
 			if world_dir.file_exists(FILE):
 				path_list.append(path)
+			world_dir.list_dir_end()
 		path = saves_dir.get_next()
+	saves_dir.list_dir_end()
 	return path_list
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -82,7 +84,7 @@ static func make_test() -> WorldData:
 	p.direction = Vector3.FORWARD
 	p.cell_name = "WorldCell0"
 	p.inventory_data.resize(30)
-	p.equip_data.resize(1)
+	p.equip["0"].resize(1)
 	
 	return w
 

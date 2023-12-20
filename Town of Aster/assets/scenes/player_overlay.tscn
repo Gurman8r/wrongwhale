@@ -42,3 +42,8 @@ grow_vertical = 2
 text = "Interact"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Healthbars" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

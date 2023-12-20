@@ -67,7 +67,7 @@ var external_inventory_owner: Node
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	mouse_filter = MOUSE_FILTER_PASS
+	mouse_filter = Control.MOUSE_FILTER_PASS
 
 func _ready():
 	force_close.connect(toggle_inventory)
@@ -126,19 +126,19 @@ func set_player_data(value: PlayerData) -> void:
 	if player_data == value: return
 	player_data = value
 	player_data.inventory.inventory_interact.connect(on_inventory_interact)
-	player_data.equip_data.inventory_interact.connect(on_inventory_interact)
+	player_data.equip["0"].inventory_interact.connect(on_inventory_interact)
 	internal_inventory.set_inventory_data(player_data.inventory)
 	main_inventory.set_inventory_data(player_data.inventory)
-	equip_inventory.set_inventory_data(player_data.equip_data)
+	equip_inventory.set_inventory_data(player_data.equip["0"])
 	internal_label.text = "%s:" % [player_data.name]
 
 func clear_player_data() -> void:
 	if not player_data: return
 	player_data.inventory.inventory_interact.disconnect(on_inventory_interact)
-	player_data.equip_data.inventory_interact.disconnect(on_inventory_interact)
+	player_data.equip["0"].inventory_interact.disconnect(on_inventory_interact)
 	internal_inventory.clear_inventory_data(player_data.inventory)
 	main_inventory.clear_inventory_data(player_data.inventory)
-	equip_inventory.clear_inventory_data(player_data.equip_data)
+	equip_inventory.clear_inventory_data(player_data.equip["0"])
 	internal_label.text = ""
 	player_data = null
 

@@ -6,6 +6,8 @@ extends WorldCharacter
 
 const CATEGORY := "Player"
 
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 enum { LEFT, RIGHT, FORWARD, BACKWARD }
 enum { PRIMARY_BEGIN, PRIMARY, PRIMARY_END, SECONDARY_BEGIN, SECONDARY, SECONDARY_END, }
 

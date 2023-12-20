@@ -5,7 +5,7 @@ extends Control
 @onready var label: Label = $MarginContainer/Label
 
 func _init() -> void:
-	mouse_filter = MOUSE_FILTER_IGNORE
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 func toggle() -> void:
 	visible = !visible

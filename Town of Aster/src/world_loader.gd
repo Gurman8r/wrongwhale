@@ -32,4 +32,6 @@ func reset() -> void:
 				var preview: WorldLoaderPreview = Prefabs.WORLD_LOADER_PREVIEW.instantiate()
 				preview_root.add_child(preview)
 				preview.set_world_data(WorldData.read(path))
+			world_dir.list_dir_end()
 		path = saves_dir.get_next()
+	saves_dir.list_dir_end()

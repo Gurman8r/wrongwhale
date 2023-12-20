@@ -61,6 +61,7 @@ static func wipe(dir_path: String) -> bool:
 			else:
 				DirAccess.remove_absolute(sub_path)
 			path = dir.get_next()
+		dir.list_dir_end()
 	DirAccess.remove_absolute(dir_path)
 	return true
 

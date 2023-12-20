@@ -41,7 +41,7 @@ var item_index: int = 0
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	process_mode = PROCESS_MODE_ALWAYS
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	canvas_layer = Util.make(self, CanvasLayer.new(), "CanvasLayer")
 	overlay = Util.make(canvas_layer, Prefabs.PLAYER_OVERLAY.instantiate(), "Overlay")
 	interface = Util.make(canvas_layer, Prefabs.PLAYER_INTERFACE.instantiate(), "Interface")

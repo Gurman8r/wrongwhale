@@ -18,6 +18,8 @@ enum { CAT, DOG }
 @export var pet_species: int = CAT
 @export var pet_breed: int = 0
 
+@export var experience: int = 0
+
 @export var health_current: int = 100
 @export var health_max: int = 100
 @export var stamina_current: int = 100
@@ -30,4 +32,6 @@ enum { CAT, DOG }
 @export var speed: int = 1
 
 @export var inventory: InventoryData = InventoryData.new()
-@export var equip_data: InventoryDataEquip = InventoryDataEquip.new()
+@export var equip: Dictionary = {
+	"0": InventoryDataEquip.new()
+}

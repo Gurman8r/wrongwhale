@@ -5,7 +5,6 @@ extends Node
 const GODOT_ICON := preload("res://icon.svg")
 
 const DEFAULT_ENVIRONMENT := preload("res://assets/data/default_environment.tres")
-const DEFAULT_REGISTRY := preload("res://assets/data/default_registry.tres")
 const DEFAULT_SETTINGS := preload("res://assets/data/default_settings.tres")
 
 const DEBUG_OVERLAY := preload("res://assets/scenes/debug_overlay.tscn") 

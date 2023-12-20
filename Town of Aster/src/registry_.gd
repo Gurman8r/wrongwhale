@@ -13,7 +13,7 @@ const PATH := "user://data/registry.tres"
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	process_mode = PROCESS_MODE_ALWAYS
+	process_mode = Node.PROCESS_MODE_ALWAYS
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -23,19 +23,41 @@ func _ready() -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func reset() -> void:
-	data = Prefabs.DEFAULT_REGISTRY.duplicate()
+	data = RegistryData.new()
+	data.set_registry(Registries.REGISTRIES, {})
+	_reset_items()
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func _reset_items() -> void:
+	data.set_registry(Registries.ITEM, {})
+	var items_path = "res://assets/items"
+	var items_dir = DirAccess.open(items_path)
+	items_dir.list_dir_begin()
+	var path: String = items_dir.get_next()
+	while path != "":
+		if items_dir.current_is_dir() \
+		or path.get_extension() != "tres": continue
+		register(
+			Registries.ITEM,
+			path.get_slice(".", 0),
+			ResourceLoader.load("%s/%s" % [items_path, path]))
+		path = items_dir.get_next()
+	items_dir.list_dir_end()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func register(registry: int, key: String, value) -> bool:
 	var dict = data.get_registry(registry)
 	if key in dict: return false
-	dict[key] = value.duplicate()
+	print("register: %s" % [key])
+	dict[key] = value
 	return true
 
 func unregister(registry: int, key: String) -> bool:
 	var dict = data.get_registry(registry)
 	if not key in dict: return false
+	print("unregister: %s" % [key])
 	dict.erase(key)
 	return true
 
@@ -54,15 +76,13 @@ func set_(registry: int, key: String, value) -> void:
 
 func has(registry: int, key: String) -> bool:
 	assert(data)
-	var dict = data.get_registry(registry)
-	return dict.has(key)
+	return data.get_registry(registry).has(key)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func merge(registry_data: RegistryData) -> void:
 	if registry_data == null \
-	or registry_data == data:
-		return
+	or registry_data == data: return
 	for key in registry_data.registries:
 		data.registries[key] = registry_data.registries[key]
 

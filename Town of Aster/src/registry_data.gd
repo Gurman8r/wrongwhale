@@ -5,11 +5,15 @@ extends Resource
 @export var registries: Dictionary
 
 func get_registry(registry: int) -> Dictionary:
-	match registry:
-		Registries.REGISTRIES: return registries
+	var key = Registries.get_id(registry)
+	match key:
+		"REGISTRIES": return registries
 		_: # default
-			assert(registry != Registries.MAX)
-			var key = "%d" % [registry]
-			if not key in registries:
-				registries[key] = Dictionary()
+			if !registries.has(key): registries[key] = {}
 			return registries[key]
+
+func set_registry(registry: int, value: Dictionary) -> void:
+	var key = Registries.get_id(registry)
+	match key:
+		"REGISTRIES": registries = value
+		_: registries[key] = value

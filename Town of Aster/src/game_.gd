@@ -15,27 +15,24 @@ const SAVES_PATH := "user://saves"
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	process_mode = PROCESS_MODE_ALWAYS
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	
-	_make_directories()
+	DirAccess.make_dir_absolute(ADDONS_PATH)
+	DirAccess.make_dir_absolute(DATA_PATH)
+	DirAccess.make_dir_absolute(SAVES_PATH)
 
 func _ready() -> void:
 	get_tree().paused = true
 
 func _notification(what) -> void:
 	match what:
-		NOTIFICATION_WM_CLOSE_REQUEST:
+		Node.NOTIFICATION_WM_CLOSE_REQUEST:
 			main.force_exit()
 
 func _unhandled_input(_event) -> void:
 	if Title.interface.menu == Title.interface.home \
 	and Input.is_action_just_pressed("toggle_pause"):
 		Game.quit_to_desktop()
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func is_standalone() -> bool:
-	return OS.has_feature("standalone")
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -129,9 +126,11 @@ func save_and_quit_to_title(path_stem: String = "") -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func _make_directories() -> void:
-	DirAccess.make_dir_absolute(ADDONS_PATH)
-	DirAccess.make_dir_absolute(DATA_PATH)
-	DirAccess.make_dir_absolute(SAVES_PATH)
+#region FEATURES
+
+func is_standalone() -> bool:
+	return OS.has_feature("standalone")
+
+#endregion
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

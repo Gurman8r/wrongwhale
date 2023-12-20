@@ -14,7 +14,7 @@ var overlay: TransitionOverlay
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
-	process_mode = PROCESS_MODE_ALWAYS
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	canvas_layer = Util.make(self, CanvasLayer.new(), "CanvasLayer")
 	overlay = Util.make(canvas_layer, Prefabs.TRANSITION_OVERLAY.instantiate(), "Overlay")
 
