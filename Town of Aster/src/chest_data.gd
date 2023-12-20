@@ -2,7 +2,7 @@
 class_name ChestData
 extends Resource
 
-const PREFAB := Prefabs.CHEST
+const PREFAB := Prefabs.CHEST_ENTITY
 
 @export var guid: String = "Chest"
 @export var name: String = "Chest"

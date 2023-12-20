@@ -8,11 +8,11 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_cha3g"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i851t"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gfsij"]
 albedo_color = Color(0, 0.541176, 0.952941, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_h4ew8"]
-material = SubResource("StandardMaterial3D_i851t")
+material = SubResource("StandardMaterial3D_gfsij")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ubpef"]
 transparency = 1

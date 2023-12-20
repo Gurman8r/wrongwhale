@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://o4pjvvpcbgku" path="res://assets/scenes/title_home.tscn" id="2_2yb1l"]
 [ext_resource type="PackedScene" uid="uid://dqv85mwq11dpo" path="res://assets/scenes/world_creator.tscn" id="4_jccja"]
 [ext_resource type="PackedScene" uid="uid://vw0n0v6gcdcl" path="res://assets/scenes/world_loader.tscn" id="4_yb5tt"]
-[ext_resource type="PackedScene" uid="uid://bwsftfna5831c" path="res://assets/scenes/mod_menu.tscn" id="5_w11ib"]
+[ext_resource type="PackedScene" uid="uid://bwsftfna5831c" path="res://assets/scenes/mods_menu.tscn" id="5_xgkc7"]
 [ext_resource type="PackedScene" uid="uid://cn6nx0dd15xf6" path="res://assets/scenes/settings_menu.tscn" id="6_an6vf"]
 
 [node name="TitleInterface" type="Control"]
@@ -49,7 +49,7 @@ offset_bottom = 148.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ModsMenu" parent="." instance=ExtResource("5_w11ib")]
+[node name="ModsMenu" parent="." instance=ExtResource("5_xgkc7")]
 visible = false
 layout_mode = 1
 anchors_preset = 8

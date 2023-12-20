@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://dhii3qy5e8ljo"]
+
+[ext_resource type="Script" path="res://src/chest_entity.gd" id="1_vlete"]
+[ext_resource type="Script" path="res://src/interactable.gd" id="2_1hfxn"]
+
+[sub_resource type="AnimationRootNode" id="AnimationRootNode_h845w"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h062n"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_60ojv"]
+albedo_color = Color(0.384314, 0.215686, 0.101961, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_30nq0"]
+material = SubResource("StandardMaterial3D_60ojv")
+
+[node name="ChestEntity" type="StaticBody3D" groups=["EXTERNAL_INVENTORY"]]
+collision_mask = 3
+script = ExtResource("1_vlete")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationRootNode_h845w")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="Collider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_h062n")
+
+[node name="Interactable" type="StaticBody3D" parent="."]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("2_1hfxn")
+
+[node name="Collider" type="CollisionShape3D" parent="Interactable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_h062n")
+
+[node name="Rig" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_30nq0")

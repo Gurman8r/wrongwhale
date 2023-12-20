@@ -69,7 +69,7 @@ func _ready():
 	force_close.connect(toggle_inventory)
 	
 	drop_stack.connect(func(stack: ItemStack) -> void:
-		var drop = Prefabs.ITEM_DROP.instantiate()
+		var drop = Prefabs.ITEM_ENTITY.instantiate()
 		drop.stack = stack
 		World.cell.add(drop, Player.character.get_drop_position()))
 	

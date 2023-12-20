@@ -23,6 +23,7 @@ material = SubResource("StandardMaterial3D_c7kdf")
 size = Vector3(1, 0.02, 1)
 
 [node name="PlayerCharacter" type="CharacterBody3D"]
+collision_layer = 2
 script = ExtResource("1_5om6e")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

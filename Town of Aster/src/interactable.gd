@@ -7,7 +7,7 @@ signal interacted(other)
 @export var prompt_message = "Interact"
 @export var prompt_action = "interact"
 
-@onready var collision_shape_3d = $CollisionShape3D
+@onready var collider: CollisionShape3D = $Collider
 
 func get_prompt() -> String:
 	if get_tree().paused: return ""

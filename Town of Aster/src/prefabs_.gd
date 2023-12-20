@@ -21,7 +21,12 @@ const WORLD_LOADER_PREVIEW := preload("res://assets/scenes/world_loader_preview.
 const INVENTORY_SLOT := preload("res://assets/scenes/inventory_slot.tscn")
 
 const WORLD_CELLS := preload("res://assets/scenes/world_cells.tscn")
-const ITEM_DROP := preload("res://assets/scenes/item_drop.tscn")
+const ITEM_ENTITY := preload("res://assets/scenes/item_entity.tscn")
+
 const ACTOR_CHARACTER := preload("res://assets/scenes/actor_character.tscn")
 const PLAYER_CHARACTER := preload("res://assets/scenes/player_character.tscn")
-const CHEST := preload("res://assets/scenes/chest.tscn")
+
+const CHEST_ENTITY := preload("res://assets/scenes/chest_entity.tscn")
+const CROP_ENTITY := preload("res://assets/scenes/crop_entity.tscn")
+const DOOR_ENTITY := preload("res://assets/scenes/door_entity.tscn")
+const TREE_ENTITY := preload("res://assets/scenes/tree_entity.tscn")
