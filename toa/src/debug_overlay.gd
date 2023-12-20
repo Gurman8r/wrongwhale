@@ -8,8 +8,7 @@ extends Control
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-@onready var version: String = ProjectSettings.get_setting("application/config/version")
-@onready var debug_str: String = Util.btos(Game.is_debug(), "debug", "release")
+@onready var version: String = "%s (%s)" % [ProjectSettings.get_setting("application/config/version"), "debug" if Game.is_debug() else "release"]
 
 var fps_value: float = 0.0
 var fps_accum: float = 0.0
@@ -28,13 +27,13 @@ func _init() -> void:
 func _physics_process(delta) -> void:
 	clear()
 	
-	append("version: %s (%s)" % [version, debug_str])
+	append("version: %s" % [version])
 	
 	var state_name = ""
 	if Game.main.state: state_name = Game.main.state.name
 	append("state: %s" % [state_name])
 	
-	append("paused: %s" % [Util.btos(Game.paused)])
+	append("paused: %s" % ["true" if Game.paused else "false"])
 	
 	fps_accum += delta - fps_times[fps_index];
 	fps_times[fps_index] = delta;

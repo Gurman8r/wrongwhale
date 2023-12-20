@@ -10,12 +10,6 @@ static func make(parent, node, name: String):
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-static func btos(value: bool, lhs: String = "true", rhs: String = "false") -> String:
-	if value: return lhs
-	else: return rhs
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
 static func rands(length: int, chars: String) -> String:
 	var s: String = ""
 	var n: int = chars.length()
