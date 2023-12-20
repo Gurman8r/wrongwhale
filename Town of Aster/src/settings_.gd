@@ -18,7 +18,10 @@ func _init() -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _ready() -> void:
-	reset()
+	read()
+	if !data: reset()
+	assert(data)
+	write()
 	
 	DisplayServer.window_set_mode(get_("window_mode"))
 	DisplayServer.window_set_size(get_("window_size"))
@@ -27,12 +30,13 @@ func _ready() -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func reset() -> void:
+	data = Prefabs.DEFAULT_SETTINGS.duplicate()
+
+func read() -> void:
 	data = Util.read(PATH)
-	if not data:
-		data = Prefabs.DEFAULT_SETTINGS.duplicate()
-		if Game.is_editor():
-			Util.write(data, PATH)
-	assert(data)
+
+func write() -> void:
+	Util.write(data, PATH)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

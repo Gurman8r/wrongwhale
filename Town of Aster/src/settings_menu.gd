@@ -5,6 +5,7 @@ extends PanelContainer
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 @onready var back_button = $MarginContainer/VBoxContainer/BackButton
+@onready var reset_button = $MarginContainer/VBoxContainer/ResetButton
 
 @onready var window_mode_button = $MarginContainer/VBoxContainer/Video/MarginContainer/VBoxContainer/WindowMode/HBoxContainer/WindowModeButton
 @onready var window_size_button = $MarginContainer/VBoxContainer/Video/MarginContainer/VBoxContainer/WindowSize/HBoxContainer/WindowSizeButton
@@ -19,6 +20,11 @@ func _ready():
 	
 	back_button.pressed.connect(func():
 		Title.interface.menu = Title.interface.home)
+	
+	reset_button.pressed.connect(func():
+		Debug.puts(" | reset settings")
+		Settings.reset()
+		Settings.save())
 	
 	#graphics_vsync_button.pressed.connect(func():
 	#	graphics_vsync_button.release_focus())

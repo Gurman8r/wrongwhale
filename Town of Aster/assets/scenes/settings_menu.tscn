@@ -116,6 +116,14 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("2_o1oi2")
 text = "Disabled"
 
+[node name="ResetButton" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(160, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("2_o1oi2")
+text = "Reset"
+
 [node name="BackButton" type="Button" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2

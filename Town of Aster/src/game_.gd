@@ -48,16 +48,16 @@ var paused: bool : get = get_paused, set = set_paused
 
 func get_paused() -> bool: return get_tree().paused
 
-func set_paused(value: bool) -> void:
-	if value: Debug.puts(" | pause")
-	else: Debug.puts(" | unpause ")
-	get_tree().paused = value
-
 func pause() -> void: set_paused(true)
 
 func unpause() -> void: set_paused(false)
 
 func toggle_pause() -> void: set_paused(!get_paused())
+
+func set_paused(value: bool) -> void:
+	if value: Debug.puts(" | pause")
+	else: Debug.puts(" | unpause ")
+	get_tree().paused = value
 
 #endregion
 
