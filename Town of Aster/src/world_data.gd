@@ -14,7 +14,7 @@ extends Resource
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func add_object_data(new_data: Resource) -> Resource:
+func add_object(new_data: Resource) -> Resource:
 	assert(new_data)
 	assert("guid" in new_data)
 	object_data[new_data.guid] = new_data

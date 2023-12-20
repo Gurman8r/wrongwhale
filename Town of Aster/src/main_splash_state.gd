@@ -48,6 +48,6 @@ func _exit_state() -> void:
 	super._exit_state()
 	Splash.timer.stop()
 	Splash.overlay.hide()
-	Splash.canvas.show()
+	Splash.canvas_layer.show()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

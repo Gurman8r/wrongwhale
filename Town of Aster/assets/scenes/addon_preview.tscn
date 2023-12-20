@@ -1,14 +1,14 @@
 [gd_scene load_steps=3 format=3 uid="uid://dg63ln4n0tu00"]
 
-[ext_resource type="Script" path="res://src/mod_preview.gd" id="1_4r88l"]
-[ext_resource type="Texture2D" uid="uid://dwi4nguld0m87" path="res://assets/icons/icon_circle.png" id="2_0gghv"]
+[ext_resource type="Script" path="res://src/addon_preview.gd" id="1_lw3e5"]
+[ext_resource type="Texture2D" uid="uid://dwi4nguld0m87" path="res://assets/icons/icon_circle.png" id="2_1lw58"]
 
-[node name="ModPreview" type="Control"]
+[node name="AddonPreview" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("1_4r88l")
+script = ExtResource("1_lw3e5")
 
 [node name="bg" type="PanelContainer" parent="."]
 layout_mode = 0
@@ -35,7 +35,7 @@ theme_override_constants/margin_bottom = 4
 
 [node name="icon" type="TextureRect" parent="bg/MarginContainer/HBoxContainer/IconContainer"]
 layout_mode = 2
-texture = ExtResource("2_0gghv")
+texture = ExtResource("2_1lw58")
 stretch_mode = 3
 
 [node name="LabelsContainer" type="MarginContainer" parent="bg/MarginContainer/HBoxContainer"]

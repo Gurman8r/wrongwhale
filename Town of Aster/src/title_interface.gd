@@ -9,7 +9,7 @@ extends Control
 @onready var world_loader: WorldLoader = $WorldLoader
 @onready var world_creator: WorldCreator = $WorldCreator
 @onready var settings: SettingsMenu = $SettingsMenu
-@onready var mods: ModMenu = $ModMenu
+@onready var addons: AddonsMenu = $AddonsMenu
 @onready var credits: CreditsMenu = $CreditsMenu
 
 

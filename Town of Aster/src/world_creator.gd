@@ -10,6 +10,8 @@ const SEED_CHARS := "0123456789ABCDEFGHIJKLMNOPQRZTUVWXYZabcdefghijklmnopqrstuvw
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+@export var default_cell: String = "Overworld"
+
 @onready var play_button: Button = $MarginContainer/VBoxContainer/PlayButton
 @onready var back_button: Control = $MarginContainer/VBoxContainer/BackButton
 
@@ -128,7 +130,7 @@ func _ready():
 func reset():
 	world_data = WorldData.new()
 	farm_data = world_data.farm_data
-	player_data = world_data.add_object_data(PlayerData.new())
+	player_data = world_data.add_object(PlayerData.new())
 	
 	farm_name_edit.text = ""
 	farm_name_edit.max_length = NAME_MAX
@@ -168,7 +170,7 @@ func _on_button_play_pressed():
 	player_data.inventory_data.resize(30)
 	player_data.equip_data.resize(1)
 	
-	var tutorial_chest: ChestData = world_data.add_object_data(ChestData.new())
+	var tutorial_chest: ChestData = world_data.add_object(ChestData.new())
 	tutorial_chest.guid = "Tutorial_Chest"
 	tutorial_chest.name = "Tutorial Chest"
 	tutorial_chest.cell_name = "Farm"
@@ -176,6 +178,7 @@ func _on_button_play_pressed():
 	tutorial_chest.direction = Vector3.FORWARD
 	tutorial_chest.inventory_data.resize(30)
 	tutorial_chest.inventory_data.set_item(0, preload("res://assets/items/potion.tres"), 15)
+	#tutorial_chest.inventory_data.set_item(0, Registry.find(Registries.ITEM, "potion"), 15)
 	
 	WorldData.write(world_data, world_data.guid)
 	Game.load_from_memory(world_data)

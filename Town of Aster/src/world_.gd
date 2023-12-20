@@ -26,12 +26,10 @@ func _ready() -> void:
 
 #region DATA
 
-var data: WorldData
+@export var data: WorldData
 
 func save(path_stem: String = "") -> void:
-	if path_stem.is_empty():
-		assert(data)
-		path_stem = data.guid
+	if path_stem.is_empty() and data: path_stem = data.guid
 	assert(0 < path_stem.length())
 	saving_started.emit()
 	WorldData.write(data, path_stem)

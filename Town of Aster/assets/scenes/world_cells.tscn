@@ -51,9 +51,9 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -3)
 data = SubResource("Resource_rlrbt")
 
-[node name="Misc" type="Node3D" parent="Farm"]
+[node name="Light" type="Node3D" parent="Farm"]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Farm/Misc"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Farm/Light"]
 transform = Transform3D(0.707107, -0.298836, 0.640857, 0, 0.906308, 0.422618, -0.707107, -0.298836, 0.640857, 50, 50, 50)
 
 [node name="Town" type="GridMap" parent="."]
@@ -75,7 +75,7 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -2)
 data = SubResource("Resource_070jb")
 
-[node name="Misc" type="Node3D" parent="Town"]
+[node name="Light" type="Node3D" parent="Town"]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Town/Misc"]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Town/Light"]
 transform = Transform3D(0.707107, -0.298836, 0.640857, 0, 0.906308, 0.422618, -0.707107, -0.298836, 0.640857, 50, 50, 50)

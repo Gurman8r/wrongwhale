@@ -8,7 +8,7 @@ const PATH := "user://data/settings.tres"
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-var data: SettingsData
+@export var data: SettingsData
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

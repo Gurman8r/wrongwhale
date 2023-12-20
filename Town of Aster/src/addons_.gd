@@ -1,22 +1,16 @@
-# mod_menu.gd
-class_name ModMenu
-extends PanelContainer
+# addons_.gd
+# Addons
+extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-@onready var back_button = $MarginContainer/VBoxContainer/BackButton
+@export var data: AddonsData
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func _ready():
-	reset()
-	
-	back_button.pressed.connect(func():
-		Title.interface.menu = Title.interface.home)
+func _init() -> void:
+	process_mode = PROCESS_MODE_ALWAYS
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func reset() -> void:
-	pass
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

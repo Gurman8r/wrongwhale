@@ -4,7 +4,7 @@ extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-var canvas: CanvasLayer
+var canvas_layer: CanvasLayer
 var overlay: DebugOverlay
 var interface: DebugInterface
 
@@ -12,12 +12,12 @@ var interface: DebugInterface
 
 func _init() -> void:
 	process_mode = PROCESS_MODE_ALWAYS
-	canvas = Util.make(self, CanvasLayer.new(), "Canvas")
-	overlay = Util.make(canvas, Prefabs.DEBUG_OVERLAY.instantiate(), "Overlay")
-	interface = Util.make(canvas, Prefabs.DEBUG_INTERFACE.instantiate(), "Interface")
+	canvas_layer = Util.make(self, CanvasLayer.new(), "CanvasLayer")
+	overlay = Util.make(canvas_layer, Prefabs.DEBUG_OVERLAY.instantiate(), "Overlay")
+	interface = Util.make(canvas_layer, Prefabs.DEBUG_INTERFACE.instantiate(), "Interface")
 
 func _ready() -> void:
-	assert(canvas.visible)
+	assert(canvas_layer.visible)
 	overlay.hide()
 	interface.hide()
 

@@ -17,7 +17,7 @@ const TITLE_INTERFACE := preload("res://assets/scenes/title_interface.tscn")
 const SPLASH_OVERLAY := preload("res://assets/scenes/splash_overlay.tscn") 
 const TRANSITION_OVERLAY := preload("res://assets/scenes/transition_overlay.tscn") 
 
-const MOD_PREVIEW := preload("res://assets/scenes/mod_preview.tscn")
+const ADDON_PREVIEW := preload("res://assets/scenes/addon_preview.tscn")
 const WORLD_LOADER_PREVIEW := preload("res://assets/scenes/world_loader_preview.tscn")
 const INVENTORY_SLOT := preload("res://assets/scenes/inventory_slot.tscn")
 

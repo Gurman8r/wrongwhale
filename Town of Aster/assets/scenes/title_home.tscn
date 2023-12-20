@@ -36,21 +36,14 @@ custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_fonts/font = ExtResource("2_xw431")
-text = "Load"
+text = "Load Game"
 
 [node name="NewButton" type="Button" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_vertical = 5
 theme_override_fonts/font = ExtResource("2_xw431")
-text = "New"
-
-[node name="ModsButton" type="Button" parent="MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(160, 32)
-layout_mode = 2
-size_flags_vertical = 5
-theme_override_fonts/font = ExtResource("2_xw431")
-text = "Mods"
+text = "New Game"
 
 [node name="SettingsButton" type="Button" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)
@@ -58,6 +51,13 @@ layout_mode = 2
 size_flags_vertical = 5
 theme_override_fonts/font = ExtResource("2_xw431")
 text = "Settings"
+
+[node name="AddonsButton" type="Button" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(160, 32)
+layout_mode = 2
+size_flags_vertical = 5
+theme_override_fonts/font = ExtResource("2_xw431")
+text = "Addons"
 
 [node name="CreditsButton" type="Button" parent="MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(160, 32)

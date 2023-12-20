@@ -8,7 +8,7 @@ signal finished()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-var canvas: CanvasLayer
+var canvas_layer: CanvasLayer
 var overlay: SplashOverlay
 var timer: Timer
 
@@ -16,13 +16,13 @@ var timer: Timer
 
 func _init() -> void:
 	process_mode = PROCESS_MODE_ALWAYS
-	canvas = Util.make(self, CanvasLayer.new(), "Canvas")
-	overlay = Util.make(canvas, Prefabs.SPLASH_OVERLAY.instantiate(), "Overlay")
+	canvas_layer = Util.make(self, CanvasLayer.new(), "CanvasLayer")
+	overlay = Util.make(canvas_layer, Prefabs.SPLASH_OVERLAY.instantiate(), "Overlay")
 	timer = Util.make(self, Timer.new(), "Timer")
 	timer.one_shot = true
 
 func _ready():
-	assert(canvas.visible)
+	assert(canvas_layer.visible)
 	overlay.hide()
 
 func play() -> void:

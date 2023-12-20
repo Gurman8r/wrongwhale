@@ -4,8 +4,8 @@ extends Control
 
 @onready var load_button = $MarginContainer/VBoxContainer/LoadButton
 @onready var new_button = $MarginContainer/VBoxContainer/NewButton
-@onready var mods_button = $MarginContainer/VBoxContainer/ModsButton
 @onready var settings_button = $MarginContainer/VBoxContainer/SettingsButton
+@onready var addons_button = $MarginContainer/VBoxContainer/AddonsButton
 @onready var credits_button = $MarginContainer/VBoxContainer/CreditsButton
 @onready var quit_button = $MarginContainer/VBoxContainer/QuitButton
 
@@ -19,8 +19,8 @@ func _ready() -> void:
 	settings_button.pressed.connect(func():
 		Title.interface.menu = Title.interface.settings)
 	
-	mods_button.pressed.connect(func():
-		Title.interface.menu = Title.interface.mods)
+	addons_button.pressed.connect(func():
+		Title.interface.menu = Title.interface.addons)
 	
 	credits_button.pressed.connect(func():
 		Title.interface.menu = Title.interface.credits)

@@ -9,9 +9,7 @@ signal inventory_updated(inventory_data: InventoryData)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-@export var stacks: Array[ItemStack] = []
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+@export var stacks: Array[ItemStack]
 
 func get_item(index: int) -> ItemData:
 	assert(index >= 0 and index < stacks.size())
@@ -19,7 +17,7 @@ func get_item(index: int) -> ItemData:
 	if stack: return stack.item_data
 	else: return null
 
-func set_item(index: int, value: ItemData, quantity: int = 1) -> void:
+func set_item(index: int, item_data: ItemData, quantity: int = 1) -> void:
 	assert(index >= 0 and index < stacks.size())
 	assert(0 < quantity)
 	var stack = stacks[index]
@@ -27,12 +25,25 @@ func set_item(index: int, value: ItemData, quantity: int = 1) -> void:
 		stacks[index] = ItemStack.new()
 		stack = stacks[index]
 	assert(stack)
-	stack.item_data = value
+	stack.item_data = item_data
 	stack.quantity = quantity
+	inventory_updated.emit(self)
+
+func add_item(item_data: ItemData, quantity: int = 1) -> bool:
+	assert(item_data)
+	assert(0 < quantity)
+	var stack: ItemStack = null
+	for i in range(stacks.size()):
+		if stacks[i] == null:
+			stacks[i] = ItemStack.new()
+			stack = stacks[i]
+			inventory_updated.emit(self)
+			return true
+	return false
 
 func resize(count: int) -> InventoryData:
 	stacks.resize(count)
-	return self	
+	return self
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

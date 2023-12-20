@@ -25,13 +25,13 @@ Prefabs="*res://src/prefabs_.gd"
 Settings="*res://src/settings_.gd"
 Registry="*res://src/registry_.gd"
 Game="*res://src/game_.gd"
+Addons="*res://src/addons_.gd"
 World="*res://src/world_.gd"
 Player="*res://src/player_.gd"
 Title="*res://src/title_.gd"
 Splash="*res://src/splash_.gd"
 Transition="*res://src/transition_.gd"
 Debug="*res://src/debug_.gd"
-Mods="*res://src/mods_.gd"
 
 [display]
 

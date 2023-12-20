@@ -5,17 +5,17 @@ extends Node
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 var interface: TitleInterface
-var canvas: CanvasLayer
+var canvas_layer: CanvasLayer
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
 	process_mode = PROCESS_MODE_ALWAYS
-	canvas = Util.make(self, CanvasLayer.new(), "Canvas")
-	interface = Util.make(canvas, Prefabs.TITLE_INTERFACE.instantiate(), "Interface")
+	canvas_layer = Util.make(self, CanvasLayer.new(), "CanvasLayer")
+	interface = Util.make(canvas_layer, Prefabs.TITLE_INTERFACE.instantiate(), "Interface")
 	
 func _ready() -> void:
-	assert(canvas.visible)
+	assert(canvas_layer.visible)
 	interface.hide()
 
 

@@ -28,7 +28,7 @@ signal hotbar_select(index: int)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-var canvas: CanvasLayer
+var canvas_layer: CanvasLayer
 var overlay: PlayerOverlay
 var interface: PlayerInterface
 
@@ -41,14 +41,14 @@ var item_index: int = 0
 
 func _init() -> void:
 	process_mode = PROCESS_MODE_ALWAYS
-	canvas = Util.make(self, CanvasLayer.new(), "Canvas")
-	overlay = Util.make(canvas, Prefabs.PLAYER_OVERLAY.instantiate(), "Overlay")
-	interface = Util.make(canvas, Prefabs.PLAYER_INTERFACE.instantiate(), "Interface")
+	canvas_layer = Util.make(self, CanvasLayer.new(), "CanvasLayer")
+	overlay = Util.make(canvas_layer, Prefabs.PLAYER_OVERLAY.instantiate(), "Overlay")
+	interface = Util.make(canvas_layer, Prefabs.PLAYER_INTERFACE.instantiate(), "Interface")
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _ready() -> void:
-	assert(canvas.visible)
+	assert(canvas_layer.visible)
 	overlay.hide()
 	interface.hide()
 	

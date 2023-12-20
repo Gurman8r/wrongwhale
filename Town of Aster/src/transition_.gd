@@ -8,18 +8,18 @@ signal finished()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-var canvas: CanvasLayer
+var canvas_layer: CanvasLayer
 var overlay: TransitionOverlay
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
 	process_mode = PROCESS_MODE_ALWAYS
-	canvas = Util.make(self, CanvasLayer.new(), "Canvas")
-	overlay = Util.make(canvas, Prefabs.TRANSITION_OVERLAY.instantiate(), "Overlay")
+	canvas_layer = Util.make(self, CanvasLayer.new(), "CanvasLayer")
+	overlay = Util.make(canvas_layer, Prefabs.TRANSITION_OVERLAY.instantiate(), "Overlay")
 
 func _ready() -> void:
-	assert(canvas.visible)
+	assert(canvas_layer.visible)
 	overlay.show()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

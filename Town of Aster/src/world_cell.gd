@@ -25,24 +25,27 @@ func _get_root(root_name: String) -> Node3D:
 	if has_node(root_name): return get_node(root_name)
 	else: return Util.make(self, Node3D.new(), root_name)
 
-func get_root_name(node: Node3D) -> String:
+func _get_root_name(node: Node3D) -> String:
 	assert(node)
 	if "CATEGORY" in node: return node.CATEGORY
+	elif node is Light3D: return "Light"
 	else: return "Misc"
 
-func get_root_node(node: Node3D) -> Node3D:
+func _get_root_node(node: Node3D) -> Node3D:
 	assert(node)
-	return _get_root(get_root_name(node))
+	return _get_root(_get_root_name(node))
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func add(node: Node3D, location: Vector3 = Vector3.ZERO) -> WorldCell:
 	assert(node)
-	get_root_node(node).add_child(node)
+	_get_root_node(node).add_child(node)
 	node.global_transform.origin = location
 	return self
 
 func remove(node: Node3D) -> WorldCell:
 	assert(node)
-	get_root_node(node).remove_child(node)
+	_get_root_node(node).remove_child(node)
 	return self
 
 func find(root_name: String, node_name: String) -> Node3D:
