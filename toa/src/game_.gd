@@ -4,8 +4,8 @@ extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-const ADDONS_PATH := "user://addons"
 const DATA_PATH := "user://data"
+const MODS_PATH := Addons.MODS_PATH
 const SAVES_PATH := "user://saves"
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -17,8 +17,8 @@ const SAVES_PATH := "user://saves"
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	
-	DirAccess.make_dir_absolute(ADDONS_PATH)
 	DirAccess.make_dir_absolute(DATA_PATH)
+	DirAccess.make_dir_absolute(MODS_PATH)
 	DirAccess.make_dir_absolute(SAVES_PATH)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

@@ -4,7 +4,7 @@ extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-const PATH := "user://data/settings.tres"
+const PATH := "user://settings.tres"
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -18,19 +18,16 @@ func _init() -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _ready() -> void:
-	read()
-	if !data: reset()
-	assert(data)
-	write()
-	
-	DisplayServer.window_set_mode(get_setting("window_mode"))
-	DisplayServer.window_set_size(get_setting("window_size"))
-	DisplayServer.window_set_vsync_mode(get_setting("window_vsync"))
+	reset()
+	apply()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func reset() -> void:
-	data = Prefabs.DEFAULT_SETTINGS.duplicate()
+	read()
+	if !data: data = Prefabs.DEFAULT_SETTINGS.duplicate()
+	assert(data)
+	write()
 
 func read() -> void:
 	data = Util.read(PATH)
@@ -52,5 +49,12 @@ func set_setting(key: String, value) -> void:
 func has_setting(key: String) -> bool:
 	assert(data)
 	return key in data
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func apply() -> void:
+	DisplayServer.window_set_mode(get_setting("window_mode"))
+	DisplayServer.window_set_size(get_setting("window_size"))
+	DisplayServer.window_set_vsync_mode(get_setting("window_vsync"))
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

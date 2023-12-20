@@ -4,7 +4,10 @@ extends MainState
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-var splash_textures: Array[String] = [ "res://icon.svg", ]
+@export var splashes: Array[String] = [
+	"res://assets/icons/icon_godot.png",
+	"res://assets/icons/icon_game.png",
+]
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -22,25 +25,27 @@ func _enter_state() -> void:
 		Game.main.state = Game.main.title_state
 		Transition.play("fadein")
 		await Transition.finished
-		return
 	
 	# play splash
-	Splash.canvas_layer.show()
-	Splash.overlay.show()
-	for i in range(splash_textures.size()):
-		Splash.overlay.icon.texture = ImageTexture.create_from_image(Image.load_from_file(splash_textures[i]))
+	else:
+		Splash.canvas_layer.show()
+		Splash.overlay.show()
+		for i in range(splashes.size()):
+			var texture = Util.load_texture(splashes[i])
+			if !texture: continue
+			Splash.overlay.icon.texture = texture
+			Transition.play("fadein")
+			await Transition.finished
+			Debug.puts(" | splash: %s" % [splashes[i]])
+			Splash.timer.start(Settings.get_setting("splash_delay"))
+			await Splash.timer.timeout
+			Transition.play("fadeout")
+			await Transition.finished
+			Splash.timer.start(Settings.get_setting("splash_delay"))
+			await Splash.timer.timeout
+		Game.main.state = Game.main.title_state
 		Transition.play("fadein")
 		await Transition.finished
-		Debug.puts(" | splash: %s" % [splash_textures[i]])
-		Splash.timer.start(Settings.get_setting("splash_delay"))
-		await Splash.timer.timeout
-		Transition.play("fadeout")
-		await Transition.finished
-		Splash.timer.start(Settings.get_setting("splash_delay"))
-		await Splash.timer.timeout
-	Game.main.state = Game.main.title_state
-	Transition.play("fadein")
-	await Transition.finished
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

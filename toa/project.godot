@@ -18,13 +18,13 @@ config/custom_user_dir_name=".toa"
 config/features=PackedStringArray("4.2", "Mobile")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
-config/icon="res://icon.svg"
 
 [autoload]
 
 Prefabs="*res://src/prefabs_.gd"
 Settings="*res://src/settings_.gd"
 Registry="*res://src/registry_.gd"
+Addons="*res://src/addons_.gd"
 Game="*res://src/game_.gd"
 World="*res://src/world_.gd"
 Player="*res://src/player_.gd"
@@ -32,7 +32,6 @@ Title="*res://src/title_.gd"
 Splash="*res://src/splash_.gd"
 Transition="*res://src/transition_.gd"
 Debug="*res://src/debug_.gd"
-Addons="*res://src/addons_.gd"
 
 [display]
 
@@ -46,8 +45,7 @@ project/assembly_name="Town of Aster"
 [file_customization]
 
 folder_colors={
-"res://assets/scenes/": "blue",
-"res://src/": "gray"
+"res://assets/": "gray"
 }
 
 [input]

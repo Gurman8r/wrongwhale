@@ -159,9 +159,7 @@ func _on_button_play_pressed():
 	world_data.guid = farm_data.name.replace(" ", "_")
 	world_data.name = farm_data.name
 	world_data.index = WorldData.get_path_list().size()
-	
-	if world_data.random_seed.is_empty():
-		world_data.random_seed = Util.rands(SEED_MAX, SEED_CHARS)
+	if world_data.random_seed == "": world_data.random_seed = Util.rands(SEED_MAX, SEED_CHARS)
 	
 	player_data.guid = player_data.name.replace(" ", "_")
 	player_data.position = Vector3.ZERO
@@ -177,7 +175,6 @@ func _on_button_play_pressed():
 	tutorial_chest.position = Vector3(0, 0, -3)
 	tutorial_chest.direction = Vector3.FORWARD
 	tutorial_chest.inventory.resize(30)
-	#tutorial_chest.inventory.add_item(preload("res://assets/items/potion.tres"), 15)
 	tutorial_chest.inventory.add_item(Registry.get_(Registries.ITEM, "potion"), 15)
 	
 	WorldData.write(world_data, world_data.guid)

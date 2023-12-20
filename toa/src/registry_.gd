@@ -35,7 +35,7 @@ func _ready() -> void:
 func reset() -> void:
 	data = RegistryData.new()
 	set_registry(Registries.REGISTRIES, {})
-	register_directory(Registries.ITEM, "res://assets/items")
+	register_directory(Registries.ITEM, "res://assets/registry/item")
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

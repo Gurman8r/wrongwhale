@@ -10,6 +10,12 @@ static func make(parent, node, name: String):
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+static func btos(value: bool, lhs: String = "true", rhs: String = "false") -> String:
+	if value: return lhs
+	else: return rhs
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 static func rands(length: int, chars: String) -> String:
 	var s: String = ""
 	var n: int = chars.length()
@@ -38,17 +44,19 @@ static func set_active(node: Node, value: bool) -> void:
 	node.set_process_unhandled_input(value)
 	node.set_process_unhandled_key_input(value)
 
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 static func set_enabled(node: Node, value: bool, recursive: bool = true) -> void:
-	if not node: return
+	if !node: return
 	if recursive: for child in node.get_children(): set_enabled(child, value)
 	set_active(node, value)
 	if "visible" in node: node.visible = value
-	if "disabled" in node: node.disabled = not value
+	if "disabled" in node: node.disabled = !value
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 static func read(path: String) -> Resource:
-	if not ResourceLoader.exists(path): return null
+	if !ResourceLoader.exists(path): return null
 	else: return ResourceLoader.load(path).duplicate()
 
 static func write(data: Resource, path: String) -> Error:
@@ -58,7 +66,7 @@ static func write(data: Resource, path: String) -> Error:
 
 static func wipe_dir(dir_path: String) -> bool:
 	var dir: DirAccess = DirAccess.open(dir_path)
-	if not dir: return false
+	if !dir: return false
 	if dir:
 		dir.list_dir_begin()
 		var path = dir.get_next()
@@ -74,3 +82,12 @@ static func wipe_dir(dir_path: String) -> bool:
 	return true
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+static func load_texture(path: String) -> ImageTexture:
+	if Game.is_editor():
+		return ImageTexture.create_from_image(Image.load_from_file(path))
+	else:
+		return load(path)
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+

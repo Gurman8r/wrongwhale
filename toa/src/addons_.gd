@@ -4,11 +4,11 @@ extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-const PATH := "user://addons"
+const MODS_PATH := "user://mods"
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-var path_list: Array[String]
+@onready var mods: Array[String] = []
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -18,23 +18,29 @@ func _init() -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _ready() -> void:
-	print("")
-	path_list = []
-	DirAccess.make_dir_absolute(PATH)
-	var dir = DirAccess.open(PATH)
+	_load_mods()
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func _load_mods() -> void:
+	assert(mods == [])
+	DirAccess.make_dir_absolute(MODS_PATH)
+	var dir = DirAccess.open(MODS_PATH)
+	if !dir: return
 	dir.list_dir_begin()
 	var path: String = dir.get_next()
 	while path != "":
 		var extension = path.get_extension()
 		if extension == "pck" \
 		or extension == "zip":
-			var full_path = "%s/%s" % [PATH, path]
+			var full_path = "%s/%s" % [MODS_PATH, path]
 			if ProjectSettings.load_resource_pack(full_path):
-				print("addon: %s" % [full_path])
-				path_list.append(full_path)
+				mods.append(full_path)
 			else:
-				printerr("invalid pack: %s" % [full_path])
+				printerr("invalid modpack: %s" % [full_path])
 		path = dir.get_next()
 	dir.list_dir_end()
+	if !mods.is_empty(): print("")
+	for p in mods: print("modpack: %s" % [p])
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

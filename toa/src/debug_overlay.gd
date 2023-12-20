@@ -6,11 +6,14 @@ extends Control
 
 @onready var label: Label = $MarginContainer/Label
 
-@onready var version: String = ProjectSettings.get_setting("application/config/version")
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-var fps_value: float
-var fps_accum: float
-var fps_index: int
+@onready var version: String = ProjectSettings.get_setting("application/config/version")
+@onready var debug_str: String = Util.btos(Game.is_debug(), "debug", "release")
+
+var fps_value: float = 0.0
+var fps_accum: float = 0.0
+var fps_index: int = 0
 var fps_times: Array[float] = []
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -25,13 +28,13 @@ func _init() -> void:
 func _physics_process(delta) -> void:
 	clear()
 	
-	append("version: %s" % [version])
+	append("version: %s (%s)" % [version, debug_str])
 	
 	var state_name = ""
 	if Game.main.state: state_name = Game.main.state.name
 	append("state: %s" % [state_name])
 	
-	append("paused: %d" % [int(Game.paused)])
+	append("paused: %s" % [Util.btos(Game.paused)])
 	
 	fps_accum += delta - fps_times[fps_index];
 	fps_times[fps_index] = delta;
@@ -43,11 +46,11 @@ func _physics_process(delta) -> void:
 	var pd = Player.data
 	var pc = Player.character
 	if pd and pc:
+		append("cell: %s" % [pd.cell_name])
 		append("xyz: %1.1f, %1.1f, %1.1f" % [
 			pc.global_transform.origin.x,
 			pc.global_transform.origin.y,
 			pc.global_transform.origin.z])
-		append("cell: %s" % [pd.cell_name])
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
