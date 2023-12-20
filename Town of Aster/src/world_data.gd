@@ -9,16 +9,20 @@ extends Resource
 @export var index: int
 
 @export var random_seed: String
-@export var object_data: Dictionary = {}
+
 @export var farm_data: FarmData = FarmData.new()
+@export var object_data: Dictionary = {}
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func add_object(new_data: Resource) -> Resource:
-	assert(new_data)
-	assert("guid" in new_data)
-	object_data[new_data.guid] = new_data
-	return new_data
+func add_object(data: Resource) -> Resource:
+	assert(data)
+	assert("guid" in data)
+	object_data[data.guid] = data
+	return data
+
+func erase_object(key: String) -> void:
+	object_data.erase(key)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

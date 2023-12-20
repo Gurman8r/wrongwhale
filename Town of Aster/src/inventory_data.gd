@@ -37,9 +37,12 @@ func add_item(item_data: ItemData, quantity: int = 1) -> bool:
 		if stacks[i] == null:
 			stacks[i] = ItemStack.new()
 			stack = stacks[i]
-			inventory_updated.emit(self)
-			return true
-	return false
+			break
+	if stack == null: return false
+	stack.item_data = item_data
+	stack.quantity = quantity
+	inventory_updated.emit(self)
+	return true
 
 func resize(count: int) -> InventoryData:
 	stacks.resize(count)

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://chr1huhm2ybpl"]
+
+[ext_resource type="Script" path="res://src/world_preview.gd" id="1_8r87h"]
+
+[node name="WorldPreview" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_8r87h")

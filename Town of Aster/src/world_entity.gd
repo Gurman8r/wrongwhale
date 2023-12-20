@@ -4,5 +4,5 @@ extends StaticBody3D
 
 func get_cell() -> WorldCell: return get_parent().get_parent() as WorldCell
 
-static func create(data: Resource) -> Node3D:
+static func create(_data: Resource) -> Node3D:
 	return null

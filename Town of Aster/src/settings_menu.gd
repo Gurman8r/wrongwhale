@@ -30,6 +30,7 @@ func _ready():
 		if id == DisplayServer.window_get_mode(): return
 		window_mode_button.text = window_mode_button.get_popup().get_item_text(index)
 		DisplayServer.window_set_mode(id)
+		Settings.set_("window_mode", id)
 		window_mode_button.release_focus())
 	
 	
@@ -38,7 +39,9 @@ func _ready():
 		window_size_button.get_popup().add_item("(%d, %d)" % [window_size.x, window_size.y], i)
 	window_size_button.get_popup().index_pressed.connect(func(index: int):
 		window_size_button.text = window_size_button.get_popup().get_item_text(index)
-		DisplayServer.window_set_size(window_sizes[window_size_button.get_popup().get_item_id(index)])
+		var v = window_sizes[window_size_button.get_popup().get_item_id(index)]
+		DisplayServer.window_set_size(v)
+		Settings.set_("window_size", v)
 		window_size_button.release_focus())
 	
 	window_vsync_button.get_popup().add_item("Disabled", DisplayServer.VSYNC_DISABLED)
@@ -47,7 +50,9 @@ func _ready():
 	window_vsync_button.get_popup().add_item("Mailbox", DisplayServer.VSYNC_MAILBOX)
 	window_vsync_button.get_popup().index_pressed.connect(func(index: int):
 		window_vsync_button.text = window_vsync_button.get_popup().get_item_text(index)
-		DisplayServer.window_set_vsync_mode(window_vsync_button.get_popup().get_item_id(index))
+		var v = window_vsync_button.get_popup().get_item_id(index)
+		DisplayServer.window_set_vsync_mode(v)
+		Settings.set_("window_vsync", v)
 		window_vsync_button.release_focus())
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

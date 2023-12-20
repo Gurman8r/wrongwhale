@@ -1,6 +1,8 @@
 # registries.gd
 class_name Registries
 
+#FIXME fabric registries
+
 enum {
 	REGISTRIES = -1,
 	

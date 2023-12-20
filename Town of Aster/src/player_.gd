@@ -140,7 +140,7 @@ func _unhandled_input(_event) -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func _physics_process(delta) -> void:
+func _physics_process(_delta) -> void:
 	if !data or !character: return
 	
 	if Game.paused: return
