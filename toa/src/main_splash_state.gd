@@ -33,7 +33,7 @@ func _enter_state() -> void:
 		Splash.overlay.icon.texture = t
 		Transition.play("fadein")
 		await Transition.finished
-		Debug.puts(" | splash %d" % [i])
+		Debug.puts(" | splash (%d)" % [i])
 		Splash.timer.start(Settings.get_("splash_delay"))
 		await Splash.timer.timeout
 		Transition.play("fadeout")

@@ -10,11 +10,11 @@ config_version=5
 
 [application]
 
-config/name="Town of Aster"
+config/name="Town Of Aster"
 config/version="0.0.0.0"
 run/main_scene="res://assets/scenes/main.tscn"
 config/use_custom_user_dir=true
-config/custom_user_dir_name=".town_of_aster"
+config/custom_user_dir_name=".toa"
 config/features=PackedStringArray("4.2", "Mobile")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
