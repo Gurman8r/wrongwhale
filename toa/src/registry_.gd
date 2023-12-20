@@ -27,7 +27,6 @@ func _ready() -> void:
 		print("registered: %s %s" % [Registries.get_id(registry), key]))
 	unregistered.connect(func(registry: int, key: String):
 		print("unregistered: %s %s" % [Registries.get_id(registry), key]))
-	
 	reset()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -75,14 +74,11 @@ func register_directory(registry: int, dir_path: String) -> void:
 		if !dir.current_is_dir():
 			if ".remap" in path: path = path.trim_suffix(".remap")
 			var extension = path.get_extension()
-			if extension == "tres":
-				var full_path: String = "%s/%s" % [dir_path, path]
-				if ResourceLoader.exists(full_path):
-					register(registry, path.get_slice(".", 0), ResourceLoader.load(full_path))
-				else:
-					printerr("invalid resource %s" % [full_path])
+			if extension != "tres": printerr("invalid extension: %s" % [extension])
 			else:
-				printerr("invalid extension %s" % [extension])
+				var full_path: String = "%s/%s" % [dir_path, path]
+				if !ResourceLoader.exists(full_path): printerr("invalid resource: %s" % [full_path])
+				else: register(registry, path.get_slice(".", 0), ResourceLoader.load(full_path))
 		path = dir.get_next()
 	dir.list_dir_end()
 
@@ -96,26 +92,17 @@ func unregister_directory(registry: int, dir_path: String) -> void:
 		if !dir.current_is_dir():
 			if ".remap" in path: path = path.trim_suffix(".remap")
 			var extension = path.get_extension()
-			if extension == "tres":
-				unregister(registry, path.get_slice(".", 0))
-			else:
-				printerr("invalid extension %s" % [extension])
+			if extension != "tres": printerr("invalid extension: %s" % [extension])
+			else: unregister(registry, path.get_slice(".", 0))
 		path = dir.get_next()
 	dir.list_dir_end()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func get_(registry: int, key: String):
-	var dict = get_registry(registry)
-	assert(dict.has(key))
-	return dict[key]
+func get_(registry: int, key: String): return get_registry(registry)[key]
 
-func set_(registry: int, key: String, value) -> void:
-	var dict = get_registry(registry)
-	dict[key] = value
+func set_(registry: int, key: String, value) -> void: get_registry(registry)[key] = value
 
-func has(registry: int, key: String) -> bool:
-	var dict = get_registry(registry)
-	return dict.has(key)
+func has_(registry: int, key: String) -> bool: return get_registry(registry).has(key)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

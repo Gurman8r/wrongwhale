@@ -1,5 +1,5 @@
-# addon_preview.gd
-class_name AddonPreview
+# pack_preview.gd
+class_name PackPreview
 extends Control
 
 @onready var bg: PanelContainer = $bg

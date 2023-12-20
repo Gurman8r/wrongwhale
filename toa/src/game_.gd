@@ -4,22 +4,12 @@ extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-const DATA_PATH := "user://data"
-const MODS_PATH := Addons.MODS_PATH
-const SAVES_PATH := "user://saves"
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
 @onready var main: Main = $"../Main"
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	
-	DirAccess.make_dir_absolute(DATA_PATH)
-	DirAccess.make_dir_absolute(MODS_PATH)
-	DirAccess.make_dir_absolute(SAVES_PATH)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -55,8 +45,8 @@ func unpause() -> void: set_paused(false)
 func toggle_pause() -> void: set_paused(!get_paused())
 
 func set_paused(value: bool) -> void:
-	if value: Debug.puts(" | pause")
-	else: Debug.puts(" | unpause ")
+	if value: print(" | pause")
+	else: print(" | unpause ")
 	get_tree().paused = value
 
 #endregion
@@ -66,7 +56,7 @@ func set_paused(value: bool) -> void:
 #region FLOW_CONTROL
 
 func load_from_memory(world_data: WorldData) -> void:
-	Debug.puts(" | reload")
+	print(" | reload")
 	Transition.play("fadeout")
 	await Transition.finished
 	World.data = world_data
@@ -75,7 +65,7 @@ func load_from_memory(world_data: WorldData) -> void:
 	await Transition.finished
 
 func load_from_file(path_stem: String) -> void:
-	Debug.puts(" | load_from_file")
+	print(" | load_from_file")
 	Transition.play("fadeout")
 	await Transition.finished
 	World.data = WorldData.read(path_stem)
@@ -86,20 +76,20 @@ func load_from_file(path_stem: String) -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func save(path_stem: String = "") -> void:
-	Debug.puts(" | save")
+	print(" | save")
 	World.save(path_stem)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func quit_to_desktop() -> void:
-	Debug.puts(" | quit_to_desktop")
+	print(" | quit_to_desktop")
 	Transition.play("fadeout")
 	await Transition.finished
 	main.force_exit()
 	get_tree().quit()
 
 func save_and_quit_to_desktop(path_stem: String = "") -> void:
-	Debug.puts(" | save_and_quit_to_desktop")
+	print(" | save_and_quit_to_desktop")
 	Transition.play("fadeout")
 	await Transition.finished
 	World.save(path_stem)
@@ -110,7 +100,7 @@ func save_and_quit_to_desktop(path_stem: String = "") -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func quit_to_title() -> void:
-	Debug.puts(" | quit_to_title")
+	print(" | quit_to_title")
 	Transition.play("fadeout")
 	await Transition.finished
 	World.unload()
@@ -119,7 +109,7 @@ func quit_to_title() -> void:
 	await Transition.finished
 
 func save_and_quit_to_title(path_stem: String = "") -> void:
-	Debug.puts(" | save_and_quit_to_title")
+	print(" | save_and_quit_to_title")
 	Transition.play("fadeout")
 	await Transition.finished
 	World.save(path_stem)

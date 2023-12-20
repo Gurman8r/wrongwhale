@@ -4,6 +4,11 @@ extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+const SAVES_PATH := "user://saves"
+const FILE_NAME := "world.tres"
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 signal loading_started()
 signal loading_finished()
 
@@ -17,6 +22,7 @@ signal unloading_finished()
 
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	DirAccess.make_dir_absolute(SAVES_PATH)
 
 func _ready() -> void:
 	reset_environment()
@@ -79,11 +85,11 @@ func get_cell() -> WorldCell: return _cell
 func change_cell(new_cell: WorldCell) -> void:
 	if _cell == new_cell: return
 	if _cell:
-		Debug.puts("<| %s" % [_cell.name])
+		print("<| %s" % [_cell.name])
 		_cell.enabled = false
 	_cell = new_cell
 	if _cell:
-		Debug.puts(">| %s" % [_cell.name])
+		print(">| %s" % [_cell.name])
 		_cell.enabled = true
 
 func find_cell(cell_name: String) -> WorldCell:
@@ -124,7 +130,7 @@ func create_object(d: Resource) -> Node3D:
 	if o is PlayerCharacter:
 		_cell = c
 		_cell.enabled = true
-		Debug.puts(">| %s" % [_cell.name])
+		print(">| %s" % [_cell.name])
 	o.name = d.guid
 	objects.append(o)
 	return o

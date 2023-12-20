@@ -5,7 +5,7 @@ extends MainState
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 @export var splashes: Array[String] = [
-	"res://assets/icons/icon_godot.png",
+	"res://assets/icons/icon_godot.svg",
 ]
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -20,7 +20,7 @@ func _enter_state() -> void:
 	
 	# skip splash
 	if Settings.get_setting("splash_delay") <= 0.0:
-		Debug.puts(" | nosplash")
+		print(" | nosplash")
 		Game.main.state = Game.main.title_state
 		Transition.play("fadein")
 		await Transition.finished
@@ -30,10 +30,12 @@ func _enter_state() -> void:
 		Splash.canvas_layer.show()
 		Splash.overlay.show()
 		for i in range(splashes.size()):
-			Splash.overlay.icon.texture = Util.load_texture(splashes[i])
+			var texture = Util.load_texture(splashes[i])
+			if !texture: continue
+			Splash.overlay.icon.texture = texture
 			Transition.play("fadein")
 			await Transition.finished
-			Debug.puts(" | splash: %s" % [splashes[i]])
+			print(" | splash: %s" % [splashes[i]])
 			Splash.timer.start(Settings.get_setting("splash_delay"))
 			await Splash.timer.timeout
 			Transition.play("fadeout")

@@ -4,5 +4,5 @@ extends State
 
 func _ready() -> void:
 	super._ready()
-	entered.connect(func(): Debug.puts("\n-> %s" % [name]))
-	exited.connect(func(): Debug.puts("<- %s" % [name]))
+	entered.connect(func(): print("\n-> %s" % [name]))
+	exited.connect(func(): print("<- %s" % [name]))

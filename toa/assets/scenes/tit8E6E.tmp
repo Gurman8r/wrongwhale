@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dqv85mwq11dpo" path="res://assets/scenes/world_creator.tscn" id="4_jccja"]
 [ext_resource type="PackedScene" uid="uid://vw0n0v6gcdcl" path="res://assets/scenes/world_loader.tscn" id="4_yb5tt"]
 [ext_resource type="PackedScene" uid="uid://cn6nx0dd15xf6" path="res://assets/scenes/settings_menu.tscn" id="6_an6vf"]
-[ext_resource type="PackedScene" uid="uid://bwsftfna5831c" path="res://assets/scenes/packs_menu.tscn" id="6_kmu20"]
+[ext_resource type="PackedScene" uid="uid://bwsftfna5831c" path="res://assets/scenes/mods_menu.tscn" id="6_yo5mf"]
 [ext_resource type="PackedScene" uid="uid://b8shgrgj8nnmd" path="res://assets/scenes/credits_menu.tscn" id="7_e3woi"]
 
 [node name="TitleInterface" type="Control"]
@@ -65,7 +65,7 @@ offset_bottom = 108.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PacksMenu" parent="." instance=ExtResource("6_kmu20")]
+[node name="PackMenu" parent="." instance=ExtResource("6_yo5mf")]
 visible = false
 layout_mode = 1
 anchors_preset = 8

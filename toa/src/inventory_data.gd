@@ -11,6 +11,10 @@ signal inventory_updated(inventory_data: InventoryData)
 
 @export var stacks: Array[ItemStack]
 
+func resize(count: int) -> InventoryData:
+	stacks.resize(count)
+	return self
+
 func get_item(index: int) -> ItemData:
 	assert(index >= 0 and index < stacks.size())
 	var stack = stacks[index]
@@ -43,10 +47,6 @@ func add_item(item_data: ItemData, quantity: int = 1) -> bool:
 	stack.quantity = quantity
 	inventory_updated.emit(self)
 	return true
-
-func resize(count: int) -> InventoryData:
-	stacks.resize(count)
-	return self
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

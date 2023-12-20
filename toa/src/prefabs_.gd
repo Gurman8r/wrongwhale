@@ -15,7 +15,7 @@ const TRANSITION_OVERLAY := preload("res://assets/scenes/transition_overlay.tscn
 
 const WORLD_LOADER_PREVIEW := preload("res://assets/scenes/world_loader_preview.tscn")
 const WORLD_PREVIEW := preload("res://assets/scenes/world_preview.tscn")
-const ADDON_PREVIEW := preload("res://assets/scenes/addon_preview.tscn")
+const ADDON_PREVIEW := preload("res://assets/scenes/pack_preview.tscn")
 const INVENTORY_SLOT := preload("res://assets/scenes/inventory_slot.tscn")
 
 const WORLD_CELLS := preload("res://assets/scenes/world_cells.tscn")

@@ -1,5 +1,5 @@
-# addons_menu.gd
-class_name AddonsMenu
+# packs_menu.gd
+class_name PacksMenu
 extends PanelContainer
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

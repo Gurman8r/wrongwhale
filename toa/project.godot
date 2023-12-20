@@ -15,7 +15,7 @@ config/version="0.0.0.0"
 run/main_scene="res://assets/scenes/main.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name=".toa"
-config/features=PackedStringArray("4.2", "Mobile")
+config/features=PackedStringArray("4.2", "C#", "Mobile")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
 
@@ -24,7 +24,7 @@ boot_splash/show_image=false
 Prefabs="*res://src/prefabs_.gd"
 Settings="*res://src/settings_.gd"
 Registry="*res://src/registry_.gd"
-Addons="*res://src/addons_.gd"
+Packs="*res://src/packs_.gd"
 Game="*res://src/game_.gd"
 World="*res://src/world_.gd"
 Player="*res://src/player_.gd"
@@ -217,6 +217,16 @@ hotbar_9={
 screenshot={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194343,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
+}
+quicksave={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194336,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
+}
+quickload={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194339,"key_label":0,"unicode":0,"echo":false,"script":null)
 ]
 }
 

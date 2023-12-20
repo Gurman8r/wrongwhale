@@ -26,8 +26,6 @@ func unmanage(key: String) -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-const DIR := "user://saves"
-const FILE := "world.tres"
 
 static func read(path_stem: String) -> WorldData:
 	return Util.read(get_file_path(path_stem))
@@ -42,16 +40,16 @@ static func write(world_data: WorldData, path_stem: String = "") -> Error:
 
 static func get_dir_path(path_stem: String) -> String:
 	assert(0 < path_stem.length())
-	return "%s/%s" % [DIR, path_stem]
+	return "%s/%s" % [World.SAVES_PATH, path_stem]
 
 static func get_file_path(path_stem: String) -> String:
 	assert(0 < path_stem.length())
-	return "%s/%s/%s" % [DIR, path_stem, FILE]
+	return "%s/%s/%s" % [World.SAVES_PATH, path_stem, World.FILE_NAME]
 
 static func get_path_list() -> Array[String]:
 	var path_list: Array[String] = []
-	DirAccess.make_dir_absolute(DIR)
-	var saves_dir = DirAccess.open(DIR)
+	DirAccess.make_dir_absolute(World.SAVES_PATH)
+	var saves_dir = DirAccess.open(World.SAVES_PATH)
 	saves_dir.list_dir_begin()
 	var path = saves_dir.get_next()
 	while  path != "":
@@ -59,7 +57,7 @@ static func get_path_list() -> Array[String]:
 			var world_dir = DirAccess.open(get_dir_path(path))
 			if not world_dir: continue
 			world_dir.list_dir_begin()
-			if world_dir.file_exists(FILE):
+			if world_dir.file_exists(World.FILE_NAME):
 				path_list.append(path)
 			world_dir.list_dir_end()
 		path = saves_dir.get_next()
@@ -83,7 +81,7 @@ static func make_test() -> WorldData:
 	p.position = Vector3.ZERO
 	p.direction = Vector3.FORWARD
 	p.cell_name = "WorldCell0"
-	p.inventory_data.resize(30)
+	p.inventory.resize(30)
 	p.equip["0"].resize(1)
 	
 	return w

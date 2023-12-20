@@ -33,5 +33,5 @@ enum { CAT, DOG }
 
 @export var inventory: InventoryData = InventoryData.new()
 @export var equip: Dictionary = {
-	"0": InventoryDataEquip.new()
+	"0": InventoryDataEquip.new(),
 }

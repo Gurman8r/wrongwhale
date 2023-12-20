@@ -26,10 +26,3 @@ func _unhandled_input(_event) -> void:
 	if Input.is_action_just_pressed("toggle_console"): interface.toggle()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func puts(value: String):
-	if Settings.get_setting("verbose_logging"):
-		print(value)
-	return self
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

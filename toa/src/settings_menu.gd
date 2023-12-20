@@ -19,12 +19,12 @@ func _ready():
 	reset()
 	
 	back_button.pressed.connect(func():
-		Debug.puts(" | write_settings")
+		print(" | write_settings")
 		Settings.write()
 		Title.interface.menu = Title.interface.home)
 	
 	reset_button.pressed.connect(func():
-		Debug.puts(" | reset_settings")
+		print(" | reset_settings")
 		Settings.reset())
 	
 	#graphics_vsync_button.pressed.connect(func():
