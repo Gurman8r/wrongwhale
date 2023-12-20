@@ -2,18 +2,29 @@
 class_name RegistryData
 extends Resource
 
-@export var registries: Dictionary
+signal registry_changed(registry: int)
+
+@export var registries: Dictionary = {}
 
 func get_registry(registry: int) -> Dictionary:
 	var key = Registries.get_id(registry)
 	match key:
 		"REGISTRIES": return registries
 		_: # default
-			if !registries.has(key): registries[key] = {}
+			if !registries.has(key):
+				registries[key] = {}
+				registry_changed.emit(registry)
 			return registries[key]
 
 func set_registry(registry: int, value: Dictionary) -> void:
 	var key = Registries.get_id(registry)
 	match key:
-		"REGISTRIES": registries = value
-		_: registries[key] = value
+		"REGISTRIES":
+			if registries == value: return
+			registries = value
+			registry_changed.emit(registry)
+		_:
+			if registries.has(key) \
+			and registries[key] == value: return
+			registries[key] = value
+			registry_changed.emit(registry)

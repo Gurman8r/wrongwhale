@@ -8,6 +8,11 @@ const PATH := "user://data/registry.tres"
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+signal registered(registry: int, key: String, value)
+signal unregistered(registry: int, key: String)
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 @export var data: RegistryData
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -18,6 +23,11 @@ func _init() -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _ready() -> void:
+	registered.connect(func(registry: int, key: String, value):
+		Debug.puts("registered: %s %s" % [Registries.get_id(registry), key]))
+	unregistered.connect(func(registry: int, key: String):
+		Debug.puts("unregistered: %s %s" % [Registries.get_id(registry), key]))
+	
 	reset()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -50,16 +60,24 @@ func _reset_items() -> void:
 func register(registry: int, key: String, value) -> bool:
 	var dict = data.get_registry(registry)
 	if key in dict: return false
-	print("register: %s" % [key])
 	dict[key] = value
+	registered.emit(registry, key, value)
 	return true
 
 func unregister(registry: int, key: String) -> bool:
 	var dict = data.get_registry(registry)
 	if not key in dict: return false
-	print("unregister: %s" % [key])
 	dict.erase(key)
+	unregistered.emit(registry, key)
 	return true
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func merge(registry_data: RegistryData) -> void:
+	if registry_data == null \
+	or registry_data == data: return
+	for key in registry_data.registries:
+		data.registries[key] = registry_data.registries[key]
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -77,13 +95,5 @@ func set_(registry: int, key: String, value) -> void:
 func has(registry: int, key: String) -> bool:
 	assert(data)
 	return data.get_registry(registry).has(key)
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func merge(registry_data: RegistryData) -> void:
-	if registry_data == null \
-	or registry_data == data: return
-	for key in registry_data.registries:
-		data.registries[key] = registry_data.registries[key]
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
