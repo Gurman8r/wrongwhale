@@ -7,16 +7,22 @@ extends Node
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	
-	print("\nSETTINGS")
-	var config = ConfigFile.new()
-	if config.load("user://settings.cfg") == OK:
-		for section in config.get_sections():
-			for key in config.get_section_keys(section):
-				var value = config.get_value(section, key)
-				var path = "%s/%s" % [section, key]
-				ProjectSettings.set_setting(path, value)
-				print("%s/%s=%s" % [section, key, value])
+	print("\nLOADING_SETTINGS")
+	load_config("user://settings.cfg")
 	ProjectSettings.save_custom("user://override.cfg")
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func load_config(path: String) -> Error:
+	var config = ConfigFile.new()
+	var error = config.load(path)
+	if error != OK: return error
+	for section in config.get_sections():
+		for key in config.get_section_keys(section):
+			var value = config.get_value(section, key)
+			ProjectSettings.set_setting("%s/%s" % [section, key], value)
+			print("%s/%s=%s" % [section, key, value])
+	return OK
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

@@ -6,7 +6,6 @@ extends MainState
 
 const splashes := [
 	"res://assets/icons/icon_godot.svg",
-	#"res://icon.svg",
 ]
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

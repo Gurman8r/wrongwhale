@@ -35,7 +35,7 @@ func _physics_process(delta) -> void:
 	
 	puts("version: %s" % [version])
 	
-	if Game.main.state: puts("state: %s (%s)" % [Game.main.state.name, "paused" if Game.paused else "unpaused"])
+	if Game.main.state: puts("state: %s (%s)" % [Game.main.state.name, Game.paused])
 	
 	var pd = Player.data
 	var pc = Player.character

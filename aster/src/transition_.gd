@@ -25,7 +25,7 @@ func _ready() -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func play(animation: String) -> void:
-	print("+| %s" % [animation])
+	print(" | %s" % [animation])
 	overlay.play(animation)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

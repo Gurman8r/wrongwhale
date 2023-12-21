@@ -7,7 +7,7 @@ extends MainState
 func _enter_state() -> void:
 	super._enter_state()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	World.reload()
+	World.open()
 	Player.overlay.show()
 	Player.interface.show()
 	Game.unpause()

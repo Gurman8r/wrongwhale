@@ -43,16 +43,7 @@ func _ready() -> void:
 
 #region DATA
 
-func save(path_stem: String = "") -> void:
-	if path_stem.is_empty() and data: path_stem = data.guid
-	assert(0 < path_stem.length())
-	saving_started.emit()
-	WorldData.write(data, path_stem)
-	saving_finished.emit()
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func reload() -> void:
+func open() -> void:
 	assert(data)
 	seed(data.random_seed.hash())
 	loading_started.emit()
@@ -66,7 +57,7 @@ func reload() -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func unload() -> void:
+func close() -> void:
 	assert(data)
 	unloading_started.emit()
 	
@@ -80,6 +71,16 @@ func unload() -> void:
 	
 	unloading_finished.emit()
 	randomize()
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func save(path_stem: String = "") -> void:
+	if path_stem.is_empty() and data and !data.guid.is_empty():
+		path_stem = data.guid
+	assert(!path_stem.is_empty())
+	saving_started.emit()
+	WorldData.write(data, path_stem)
+	saving_finished.emit()
 
 #endregion
 

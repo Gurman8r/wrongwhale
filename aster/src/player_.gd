@@ -33,7 +33,6 @@ var interface: PlayerInterface
 
 var data: PlayerData
 var character: PlayerCharacter
-
 var item_index: int = 0
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -55,7 +54,7 @@ func _ready() -> void:
 	action.connect(func(mode: int):
 		assert(data)
 		assert(character)
-		data.inventory_data.use_stack(item_index, mode, character))
+		data.inventory.use_stack(item_index, mode, character))
 	
 	# setup
 	World.loading_finished.connect(func():
@@ -63,9 +62,9 @@ func _ready() -> void:
 		assert(character)
 		interface.set_player_data(data)
 		overlay.set_player_data(data)
-		hotbar_next.connect(overlay.hotbar_inventory.next)
-		hotbar_prev.connect(overlay.hotbar_inventory.prev)
-		hotbar_select.connect(overlay.hotbar_inventory.set_item_index)
+		hotbar_next.connect(overlay.hotbar.next)
+		hotbar_prev.connect(overlay.hotbar.prev)
+		hotbar_select.connect(overlay.hotbar.set_item_index)
 		toggle_inventory.connect(interface.toggle_inventory)
 		for node in get_tree().get_nodes_in_group("EXTERNAL_INVENTORY"):
 			node.toggle_inventory.connect(interface.toggle_inventory))
@@ -74,9 +73,9 @@ func _ready() -> void:
 	World.unloading_started.connect(func():
 		interface.clear_player_data()
 		overlay.clear_player_data()
-		hotbar_next.disconnect(overlay.hotbar_inventory.next)
-		hotbar_prev.disconnect(overlay.hotbar_inventory.prev)
-		hotbar_select.disconnect(overlay.hotbar_inventory.set_item_index)
+		hotbar_next.disconnect(overlay.hotbar.next)
+		hotbar_prev.disconnect(overlay.hotbar.prev)
+		hotbar_select.disconnect(overlay.hotbar.set_item_index)
 		toggle_inventory.disconnect(interface.toggle_inventory)
 		for node in get_tree().get_nodes_in_group("EXTERNAL_INVENTORY"):
 			node.toggle_inventory.disconnect(interface.toggle_inventory)
@@ -124,10 +123,10 @@ func _unhandled_input(_event) -> void:
 	elif Input.is_action_just_released("hotbar_next"): hotbar_next.emit()
 	for i in range(0, 10):
 		if Input.is_action_just_pressed("hotbar_%d" % [i]):
-			overlay.hotbar_inventory.set_item_index(i - 1)
+			overlay.hotbar.set_item_index(i - 1)
 			hotbar_select.emit(i - 1)
 			break
-	item_index = overlay.hotbar_inventory.item_index
+	item_index = overlay.hotbar.item_index
 	
 	# movement
 	character.move_input[LEFT] = Input.is_action_pressed("move_left")

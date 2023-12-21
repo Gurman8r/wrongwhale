@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cxjsl7mi0rwye"]
 
 [ext_resource type="Script" path="res://src/player_overlay.gd" id="1_22g4t"]
-[ext_resource type="PackedScene" uid="uid://dnhnrabrf57os" path="res://assets/scenes/hotbar_inventory.tscn" id="2_u1q8k"]
+[ext_resource type="PackedScene" uid="uid://dnhnrabrf57os" path="res://assets/scenes/inventory_hotbar.tscn" id="2_yuik2"]
 
 [node name="PlayerOverlay" type="Control"]
 layout_mode = 3
@@ -13,7 +13,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_22g4t")
 
-[node name="hotbar_inventory" parent="." instance=ExtResource("2_u1q8k")]
+[node name="hotbar" parent="." instance=ExtResource("2_yuik2")]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5

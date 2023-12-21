@@ -21,7 +21,7 @@ const PATH := "user://data/registry.tres"
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	
-	print("\nREGISTRY")
+	print("\nLOADING_REGISTRY")
 	set_registry(Registries.REGISTRIES, {})
 	register_directory(Registries.ITEM, "res://assets/registry/item")
 

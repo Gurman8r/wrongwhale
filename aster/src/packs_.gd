@@ -21,7 +21,7 @@ func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	DirAccess.make_dir_absolute(PACKS_PATH)
 	
-	print("\nPACKS")
+	print("\nLOADING_PACKS")
 	_load_info()
 	_load_deps()
 	_load_packs()

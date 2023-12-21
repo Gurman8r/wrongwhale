@@ -93,7 +93,7 @@ func save_and_quit_to_desktop(path_stem: String = "") -> void:
 	Transition.play("fadeout")
 	await Transition.finished
 	World.save(path_stem)
-	World.unload()
+	World.close()
 	main.force_exit()
 	get_tree().quit()
 
@@ -103,7 +103,7 @@ func quit_to_title() -> void:
 	print(" | quit_to_title")
 	Transition.play("fadeout")
 	await Transition.finished
-	World.unload()
+	World.close()
 	main.state = main.title_state
 	Transition.play("fadein")
 	await Transition.finished
@@ -113,7 +113,7 @@ func save_and_quit_to_title(path_stem: String = "") -> void:
 	Transition.play("fadeout")
 	await Transition.finished
 	World.save(path_stem)
-	World.unload()
+	World.close()
 	main.state = main.title_state
 	Transition.play("fadein")
 	await Transition.finished

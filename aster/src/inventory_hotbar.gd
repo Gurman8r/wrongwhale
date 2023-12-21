@@ -1,5 +1,5 @@
-# hotbar_inventory.gd
-class_name HotbarInventory
+# inventory_hotbar.gd
+class_name InventoryHotbar
 extends Control
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -40,7 +40,7 @@ var item_index: int : get = get_item_index, set = set_item_index
 
 func get_item_index() -> int: return _item_index
 
-func set_item_index(value: int) -> HotbarInventory:
+func set_item_index(value: int) -> InventoryHotbar:
 	if value < 0: value = 9
 	elif value > 9: value = 0
 	slots[item_index].highlighted = false
@@ -48,9 +48,9 @@ func set_item_index(value: int) -> HotbarInventory:
 	slots[item_index].highlighted = true
 	return self
 
-func next() -> HotbarInventory: return set_item_index(item_index + 1)
+func next() -> InventoryHotbar: return set_item_index(item_index + 1)
 
-func prev() -> HotbarInventory: return set_item_index(item_index - 1)
+func prev() -> InventoryHotbar: return set_item_index(item_index - 1)
 
 #endregion
 
