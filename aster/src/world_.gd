@@ -23,28 +23,41 @@ signal unloading_finished()
 @export var data: WorldData
 
 var _world_environment: WorldEnvironment
+
 var _cell: WorldCell # current cell
 var cell: WorldCell : get = get_cell, set = change_cell
 var cells: Array[WorldCell]
 var cell_root: Node
+
 var objects: Array[Node3D]
+
+var _is_opening: bool = false
+var _is_closing: bool = false
+var _is_playing: bool = false
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	DirAccess.make_dir_absolute(SAVES_PATH)
-
-func _ready() -> void:
-	reset_environment()
-	reset_cells()
+	
+	_world_environment = Util.make(self, WorldEnvironment.new(), "Environment")
+	_world_environment.environment = Prefabs.DEFAULT_ENVIRONMENT.duplicate()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-#region DATA
+func _ready() -> void:
+	cell_root = Util.make(self, Prefabs.WORLD_CELLS.instantiate(), "Cells")
+	cell_root.process_mode = Node.PROCESS_MODE_PAUSABLE
 
-func open() -> void:
-	assert(data)
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func open() -> bool:
+	if !data: return false
+	
+	if _is_playing or _is_opening or _is_closing: return false
+	_is_opening = true
+	
 	seed(data.random_seed.hash())
 	loading_started.emit()
 	
@@ -54,11 +67,19 @@ func open() -> void:
 		assert(obj)
 	
 	loading_finished.emit()
+	
+	_is_opening = false
+	_is_playing = true
+	return true
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func close() -> void:
-	assert(data)
+func close() -> bool:
+	if !data: return false
+	
+	if !_is_playing or _is_opening or _is_closing: return false
+	_is_playing = false
+	_is_closing = true
 	unloading_started.emit()
 	
 	for o in objects:
@@ -71,22 +92,31 @@ func close() -> void:
 	
 	unloading_finished.emit()
 	randomize()
+	
+	_is_closing = false
+	return true
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func save(path_stem: String = "") -> void:
-	if path_stem.is_empty() and data and !data.guid.is_empty():
+func save(path_stem: String = "") -> bool:
+	if !data: return false
+	if path_stem.is_empty() and !data.guid.is_empty():
 		path_stem = data.guid
 	assert(!path_stem.is_empty())
 	saving_started.emit()
 	WorldData.write(data, path_stem)
 	saving_finished.emit()
-
-#endregion
+	return true
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-#region CELLS
+var environment: Environment : get = get_environment, set = set_environment
+
+func get_environment() -> Environment: return _world_environment.environment
+
+func set_environment(value: Environment) -> void: if _world_environment.environment != value: _world_environment.environment = value
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func get_cell() -> WorldCell: return _cell
 
@@ -113,15 +143,7 @@ func transfer(node: Node3D, new_cell: WorldCell, position: Vector3 = Vector3.ZER
 	if "data" in node and "cell_name" in node.data:
 		node.data.cell_name = _cell.name
 
-func reset_cells() -> void:
-	cell_root = Util.make(self, Prefabs.WORLD_CELLS.instantiate(), "Cells")
-	cell_root.process_mode = Node.PROCESS_MODE_PAUSABLE
-
-#endregion
-
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-#region OBJECTS
 
 func create_object(d: Resource) -> Node3D:
 	assert("PREFAB" in d)
@@ -140,23 +162,5 @@ func create_object(d: Resource) -> Node3D:
 	o.name = d.guid
 	objects.append(o)
 	return o
-
-#endregion
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-#region ENVIRONMENT
-
-var environment: Environment : get = get_environment, set = set_environment
-
-func get_environment() -> Environment: return _world_environment.environment
-
-func set_environment(value: Environment) -> void: if _world_environment.environment != value: _world_environment.environment = value
-
-func reset_environment() -> void:
-	if !_world_environment: _world_environment = Util.make(self, WorldEnvironment.new(), "Environment")
-	_world_environment.environment = Prefabs.DEFAULT_ENVIRONMENT.duplicate()
-
-#endregion
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
