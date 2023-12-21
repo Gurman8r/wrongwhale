@@ -19,7 +19,7 @@ func _enter_state() -> void:
 	Splash.timer.start(1.0)
 	await Splash.timer.timeout
 	
-	var splash_delay = Settings.get_setting("splash_delay")
+	var splash_delay = Settings.get_setting("aster/splash_delay", 1.0)
 	
 	# skip splash
 	if splash_delay <= 0.0:
@@ -27,6 +27,7 @@ func _enter_state() -> void:
 		Game.main.state = Game.main.title_state
 		Transition.play("fadein")
 		await Transition.finished
+	
 	# play splash
 	else:
 		Splash.canvas_layer.show()

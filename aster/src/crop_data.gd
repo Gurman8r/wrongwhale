@@ -2,6 +2,8 @@
 class_name CropData
 extends Resource
 
+const PREFAB := Prefabs.CROP_ENTITY
+
 @export var guid: String = "Crop"
 @export var name: String = "Crop"
 @export var cell_name: String = ""

@@ -4,57 +4,26 @@ extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-const PATH := "user://settings.tres"
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-@export var data: SettingsData
-
-var config: ConfigFile
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	
-	config = ConfigFile.new()
-	config.load("user://settings.cfg")
-	
-	reset()
-	apply()
+	print("\nSETTINGS")
+	var config = ConfigFile.new()
+	if config.load("user://settings.cfg") == OK:
+		for section in config.get_sections():
+			for key in config.get_section_keys(section):
+				var value = config.get_value(section, key)
+				var path = "%s/%s" % [section, key]
+				ProjectSettings.set_setting(path, value)
+				print("%s/%s=%s" % [section, key, value])
+	ProjectSettings.save_custom("user://override.cfg")
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func reset() -> void:
-	read()
-	if !data: data = Prefabs.DEFAULT_SETTINGS.duplicate()
-	assert(data)
-	write()
+func get_setting(key: String, default = null): return ProjectSettings.get_setting(key, default)
 
-func read() -> void:
-	data = Util.read(PATH)
+func set_setting(key: String, value) -> void: ProjectSettings.set_setting(key, value)
 
-func write() -> void:	
-	Util.write(data, PATH)
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func get_setting(key: String, default = null):
-	if not key in data:
-		data[key] = default
-	return data[key]
-
-func set_setting(key: String, value) -> void:
-	data[key] = value
-
-func has_setting(key: String) -> bool:
-	return key in data
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func apply() -> void:
-	DisplayServer.window_set_mode(get_setting("window_mode"))
-	DisplayServer.window_set_size(get_setting("window_size"))
-	DisplayServer.window_set_vsync_mode(get_setting("window_vsync"))
+func has_setting(key: String) -> bool: return ProjectSettings.has_setting(key)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

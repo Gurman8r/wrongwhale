@@ -22,10 +22,10 @@ boot_splash/show_image=false
 
 [autoload]
 
-Prefabs="*res://src/prefabs_.gd"
 Settings="*res://src/settings_.gd"
 Registry="*res://src/registry_.gd"
 Packs="*res://src/packs_.gd"
+Prefabs="*res://src/prefabs_.gd"
 Game="*res://src/game_.gd"
 World="*res://src/world_.gd"
 Player="*res://src/player_.gd"

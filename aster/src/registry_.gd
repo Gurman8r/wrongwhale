@@ -4,37 +4,51 @@ extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-const PATH := "user://data/registry.tres"
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
+signal registry_changed(registry: int)
 signal registered(registry: int, key: String, value)
 signal unregistered(registry: int, key: String)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-@export var data: RegistryData
+const PATH := "user://data/registry.tres"
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+@export var registries: Dictionary = {}
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	
-	if ProjectSettings.get_setting("debug/settings/stdout/verbose_stdout"): print()
-	print("LOADING_REGISTRY")
-	data = RegistryData.new()
+	print("\nREGISTRY")
 	set_registry(Registries.REGISTRIES, {})
 	register_directory(Registries.ITEM, "res://assets/registry/item")
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func get_registry(registry: int) -> Dictionary:
-	assert(data)
-	return data.get_registry(registry)
+	var key = Registries.get_id(registry)
+	match key:
+		"REGISTRIES": return registries
+		_: # DEFAULT
+			if !registries.has(key):
+				registries[key] = {}
+				registry_changed.emit(registry)
+			return registries[key]
 
 func set_registry(registry: int, value: Dictionary) -> void:
-	assert(data)
-	data.set_registry(registry, value)
+	var key = Registries.get_id(registry)
+	match key:
+		"REGISTRIES":
+			if registries == value: return
+			registries = value
+			registry_changed.emit(registry)
+		_: # DEFAULT
+			if registries.has(key) \
+			and registries[key] == value: return
+			registries[key] = value
+			registry_changed.emit(registry)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

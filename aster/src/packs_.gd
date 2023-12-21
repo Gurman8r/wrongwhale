@@ -13,6 +13,7 @@ const PACKS_PATH := "user://packs"
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 var pack_info: Dictionary
+var pack_deps: Dictionary
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -20,8 +21,30 @@ func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	DirAccess.make_dir_absolute(PACKS_PATH)
 	
-	print("\nLOADING_PACKS")
+	print("\nPACKS")
 	_load_info()
+	_load_deps()
+	_load_packs()
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func _load_config(full_path: String) -> ConfigFile:
+	match full_path.get_extension():
+		"pck": return _load_pck_config(full_path)
+		"zip": return _load_zip_config(full_path)
+		_: return null
+
+func _load_zip_config(full_path: String) -> ConfigFile:
+	var reader = ZIPReader.new()
+	if reader.open(full_path) != OK: return null
+	var file: PackedByteArray = reader.read_file("pack.cfg")
+	if !file: return null
+	var config: ConfigFile = ConfigFile.new()
+	if config.parse(file.get_string_from_ascii()) != OK: return null
+	return config
+
+func _load_pck_config(_full_path: String) -> ConfigFile:
+	return null
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -53,22 +76,12 @@ func _load_info() -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func _load_config(full_path: String) -> ConfigFile:
-	match full_path.get_extension():
-		"pck": return _load_pck_config(full_path)
-		"zip": return _load_zip_config(full_path)
-		_: return null
+func _load_deps() -> void:
+	pack_deps = {}
 
-func _load_zip_config(full_path: String) -> ConfigFile:
-	var reader = ZIPReader.new()
-	if reader.open(full_path) != OK: return null
-	var file: PackedByteArray = reader.read_file("pack.cfg")
-	if !file: return null
-	var config: ConfigFile = ConfigFile.new()
-	if config.parse(file.get_string_from_ascii()) != OK: return null
-	return config
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func _load_pck_config(full_path: String) -> ConfigFile:
-	return null
+func _load_packs() -> void:
+	pass
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
