@@ -4,12 +4,17 @@ extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+const SETTINGS := "user://settings.cfg"
+const OVERRIDE := "user://override.cfg"
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	
 	print("\nLOADING_SETTINGS")
-	load_config("user://settings.cfg")
-	ProjectSettings.save_custom("user://override.cfg")
+	if FileAccess.file_exists(OVERRIDE): load_config(OVERRIDE)
+	else: ProjectSettings.save_custom(OVERRIDE)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

@@ -22,18 +22,18 @@ signal unloading_finished()
 
 @export var data: WorldData
 
-var _world_environment: WorldEnvironment
+var _environment: WorldEnvironment
+var environment: Environment : get = get_environment, set = set_environment
 
 var _cell: WorldCell # current cell
 var cell: WorldCell : get = get_cell, set = change_cell
 var cells: Array[WorldCell]
 var cell_root: Node
-
 var objects: Array[Node3D]
 
+var _is_playing: bool = false
 var _is_opening: bool = false
 var _is_closing: bool = false
-var _is_playing: bool = false
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -41,8 +41,8 @@ func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	DirAccess.make_dir_absolute(SAVES_PATH)
 	
-	_world_environment = Util.make(self, WorldEnvironment.new(), "Environment")
-	_world_environment.environment = Prefabs.DEFAULT_ENVIRONMENT.duplicate()
+	_environment = Util.make(self, WorldEnvironment.new(), "Environment")
+	_environment.environment = Prefabs.DEFAULT_ENVIRONMENT.duplicate()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -54,20 +54,31 @@ func _ready() -> void:
 
 func open() -> bool:
 	if !data: return false
-	
 	if _is_playing or _is_opening or _is_closing: return false
 	_is_opening = true
-	
 	seed(data.random_seed.hash())
 	loading_started.emit()
 	
 	objects = []
 	for guid in data.object_data:
-		var obj = create_object(data.object_data[guid])
-		assert(obj)
+		var d = data.object_data[guid]
+		assert("PREFAB" in d)
+		assert("cell_name" in d)
+		assert("position" in d)
+		var o: Node3D = d.PREFAB.instantiate()
+		assert(o)
+		o.data = d
+		var c: WorldCell = find_cell(o.data.cell_name)
+		assert(c)
+		c.add(o, o.data.position)
+		o.name = d.guid
+		if o is PlayerCharacter:
+			_cell = c
+			_cell.enabled = true
+			print(">| %s" % [_cell.name])
+		objects.append(o)
 	
 	loading_finished.emit()
-	
 	_is_opening = false
 	_is_playing = true
 	return true
@@ -76,7 +87,6 @@ func open() -> bool:
 
 func close() -> bool:
 	if !data: return false
-	
 	if !_is_playing or _is_opening or _is_closing: return false
 	_is_playing = false
 	_is_closing = true
@@ -89,10 +99,8 @@ func close() -> bool:
 	if _cell: _cell.enabled = false
 	_cell = null
 	data = null
-	
 	unloading_finished.emit()
 	randomize()
-	
 	_is_closing = false
 	return true
 
@@ -100,9 +108,8 @@ func close() -> bool:
 
 func save(path_stem: String = "") -> bool:
 	if !data: return false
-	if path_stem.is_empty() and !data.guid.is_empty():
-		path_stem = data.guid
-	assert(!path_stem.is_empty())
+	if path_stem == "" and data.guid != "": path_stem = data.guid
+	assert(path_stem != "")
 	saving_started.emit()
 	WorldData.write(data, path_stem)
 	saving_finished.emit()
@@ -110,11 +117,10 @@ func save(path_stem: String = "") -> bool:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-var environment: Environment : get = get_environment, set = set_environment
 
-func get_environment() -> Environment: return _world_environment.environment
+func get_environment() -> Environment: return _environment.environment
 
-func set_environment(value: Environment) -> void: if _world_environment.environment != value: _world_environment.environment = value
+func set_environment(value: Environment) -> void: if _environment.environment != value: _environment.environment = value
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -142,25 +148,5 @@ func transfer(node: Node3D, new_cell: WorldCell, position: Vector3 = Vector3.ZER
 	if _cell: _cell.add(node, position)
 	if "data" in node and "cell_name" in node.data:
 		node.data.cell_name = _cell.name
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func create_object(d: Resource) -> Node3D:
-	assert("PREFAB" in d)
-	assert("cell_name" in d)
-	assert("position" in d)
-	var o: Node3D = d.PREFAB.instantiate()
-	assert(o)
-	o.data = d
-	var c: WorldCell = find_cell(o.data.cell_name)
-	assert(c)
-	c.add(o, o.data.position)
-	if o is PlayerCharacter:
-		_cell = c
-		_cell.enabled = true
-		print(">| %s" % [_cell.name])
-	o.name = d.guid
-	objects.append(o)
-	return o
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
