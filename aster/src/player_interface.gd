@@ -32,33 +32,33 @@ signal force_close()
 
 # MENU
 @onready var menu_container: Control = $MenuContainer
-@onready var menu_tab_bar: TabBar = $MenuContainer/VBoxContainer/MenuTabBar
-@onready var menu_tab_container: TabContainer = $MenuContainer/VBoxContainer/MenuTabContainer
+@onready var menu_tab_bar: TabBar = $MenuContainer/VBoxContainer/TabBar
+@onready var menu_tab_container: TabContainer = $MenuContainer/VBoxContainer/Tabs
 
 # INVENTORY TAB
-@onready var inventory_tab: Control = $MenuContainer/VBoxContainer/MenuTabContainer/Inventory
-@onready var main_inventory: Inventory = $MenuContainer/VBoxContainer/MenuTabContainer/Inventory/MarginContainer/HBoxContainer/MainInventory
-@onready var equip_inventory: Inventory = $MenuContainer/VBoxContainer/MenuTabContainer/Inventory/MarginContainer/HBoxContainer/EquipInventory
+@onready var inventory_tab: Control = $MenuContainer/VBoxContainer/Tabs/Inventory
+@onready var main_inventory: Inventory = $MenuContainer/VBoxContainer/Tabs/Inventory/MarginContainer/HBoxContainer/MainInventory
+@onready var equip_inventory: Inventory = $MenuContainer/VBoxContainer/Tabs/Inventory/MarginContainer/HBoxContainer/EquipInventory
 
 # MAP TAB
-@onready var map: Control = $MenuContainer/VBoxContainer/MenuTabContainer/Map
+@onready var map_tab: Control = $MenuContainer/VBoxContainer/Tabs/Map
 
 # COLLECTION TAB
-@onready var collection_tab: Control = $MenuContainer/VBoxContainer/MenuTabContainer/Collection
+@onready var collection_tab: Control = $MenuContainer/VBoxContainer/Tabs/Collection
 
 # SKILLS TAB
-@onready var skills_tab: Control = $MenuContainer/VBoxContainer/MenuTabContainer/Skills
+@onready var skills_tab: Control = $MenuContainer/VBoxContainer/Tabs/Skills
 
 # SETTINGS TAB
-@onready var settings_tab: Control = $MenuContainer/VBoxContainer/MenuTabContainer/Settings
+@onready var settings_tab: Control = $MenuContainer/VBoxContainer/Tabs/Settings
 
 # SYSTEM TAB
-@onready var system_tab: Control = $MenuContainer/VBoxContainer/MenuTabContainer/System
-@onready var save_button: Button = $MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer/SaveButton
-@onready var save_and_quit_to_title_button: Button = $MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer/SaveAndQuitToTitleButton
-@onready var save_and_quit_to_desktop_button: Button = $MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer/SaveAndQuitToDesktopButton
-@onready var quit_to_title_button: Button = $MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer/QuitToTitleButton
-@onready var quit_to_desktop_button: Button = $MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer/QuitToDesktopButton
+@onready var system_tab: Control = $MenuContainer/VBoxContainer/Tabs/System
+@onready var save_button: Button = $MenuContainer/VBoxContainer/Tabs/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer/SaveButton
+@onready var save_and_quit_to_title_button: Button = $MenuContainer/VBoxContainer/Tabs/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer/SaveAndQuitToTitleButton
+@onready var save_and_quit_to_desktop_button: Button = $MenuContainer/VBoxContainer/Tabs/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer/SaveAndQuitToDesktopButton
+@onready var quit_to_title_button: Button = $MenuContainer/VBoxContainer/Tabs/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer/QuitToTitleButton
+@onready var quit_to_desktop_button: Button = $MenuContainer/VBoxContainer/Tabs/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer/QuitToDesktopButton
 
 var player_data: PlayerData
 var grabbed_stack: ItemStack
@@ -206,10 +206,10 @@ func update_internal() -> void:
 	or inventory_container.visible:
 		Game.pause()
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		Player.overlay.hide()
+		Player.hud.hide()
 	else:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		Player.overlay.show()
+		Player.hud.show()
 		if grabbed_stack:
 			drop_stack.emit(grabbed_stack)
 			grabbed_stack = null

@@ -4,8 +4,12 @@ extends Control
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-@onready var hotbar_inventory: HotbarInventory = $HotbarInventory
-@onready var interact_label: Label = $InteractLabel
+@onready var hotbar_inventory: HotbarInventory = $hotbar_inventory
+@onready var interact_label: Label = $interact_label
+@onready var healthbar = $Bars/healthbar
+@onready var staminabar = $Bars/staminabar
+@onready var manabar = $Bars/manabar
+@onready var expbar = $Bars/expbar
 
 var player_data: PlayerData
 

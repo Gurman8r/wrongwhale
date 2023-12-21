@@ -20,7 +20,7 @@ signal unregistered(registry: int, key: String)
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	
-	if Settings.get_global("debug/settings/stdout/verbose_stdout"): print()
+	if ProjectSettings.get_setting("debug/settings/stdout/verbose_stdout"): print()
 	print("LOADING_REGISTRY")
 	data = RegistryData.new()
 	set_registry(Registries.REGISTRIES, {})

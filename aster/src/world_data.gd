@@ -16,10 +16,12 @@ extends Resource
 func manage(data: Resource) -> Resource:
 	assert(data)
 	assert("guid" in data)
+	assert(not data.guid in object_data)
 	object_data[data.guid] = data
 	return data
 
 func unmanage(key: String) -> void:
+	assert(key in object_data)
 	object_data.erase(key)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

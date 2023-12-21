@@ -76,7 +76,7 @@ func set_world_data(value: WorldData):
 	
 	delete_accept_button.pressed.connect(func():
 		Util.wipe_dir(WorldData.get_dir_path(world_data.guid))
-		Title.interface.world_loader.reset()
+		Title.gui.world_loader.reset()
 		queue_free())
 	
 	delete_cancel_button.pressed.connect(func():

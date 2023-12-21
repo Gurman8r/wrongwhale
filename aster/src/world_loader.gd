@@ -11,7 +11,7 @@ func _ready() -> void:
 		if visible: reset())
 	
 	back_button.pressed.connect(func():
-		Title.interface.menu = Title.interface.home)
+		Title.gui.menu = Title.gui.home)
 
 func reset() -> void:
 	for child in preview_root.get_children():

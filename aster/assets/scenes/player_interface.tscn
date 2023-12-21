@@ -62,7 +62,7 @@ theme_override_constants/margin_bottom = 32
 [node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer"]
 layout_mode = 2
 
-[node name="MenuTabBar" type="TabBar" parent="MenuContainer/VBoxContainer"]
+[node name="TabBar" type="TabBar" parent="MenuContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_kby8j")
@@ -82,16 +82,16 @@ tab_5/icon = ExtResource("4_p6pde")
 tab_6/title = "System"
 tab_6/icon = ExtResource("4_p6pde")
 
-[node name="MenuTabContainer" type="TabContainer" parent="MenuContainer/VBoxContainer"]
+[node name="Tabs" type="TabContainer" parent="MenuContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 tab_alignment = 1
 tabs_visible = false
 
-[node name="Inventory" type="Control" parent="MenuContainer/VBoxContainer/MenuTabContainer"]
+[node name="Inventory" type="Control" parent="MenuContainer/VBoxContainer/Tabs"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Inventory"]
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/Tabs/Inventory"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -103,24 +103,24 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Inventory/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuContainer/VBoxContainer/Tabs/Inventory/MarginContainer"]
 layout_mode = 2
 
-[node name="MainInventory" parent="MenuContainer/VBoxContainer/MenuTabContainer/Inventory/MarginContainer/HBoxContainer" instance=ExtResource("3_tigfn")]
+[node name="MainInventory" parent="MenuContainer/VBoxContainer/Tabs/Inventory/MarginContainer/HBoxContainer" instance=ExtResource("3_tigfn")]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="EquipInventory" parent="MenuContainer/VBoxContainer/MenuTabContainer/Inventory/MarginContainer/HBoxContainer" instance=ExtResource("3_tigfn")]
+[node name="EquipInventory" parent="MenuContainer/VBoxContainer/Tabs/Inventory/MarginContainer/HBoxContainer" instance=ExtResource("3_tigfn")]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="Map" type="Control" parent="MenuContainer/VBoxContainer/MenuTabContainer"]
+[node name="Map" type="Control" parent="MenuContainer/VBoxContainer/Tabs"]
 visible = false
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Map"]
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/Tabs/Map"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -132,11 +132,11 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="Collection" type="Control" parent="MenuContainer/VBoxContainer/MenuTabContainer"]
+[node name="Collection" type="Control" parent="MenuContainer/VBoxContainer/Tabs"]
 visible = false
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Collection"]
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/Tabs/Collection"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -148,35 +148,35 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Collection/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuContainer/VBoxContainer/Tabs/Collection/MarginContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="LeftPanelContainer" type="PanelContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Collection/MarginContainer/HBoxContainer"]
+[node name="LeftPanelContainer" type="PanelContainer" parent="MenuContainer/VBoxContainer/Tabs/Collection/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Collection/MarginContainer/HBoxContainer/LeftPanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/Tabs/Collection/MarginContainer/HBoxContainer/LeftPanelContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Collection/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/VBoxContainer/Tabs/Collection/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="RightPanelContainer" type="PanelContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Collection/MarginContainer/HBoxContainer"]
+[node name="RightPanelContainer" type="PanelContainer" parent="MenuContainer/VBoxContainer/Tabs/Collection/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Collection/MarginContainer/HBoxContainer/RightPanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/Tabs/Collection/MarginContainer/HBoxContainer/RightPanelContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Collection/MarginContainer/HBoxContainer/RightPanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/VBoxContainer/Tabs/Collection/MarginContainer/HBoxContainer/RightPanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Skills" type="Control" parent="MenuContainer/VBoxContainer/MenuTabContainer"]
+[node name="Skills" type="Control" parent="MenuContainer/VBoxContainer/Tabs"]
 visible = false
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Skills"]
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/Tabs/Skills"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -188,35 +188,35 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Skills/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuContainer/VBoxContainer/Tabs/Skills/MarginContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="LeftPanelContainer" type="PanelContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Skills/MarginContainer/HBoxContainer"]
+[node name="LeftPanelContainer" type="PanelContainer" parent="MenuContainer/VBoxContainer/Tabs/Skills/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Skills/MarginContainer/HBoxContainer/LeftPanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/Tabs/Skills/MarginContainer/HBoxContainer/LeftPanelContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Skills/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/VBoxContainer/Tabs/Skills/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="RightPanelContainer" type="PanelContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Skills/MarginContainer/HBoxContainer"]
+[node name="RightPanelContainer" type="PanelContainer" parent="MenuContainer/VBoxContainer/Tabs/Skills/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Skills/MarginContainer/HBoxContainer/RightPanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/Tabs/Skills/MarginContainer/HBoxContainer/RightPanelContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Skills/MarginContainer/HBoxContainer/RightPanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/VBoxContainer/Tabs/Skills/MarginContainer/HBoxContainer/RightPanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Journal" type="Control" parent="MenuContainer/VBoxContainer/MenuTabContainer"]
+[node name="Journal" type="Control" parent="MenuContainer/VBoxContainer/Tabs"]
 visible = false
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Journal"]
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/Tabs/Journal"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -228,35 +228,35 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Journal/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuContainer/VBoxContainer/Tabs/Journal/MarginContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="LeftPanelContainer" type="PanelContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Journal/MarginContainer/HBoxContainer"]
+[node name="LeftPanelContainer" type="PanelContainer" parent="MenuContainer/VBoxContainer/Tabs/Journal/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Journal/MarginContainer/HBoxContainer/LeftPanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/Tabs/Journal/MarginContainer/HBoxContainer/LeftPanelContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Journal/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/VBoxContainer/Tabs/Journal/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="RightPanelContainer" type="PanelContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Journal/MarginContainer/HBoxContainer"]
+[node name="RightPanelContainer" type="PanelContainer" parent="MenuContainer/VBoxContainer/Tabs/Journal/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Journal/MarginContainer/HBoxContainer/RightPanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/Tabs/Journal/MarginContainer/HBoxContainer/RightPanelContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Journal/MarginContainer/HBoxContainer/RightPanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/VBoxContainer/Tabs/Journal/MarginContainer/HBoxContainer/RightPanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Settings" type="Control" parent="MenuContainer/VBoxContainer/MenuTabContainer"]
+[node name="Settings" type="Control" parent="MenuContainer/VBoxContainer/Tabs"]
 visible = false
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/Settings"]
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/Tabs/Settings"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -268,11 +268,11 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="System" type="Control" parent="MenuContainer/VBoxContainer/MenuTabContainer"]
+[node name="System" type="Control" parent="MenuContainer/VBoxContainer/Tabs"]
 visible = false
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/System"]
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/Tabs/System"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -284,56 +284,56 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MenuContainer/VBoxContainer/Tabs/System/MarginContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="LeftPanelContainer" type="PanelContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer"]
+[node name="LeftPanelContainer" type="PanelContainer" parent="MenuContainer/VBoxContainer/Tabs/System/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/Tabs/System/MarginContainer/HBoxContainer/LeftPanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/VBoxContainer/Tabs/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="SaveButton" type="Button" parent="MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer"]
+[node name="SaveButton" type="Button" parent="MenuContainer/VBoxContainer/Tabs/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Save"
 
-[node name="SaveAndQuitToTitleButton" type="Button" parent="MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer"]
+[node name="SaveAndQuitToTitleButton" type="Button" parent="MenuContainer/VBoxContainer/Tabs/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Save and Quit to Title"
 
-[node name="SaveAndQuitToDesktopButton" type="Button" parent="MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer"]
+[node name="SaveAndQuitToDesktopButton" type="Button" parent="MenuContainer/VBoxContainer/Tabs/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Save and Quit to Desktop"
 
-[node name="QuitToTitleButton" type="Button" parent="MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer"]
+[node name="QuitToTitleButton" type="Button" parent="MenuContainer/VBoxContainer/Tabs/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Quit to Title"
 
-[node name="QuitToDesktopButton" type="Button" parent="MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer"]
+[node name="QuitToDesktopButton" type="Button" parent="MenuContainer/VBoxContainer/Tabs/System/MarginContainer/HBoxContainer/LeftPanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Quit to Desktop"
 
-[node name="RightPanelContainer" type="PanelContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer"]
+[node name="RightPanelContainer" type="PanelContainer" parent="MenuContainer/VBoxContainer/Tabs/System/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/RightPanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/Tabs/System/MarginContainer/HBoxContainer/RightPanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/VBoxContainer/MenuTabContainer/System/MarginContainer/HBoxContainer/RightPanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/VBoxContainer/Tabs/System/MarginContainer/HBoxContainer/RightPanelContainer/MarginContainer"]
 layout_mode = 2
 
 [node name="GrabbedSlot" parent="." instance=ExtResource("4_duawo")]

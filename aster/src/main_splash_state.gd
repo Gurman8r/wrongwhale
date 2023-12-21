@@ -30,13 +30,13 @@ func _enter_state() -> void:
 	# play splash
 	else:
 		Splash.canvas_layer.show()
-		Splash.overlay.show()
+		Splash.hud.show()
 		for i in range(splashes.size()):
 			var path = splashes[i]
 			var gpath = ProjectSettings.globalize_path(path)
 			if FileAccess.file_exists(gpath): path = gpath
-			#Splash.overlay.icon.texture = ImageTexture.create_from_image(Image.load_from_file(path))
-			Splash.overlay.icon.texture = load(path)
+			#Splash.hud.icon.texture = ImageTexture.create_from_image(Image.load_from_file(path))
+			Splash.hud.icon.texture = load(path)
 			Transition.play("fadein")
 			await Transition.finished
 			print(" | splash: %s" % [splashes[i]])
@@ -55,7 +55,7 @@ func _enter_state() -> void:
 func _exit_state() -> void:
 	super._exit_state()
 	Splash.timer.stop()
-	Splash.overlay.hide()
+	Splash.hud.hide()
 	Splash.canvas_layer.hide()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

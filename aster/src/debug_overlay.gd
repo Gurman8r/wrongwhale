@@ -8,7 +8,7 @@ extends Control
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-@onready var version: String = "%s (%s)" % [Settings.get_global("application/config/version"), "debug" if Game.is_debug() else "release"]
+@onready var version: String = "%s (%s)" % [ProjectSettings.get_setting("application/config/version"), "debug" if Game.is_debug() else "release"]
 
 var fps_value: float = 0.0
 var fps_accum: float = 0.0

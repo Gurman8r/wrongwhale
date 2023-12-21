@@ -21,7 +21,7 @@ func _ready():
 	back_button.pressed.connect(func():
 		print(" | write_settings")
 		Settings.write()
-		Title.interface.menu = Title.interface.home)
+		Title.gui.menu = Title.gui.home)
 	
 	reset_button.pressed.connect(func():
 		print(" | reset_settings")

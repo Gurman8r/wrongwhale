@@ -20,6 +20,17 @@ signal unloading_finished()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
+@export var data: WorldData
+
+var _world_environment: WorldEnvironment
+var _cell: WorldCell # current cell
+var cell: WorldCell : get = get_cell, set = change_cell
+var cells: Array[WorldCell]
+var cell_root: Node
+var objects: Array[Node3D]
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	DirAccess.make_dir_absolute(SAVES_PATH)
@@ -32,8 +43,6 @@ func _ready() -> void:
 
 #region DATA
 
-@export var data: WorldData
-
 func save(path_stem: String = "") -> void:
 	if path_stem.is_empty() and data: path_stem = data.guid
 	assert(0 < path_stem.length())
@@ -41,11 +50,12 @@ func save(path_stem: String = "") -> void:
 	WorldData.write(data, path_stem)
 	saving_finished.emit()
 
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
 func reload() -> void:
 	assert(data)
-	loading_started.emit()
-	
 	seed(data.random_seed.hash())
+	loading_started.emit()
 	
 	objects = []
 	for guid in data.object_data:
@@ -53,6 +63,8 @@ func reload() -> void:
 		assert(obj)
 	
 	loading_finished.emit()
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func unload() -> void:
 	assert(data)
@@ -66,20 +78,14 @@ func unload() -> void:
 	_cell = null
 	data = null
 	
-	randomize()
-	
 	unloading_finished.emit()
+	randomize()
 
 #endregion
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 #region CELLS
-
-var _cell: WorldCell # current cell
-var cell: WorldCell : get = get_cell, set = change_cell
-var cells: Array[WorldCell]
-var cell_root: Node
 
 func get_cell() -> WorldCell: return _cell
 
@@ -116,8 +122,6 @@ func reset_cells() -> void:
 
 #region OBJECTS
 
-var objects: Array[Node3D]
-
 func create_object(d: Resource) -> Node3D:
 	assert("PREFAB" in d)
 	assert("cell_name" in d)
@@ -141,8 +145,6 @@ func create_object(d: Resource) -> Node3D:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 #region ENVIRONMENT
-
-var _world_environment: WorldEnvironment
 
 var environment: Environment : get = get_environment, set = set_environment
 

@@ -10,10 +10,16 @@ const PATH := "user://settings.tres"
 
 @export var data: SettingsData
 
+var config: ConfigFile
+
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	
+	config = ConfigFile.new()
+	config.load("user://settings.cfg")
+	
 	reset()
 	apply()
 
@@ -28,24 +34,21 @@ func reset() -> void:
 func read() -> void:
 	data = Util.read(PATH)
 
-func write() -> void:
+func write() -> void:	
 	Util.write(data, PATH)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func get_setting(key: String): return data[key]
+func get_setting(key: String, default = null):
+	if not key in data:
+		data[key] = default
+	return data[key]
 
-func set_setting(key: String, value) -> void: data[key] = value
+func set_setting(key: String, value) -> void:
+	data[key] = value
 
-func has_setting(key: String) -> bool: return key in data
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func get_global(key: String): return ProjectSettings.get_setting(key)
-
-func set_global(key: String, value) -> void: ProjectSettings.set_setting(key, value)
-
-func has_global(key: String) -> bool: return ProjectSettings.has_setting(key)
+func has_setting(key: String) -> bool:
+	return key in data
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

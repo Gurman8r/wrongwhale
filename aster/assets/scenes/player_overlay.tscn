@@ -13,7 +13,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_22g4t")
 
-[node name="HotbarInventory" parent="." instance=ExtResource("2_u1q8k")]
+[node name="hotbar_inventory" parent="." instance=ExtResource("2_u1q8k")]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -28,16 +28,16 @@ grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 
-[node name="InteractLabel" type="Label" parent="."]
+[node name="interact_label" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -0.5
+offset_left = -30.5
 offset_top = -11.5
-offset_right = 0.5
+offset_right = 30.5
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
@@ -45,8 +45,20 @@ text = "Interact"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Healthbars" type="MarginContainer" parent="."]
+[node name="Bars" type="VBoxContainer" parent="."]
+visible = false
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-mouse_filter = 2
+
+[node name="healthbar" type="ProgressBar" parent="Bars"]
+layout_mode = 2
+
+[node name="staminabar" type="ProgressBar" parent="Bars"]
+layout_mode = 2
+
+[node name="manabar" type="ProgressBar" parent="Bars"]
+layout_mode = 2
+
+[node name="expbar" type="ProgressBar" parent="Bars"]
+layout_mode = 2
