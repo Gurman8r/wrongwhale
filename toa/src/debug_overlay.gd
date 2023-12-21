@@ -20,7 +20,7 @@ var fps_times: Array[float] = []
 func _init() -> void:
 	Util.set_recursive(self, "mouse_filter", Control.MOUSE_FILTER_IGNORE)
 	
-	fps_times.resize(120)
+	fps_times.resize(60)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -35,18 +35,15 @@ func _physics_process(delta) -> void:
 	fps_value = (1.0 / (fps_accum / fps_times.size())) if (0.0 < fps_accum) else 1.79769e308
 	puts("framerate: %.2ffps @ %fms" % [fps_value, delta])
 	
-	if Game.main.state: puts("state: %s" % [Game.main.state.name])
-	
 	puts("paused: %s" % ["true" if Game.paused else "false"])
+	
+	if Game.main.state: puts("state: %s" % [Game.main.state.name])
 	
 	var pd = Player.data
 	var pc = Player.character
 	if pd and pc:
 		puts("cell: %s" % [pd.cell_name])
-		puts("xyz: %1.1f, %1.1f, %1.1f" % [
-			pc.global_transform.origin.x,
-			pc.global_transform.origin.y,
-			pc.global_transform.origin.z])
+		puts("xyz: %1.1f, %1.1f, %1.1f" % [ pc.global_transform.origin.x, pc.global_transform.origin.y, pc.global_transform.origin.z])
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
