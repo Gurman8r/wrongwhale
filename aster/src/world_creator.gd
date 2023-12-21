@@ -62,7 +62,7 @@ func _ready():
 		if visible: reset())
 	
 	back_button.pressed.connect(func():
-		Title.gui.menu = Title.gui.home)
+		Title.interface.menu = Title.interface.home)
 	
 	play_button.pressed.connect(_on_button_play_pressed)
 	

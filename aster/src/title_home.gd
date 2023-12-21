@@ -11,19 +11,19 @@ extends Control
 
 func _ready() -> void:
 	load_button.pressed.connect(func():
-		Title.gui.menu = Title.gui.world_loader)
+		Title.interface.menu = Title.interface.world_loader)
 	
 	new_button.pressed.connect(func():
-		Title.gui.menu = Title.gui.world_creator)
+		Title.interface.menu = Title.interface.world_creator)
 	
 	settings_button.pressed.connect(func():
-		Title.gui.menu = Title.gui.settings)
+		Title.interface.menu = Title.interface.settings)
 	
 	packs_button.pressed.connect(func():
-		Title.gui.menu = Title.gui.packs)
+		Title.interface.menu = Title.interface.packs)
 	
 	credits_button.pressed.connect(func():
-		Title.gui.menu = Title.gui.credits)
+		Title.interface.menu = Title.interface.credits)
 	
 	quit_button.pressed.connect(func():
 		Game.quit_to_desktop())

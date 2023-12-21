@@ -206,10 +206,10 @@ func update_internal() -> void:
 	or inventory_container.visible:
 		Game.pause()
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		Player.hud.hide()
+		Player.overlay.hide()
 	else:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		Player.hud.show()
+		Player.overlay.show()
 		if grabbed_stack:
 			drop_stack.emit(grabbed_stack)
 			grabbed_stack = null

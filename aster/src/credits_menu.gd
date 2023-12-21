@@ -12,7 +12,7 @@ func _ready():
 	reset()
 	
 	back_button.pressed.connect(func():
-		Title.gui.menu = Title.gui.home)
+		Title.interface.menu = Title.interface.home)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

@@ -26,7 +26,7 @@ func _notification(what) -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _unhandled_input(_event) -> void:
-	if Title.gui.menu == Title.gui.home \
+	if Title.interface.menu == Title.interface.home \
 	and Input.is_physical_key_pressed(KEY_ESCAPE):
 		Game.quit_to_desktop()
 

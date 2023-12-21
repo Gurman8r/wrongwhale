@@ -27,15 +27,13 @@ func _init() -> void:
 func _physics_process(delta) -> void:
 	clear()
 	
-	puts("version: %s" % [version])
-	
 	fps_accum += delta - fps_times[fps_index];
 	fps_times[fps_index] = delta;
 	fps_index = (fps_index + 1) % fps_times.size();
 	fps_value = (1.0 / (fps_accum / fps_times.size())) if (0.0 < fps_accum) else 1.79769e308
 	puts("framerate: %.2ffps @ %fms" % [fps_value, delta])
 	
-	#puts("paused: %s" % ["true" if Game.paused else "false"])
+	puts("version: %s" % [version])
 	
 	if Game.main.state: puts("state: %s (%s)" % [Game.main.state.name, "paused" if Game.paused else "unpaused"])
 	
