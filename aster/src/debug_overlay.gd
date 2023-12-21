@@ -8,7 +8,7 @@ extends Control
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-@onready var version: String = "%s (%s)" % [ProjectSettings.get_setting("application/config/version"), "debug" if Game.is_debug() else "release"]
+@onready var version: String = "%s (%s)" % [Settings.get_global("application/config/version"), "debug" if Game.is_debug() else "release"]
 
 var fps_value: float = 0.0
 var fps_accum: float = 0.0
@@ -35,9 +35,9 @@ func _physics_process(delta) -> void:
 	fps_value = (1.0 / (fps_accum / fps_times.size())) if (0.0 < fps_accum) else 1.79769e308
 	puts("framerate: %.2ffps @ %fms" % [fps_value, delta])
 	
-	puts("paused: %s" % ["true" if Game.paused else "false"])
+	#puts("paused: %s" % ["true" if Game.paused else "false"])
 	
-	if Game.main.state: puts("state: %s" % [Game.main.state.name])
+	if Game.main.state: puts("state: %s (%s)" % [Game.main.state.name, "paused" if Game.paused else "unpaused"])
 	
 	var pd = Player.data
 	var pc = Player.character

@@ -5,7 +5,8 @@ extends MainState
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 const splashes := [
-	preload("res://assets/icons/icon_godot.svg"),
+	"res://assets/icons/icon_godot.svg",
+	#"res://icon.svg",
 ]
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -29,10 +30,14 @@ func _enter_state() -> void:
 		Splash.canvas_layer.show()
 		Splash.overlay.show()
 		for i in range(splashes.size()):
-			Splash.overlay.icon.texture = splashes[i]
+			var path = splashes[i]
+			var gpath = ProjectSettings.globalize_path(path)
+			if FileAccess.file_exists(gpath): path = gpath
+			#Splash.overlay.icon.texture = ImageTexture.create_from_image(Image.load_from_file(path))
+			Splash.overlay.icon.texture = load(path)
 			Transition.play("fadein")
 			await Transition.finished
-			print(" | splash: %d" % [i])
+			print(" | splash: %s" % [splashes[i]])
 			Splash.timer.start(Settings.get_setting("splash_delay"))
 			await Splash.timer.timeout
 			Transition.play("fadeout")

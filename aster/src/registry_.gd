@@ -19,19 +19,6 @@ signal unregistered(registry: int, key: String)
 
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func _ready() -> void:
-	registered.connect(func(registry: int, key: String, _value):
-		print("registered: %s %s" % [Registries.get_id(registry), key]))
-	unregistered.connect(func(registry: int, key: String):
-		print("unregistered: %s %s" % [Registries.get_id(registry), key]))
-	reset()
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func reset() -> void:
 	data = RegistryData.new()
 	set_registry(Registries.REGISTRIES, {})
 	register_directory(Registries.ITEM, "res://assets/registry/item")
@@ -52,14 +39,14 @@ func register(registry: int, key: String, value) -> bool:
 	var dict = get_registry(registry)
 	if dict.has(key): return false
 	dict[key] = value
-	registered.emit(registry, key, value)
+	print("register: %s %s" % [Registries.get_id(registry), key])
 	return true
 
 func unregister(registry: int, key: String) -> bool:
 	var dict = get_registry(registry)
 	if not key in dict: return false
 	dict.erase(key)
-	unregistered.emit(registry, key)
+	print("unregister: %s %s" % [Registries.get_id(registry), key])
 	return true
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
