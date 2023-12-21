@@ -25,6 +25,8 @@ func _init() -> void:
 func _ready() -> void:
 	pack_loaded.connect(func(full_path: String):
 		packs.append(full_path))
+	
+	# load packs
 	assert(packs.is_empty())
 	DirAccess.make_dir_absolute(PACKS_PATH)
 	var dir = DirAccess.open(PACKS_PATH)
@@ -41,6 +43,8 @@ func _ready() -> void:
 			else: pack_loaded.emit(full_path)
 		path = dir.get_next()
 	dir.list_dir_end()
+	
+	# display packs
 	if !packs.is_empty(): print("")
 	for p in packs: print("pack: %s" % [p])
 

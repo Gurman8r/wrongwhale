@@ -43,7 +43,7 @@ func _physics_process(delta) -> void:
 	var pc = Player.character
 	if pd and pc:
 		puts("cell: %s" % [pd.cell_name])
-		puts("xyz: %1.1f, %1.1f, %1.1f" % [ pc.global_transform.origin.x, pc.global_transform.origin.y, pc.global_transform.origin.z])
+		puts("xyz: %1.1f, %1.1f, %1.1f" % [pc.global_transform.origin.x, pc.global_transform.origin.y, pc.global_transform.origin.z])
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
