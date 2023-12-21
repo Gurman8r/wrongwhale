@@ -46,7 +46,8 @@ project/assembly_name="aster"
 [file_customization]
 
 folder_colors={
-"res://assets/": "gray"
+"res://assets/": "purple",
+"res://src/": "gray"
 }
 
 [input]
