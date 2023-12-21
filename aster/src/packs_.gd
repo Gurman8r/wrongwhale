@@ -59,19 +59,18 @@ func _load_info() -> void:
 		var config = _load_config(full_path)
 		if config:
 			var pack_guid: String = config.get_value("pack", "guid", "")
-			if pack_guid != "" and !(pack_guid in pack_info):
-				#if !ProjectSettings.load_resource_pack(full_path): return false
+			if pack_guid != "" and not pack_guid in pack_info:
 				pack_info[pack_guid] = {
-					"path": full_path,
-					"guid": pack_guid,
-					"name": config.get_value("pack", "name", pack_guid),
-					"version": config.get_value("pack", "version", "0.0.0.0"),
-					"deps": config.get_value("pack", "deps", []),
-					"tagline": config.get_value("pack", "tagline", ""),
+					"path":        full_path,
+					"guid":        pack_guid,
+					"name":        config.get_value("pack", "name", pack_guid),
+					"version":     config.get_value("pack", "version", "0.0.0.0"),
+					"deps":        config.get_value("pack", "deps", []),
+					"tagline":     config.get_value("pack", "tagline", ""),
 					"description": config.get_value("pack", "description", ""),
-					"icon": config.get_value("pack", "icon", ""),
-					"banner": config.get_value("pack", "banner", ""),
-					"background": config.get_value("pack", "background", ""),
+					"icon":        config.get_value("pack", "icon", ""),
+					"banner":      config.get_value("pack", "banner", ""),
+					"background":  config.get_value("pack", "background", ""),
 				}
 				print("++ %s" % [pack_info[pack_guid].name])
 		path = dir.get_next()
@@ -85,6 +84,7 @@ func _load_deps() -> void:
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _load_packs() -> void:
+	#if !ProjectSettings.load_resource_pack(full_path): return false
 	pass
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
