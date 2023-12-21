@@ -6,10 +6,8 @@ extends Resource
 
 @export var guid: String
 @export var name: String
-@export var index: int
 
 @export var random_seed: String
-
 @export var farm_data: FarmData = FarmData.new()
 @export var object_data: Dictionary = {}
 
@@ -25,7 +23,6 @@ func unmanage(key: String) -> void:
 	object_data.erase(key)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
 
 static func read(path_stem: String) -> WorldData:
 	return Util.read(get_file_path(path_stem))

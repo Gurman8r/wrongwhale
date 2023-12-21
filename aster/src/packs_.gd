@@ -12,19 +12,21 @@ const PACKS_PATH := "user://packs"
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-var packs: Array[String]
+var packs: Dictionary
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	DirAccess.make_dir_absolute(PACKS_PATH)
+	
+	print("\nLOADING_PACKS")
 	_load_all()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _load_all() -> void:
-	packs = []
+	packs = {}
 	var dir = DirAccess.open(PACKS_PATH)
 	if !dir: return
 	dir.list_dir_begin()
@@ -54,20 +56,11 @@ func _load_zip(path: String) -> bool:
 	var pack_name: String = config.get_value("pack", "name")
 	if pack_name in packs: return false
 	#if !ProjectSettings.load_resource_pack(full_path): return false
-	print("pack: %s" % [pack_name])
-	packs.append(pack_name)
+	print("++ %s" % [pack_name])
+	packs[pack_name] = {
+		"name": pack_name,
+		"path": full_path,
+	}
 	return true
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func load_pack(path: String) -> void:
-	var extension = path.get_extension()
-	if extension != "pck" and extension != "zip": return
-	var full_path = "%s/%s" % [PACKS_PATH, path]
-	if packs.has(full_path):
-		printerr("pack already loaded: %s" % [full_path])
-	elif ProjectSettings.load_resource_pack(full_path):
-		print("pack: %s" % [full_path])
-		packs.append(full_path)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

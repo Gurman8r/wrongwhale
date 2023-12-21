@@ -158,7 +158,6 @@ func _on_button_play_pressed():
 	
 	world_data.guid = farm_data.name.replace(" ", "_")
 	world_data.name = farm_data.name
-	world_data.index = WorldData.get_path_list().size()
 	if world_data.random_seed == "": world_data.random_seed = Util.rands(SEED_MAX, SEED_CHARS)
 	
 	player_data.guid = player_data.name.replace(" ", "_")

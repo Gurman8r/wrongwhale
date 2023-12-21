@@ -19,6 +19,9 @@ signal unregistered(registry: int, key: String)
 
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	
+	if Settings.get_global("debug/settings/stdout/verbose_stdout"): print()
+	print("LOADING_REGISTRY")
 	data = RegistryData.new()
 	set_registry(Registries.REGISTRIES, {})
 	register_directory(Registries.ITEM, "res://assets/registry/item")
@@ -39,14 +42,14 @@ func register(registry: int, key: String, value) -> bool:
 	var dict = get_registry(registry)
 	if dict.has(key): return false
 	dict[key] = value
-	print("register: %s %s" % [Registries.get_id(registry), key])
+	print("++ %s %s" % [Registries.get_id(registry), key])
 	return true
 
 func unregister(registry: int, key: String) -> bool:
 	var dict = get_registry(registry)
 	if not key in dict: return false
 	dict.erase(key)
-	print("unregister: %s %s" % [Registries.get_id(registry), key])
+	print("-- %s %s" % [Registries.get_id(registry), key])
 	return true
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

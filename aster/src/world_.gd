@@ -49,7 +49,8 @@ func reload() -> void:
 	
 	objects = []
 	for guid in data.object_data:
-		assert(create_object(data.object_data[guid]))
+		var obj = create_object(data.object_data[guid])
+		assert(obj)
 	
 	loading_finished.emit()
 
