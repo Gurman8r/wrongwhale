@@ -23,7 +23,7 @@ func load_config(path: String) -> Error:
 	for section in config.get_sections():
 		for key in config.get_section_keys(section):
 			var value = config.get_value(section, key)
-			ProjectSettings.set_setting("%s/%s" % [section, key], value)
+			set_setting("%s/%s" % [section, key], value)
 			print("%s/%s=%s" % [section, key, value])
 	return OK
 
