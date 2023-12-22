@@ -32,24 +32,28 @@ func _unhandled_input(_event) -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-#region PAUSE
+func is_debug() -> bool: return OS.is_debug_build()
+
+func is_standalone() -> bool: return OS.has_feature("standalone")
+
+func is_editor() -> bool: return !is_standalone()
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 var paused: bool : get = get_paused, set = set_paused
 
 func get_paused() -> bool: return get_tree().paused
-
-func pause() -> void: set_paused(true)
-
-func unpause() -> void: set_paused(false)
-
-func toggle_pause() -> void: set_paused(!get_paused())
 
 func set_paused(value: bool) -> void:
 	if value: print(" | pause")
 	else: print(" | unpause ")
 	get_tree().paused = value
 
-#endregion
+func pause() -> void: set_paused(true)
+
+func unpause() -> void: set_paused(false)
+
+func toggle_pause() -> void: set_paused(!get_paused())
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -117,18 +121,6 @@ func save_and_quit_to_title(path_stem: String = "") -> void:
 	main.state = main.title_state
 	Transition.play("fadein")
 	await Transition.finished
-
-#endregion
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-#region FEATURES
-
-func is_debug() -> bool: return OS.is_debug_build()
-
-func is_standalone() -> bool: return OS.has_feature("standalone")
-
-func is_editor() -> bool: return !is_standalone()
 
 #endregion
 

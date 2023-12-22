@@ -1,5 +1,5 @@
-# packs_menu.gd
-class_name PacksMenu
+# content_menu.gd
+class_name ContentMenu
 extends PanelContainer
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -19,9 +19,9 @@ func _ready() -> void:
 
 func reset() -> void:
 	for child in preview_root.get_children(): if child is PackPreview: child.queue_free()
-	empty_label.visible = Packs.pack_info.is_empty()
-	for guid in Packs.pack_info:
-		var info = Packs.pack_info[guid]
+	empty_label.visible = Content.pack_info.is_empty()
+	for guid in Content.pack_info:
+		var info = Content.pack_info[guid]
 		var preview = Prefabs.PACK_PREVIEW.instantiate()
 		preview_root.add_child(preview)
 		preview.set_pack_info(info)

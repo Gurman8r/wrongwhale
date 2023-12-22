@@ -10,20 +10,23 @@ signal unregistered(registry: int, key: String)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-const PATH := "user://data/registry.tres"
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
 @export var registries: Dictionary = {}
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
 func _init() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	
 	print("\nLOADING_REGISTRY")
 	set_registry(Registries.REGISTRIES, {})
 	register_directory(Registries.ITEM, "res://assets/registry/item")
+
+# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
+
+func get_(registry: int, key: String): return get_registry(registry)[key]
+
+func set_(registry: int, key: String, value) -> void: get_registry(registry)[key] = value
+
+func has_(registry: int, key: String) -> bool: return get_registry(registry).has(key)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
@@ -32,7 +35,7 @@ func get_registry(registry: int) -> Dictionary:
 	match key:
 		"REGISTRIES": return registries
 		_: # DEFAULT
-			if !registries.has(key):
+			if not key in registries:
 				registries[key] = {}
 				registry_changed.emit(registry)
 			return registries[key]
@@ -45,7 +48,7 @@ func set_registry(registry: int, value: Dictionary) -> void:
 			registries = value
 			registry_changed.emit(registry)
 		_: # DEFAULT
-			if registries.has(key) \
+			if key in registries \
 			and registries[key] == value: return
 			registries[key] = value
 			registry_changed.emit(registry)
@@ -100,13 +103,5 @@ func unregister_directory(registry: int, dir_path: String) -> void:
 			else: unregister(registry, path.get_slice(".", 0))
 		path = dir.get_next()
 	dir.list_dir_end()
-
-# * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
-
-func get_(registry: int, key: String): return get_registry(registry)[key]
-
-func set_(registry: int, key: String, value) -> void: get_registry(registry)[key] = value
-
-func has_(registry: int, key: String) -> bool: return get_registry(registry).has(key)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #

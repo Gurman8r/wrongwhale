@@ -1,5 +1,5 @@
-# packs_.gd
-# Packs
+# content_.gd
+# Content
 extends Node
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -22,13 +22,13 @@ func _init() -> void:
 	DirAccess.make_dir_absolute(PACKS_PATH)
 	
 	print("\nLOADING_PACKS")
-	_load_info()
-	_load_deps()
-	_load_packs()
+	_load_pack_info()
+	_load_pack_deps()
+	_load_pack_data()
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func _load_config(full_path: String) -> ConfigFile:
+func _load_pack_config(full_path: String) -> ConfigFile:
 	match full_path.get_extension():
 		"pck": return _load_pck_config(full_path)
 		"zip": return _load_zip_config(full_path)
@@ -48,7 +48,7 @@ func _load_pck_config(_full_path: String) -> ConfigFile:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func _load_info() -> void:
+func _load_pack_info() -> void:
 	pack_info = {}
 	var dir = DirAccess.open(PACKS_PATH)
 	if !dir: return
@@ -56,7 +56,7 @@ func _load_info() -> void:
 	var path = dir.get_next()
 	while path != "":
 		var full_path = "%s/%s" % [PACKS_PATH, path]
-		var config = _load_config(full_path)
+		var config = _load_pack_config(full_path)
 		if config:
 			var pack_guid: String = config.get_value("pack", "guid", "")
 			if pack_guid != "" and not pack_guid in pack_info:
@@ -78,12 +78,12 @@ func _load_info() -> void:
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func _load_deps() -> void:
+func _load_pack_deps() -> void:
 	pack_deps = {}
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 
-func _load_packs() -> void:
+func _load_pack_data() -> void:
 	#if !ProjectSettings.load_resource_pack(full_path): return false
 	pass
 

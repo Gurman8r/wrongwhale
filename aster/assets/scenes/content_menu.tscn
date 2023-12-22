@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://bwsftfna5831c"]
 
-[ext_resource type="Script" path="res://src/packs_menu.gd" id="1_84f25"]
-[ext_resource type="SystemFont" uid="uid://be14qyvbd8lox" path="res://assets/fonts/system_font.tres" id="2_wpjbh"]
+[ext_resource type="Script" path="res://src/content_menu.gd" id="1_k6goi"]
+[ext_resource type="SystemFont" uid="uid://be14qyvbd8lox" path="res://assets/fonts/system_font.tres" id="2_tim36"]
 
-[node name="PacksMenu" type="PanelContainer"]
-script = ExtResource("1_84f25")
+[node name="ContentMenu" type="PanelContainer"]
+script = ExtResource("1_k6goi")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -34,7 +34,7 @@ size_flags_vertical = 4
 custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("2_wpjbh")
+theme_override_fonts/font = ExtResource("2_tim36")
 text = "NO PACKS"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -44,5 +44,5 @@ custom_minimum_size = Vector2(160, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 5
-theme_override_fonts/font = ExtResource("2_wpjbh")
+theme_override_fonts/font = ExtResource("2_tim36")
 text = "Back"

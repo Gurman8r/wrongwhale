@@ -30,9 +30,8 @@ signal hotbar_select(index: int)
 var canvas_layer: CanvasLayer
 var overlay: PlayerOverlay
 var interface: PlayerInterface
-
-var data: PlayerData
 var character: PlayerCharacter
+var data: PlayerData
 var item_index: int = 0
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
@@ -52,14 +51,14 @@ func _ready() -> void:
 	
 	# action
 	action.connect(func(mode: int):
-		assert(data)
 		assert(character)
+		assert(data)
 		data.inventory.use_stack(item_index, mode, character))
 	
 	# setup
 	World.loading_finished.connect(func():
-		assert(data)
 		assert(character)
+		assert(data)
 		interface.set_player_data(data)
 		overlay.set_player_data(data)
 		hotbar_next.connect(overlay.hotbar.next)
@@ -79,8 +78,8 @@ func _ready() -> void:
 		toggle_inventory.disconnect(interface.toggle_inventory)
 		for node in get_tree().get_nodes_in_group("EXTERNAL_INVENTORY"):
 			node.toggle_inventory.disconnect(interface.toggle_inventory)
-		character = null
-		data = null)
+		data = null
+		character = null)
 
 # * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * #
 

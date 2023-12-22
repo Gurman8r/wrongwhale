@@ -25,7 +25,7 @@ boot_splash/show_image=false
 Prefabs="*res://src/prefabs_.gd"
 Settings="*res://src/settings_.gd"
 Registry="*res://src/registry_.gd"
-Packs="*res://src/packs_.gd"
+Content="*res://src/content_.gd"
 Game="*res://src/game_.gd"
 World="*res://src/world_.gd"
 Player="*res://src/player_.gd"
@@ -46,7 +46,7 @@ project/assembly_name="aster"
 [file_customization]
 
 folder_colors={
-"res://assets/": "purple",
+"res://assets/": "red",
 "res://src/": "gray"
 }
 
